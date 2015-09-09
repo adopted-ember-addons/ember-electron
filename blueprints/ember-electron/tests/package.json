@@ -1,4 +1,4 @@
 {
   "name": "ember-electron-test",
-  "main": "electron-test.js"
+  "main": "electron.js"
 }
