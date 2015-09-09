@@ -1,25 +1,29 @@
-# Ember-electron
-
-This README outlines the details of collaborating on this Ember addon.
+# Ember-Electron
+This addon enables the development of Desktop apps with Ember, Ember Cli, and GitHub's Electron. Huge thanks to @brzpegasus (author of `ember-cli-nwjs`) - a lot of code in this addon was taken from her project.
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+To install the addon, run:
 
-## Running
+```
+ember install ember-electron
+```
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+Or, to install with npm:
 
-## Running Tests
+```
+npm install ember-electron
+ember g ember-electron
+```
 
-* `ember test`
-* `ember test --server`
+## Usage & Testing
+To run your app together with a file watcher in development mode (similar to `ember serve`), run  `ember electron`.
 
-## Building
+To test your app, run `ember electron:test`. If you prefer the live-reload mode, run `ember electron:test --server`. The usual parameters are supported:
 
-* `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+* `--server` - Run tests in interactive mode (default: false)
+* `--protocol` - 'The protocol to use when running with --server (default: 'http')
+* `--host` - The host to use when running with --server (default: 'localhost')
+* `--port` - The port to use when running with --server (default: 7357)
+* `--module` - The name of a test module to run
+* `--filter` - A string to filter tests to run
