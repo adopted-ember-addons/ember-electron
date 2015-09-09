@@ -15,7 +15,15 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": {
+    "name": "Felix Rieseberg",
+    "email": "felix@felixrieseberg.com",
+    "url": "http://www.felixrieseberg.com"
+  },
+  "bugs": {
+    "url": "https://github.com/felixrieseberg/ember-electron/issues"
+  },
+  "repository": "https://github.com/felixrieseberg/ember-electron",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.1.2",
