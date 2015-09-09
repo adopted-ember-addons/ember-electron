@@ -92,10 +92,6 @@ module.exports = {
     },
 
     contentFor: function (type) {
-        if (!process.env.EMBER_CLI_ELECTRON) {
-            return;
-        }
-
         if (type === 'head') {
             return injectScript('shim-head.js');
         }
