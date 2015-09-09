@@ -2,7 +2,7 @@
 <a href="http://badge.fury.io/js/ember-electron"><img src="https://badge.fury.io/js/ember-electron.svg" alt="npm version" height="18"></a> <img src="https://david-dm.org/felixrieseberg/ember-electron.svg" alt="dependencies" height="18px"> <img src="https://img.shields.io/npm/dm/ember-electron.svg" height="18px" />
 This addon enables the development of Desktop apps with Ember, Ember Cli, and GitHub's Electron. Huge thanks to @brzpegasus (author of `ember-cli-nwjs`) - a lot of code in this addon was taken from her project. It enables live development with Electron (similar to `ember serve`) as well as testing in Electron (similar to `ember test` and `ember test --server`).
 
-![](https://raw.githubusercontent.com/felixrieseberg/ember-electron/master/pic.png)
+![](https://raw.githubusercontent.com/felixrieseberg/ember-electron/master/_pic.png)
 
 ## Installation
 To install the addon, run:
