@@ -67,7 +67,7 @@ module.exports = {
 
             // Copy `tests/package.json` to the output directory
             var testPkg = funnel('tests', {
-                files: ['package.json', 'electron-test.js'],
+                files: ['package.json', 'electron.js'],
                 destDir: '/tests'
             });
 
