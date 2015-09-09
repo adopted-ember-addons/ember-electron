@@ -75,7 +75,7 @@ module.exports = {
 
             if (testPageOptions) {
                 testPkg = replace(testPkg, {
-                    files: ['tests/electron-test.js'],
+                    files: ['tests/electron.js'],
                     patterns: [{
                         match: /index.html/,
                         replacement: '"index.html?' + testPageOptions + '"'
