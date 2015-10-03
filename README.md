@@ -19,6 +19,11 @@ ember g ember-electron
 ## Usage & Testing
 To run your app together with a file watcher in development mode (similar to `ember serve`), run  `ember electron`.
 
+Electron does not support the History API. Therefore Ember-Cli must be configured to use the `hash` location type. Update your `config/environment.js`'s `locationType` config option to `hash`. If you would like to support running the app both within and outside of Electron you can use the following switch:
+```js
+  locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
+```
+
 To test your app, run `ember electron:test`. If you prefer the live-reload mode, run `ember electron:test --server`. The usual parameters are supported:
 
 * `--server` - Run tests in interactive mode (default: false)
