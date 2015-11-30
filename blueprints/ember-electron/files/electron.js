@@ -18,9 +18,9 @@ app.on('ready', function onReady() {
 
     if (process.env.ELECTRON_ENV === 'development') {
         //mainWindow.openDevTools();
-        mainWindow.loadUrl('http://localhost:5000');
+        mainWindow.loadURL('http://localhost:5000');
     } else {
-        mainWindow.loadUrl('file://' + __dirname + '/dist/index.html');
+        mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
     }
 
     mainWindow.on('closed', function onClosed() {
