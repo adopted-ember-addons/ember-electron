@@ -4,7 +4,9 @@ This addon enables the development of Desktop apps with Ember, Ember Cli, and Gi
 
 ![](https://raw.githubusercontent.com/felixrieseberg/ember-electron/master/_pic.png)
 
-## Installation
+## Installation and Usage
+> :warning: Please ensure that the blueprint generation runs - it creates necessary files and configuration for this addon to work. Please ensure that your `tests` folder contains a `package.json` and a `electron.js` - and that `locationType` in `config/environment.js` is set to `hash`. :warning:
+
 To install the addon, run:
 ```
 ember install ember-electron
@@ -16,14 +18,15 @@ npm install ember-electron
 ember g ember-electron
 ```
 
-## Usage & Testing
-To run your app together with a file watcher in development mode (similar to `ember serve`), run  `ember electron`.
+Once you installed the addon, you'll notice that a new file called `electron.js` was created in the root folder of your application. This is the entry point for Electron and is responsible for creating browser windows and other interactions with Electron APIs.
 
-Electron does not support the History API. Therefore Ember-Cli must be configured to use the `hash` location type. Update your `config/environment.js`'s `locationType` config option to `hash`. If you would like to support running the app both within and outside of Electron you can use the following switch:
+### Configuration and First Use
+To run your app together with a file watcher in development mode (similar to `ember serve`), you can run  `ember electron`. However, you will need to change your configuration for Ember and Electron to work well together: Electron does not support the History API. Therefore Ember-Cli must be configured to use the `hash` location type. Update your `config/environment.js`'s `locationType` config option to `hash`. If you would like to support running the app both within and outside of Electron you can use the following switch:
 ```js
   locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
 ```
 
+### Testing
 To test your app, run `ember electron:test`. If you prefer the live-reload mode, run `ember electron:test --server`. The usual parameters are supported:
 
 * `--server` - Run tests in interactive mode (default: false)
