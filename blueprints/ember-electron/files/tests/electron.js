@@ -18,10 +18,7 @@ app.on('ready', function onReady() {
 
     delete mainWindow.module;
 
-    if (process.env.EMBER_ENV === 'development') {
-        //mainWindow.openDevTools();
-        mainWindow.loadUrl('http://localhost:5000');
-    } else if (process.env.EMBER_ENV === 'test') {
+    if (process.env.EMBER_ENV === 'test') {
         mainWindow.loadUrl('file://' + __dirname + '/index.html');
     } else {
         mainWindow.loadUrl('file://' + __dirname + '/dist/index.html');

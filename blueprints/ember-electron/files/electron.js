@@ -16,12 +16,16 @@ app.on('ready', function onReady() {
 
     delete mainWindow.module;
 
-    if (process.env.ELECTRON_ENV === 'development') {
-        //mainWindow.openDevTools();
-        mainWindow.loadURL('http://localhost:5000');
-    } else {
-        mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
-    }
+    // If you want to open up dev tools programmatically, call
+    // mainWindow.openDevTools();
+
+    // By default, we'll open the Ember App by directly going to the
+    // file system.
+    //
+    // Please ensure that you have set the locationType option in the
+    // config/environment.js file to 'hash'. For more information,
+    // please consult the ember-electron readme.
+    mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
 
     mainWindow.on('closed', function onClosed() {
         mainWindow = null;

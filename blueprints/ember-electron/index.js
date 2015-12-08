@@ -15,30 +15,31 @@ module.exports = {
     },
 
     afterInstall: function (options) {
-        var _this = this;
         var dependencies = this.project.dependencies();
 
         return this.addElectronConfig(options).then(function () {
+            this.logConfigurationWarning();
+
             if (!dependencies['electron-prebuilt']) {
-                return _this.addPackageToProject('electron-prebuilt');
+                return this.addPackageToProject('electron-prebuilt');
             }
-        });
+        }.bind(this));
     },
 
     addElectronConfig: function (options) {
         var ui = this.ui;
         var project = this.project;
+        var packageJsonPath = path.join(project.root, 'package.json');
 
         if (project.pkg.main) {
             return RSVP.resolve();
         }
 
-        var packageJsonPath = path.join(project.root, 'package.json');
         var promise = readFile(packageJsonPath, {
             encoding: 'utf8'
         });
 
-        return promise.then(function (data) {
+        return promise.then(function (data)  {
             var json = JSON.parse(data);
             json.main = 'electron.js';
             ui.writeLine('  ' + chalk.yellow('overwrite') + ' package.json');
@@ -46,6 +47,14 @@ module.exports = {
             if (!options.dryRun) {
                 return writeFile(packageJsonPath, JSON.stringify(json, null, '  '));
             }
-        });
+        }.bind(this));
+    },
+
+    logConfigurationWarning: function () {
+        var info = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
+        var url = 'https://github.com/felixrieseberg/ember-electron';
+
+        this.ui.writeLine(chalk.yellow(info));
+        this.ui.writeLine(chalk.green(url));
     }
 };
