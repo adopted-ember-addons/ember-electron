@@ -1,3 +1,5 @@
+/* jshint node: true */
+
 var BrowserWindow = require('browser-window');
 var app = require('app');
 var mainWindow = null;
