@@ -4,7 +4,7 @@ const path        = require('path');
 const mockery     = require('mockery');
 const expect      = require('../../helpers/expect');
 
-describe('The command to start Electron', () => {
+describe('electron-finder', () => {
     let fixturePath;
 
     before(() => {

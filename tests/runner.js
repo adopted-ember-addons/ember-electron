@@ -17,7 +17,7 @@ function addFiles(mocha, files) {
 
 addFiles(mocha, 'mocha-jshint-test.js');
 addFiles(mocha, 'mocha-jscs-test.js');
-//addFiles(mocha, '/unit/**/*-test.js');
+addFiles(mocha, '/unit/**/*-test.js');
 
 mocha.run(function(failures) {
     process.on('exit', function() {

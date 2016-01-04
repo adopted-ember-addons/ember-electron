@@ -10,7 +10,7 @@ var writeFile = denodeify(fs.writeFile);
 module.exports = {
     description: 'Install ember-electron in the project.',
 
-    normalizeEntityName: function(entityName) {
+    normalizeEntityName: function (entityName) {
         return entityName;
     },
 

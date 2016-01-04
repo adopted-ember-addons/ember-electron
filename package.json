@@ -44,6 +44,7 @@
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.3",
     "ember-try": "0.0.8",
+    "jshint": "2.8.0",
     "mocha": "^2.3.4",
     "mocha-jscs": "^4.0.0",
     "mocha-jshint": "^2.2.5",
