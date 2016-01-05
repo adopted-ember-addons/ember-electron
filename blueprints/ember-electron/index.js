@@ -20,8 +20,17 @@ module.exports = {
         return this.addElectronConfig(options).then(function () {
             this.logConfigurationWarning();
 
+            var packages = [];
             if (!dependencies['electron-prebuilt']) {
-                return this.addPackageToProject('electron-prebuilt');
+                packages.push({name: 'electron-prebuilt'});
+            }
+
+            if (!dependencies['electron-packager']) {
+                packages.push({name: 'electron-packager'});
+            }
+
+            if (packages.length > 0) {
+                return this.addPackagesToProject(packages);
             }
         }.bind(this));
     },
