@@ -41,7 +41,40 @@ module.exports = {
 
         return promise.then(function (data)  {
             var json = JSON.parse(data);
+
             json.main = 'electron.js';
+            json['ember-electron'] = {
+                'WHAT IS THIS?': 'Please see the README.md',
+                name: null,
+                platform: null,
+                arch: null,
+                version: null,
+                'app-bundle-id': null,
+                'app-category-type': null,
+                'app-version': null,
+                asar: null,
+                'asar-unpack': null,
+                'asar-unpack-dir': null,
+                'build-version': null,
+                cache: null,
+                'helper-bundle-id': null,
+                icon: null,
+                ignore: null,
+                out: null,
+                overwrite: null,
+                prune: null,
+                sign: null,
+                'strict-ssl': null,
+                'version-string': {
+                    CompanyName: null,
+                    LegalCopyright: null,
+                    FileDescription: null,
+                    OriginalFilename: null,
+                    ProductName: null,
+                    InternalName: null
+                }
+            };
+
             ui.writeLine('  ' + chalk.yellow('overwrite') + ' package.json');
 
             if (!options.dryRun) {
