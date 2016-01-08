@@ -92,5 +92,8 @@ When using ember-electron, this conflict is automatically managed for you - you 
 
 In addition, the `require()` method is overwritten to resolve both AMD and Node modules (see below) - however, to maintain code sanity, I recommend using `require()` and `requireNode()`.
 
+## Creating Installers
+Ember-Electron does currently not create installers for you, but plenty of modules exist to automate this task. For Windows installers, GitHub's very own [grunt-electron-installer](https://github.com/atom/grunt-electron-installer) does a great job. On OS X, you probably want to create a pretty DMG image - [node-appdmg](https://github.com/LinusU/node-appdmg) is a great command line tool to create images. If you'd like to follow GitHub's lead and stick with Grunt, consider [grunt-appdmg](https://www.npmjs.com/package/grunt-appdmg)
+
 # License & Credits
 MIT - (C) Copyright 2015 Felix Rieseberg and Microsoft Corporation. Please see `LICENSE` for details. Huge thanks to @brzpegasus (author of `ember-cli-nwjs`) - her project made the development of this project *a lot* easier.
