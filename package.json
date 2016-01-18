@@ -60,15 +60,15 @@
   ],
   "dependencies": {
     "broccoli-funnel": "^1.0.1",
-    "broccoli-merge-trees": "^1.0.0",
+    "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
-    "chalk": "^1.0.0",
+    "chalk": "^1.1.0",
     "fs-extra": "^0.26.3",
-    "lodash": "^3.9.3",
+    "lodash": "^3.9.0",
     "npmi": "^1.0.1",
     "optimist": "0.6.1",
-    "rsvp": "^3.0.18",
-    "testem": "0.9.11"
+    "rsvp": "^3.1.0",
+    "testem": "^0.9.11"
   },
   "ember-addon": {
     "defaultBlueprint": "ember-electron"
