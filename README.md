@@ -40,7 +40,7 @@ To test your app, run `ember electron:test`. If you prefer the live-reload mode,
 * `--filter` - A string to filter tests to run
 
 ## Packaging
-Ember-Electron comes with an integrated packager to create binaries (.app, .exe etc), which can be run with `ember electron:package`. By default, the packager creates binaries for all platforms and architectures using your app's name and version as defined in `package.json`. Under the hood, it uses the popular [electron-packager](https://github.com/maxogden/electron-packager) module. 
+Ember-Electron comes with an integrated packager to create binaries (.app, .exe etc), which can be run with `ember electron:package`. By default, the packager creates binaries for all platforms and architectures using your app's name and version as defined in `package.json`. Under the hood, it uses the popular [electron-packager](https://github.com/maxogden/electron-packager) module.
 
 To create standalone binaries of your Ember App, simply run the following command.
 ```
@@ -49,6 +49,7 @@ ember electron:package
 
 You can pass options to the packager by either putting configuration into your app's `package.json`, or by passing a command line parameter to the `ember electron:package` command. You can extend your existing `package.json` with all available configuration options by running `ember generate ember-electron`. In the case that an option is defined both on the command line and in the package.json, the command line option will be used.
 
+* `--copy-files` - *String* An array of glob expressions, specifying which non-Ember files to copy to your application's folder. By default, only `package.json` and `electron.js` are copied. I heavily recommend specifying this setting in your `package.json`, using the format `{ "ember-electron": { "copy-files": ['myFiles/*'] }}`.
 * `--dir` - *String* The source directory
 * `--name` - *String* The application name.
 * `--platform` - *String* Allowed values: *linux, win32, darwin, all*
@@ -82,7 +83,7 @@ You can pass options to the packager by either putting configuration into your a
   - `OriginalFilename`
   - `ProductName`
   - `InternalName`
- 
+
 # Advanced Usage
 
 ## Conflict between Ember and Electron: require()

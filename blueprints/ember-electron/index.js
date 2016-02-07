@@ -54,6 +54,7 @@ module.exports = {
             json.main = 'electron.js';
             json['ember-electron'] = {
                 'WHAT IS THIS?': 'Please see the README.md',
+                'copy-files': ['electron.js', 'package.json'],
                 name: null,
                 platform: null,
                 arch: null,
