@@ -47,9 +47,22 @@ To create standalone binaries of your Ember App, simply run the following comman
 ember electron:package
 ```
 
+### Defining Files to Package
+By default, ember-electron will package your whole `dist` folder and all production dependencies as defined in `package.json`. In addition, to ensure that Electron can start properly, it also includes `electron.js` and `package.json`. To configure which files make it into the package, use the `copy-files` property the ember-electron section in your `package.json`. Globs are accepted!
+
+```json
+"ember-electron": {
+  "copy-files": [
+    "package.json",
+    "electron.js"
+    "main/*"
+  ],
+}
+```
+
+### Configuration
 You can pass options to the packager by either putting configuration into your app's `package.json`, or by passing a command line parameter to the `ember electron:package` command. You can extend your existing `package.json` with all available configuration options by running `ember generate ember-electron`. In the case that an option is defined both on the command line and in the package.json, the command line option will be used.
 
-* `--copy-files` - *String* An array of glob expressions, specifying which non-Ember files to copy to your application's folder. By default, only `package.json` and `electron.js` are copied. I heavily recommend specifying this setting in your `package.json`, using the format `{ "ember-electron": { "copy-files": ['myFiles/*'] }}`.
 * `--dir` - *String* The source directory
 * `--name` - *String* The application name.
 * `--platform` - *String* Allowed values: *linux, win32, darwin, all*
