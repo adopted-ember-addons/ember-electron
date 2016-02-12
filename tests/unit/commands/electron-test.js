@@ -33,6 +33,10 @@ describe('ember electron command', () => {
         mockery.registerMock('child_process', {
             spawn: spawn
         });
+        mockery.registerMock('../helpers/debug-server', {
+            setRemoteDebugSocketScript: function () {},
+            start: function () {}
+        });
 
         let cmd = require('../../../lib/commands/electron');
         CommandUnderTest = Command.extend(cmd);

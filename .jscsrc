@@ -63,9 +63,6 @@
     "requireSpaceAfterLineComment": true,
     "requireSpaceBeforeBinaryOperators": true,
     "requireSpaceBeforeBlockStatements": true,
-    "requireSpacesInAnonymousFunctionExpression": {
-        "beforeOpeningRoundBrace": true
-    },
     "requireSpacesInConditionalExpression": true,
     "safeContextKeyword": [
         "self"

@@ -4,17 +4,23 @@
 var fs = require('fs');
 var path = require('path');
 
+var getRemoteDebugSocketScript = require('./lib/helpers/remote-debug-script');
+
 function injectScript(scriptName) {
     var filePath = path.join(__dirname, 'lib', 'resources', scriptName);
     return '<script>\n' + fs.readFileSync(filePath, {
-        encoding: 'utf8'
-    }) + '\n</script>';
+            encoding: 'utf8'
+        }) + '\n</script>';
+}
+
+function injectDebugScript(port, host, scheme) {
+    return '<script src="http://localhost:30820/ember_debug.js"></script>';
 }
 
 module.exports = {
     name: 'ember-electron',
 
-    included: function (app) {
+    included: function(app) {
         this._super.included(app);
 
         if (!process.env.EMBER_CLI_ELECTRON) {
@@ -35,7 +41,7 @@ module.exports = {
         }
     },
 
-    includedCommands: function () {
+    includedCommands: function() {
         return {
             'electron': require('./lib/commands/electron'),
             'electron:test': require('./lib/commands/electron-test'),
@@ -43,11 +49,11 @@ module.exports = {
         };
     },
 
-    treeForVendor: function () {
+    treeForVendor: function() {
         return path.join(__dirname, 'app');
     },
 
-    postprocessTree: function (type, tree) {
+    postprocessTree: function(type, tree) {
         if (!process.env.EMBER_CLI_ELECTRON) {
             return tree;
         }
@@ -92,7 +98,10 @@ module.exports = {
         return tree;
     },
 
-    contentFor: function (type) {
+    contentFor: function(type) {
+        var port = 30820,
+            host = 'localhost';
+
         if (type === 'head') {
             return injectScript('shim-head.js');
         }
@@ -106,6 +115,10 @@ module.exports = {
             if (testemServer) {
                 return '<script src="' + testemServer + '/socket.io/socket.io.js"></script>';
             }
+        }
+
+        if (type === 'body' && port && host) {
+            return getRemoteDebugSocketScript(port, host) + injectDebugScript();
         }
     }
 };

@@ -1,7 +1,7 @@
 # Ember-Electron
 <a href="https://travis-ci.org/felixrieseberg/ember-electron"><img src="https://travis-ci.org/felixrieseberg/ember-electron.svg"></a> <a href="http://badge.fury.io/js/ember-electron"><img src="https://badge.fury.io/js/ember-electron.svg" alt="npm version" height="18"></a> <img src="https://david-dm.org/felixrieseberg/ember-electron.svg" alt="dependencies" height="18px"> <img src="https://img.shields.io/npm/dm/ember-electron.svg" height="18px" />
 
-<img src="https://raw.githubusercontent.com/felixrieseberg/ember-electron/master/logo.gif" alt="Logo" align="right" /> This addon enables the development of Desktop apps with Ember, Ember Cli, and GitHub's Electron. It enables live development with Electron (similar to `ember serve`) as well as testing in Electron (similar to `ember test` and `ember test --server`). It also comes with an integrated packager, turning your Ember App into standalone binaries for Windows, Mac OS X, and Linux. The commands are:
+<img src="https://raw.githubusercontent.com/felixrieseberg/ember-electron/master/logo.gif" alt="Logo" align="right" /> This addon enables the development of Desktop apps with Ember, Ember Cli, and GitHub's Electron. It enables live development with Electron (similar to `ember serve`) as well as testing in Electron (similar to `ember test` and `ember test --server`). It also comes with an integrated packager, turning your Ember App into standalone binaries for Windows, Mac OS X, and Linux. It also integrates the famous Ember Inspector. The commands are:
 
 * `ember electron` - Run app in Electron with live-reload server
 * `ember electron:test` - Test the app using Electron
@@ -27,6 +27,18 @@ To run your app together with a file watcher in development mode (similar to `em
 
 ```js
   locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
+```
+
+## Ember Inspector
+Whenever you run `ember electron`, the console output will give you a URL where Ember Inspector is live. Communication between your app in Electron and the Ember Inspector happens over WebSockets. By default, the console output should look like this:
+
+```
+--------------------------------------------------------------------
+Ember Inspector running on http://localhost:30820
+Open the inspector URL in a browser to debug the app!
+--------------------------------------------------------------------
+Starting Electron...
+--------------------------------------------------------------------
 ```
 
 ## Testing
@@ -110,4 +122,4 @@ In addition, the `require()` method is overwritten to resolve both AMD and Node 
 Ember-Electron does currently not create installers for you, but plenty of modules exist to automate this task. For Windows installers, GitHub's very own [grunt-electron-installer](https://github.com/atom/grunt-electron-installer) does a great job. On OS X, you probably want to create a pretty DMG image - [node-appdmg](https://github.com/LinusU/node-appdmg) is a great command line tool to create images. If you'd like to follow GitHub's lead and stick with Grunt, consider [grunt-appdmg](https://www.npmjs.com/package/grunt-appdmg)
 
 # License & Credits
-MIT - (C) Copyright 2015 Felix Rieseberg and Microsoft Corporation. Please see `LICENSE` for details. Huge thanks to @brzpegasus (author of `ember-cli-nwjs`) - her project made the development of this project *a lot* easier.
+MIT - (C) Copyright 2015 Felix Rieseberg. Please see `LICENSE` for details. Huge thanks to @brzpegasus (author of `ember-cli-nwjs`) and @joostdevries (author of `ember-cli-remote-inspector`) - their projects made the development of this project *a lot* easier.

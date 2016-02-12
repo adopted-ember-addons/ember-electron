@@ -27,11 +27,11 @@ describe('ember electron:package command', () => {
     beforeEach(() => {
         _envElectron = process.env.ELECTRON_PATH;
         delete process.env.ELECTRON_PATH;
-        
+
         var mockPackager = function(options, done) {
             done();
         };
-        
+
         mockery.registerMock('electron-packager', mockPackager);
 
         let cmd = require('../../../lib/commands/package');
@@ -80,7 +80,7 @@ describe('ember electron:package command', () => {
         let testEnv = 'development';
         let builtEnv = null;
 
-        commandOptions.environment = testEnv;
+        commandOptions.settings.environment = testEnv;
         commandOptions.tasks = {
             Build: function(){
                 return {
