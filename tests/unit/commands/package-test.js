@@ -76,6 +76,38 @@ describe('ember electron:package command', () => {
         });
     });
 
+    it('should build for the appropriate environment', () => {
+        let testEnv = 'development';
+        let builtEnv = null;
+
+        commandOptions.environment = testEnv;
+        commandOptions.build = function (options) {
+            builtEnv = options.environment;
+            return RSVP.resolve();
+        };
+
+        let command = new CommandUnderTest(commandOptions).validateAndRun();
+
+        return expect(command).to.be.fulfilled.then(() => {
+            expect(builtEnv).to.equal(testEnv);
+        });
+    });
+
+    it('should build production environment by default', () => {
+        let builtEnv = null;
+
+        commandOptions.build = function (options) {
+            builtEnv = options.environment;
+            return RSVP.resolve();
+        };
+
+        let command = new CommandUnderTest(commandOptions).validateAndRun();
+
+        return expect(command).to.be.fulfilled.then(() => {
+            expect(builtEnv).to.equal('production');
+        });
+    });
+
     it('should not attempt packaging when the build fails', () => {
         let tasks = [];
 
