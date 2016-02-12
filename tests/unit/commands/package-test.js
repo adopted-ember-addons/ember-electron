@@ -81,9 +81,15 @@ describe('ember electron:package command', () => {
         let builtEnv = null;
 
         commandOptions.environment = testEnv;
-        commandOptions.build = function (options) {
-            builtEnv = options.environment;
-            return RSVP.resolve();
+        commandOptions.tasks = {
+            Build: function(){
+                return {
+                    run: function(options) {
+                        builtEnv = options.environment;
+                        return RSVP.resolve();
+                    }
+                };
+            }
         };
 
         let command = new CommandUnderTest(commandOptions).validateAndRun();
@@ -96,9 +102,15 @@ describe('ember electron:package command', () => {
     it('should build production environment by default', () => {
         let builtEnv = null;
 
-        commandOptions.build = function (options) {
-            builtEnv = options.environment;
-            return RSVP.resolve();
+        commandOptions.tasks = {
+            Build: function(){
+                return {
+                    run: function(options) {
+                        builtEnv = options.environment;
+                        return RSVP.resolve();
+                    }
+                };
+            }
         };
 
         let command = new CommandUnderTest(commandOptions).validateAndRun();
