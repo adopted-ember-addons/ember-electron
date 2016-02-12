@@ -1,6 +1,6 @@
 'use strict';
 
-var glob  = require('glob');
+var glob  = require('globby');
 var Mocha = require('mocha');
 var mochaJSHint = require('mocha-jshint');
 
