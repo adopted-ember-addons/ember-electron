@@ -13,10 +13,9 @@ cache:
 
 before_install:
   - "npm config set spin false"
-  - "npm install -g npm@^3"
 
 install:
-  - npm install
+  - npm install --no-optional
 
 script:
   - npm test
