@@ -29,6 +29,10 @@ module.exports = {
                 packages.push({name: 'electron-packager'});
             }
 
+            if (!dependencies['electron-packager']) {
+                packages.push({name: 'ember-inspector'});
+            }
+
             if (packages.length > 0) {
                 return this.addPackagesToProject(packages);
             }
