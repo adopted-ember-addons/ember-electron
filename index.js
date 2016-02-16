@@ -110,14 +110,14 @@ module.exports = {
             return injectScript('shim-footer.js');
         }
 
-        if (type === 'test-body' && process.env.EMBER_ENV === 'test') {
+        if (type === 'test-body' && process.env.EMBER_ENV === 'test' && process.env.EMBER_CLI_ELECTRON) {
             var testemServer = process.env.ELECTRON_TESTEM_SERVER_URL;
             if (testemServer) {
                 return '<script src="' + testemServer + '/socket.io/socket.io.js"></script>';
             }
         }
 
-        if (type === 'body' && process.env.EMBER_ENV === 'development') {
+        if (type === 'body' && process.env.EMBER_ENV === 'development' && process.env.EMBER_CLI_ELECTRON) {
             return getRemoteDebugSocketScript(port, host) + injectDebugScript();
         }
     }
