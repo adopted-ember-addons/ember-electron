@@ -117,7 +117,7 @@ module.exports = {
             }
         }
 
-        if (type === 'body' && port && host) {
+        if (type === 'body' && process.env.EMBER_ENV === 'development') {
             return getRemoteDebugSocketScript(port, host) + injectDebugScript();
         }
     }

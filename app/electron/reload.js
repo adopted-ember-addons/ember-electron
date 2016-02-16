@@ -1,5 +1,5 @@
 /* jshint browser: true */
-(function () {
+(function() {
     // Exit immediately if we're not running in Electron
     if (!window.ELECTRON) {
         return;
@@ -9,9 +9,11 @@
     var fs = window.requireNode('fs');
     var watchDir = './dist';
 
-    if (fs.existsSync(watchDir)) {
-        fs.watch(watchDir, function () {
-            window.location.reload();
-        });
-    }
+    fs.stat(watchDir, function(err, stat) {
+        if (!err) {
+            fs.watch(watchDir, function() {
+                window.location.reload();
+            });
+        }
+    });
 })();
