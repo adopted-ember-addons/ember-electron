@@ -1,10 +1,12 @@
 /* jshint node: true */
+'use strict';
 
-var electron = require('electron');
+const electron         = require('electron');
+const app              = electron.app;
+const BrowserWindow    = electron.BrowserWindow;
+const emberAppLocation = `file://${__dirname}/dist/index.html`;
 
-var app = electron.app;
-var mainWindow = null;
-var BrowserWindow = electron.BrowserWindow;
+let mainWindow = null;
 
 electron.crashReporter.start();
 
@@ -31,9 +33,15 @@ app.on('ready', function onReady() {
     // Please ensure that you have set the locationType option in the
     // config/environment.js file to 'hash'. For more information,
     // please consult the ember-electron readme.
-    mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
+    mainWindow.loadURL(emberAppLocation);
 
-    mainWindow.on('closed', function onClosed() {
+    // If a loading operation goes wrong, we'll send Electron back to
+    // Ember App entry point
+    mainWindow.webContents.on('did-fail-load', () => {
+        mainWindow.loadURL(emberAppLocation);
+    });
+
+    mainWindow.on('closed', () => {
         mainWindow = null;
     });
 });
