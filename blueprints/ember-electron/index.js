@@ -1,11 +1,11 @@
-var fs    = require('fs');
-var path  = require('path');
-var chalk = require('chalk');
-var RSVP  = require('rsvp');
+const fs    = require('fs');
+const path  = require('path');
+const chalk = require('chalk');
+const RSVP  = require('rsvp');
 
-var denodeify = RSVP.denodeify;
-var readFile  = denodeify(fs.readFile);
-var writeFile = denodeify(fs.writeFile);
+const denodeify = RSVP.denodeify;
+const readFile  = denodeify(fs.readFile);
+const writeFile = denodeify(fs.writeFile);
 
 module.exports = {
     description: 'Install ember-electron in the project.',
@@ -15,12 +15,12 @@ module.exports = {
     },
 
     afterInstall: function (options) {
-        var dependencies = this.project.dependencies();
+        const dependencies = this.project.dependencies();
 
-        return this.addElectronConfig(options).then(function () {
+        return this.addElectronConfig(options).then(() => {
             this.logConfigurationWarning();
 
-            var packages = [];
+            const packages = [];
             if (!dependencies['electron-prebuilt']) {
                 packages.push({name: 'electron-prebuilt'});
             }
@@ -36,23 +36,21 @@ module.exports = {
             if (packages.length > 0) {
                 return this.addPackagesToProject(packages);
             }
-        }.bind(this));
+        });
     },
 
     addElectronConfig: function (options) {
-        var ui = this.ui;
-        var project = this.project;
-        var packageJsonPath = path.join(project.root, 'package.json');
+        const packageJsonPath = path.join(this.project.root, 'package.json');
 
-        if (project.pkg.main) {
+        if (this.project.pkg.main) {
             return RSVP.resolve();
         }
 
-        var promise = readFile(packageJsonPath, {
+        var prom = readFile(packageJsonPath, {
             encoding: 'utf8'
         });
 
-        return promise.then(function (data)  {
+        return prom.then((data) => {
             var json = JSON.parse(data);
 
             json.main = 'electron.js';
@@ -89,17 +87,17 @@ module.exports = {
                 }
             };
 
-            ui.writeLine('  ' + chalk.yellow('overwrite') + ' package.json');
+            this.ui.writeLine('  ' + chalk.yellow('overwrite') + ' package.json');
 
             if (!options.dryRun) {
                 return writeFile(packageJsonPath, JSON.stringify(json, null, '  '));
             }
-        }.bind(this));
+        });
     },
 
     logConfigurationWarning: function () {
-        var info = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
-        var url = 'https://github.com/felixrieseberg/ember-electron';
+        const info = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
+        const url = 'https://github.com/felixrieseberg/ember-electron';
 
         this.ui.writeLine(chalk.yellow(info));
         this.ui.writeLine(chalk.green(url));

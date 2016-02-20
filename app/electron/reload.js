@@ -1,19 +1,18 @@
 /* jshint browser: true */
 (function() {
+    'use strict';
+
     // Exit immediately if we're not running in Electron
     if (!window.ELECTRON) {
         return;
     }
 
     // Reload the page when anything in `dist` changes
-    var fs = window.requireNode('fs');
-    var watchDir = './dist';
+    const fs = window.requireNode('fs');
 
-    fs.stat(watchDir, function(err, stat) {
+    fs.stat('./dist', (err, stat) => {
         if (!err) {
-            fs.watch(watchDir, function() {
-                window.location.reload();
-            });
+            fs.watch('./dist', () => window.location.reload());
         }
     });
 })();

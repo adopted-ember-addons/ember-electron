@@ -1,4 +1,6 @@
 (function (window) {
+    'use strict';
+
     // Exit immediately if we're not running in Electron
     if (!window.ELECTRON) {
         return;
@@ -7,36 +9,35 @@
     // Log QUnit results to the console so they show up
     // in the `Electron` process output.
     function log(content) {
-        var content = '[qunit-logger] ' + content;
-        console.log(content);
-        window.process.stdout.write(content);
+        console.log(`[qunit-logger] ${content}`);
+        window.process.stdout.write(`[qunit-logger] ${content}`);
     }
 
     function setQUnitAdapter() {
-        var testCount = 0;
+        let testCount = 0;
 
-        QUnit.begin(function (details) {
+        QUnit.begin((details) => {
             if (details.totalTests >= 1) {
-                log('1..' + details.totalTests);
+                log(`1..${details.totalTests}`);
             }
         });
 
-        QUnit.testDone(function (details) {
+        QUnit.testDone((details) => {
             testCount++;
             if (details.failed === 0) {
-                log('ok ' + testCount + ' - ' + details.module + ' # ' + details.name);
+                log(`ok ${testCount} - ${details.module} # ${details.name}`);
             }
         });
 
-        QUnit.log(function (details) {
+        QUnit.log((details) => {
             if (details.result !== true) {
-                var actualTestCount = testCount + 1;
-                log('# ' + JSON.stringify(details));
-                log('not ok ' + actualTestCount + ' - ' + details.module + ' - ' + details.name);
+                const actualTestCount = testCount + 1;
+                log(`# ${JSON.stringify(details)}`);
+                log(`not ok ${actualTestCount} - ${details.module} - ${details.name}`);
             }
         });
 
-        QUnit.done(function (details) {
+        QUnit.done((details) => {
             log('# done' + (details.failed === 0 ? '' : ' with errors'));
         });
     }

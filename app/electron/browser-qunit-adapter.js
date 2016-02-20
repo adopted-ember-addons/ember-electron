@@ -1,19 +1,16 @@
 (function (window) {
+    'use strict';
+
     // Exit immediately if we're not running in Electron
     if (!window.ELECTRON) {
         return;
     }
 
     function setQUnitAdapter(serverURL) {
-        var socket = io(serverURL);
+        const socket = io(serverURL);
 
-        socket.on('connect', function () {
-            // connected to testem server
-            socket.emit('browser-login', 'Electron', '1');
-        });
-
-        socket.on('start-tests', function () {
-            // testem indicated we should re-run
+        socket.on('connect', () => socket.emit('browser-login', 'Electron', 1));
+        socket.on('start-tests', () => {
             socket.disconnect();
             window.location.reload();
         });
@@ -23,19 +20,17 @@
 
     // Adapted from Testem's default qunit-adapter.
     function qunitAdapter(socket) {
-        var currentTest, currentModule;
-
-        var id = 1;
-
-        var results = {
+        let currentTest, currentModule;
+        let id = 1;
+        let results = {
             failed: 0,
             passed: 0,
             total: 0,
             tests: []
         };
 
-        QUnit.log(function (details) {
-            var item = {
+        QUnit.log((details) => {
+            const item = {
                 passed: details.result,
                 message: details.message
             }
@@ -48,7 +43,7 @@
             currentTest.items.push(item);
         });
 
-        QUnit.testStart(function (details) {
+        QUnit.testStart((details) => {
             currentTest = {
                 id: id++,
                 name: (currentModule ? currentModule + ': ' : '') + details.name,
@@ -57,7 +52,7 @@
             socket.emit('tests-start');
         });
 
-        QUnit.testDone(function (details) {
+        QUnit.testDone((details) => {
             currentTest.failed = details.failed;
             currentTest.passed = details.passed;
             currentTest.total = details.total;
@@ -74,11 +69,11 @@
             socket.emit('test-result', currentTest);
         });
 
-        QUnit.moduleStart(function (details) {
+        QUnit.moduleStart((details) => {
             currentModule = details.name;
         });
 
-        QUnit.done(function (details) {
+        QUnit.done((details) => {
             results.runDuration = details.runtime;
             socket.emit('all-test-results', results);
         });

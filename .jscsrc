@@ -57,7 +57,6 @@
         "return",
         "try",
         "catch",
-        "function",
         "typeof"
     ],
     "requireSpaceAfterLineComment": true,

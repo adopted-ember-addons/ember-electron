@@ -87,8 +87,8 @@ describe('ember electron:test command', () => {
         let command = new CommandUnderTest(commandOptions).validateAndRun();
 
         return expect(command).to.be.fulfilled.then(() => {
-            let ciLauncherName = 'Electron (CI)';
-            let devLauncherName = 'Electron';
+            const ciLauncherName = 'Electron (CI)';
+            const devLauncherName = 'Electron';
 
             expect(testOptions.cwd).to.equal(outputPath);
             expect(testOptions['launch_in_ci']).to.deep.equal([ciLauncherName]);
@@ -97,12 +97,13 @@ describe('ember electron:test command', () => {
             let ciLauncher = testOptions.launchers[ciLauncherName] || {};
             expect(ciLauncher.protocol).to.equal('tap');
 
-            let runnerPath = require.resolve('../../../../lib/commands/electron-test/runner');
-            expect(ciLauncher.command).to.equal('node "' + runnerPath + '" --electron-path="Electron" --tests-path="' + path.join(outputPath, 'tests') + '"');
+            let runnerCiPath = require.resolve('../../../../lib/commands/electron-test/runner-ci');
+            expect(ciLauncher.command).to.equal('node "' + runnerCiPath + '" --electron-path="Electron" --tests-path="' + path.join(outputPath, 'tests') + '"');
 
             let devLauncher = testOptions.launchers[devLauncherName] || {};
             expect(devLauncher.protocol).to.equal('browser');
-            expect(devLauncher.command).to.equal(`"Electron" "${path.join(outputPath, 'tests')}"`);
+            let runnerDevPath = require.resolve('../../../../lib/commands/electron-test/runner-ci');
+            expect(ciLauncher.command).to.equal('node "' + runnerDevPath + '" --electron-path="Electron" --tests-path="' + path.join(outputPath, 'tests') + '"');
 
             testem.startCI.restore();
         });
