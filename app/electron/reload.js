@@ -9,10 +9,11 @@
 
     // Reload the page when anything in `dist` changes
     const fs = window.requireNode('fs');
-
-    fs.stat('./dist', (err, stat) => {
+    fs.stat(__dirname, (err, stat) => {
         if (!err) {
-            fs.watch('./dist', () => window.location.reload());
+            fs.watch(__dirname, {recursive: true}, (e) => {
+                window.location.reload()
+            });
         }
     });
 })();

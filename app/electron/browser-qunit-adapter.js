@@ -26,6 +26,7 @@
             failed: 0,
             passed: 0,
             total: 0,
+            skipped: 0,
             tests: []
         };
 
