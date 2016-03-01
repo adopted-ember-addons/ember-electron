@@ -99,6 +99,7 @@ You can pass options to the packager by either putting configuration into your a
   - Linux: this option is not required, as the dock/window list icon is set via [the icon option in the BrowserWindow contructor](http://electron.atom.io/docs/v0.30.0/api/browser-window/#new-browserwindow-options). Setting the icon in the file manager is not currently supported.
 
 * `--ignore` - *RegExp* A pattern which specifies which files to ignore when copying files to create the package(s). Take note that Ember Electron creates a temp folder containing `electron.js`, `package.json`, and Ember Cli's `dist` output folder.
+* `--out` - *String* The directory where electron builds are saved. Defaults to `electron-builds/`.
 * `--overwrite` - *Boolean* Whether to replace an already existing output directory for a given platform (`true`) or skip recreating it (`false`). Defaults to `false`.
 * `--prune` - *Boolean* Runs [`npm prune --production`](https://docs.npmjs.com/cli/prune) before starting to package the app.
 * `--sign` - *String* The identity used when signing the package via `codesign`. (Only for the OS X target platform, when XCode is present on the build platform.)
