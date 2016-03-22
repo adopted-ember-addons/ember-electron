@@ -29,6 +29,10 @@ module.exports = {
                 packages.push({name: 'electron-packager'});
             }
 
+            if (!dependencies['electron-rebuild']) {
+                packages.push({name: 'electron-rebuild'});
+            }
+
             if (!dependencies['electron-inspector']) {
                 packages.push({name: 'ember-inspector'});
             }
