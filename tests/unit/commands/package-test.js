@@ -14,6 +14,7 @@ describe('ember electron:package command', () => {
     var CommandUnderTest, commandOptions, spawn, _envElectron;
 
     before(() => {
+        process.env.EMBER_ELECTRON_TESTING = true;
         mockery.enable({
             useCleanCache: true,
             warnOnUnregistered: false

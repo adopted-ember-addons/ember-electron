@@ -11,6 +11,7 @@ before_install:
   - "npm config set spin false"
 
 install:
+  - npm install electron-rebuild
   - npm install --no-optional
 
 script:
