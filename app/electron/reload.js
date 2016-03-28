@@ -8,14 +8,19 @@
     }
 
     // Reload the page when anything in `dist` changes
-    const fs = window.requireNode('fs');
-    let watch = function(sub) {
-        let dirname = __dirname;
-        if (sub) { dirname += sub; }
+    var fs = window.requireNode('fs');
+    var watch = function (sub) {
+        var dirname = __dirname;
+
+        if (sub) {
+            dirname += sub;
+        }
+
         fs.watch(dirname, {recursive: true}, function (e) {
             window.location.reload()
         });
     }
+
     fs.stat(__dirname, function (err, stat) {
         if (!err) {
             watch();
