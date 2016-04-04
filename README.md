@@ -82,6 +82,7 @@ You can pass options to the packager by either putting configuration into your a
 * `--platform` - *String* Allowed values: *linux, win32, darwin, all*
 * `--arch` - *String* Allowed values: *ia32, x64, all*
 * `--version` - *String* Electron version (without the 'v') - for example, [`0.33.9`](https://github.com/atom/electron/releases/tag/v0.33.9), see [Electron releases](https://github.com/atom/electron/releases) for valid versions
+* `--app-copyright` - *String* The human-readable copyright line for the app. Maps to the LegalCopyright metadata property on Windows, and NSHumanReadableCopyright on OS X.
 * `--app-bundle-id` - *String* The bundle identifier to use in the application's plist (OS X only)
 * `--app-category-type` - *String* The application category type, as shown in the Finder via *View -> Arrange by Application Category* when viewing the Applications directory (OS X only). For example, `app-category-type=public.app-category.developer-tools` will set the application category to *Developer Tools*. Valid values are listed in [Apple's documentation](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8).
 * `--app-version` - *String* The release version of the application. Maps to the `ProductVersion` metadata property on Windows, and `CFBundleShortVersionString` on OS X.
@@ -92,6 +93,8 @@ You can pass options to the packager by either putting configuration into your a
 * `--build-version` - *String* The build version of the application. Maps to the `FileVersion` metadata property on Windows, and `CFBundleVersion` on OS X.
 * `--cache` - *String* The directory where prebuilt, pre-packaged Electron downloads are cached. Defaults to `$HOME/.electron`.
 * `--helper-bundle-id` - *String* The bundle identifier to use in the application helper's plist (OS X only).
+* `--extend-info` - *String* Filename of a plist file; the contents are added to the app's plist. Entries in `extend-info` override entries in the base plist file supplied by electron-prebuilt, but are overridden by other explicit arguments such as `app-version` or `app-bundle-id`.
+* `--extra-resource` - *String* Filename of a file to be copied directly into the app's Contents/Resources directory.
 * `--icon` - *String* Currently you must look for conversion tools in order to supply an icon in the format required by the platform. If the file extension is omitted, it is auto-completed to the correct extension based on the platform.
 
   - OS X: `.icns`
@@ -102,15 +105,21 @@ You can pass options to the packager by either putting configuration into your a
 * `--out` - *String* The directory where electron builds are saved. Defaults to `electron-builds/`.
 * `--overwrite` - *Boolean* Whether to replace an already existing output directory for a given platform (`true`) or skip recreating it (`false`). Defaults to `false`.
 * `--prune` - *Boolean* Runs [`npm prune --production`](https://docs.npmjs.com/cli/prune) before starting to package the app.
-* `--sign` - *String* The identity used when signing the package via `codesign`. (Only for the OS X target platform, when XCode is present on the build platform.)
+* `--osx-sign` - *Object* If present, signs OS X target apps when the host platform is OS X and XCode is installed. When the value is true, pass default configuration to the signing module. The configuration values listed below can be customized when the value is an Object. See [electron-osx-sign](https://www.npmjs.com/package/electron-osx-sign#opts) for more detailed option descriptions and the defaults.
+
+  - `identity` - *String*: The identity used when signing the package via codesign.
+  - `entitlements` - *String*: The path to the 'parent' entitlements.
+  - `entitlements-inherit` - *String*: The path to the 'child' entitlements.
+
 * `--strict-ssl` - *Boolean* Whether SSL certificates are required to be valid when downloading Electron. **Defaults to `true`**.
 * `version-string` - *Object* Object hash of application metadata to embed into the executable (Windows only):
-  - `CompanyName`
-  - `LegalCopyright`
-  - `FileDescription`
-  - `OriginalFilename`
-  - `ProductName`
-  - `InternalName`
+
+  - `CompanyName` - *String*
+  - `LegalCopyright` - *String*
+  - `FileDescription` - *String*
+  - `OriginalFilename` - *String*
+  - `ProductName` - *String*
+  - `InternalName` - *String*
 
 # Advanced Usage
 

@@ -64,7 +64,7 @@
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
     "chalk": "^1.1.0",
-    "electron-packager": "^5.2.0",
+    "electron-packager": "^6.0.0",
     "ember-cli-babel": "^5.1.5",
     "ember-inspector": "^1.9.5",
     "express": "^4.13.4",
