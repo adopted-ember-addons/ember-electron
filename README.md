@@ -94,6 +94,7 @@ You can pass options to the packager by either putting configuration into your a
 * `--cache` - *String* The directory where prebuilt, pre-packaged Electron downloads are cached. Defaults to `$HOME/.electron`.
 * `--helper-bundle-id` - *String* The bundle identifier to use in the application helper's plist (OS X only).
 * `--extend-info` - *String* Filename of a plist file; the contents are added to the app's plist. Entries in `extend-info` override entries in the base plist file supplied by electron-prebuilt, but are overridden by other explicit arguments such as `app-version` or `app-bundle-id`.
+* `--copy-dev-modules` - *Boolean* Copy dependency node modules from local dev node_modules instead of installing them.
 * `--extra-resource` - *String* Filename of a file to be copied directly into the app's Contents/Resources directory.
 * `--icon` - *String* Currently you must look for conversion tools in order to supply an icon in the format required by the platform. If the file extension is omitted, it is auto-completed to the correct extension based on the platform.
 
