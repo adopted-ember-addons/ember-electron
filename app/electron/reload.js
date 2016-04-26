@@ -9,17 +9,26 @@
 
     // Reload the page when anything in `dist` changes
     var fs = window.requireNode('fs');
+    var path = window.requireNode('path');
     var watch = function (sub) {
         var dirname = __dirname;
+        var isInTest = !!window.QUnit;
+
+        if (isInTest) {
+          // In tests, __dirname is `<project>/tmp/<broccoli-dist-path>/tests`.
+          // In normal `ember:electron` it's `<project>/dist`.
+          // To achieve the regular behavior in testing, go to parent dir, which contains `tests` and `assets`
+          dirname = path.join(dirname, '..');
+        }
 
         if (sub) {
-            dirname += sub;
+          dirname = path.join(dirname, sub);
         }
 
         fs.watch(dirname, {recursive: true}, function (e) {
-            window.location.reload()
+            window.location.reload();
         });
-    }
+    };
 
     fs.stat(__dirname, function (err, stat) {
         if (!err) {
