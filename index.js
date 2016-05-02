@@ -7,7 +7,8 @@ var path = require('path');
 var getRemoteDebugSocketScript = require('./lib/helpers/remote-debug-script');
 
 function injectScript(scriptName) {
-    var filePath = path.join(__dirname, 'lib', 'resources', scriptName);
+    var dirname = __dirname || path.resolve(path.dirname());
+    var filePath = path.join(dirname, 'lib', 'resources', scriptName);
     return '<script>\n' + fs.readFileSync(filePath, {
             encoding: 'utf8'
         }) + '\n</script>';
@@ -50,7 +51,8 @@ module.exports = {
     },
 
     treeForVendor: function() {
-        return path.join(__dirname, 'app');
+        var dirname = __dirname || path.resolve(path.dirname());
+        return path.join(dirname, 'app');
     },
 
     postprocessTree: function(type, tree) {
