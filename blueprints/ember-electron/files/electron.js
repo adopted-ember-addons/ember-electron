@@ -2,6 +2,7 @@
 'use strict';
 
 const electron         = require('electron');
+const path             = require('path');
 const app              = electron.app;
 const BrowserWindow    = electron.BrowserWindow;
 const dirname          = __dirname || path.resolve(path.dirname());
