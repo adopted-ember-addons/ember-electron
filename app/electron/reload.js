@@ -10,7 +10,13 @@
     // Reload the page when anything in `dist` changes
     var fs = window.requireNode('fs');
     var path = window.requireNode('path');
-
+    
+    /**
+     * Watch a given directory for changes and reload
+     * on change
+     * 
+     * @param sub directory
+     */
     var watch = function (sub) {
         var dirname = __dirname || path.resolve(path.dirname());
         var isInTest = !!window.QUnit;
@@ -30,6 +36,17 @@
             window.location.reload();
         });
     };
+    
+    /**
+     * Install Devtron in the current window.
+     */
+    var installDevtron = function () {
+        var devtron = window.requireNode('devtron');
+        
+        if (devtron) {
+            devtron.install();
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', function (e) {
         var dirname = __dirname || path.resolve(path.dirname());
@@ -50,5 +67,7 @@
                 }
             }
         });
+        
+        installDevtron();
     });
 })();

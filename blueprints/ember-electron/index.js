@@ -33,8 +33,12 @@ module.exports = {
                 packages.push({name: 'electron-rebuild'});
             }
 
-            if (!dependencies['electron-inspector']) {
+            if (!dependencies['ember-inspector']) {
                 packages.push({name: 'ember-inspector'});
+            }
+            
+            if (!dependencies['devtron']) {
+                packages.push({name: 'devtron'});
             }
 
             if (packages.length > 0) {
