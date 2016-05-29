@@ -36,8 +36,8 @@ module.exports = {
             if (!dependencies['ember-inspector']) {
                 packages.push({name: 'ember-inspector'});
             }
-            
-            if (!dependencies['devtron']) {
+
+            if (!dependencies.devtron) {
                 packages.push({name: 'devtron'});
             }
 
