@@ -32,7 +32,9 @@ To run your app together with a file watcher in development mode (similar to `em
 ```
 
 ## Ember Inspector
-Whenever you run `ember electron`, the console output will give you a URL where Ember Inspector is live. Communication between your app in Electron and the Ember Inspector happens over WebSockets. By default, the console output should look like this:
+If you're running a later version of Electron, you will notice that ember-electron installs ember-inspector directly into Electron. Simply open up the developer tools and choose the Ember-tab, just like you would in Chrome. 
+
+In addition, Whenever you run `ember electron`, the console output will give you a URL where Ember Inspector is live. Communication between your app in Electron and the Ember Inspector happens over WebSockets. By default, the console output should look like this:
 
 ```
 --------------------------------------------------------------------

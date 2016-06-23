@@ -48,6 +48,28 @@
         }
     }
 
+    /**
+     * Install Ember-Inspector in the current window.
+     */
+    var installEmberInspector = function () {
+        var location = path.join('node_modules', 'ember-inspector', 'dist', 'chrome');
+
+        fs.lstat(location, function (err, results) {
+            if (err) {
+                return;
+            }
+
+            if (results && results.isDirectory && results.isDirectory()) {
+                var BrowserWindow = window.requireNode('electron').remote.BrowserWindow;
+                try {
+                    BrowserWindow.addDevToolsExtension(location);
+                } catch(err) {
+                    // no-op
+                }
+            }
+        })
+    }    
+
     document.addEventListener('DOMContentLoaded', function (e) {
         var dirname = __dirname || path.resolve(path.dirname());
 
@@ -69,5 +91,6 @@
         });
         
         installDevtron();
+        installEmberInspector();
     });
 })();
