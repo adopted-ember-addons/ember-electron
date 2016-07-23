@@ -24,7 +24,6 @@ describe('ember electron:test command', () => {
             analytics: new MockAnalytics(),
             settings: {},
             project: new MockProject('project-with-test-config'),
-
             tasks: {
                 Build: Task.extend({
                     run: (options) => {
@@ -73,6 +72,8 @@ describe('ember electron:test command', () => {
             init: function (options) {
                 const Testem = require('testem');
                 testem = this.testem = new Testem();
+
+                this.project = commandOptions.project;
 
                 sinon.stub(this.testem, 'startCI', function (options, callback) {
                     this.app = {
