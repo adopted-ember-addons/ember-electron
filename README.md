@@ -10,6 +10,8 @@
 
 Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-nwjs`](https://github.com/brzpegasus/ember-cli-nwjs)) and @joostdevries (author of [`ember-cli-remote-inspector`](https://github.com/joostdevries/ember-cli-remote-inspector)).
 
+To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
+
 ## Installation and Usage
 To install the addon, run:
 ```
