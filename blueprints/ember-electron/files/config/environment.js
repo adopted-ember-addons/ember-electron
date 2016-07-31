@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: '<%= dasherizedPackageName %>',
     environment: environment,
-    baseURL: '/',
+    <%= baseURLOption %>
     locationType: 'hash',
     EmberENV: {
       FEATURES: {
@@ -29,7 +29,7 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
+    <%= baseURLTestOption %>
     ENV.locationType = 'none';
 
     // keep test console output quieter
