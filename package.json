@@ -66,6 +66,7 @@
     "chalk": "^1.1.0",
     "electron-packager": "^7.0.0",
     "ember-cli-babel": "^5.1.6",
+    "ember-cli-version-checker": "^1.1.6",
     "ember-inspector": "^1.9.5",
     "express": "^4.14.0",
     "fs-extra": "^0.30.0",

@@ -2,6 +2,7 @@ const fs    = require('fs');
 const path  = require('path');
 const chalk = require('chalk');
 const RSVP  = require('rsvp');
+const VersionChecker = require('ember-cli-version-checker');
 
 const denodeify = RSVP.denodeify;
 const readFile  = denodeify(fs.readFile);
@@ -115,5 +116,19 @@ module.exports = {
 
         this.ui.writeLine(chalk.yellow(info));
         this.ui.writeLine(chalk.green(url));
+    },
+
+    locals: function() {
+        var checker = new VersionChecker(this),
+            dep = checker.for('ember-cli', 'npm'),
+            baseURLOption = 'baseURL: \'/\',',
+            baseURLTestOption = 'ENV.baseURL = \'/\';';
+
+        if (dep.satisfies('>= 2.7.0')) {
+            baseURLOption = 'rootURL: null,';
+            baseURLTestOption = '';
+        }
+
+        return {baseURLOption, baseURLTestOption};
     }
 };
