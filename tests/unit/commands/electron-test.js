@@ -4,6 +4,7 @@ const path          = require('path');
 const mockery       = require('mockery');
 const mockSpawn     = require('mock-spawn');
 const RSVP          = require('rsvp');
+const os            = require('os');
 const Command       = require('ember-cli/lib/models/command');
 const Task          = require('ember-cli/lib/models/task');
 const MockUI        = require('ember-cli/tests/helpers/mock-ui');
@@ -12,7 +13,7 @@ const MockProject   = require('../../helpers/mocks/project');
 const expect        = require('../../helpers/expect');
 
 describe('ember electron command', () => {
-    var CommandUnderTest, commandOptions, spawn, _envElectron;
+    var CommandUnderTest, commandOptions, spawn, platform, _envElectron;
 
     before(() => {
         mockery.enable({
@@ -36,6 +37,11 @@ describe('ember electron command', () => {
         mockery.registerMock('../helpers/debug-server', {
             setRemoteDebugSocketScript: function () {},
             start: function () {}
+        });
+
+        platform = os.platform();
+        mockery.registerMock('os', {
+            platform: function() { return platform; }
         });
 
         let cmd = require('../../../lib/commands/electron');
@@ -135,6 +141,36 @@ describe('ember electron command', () => {
 
             expect(ui.output).to.contain('Starting Electron...');
             expect(ui.output).to.contain('Electron exited.');
+        });
+    });
+
+    it('should set the spawn shell option to true on win32', () => {
+        commandOptions.buildWatch = function () {
+            return RSVP.resolve();
+        };
+
+        platform = 'win32';
+        let command = new CommandUnderTest(commandOptions).validateAndRun();
+        let ui = commandOptions.ui;
+
+        return expect(command).to.be.fulfilled.then(() => {
+            expect(spawn.calls.length).to.equal(1);
+            expect(spawn.calls[0].opts.shell).to.equal(true);
+        });
+    });
+
+    it('should set the spawn shell option to false if not on win32', () => {
+        commandOptions.buildWatch = function () {
+            return RSVP.resolve();
+        };
+
+        platform = 'darwin';
+        let command = new CommandUnderTest(commandOptions).validateAndRun();
+        let ui = commandOptions.ui;
+
+        return expect(command).to.be.fulfilled.then(() => {
+            expect(spawn.calls.length).to.equal(1);
+            expect(spawn.calls[0].opts.shell).to.equal(false);
         });
     });
 
