@@ -28,9 +28,10 @@ module.exports = {
             return;
         }
 
-        app.import({
-            development: 'vendor/electron/reload.js'
-        });
+        if (app.env === 'development') {
+            app.import('vendor/electron/reload.js');
+        }
+
         if (process.env.ELECTRON_TESTS_DEV) {
             app.import({
                 test: 'vendor/electron/browser-qunit-adapter.js'
