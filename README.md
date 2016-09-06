@@ -83,7 +83,7 @@ You can pass options to the packager by either putting configuration into your a
 
 * `--dir` - *String* The source directory
 * `--name` - *String* The application name.
-* `--platform` - *String* Allowed values: *linux, win32, darwin, all*
+* `--platform` - *String* Allowed values: *linux, win32, darwin, mas, all*
 * `--arch` - *String* Allowed values: *ia32, x64, all*
 * `--version` - *String* Electron version (without the 'v') - for example, [`0.33.9`](https://github.com/atom/electron/releases/tag/v0.33.9), see [Electron releases](https://github.com/atom/electron/releases) for valid versions
 * `--app-copyright` - *String* The human-readable copyright line for the app. Maps to the LegalCopyright metadata property on Windows, and NSHumanReadableCopyright on OS X.
@@ -91,15 +91,24 @@ You can pass options to the packager by either putting configuration into your a
 * `--app-category-type` - *String* The application category type, as shown in the Finder via *View -> Arrange by Application Category* when viewing the Applications directory (OS X only). For example, `app-category-type=public.app-category.developer-tools` will set the application category to *Developer Tools*. Valid values are listed in [Apple's documentation](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8).
 * `--app-version` - *String* The release version of the application. Maps to the `ProductVersion` metadata property on Windows, and `CFBundleShortVersionString` on OS X.
 * `--asar` - *Boolean* Whether to package the application's source code into an archive, using [Electron's archive format](https://github.com/atom/asar). Reasons why you may want to enable this feature are described in [an application packaging tutorial in Electron's documentation](http://electron.atom.io/docs/v0.36.0/tutorial/application-packaging/). Defaults to `false`.
-* `--asar-unpack` - *String* A [glob expression](https://github.com/isaacs/minimatch#features), when specified, unpacks the file with matching names to the `app.asar.unpacked` directory.
-* `--asar-unpack-dir` - *String* Unpacks the dir to `app.asar.unpacked` directory whose names exactly match this string. The `asar-unpack-dir` is relative to `dir`.
+
+  - `ordering` - *String*: A path to an ordering file for packing files. An explanation can be found on the [Atom issue tracker](https://github.com/atom/atom/issues/10163).
+  - `unpack` - *String*: A [glob expression](https://github.com/isaacs/minimatch#features), when specified, unpacks the file with matching names to the `app.asar.unpacked` directory.
+  - `unpackDir` - *String*: Unpacks the dir to the `app.asar.unpacked` directory whose names exactly or pattern match this string. The `asar.unpackDir` is relative to `dir`.
+
   For example, `asar-unpack-dir=sub_dir` will unpack the directory `/<dir>/sub_dir`.
 * `--build-version` - *String* The build version of the application. Maps to the `FileVersion` metadata property on Windows, and `CFBundleVersion` on OS X.
-* `--cache` - *String* The directory where prebuilt, pre-packaged Electron downloads are cached. Defaults to `$HOME/.electron`.
-* `--helper-bundle-id` - *String* The bundle identifier to use in the application helper's plist (OS X only).
-* `--extend-info` - *String* Filename of a plist file; the contents are added to the app's plist. Entries in `extend-info` override entries in the base plist file supplied by electron-prebuilt, but are overridden by other explicit arguments such as `app-version` or `app-bundle-id`.
 * `--copy-dev-modules` - *Boolean* Copy dependency node modules from local dev node_modules instead of installing them.
+* `--download` - *Object* If present, passes custom options to [`electron-download`](https://www.npmjs.com/package/electron-download)
+(see the link for more detailed option descriptions and the defaults).
+
+  - `cache` *String*: The directory where prebuilt, pre-packaged Electron downloads are cached.
+  - `mirror` *String*: The URL to override the default Electron download location.
+  - `strictSSL` *Boolean*: Whether SSL certificates are required to be valid when downloading Electron.
+
+* `--extend-info` - *String* Filename of a plist file; the contents are added to the app's plist. Entries in `extend-info` override entries in the base plist file supplied by electron-prebuilt, but are overridden by other explicit arguments such as `app-version` or `app-bundle-id`.
 * `--extra-resource` - *String* Filename of a file to be copied directly into the app's Contents/Resources directory.
+* `--helper-bundle-id` - *String* The bundle identifier to use in the application helper's plist (OS X only).
 * `--icon` - *String* Currently you must look for conversion tools in order to supply an icon in the format required by the platform. If the file extension is omitted, it is auto-completed to the correct extension based on the platform.
 
   - OS X: `.icns`
@@ -116,8 +125,7 @@ You can pass options to the packager by either putting configuration into your a
   - `entitlements` - *String*: The path to the 'parent' entitlements.
   - `entitlements-inherit` - *String*: The path to the 'child' entitlements.
 
-* `--strict-ssl` - *Boolean* Whether SSL certificates are required to be valid when downloading Electron. **Defaults to `true`**.
-* `version-string` - *Object* Object hash of application metadata to embed into the executable (Windows only):
+* `--win32metadata` - *Object* Object hash of application metadata to embed into the executable (Windows only):
 
   - `CompanyName` - *String*
   - `LegalCopyright` - *String*
