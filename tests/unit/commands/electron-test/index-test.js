@@ -99,12 +99,12 @@ describe('ember electron:test command', () => {
             expect(ciLauncher.protocol).to.equal('tap');
 
             let runnerCiPath = require.resolve('../../../../lib/commands/electron-test/runner-ci');
-            expect(ciLauncher.command).to.equal('node "' + runnerCiPath + '" --electron-path="Electron" --tests-path="' + path.join(outputPath, 'tests') + '"');
+            expect(ciLauncher.command).to.equal('node "' + runnerCiPath + '" --electron-path "Electron" --tests-path "' + path.join(outputPath, 'tests') + '"');
 
             let devLauncher = testOptions.launchers[devLauncherName] || {};
             expect(devLauncher.protocol).to.equal('browser');
             let runnerDevPath = require.resolve('../../../../lib/commands/electron-test/runner-ci');
-            expect(ciLauncher.command).to.equal('node "' + runnerDevPath + '" --electron-path="Electron" --tests-path="' + path.join(outputPath, 'tests') + '"');
+            expect(ciLauncher.command).to.equal('node "' + runnerDevPath + '" --electron-path "Electron" --tests-path "' + path.join(outputPath, 'tests') + '"');
 
             testem.startCI.restore();
         });
