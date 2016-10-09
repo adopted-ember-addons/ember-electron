@@ -1,96 +1,96 @@
 /* jshint browser: true */
-(function() {
-    'use strict';
+;(function () {
+  'use strict'
 
-    // Exit immediately if we're not running in Electron
-    if (!window.ELECTRON) {
-        return;
+  // Exit immediately if we're not running in Electron
+  if (!window.ELECTRON) {
+    return
+  }
+
+  // Reload the page when anything in `dist` changes
+  var fs = window.requireNode('fs')
+  var path = window.requireNode('path')
+
+  /**
+   * Watch a given directory for changes and reload
+   * on change
+   *
+   * @param sub directory
+   */
+  var watch = function (sub) {
+    var dirname = __dirname || path.resolve(path.dirname())
+    var isInTest = !!window.QUnit
+
+    if (isInTest) {
+      // In tests, __dirname is `<project>/tmp/<broccoli-dist-path>/tests`.
+      // In normal `ember:electron` it's `<project>/dist`.
+      // To achieve the regular behavior in testing, go to parent dir, which contains `tests` and `assets`
+      dirname = path.join(dirname, '..')
     }
 
-    // Reload the page when anything in `dist` changes
-    var fs = window.requireNode('fs');
-    var path = window.requireNode('path');
-    
-    /**
-     * Watch a given directory for changes and reload
-     * on change
-     * 
-     * @param sub directory
-     */
-    var watch = function (sub) {
-        var dirname = __dirname || path.resolve(path.dirname());
-        var isInTest = !!window.QUnit;
-
-        if (isInTest) {
-          // In tests, __dirname is `<project>/tmp/<broccoli-dist-path>/tests`.
-          // In normal `ember:electron` it's `<project>/dist`.
-          // To achieve the regular behavior in testing, go to parent dir, which contains `tests` and `assets`
-          dirname = path.join(dirname, '..');
-        }
-
-        if (sub) {
-          dirname = path.join(dirname, sub);
-        }
-
-        fs.watch(dirname, {recursive: true}, function (e) {
-            window.location.reload();
-        });
-    };
-    
-    /**
-     * Install Devtron in the current window.
-     */
-    var installDevtron = function () {
-        var devtron = window.requireNode('devtron');
-        
-        if (devtron) {
-            devtron.install();
-        }
+    if (sub) {
+      dirname = path.join(dirname, sub)
     }
 
-    /**
-     * Install Ember-Inspector in the current window.
-     */
-    var installEmberInspector = function () {
-        var location = path.join('node_modules', 'ember-inspector', 'dist', 'chrome');
+    fs.watch(dirname, {recursive: true}, function (e) {
+      window.location.reload()
+    })
+  }
 
-        fs.lstat(location, function (err, results) {
-            if (err) {
-                return;
-            }
+  /**
+   * Install Devtron in the current window.
+   */
+  var installDevtron = function () {
+    var devtron = window.requireNode('devtron')
 
-            if (results && results.isDirectory && results.isDirectory()) {
-                var BrowserWindow = window.requireNode('electron').remote.BrowserWindow;
-                try {
-                    BrowserWindow.addDevToolsExtension(location);
-                } catch(err) {
-                    // no-op
-                }
-            }
-        })
-    }    
+    if (devtron) {
+      devtron.install()
+    }
+  }
 
-    document.addEventListener('DOMContentLoaded', function (e) {
-        var dirname = __dirname || path.resolve(path.dirname());
+  /**
+   * Install Ember-Inspector in the current window.
+   */
+  var installEmberInspector = function () {
+    var location = path.join('node_modules', 'ember-inspector', 'dist', 'chrome')
 
-        fs.stat(dirname, function (err, stat) {
-            if (!err) {
-                watch();
+    fs.lstat(location, function (err, results) {
+      if (err) {
+        return
+      }
 
-                // On linux, the recursive `watch` command is not fully supported:
-                // https://nodejs.org/docs/latest/api/fs.html#fs_fs_watch_filename_options_listener
-                //
-                // However, the recursive option WILL watch direct children of the
-                // given directory.  So, this hack just manually sets up watches on
-                // the expected subdirs -- that is, `assets` and `tests`.
-                if (process.platform === 'linux') {
-                    watch('/assets');
-                    watch('/tests');
-                }
-            }
-        });
-        
-        installDevtron();
-        installEmberInspector();
-    });
-})();
+      if (results && results.isDirectory && results.isDirectory()) {
+        var BrowserWindow = window.requireNode('electron').remote.BrowserWindow
+        try {
+          BrowserWindow.addDevToolsExtension(location)
+        } catch (err) {
+          // no-op
+        }
+      }
+    })
+  }
+
+  document.addEventListener('DOMContentLoaded', function (e) {
+    var dirname = __dirname || path.resolve(path.dirname())
+
+    fs.stat(dirname, function (err, stat) {
+      if (!err) {
+        watch()
+
+        // On linux, the recursive `watch` command is not fully supported:
+        // https://nodejs.org/docs/latest/api/fs.html#fs_fs_watch_filename_options_listener
+        //
+        // However, the recursive option WILL watch direct children of the
+        // given directory.  So, this hack just manually sets up watches on
+        // the expected subdirs -- that is, `assets` and `tests`.
+        if (process.platform === 'linux') {
+          watch('/assets')
+          watch('/tests')
+        }
+      }
+    })
+
+    installDevtron()
+    installEmberInspector()
+  })
+})()

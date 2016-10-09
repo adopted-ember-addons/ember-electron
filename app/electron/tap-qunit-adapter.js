@@ -1,46 +1,46 @@
-(function (window) {
-    'use strict';
+;(function (window) {
+  'use strict'
 
-    // Exit immediately if we're not running in Electron
-    if (!window.ELECTRON) {
-        return;
-    }
+  // Exit immediately if we're not running in Electron
+  if (!window.ELECTRON) {
+    return
+  }
 
-    // Log QUnit results to the console so they show up
-    // in the `Electron` process output.
-    function log(content) {
-        console.log(`[qunit-logger] ${content}`);
-        window.process.stdout.write(`[qunit-logger] ${content}`);
-    }
+  // Log QUnit results to the console so they show up
+  // in the `Electron` process output.
+  function log (content) {
+    console.log(`[qunit-logger] ${content}`)
+    window.process.stdout.write(`[qunit-logger] ${content}`)
+  }
 
-    function setQUnitAdapter() {
-        let testCount = 0;
+  function setQUnitAdapter () {
+    let testCount = 0
 
-        QUnit.begin((details) => {
-            if (details.totalTests >= 1) {
-                log(`1..${details.totalTests}`);
-            }
-        });
+    window.QUnit.begin((details) => {
+      if (details.totalTests >= 1) {
+        log(`1..${details.totalTests}`)
+      }
+    })
 
-        QUnit.testDone((details) => {
-            testCount++;
-            if (details.failed === 0) {
-                log(`ok ${testCount} - ${details.module} # ${details.name}`);
-            }
-        });
+    window.QUnit.testDone((details) => {
+      testCount++
+      if (details.failed === 0) {
+        log(`ok ${testCount} - ${details.module} # ${details.name}`)
+      }
+    })
 
-        QUnit.log((details) => {
-            if (details.result !== true) {
-                const actualTestCount = testCount + 1;
-                log(`# ${JSON.stringify(details)}`);
-                log(`not ok ${actualTestCount} - ${details.module} - ${details.name}`);
-            }
-        });
+    window.QUnit.log((details) => {
+      if (details.result !== true) {
+        const actualTestCount = testCount + 1
+        log(`# ${JSON.stringify(details)}`)
+        log(`not ok ${actualTestCount} - ${details.module} - ${details.name}`)
+      }
+    })
 
-        QUnit.done((details) => {
-            log('# done' + (details.failed === 0 ? '' : ' with errors'));
-        });
-    }
+    window.QUnit.done((details) => {
+      log('# done' + (details.failed === 0 ? '' : ' with errors'))
+    })
+  }
 
-    window.addEventListener('load', setQUnitAdapter);
-}(this));
+  window.addEventListener('load', setQUnitAdapter)
+}(this))

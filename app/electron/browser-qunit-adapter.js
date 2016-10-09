@@ -1,86 +1,86 @@
-(function (window) {
-    'use strict';
+;(function (window) {
+  'use strict'
 
-    // Exit immediately if we're not running in Electron
-    if (!window.ELECTRON) {
-        return;
+  // Exit immediately if we're not running in Electron
+  if (!window.ELECTRON) {
+    return
+  }
+
+  // Adapted from Testem's default qunit-adapter.
+  function qunitAdapter (socket) {
+    let currentTest, currentModule
+    let id = 1
+    let results = {
+      failed: 0,
+      passed: 0,
+      total: 0,
+      skipped: 0,
+      tests: []
     }
 
-    function setQUnitAdapter(serverURL) {
-        const socket = io(serverURL);
+    window.QUnit.log((details) => {
+      const item = {
+        passed: details.result,
+        message: details.message
+      }
 
-        socket.on('connect', () => socket.emit('browser-login', 'Electron', 1));
-        socket.on('start-tests', () => {
-            socket.disconnect();
-            window.location.reload();
-        });
+      if (!details.result) {
+        item.actual = details.actual
+        item.expected = details.expected
+      }
 
-        qunitAdapter(socket);
-    }
+      currentTest.items.push(item)
+    })
 
-    // Adapted from Testem's default qunit-adapter.
-    function qunitAdapter(socket) {
-        let currentTest, currentModule;
-        let id = 1;
-        let results = {
-            failed: 0,
-            passed: 0,
-            total: 0,
-            skipped: 0,
-            tests: []
-        };
+    window.QUnit.testStart((details) => {
+      currentTest = {
+        id: id++,
+        name: (currentModule ? currentModule + ': ' : '') + details.name,
+        items: []
+      }
+      socket.emit('tests-start')
+    })
 
-        QUnit.log((details) => {
-            const item = {
-                passed: details.result,
-                message: details.message
-            }
+    window.QUnit.testDone((details) => {
+      currentTest.failed = details.failed
+      currentTest.passed = details.passed
+      currentTest.total = details.total
 
-            if (!details.result) {
-                item.actual = details.actual;
-                item.expected = details.expected;
-            }
+      results.total++
 
-            currentTest.items.push(item);
-        });
+      if (currentTest.failed > 0) {
+        results.failed++
+      } else {
+        results.passed++
+      }
 
-        QUnit.testStart((details) => {
-            currentTest = {
-                id: id++,
-                name: (currentModule ? currentModule + ': ' : '') + details.name,
-                items: []
-            };
-            socket.emit('tests-start');
-        });
+      results.tests.push(currentTest)
+      socket.emit('test-result', currentTest)
+    })
 
-        QUnit.testDone((details) => {
-            currentTest.failed = details.failed;
-            currentTest.passed = details.passed;
-            currentTest.total = details.total;
+    window.QUnit.moduleStart((details) => {
+      currentModule = details.name
+    })
 
-            results.total++;
+    window.QUnit.done((details) => {
+      results.runDuration = details.runtime
+      socket.emit('all-test-results', results)
+    })
+  }
 
-            if (currentTest.failed > 0) {
-                results.failed++;
-            } else {
-                results.passed++;
-            }
+  function setQUnitAdapter (serverURL) {
+    const socket = window.io(serverURL)
 
-            results.tests.push(currentTest);
-            socket.emit('test-result', currentTest);
-        });
+    socket.on('connect', () => socket.emit('browser-login', 'Electron', 1))
+    socket.on('start-tests', () => {
+      socket.disconnect()
+      window.location.reload()
+    })
 
-        QUnit.moduleStart((details) => {
-            currentModule = details.name;
-        });
+    qunitAdapter(socket)
+  }
 
-        QUnit.done((details) => {
-            results.runDuration = details.runtime;
-            socket.emit('all-test-results', results);
-        });
-    }
-
-    window.addEventListener('load', function () {
-        setQUnitAdapter(process.env.ELECTRON_TESTEM_SERVER_URL);
-    });
-}(this));
+  window.addEventListener('load', function () {
+    setQUnitAdapter(process.env.ELECTRON_TESTEM_SERVER_URL)
+  })
+}(this))
