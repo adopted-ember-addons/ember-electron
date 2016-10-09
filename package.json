@@ -66,7 +66,7 @@
     "electron-packager": "^8.0.0",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-version-checker": "^1.1.6",
-    "ember-inspector": "^1.9.5",
+    "ember-inspector": "2.0.3",
     "express": "^4.14.0",
     "fs-extra": "^0.30.0",
     "globby": "^6.0.0",
@@ -82,6 +82,8 @@
     "defaultBlueprint": "ember-electron"
   },
   "standard": {
-    "env": [ "mocha" ]
+    "env": [
+      "mocha"
+    ]
   }
 }
