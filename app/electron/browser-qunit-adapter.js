@@ -1,3 +1,5 @@
+/* global QUnit, io */
+
 ;(function (window) {
   'use strict'
 
@@ -18,7 +20,7 @@
       tests: []
     }
 
-    window.QUnit.log((details) => {
+    QUnit.log((details) => {
       const item = {
         passed: details.result,
         message: details.message
@@ -32,7 +34,7 @@
       currentTest.items.push(item)
     })
 
-    window.QUnit.testStart((details) => {
+    QUnit.testStart((details) => {
       currentTest = {
         id: id++,
         name: (currentModule ? currentModule + ': ' : '') + details.name,
@@ -41,7 +43,7 @@
       socket.emit('tests-start')
     })
 
-    window.QUnit.testDone((details) => {
+    QUnit.testDone((details) => {
       currentTest.failed = details.failed
       currentTest.passed = details.passed
       currentTest.total = details.total
@@ -58,18 +60,18 @@
       socket.emit('test-result', currentTest)
     })
 
-    window.QUnit.moduleStart((details) => {
+    QUnit.moduleStart((details) => {
       currentModule = details.name
     })
 
-    window.QUnit.done((details) => {
+    QUnit.done((details) => {
       results.runDuration = details.runtime
       socket.emit('all-test-results', results)
     })
   }
 
   function setQUnitAdapter (serverURL) {
-    const socket = window.io(serverURL)
+    const socket = io(serverURL)
 
     socket.on('connect', () => socket.emit('browser-login', 'Electron', 1))
     socket.on('start-tests', () => {
