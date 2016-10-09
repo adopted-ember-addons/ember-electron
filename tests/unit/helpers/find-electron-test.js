@@ -33,7 +33,7 @@ describe('electron-finder', () => {
           }
         })
 
-        findElectron = require('../../../lib/helpers/find-electron')
+        findElectron = require('../../../lib/helpers/find-electron').getElectronApp
       })
 
       after(() => {
@@ -63,7 +63,7 @@ describe('electron-finder', () => {
           }
         })
 
-        findElectron = require('../../../lib/helpers/find-electron')
+        findElectron = require('../../../lib/helpers/find-electron').getElectronApp
       })
 
       after(() => {
@@ -93,7 +93,7 @@ describe('electron-finder', () => {
           }
         })
 
-        findElectron = require('../../../lib/helpers/find-electron')
+        findElectron = require('../../../lib/helpers/find-electron').getElectronApp
       })
 
       after(() => {
@@ -118,7 +118,7 @@ describe('electron-finder', () => {
     let findElectron, _envElectron
 
     before(() => {
-      findElectron = require('../../../lib/helpers/find-electron')
+      findElectron = require('../../../lib/helpers/find-electron').getElectronApp
     })
 
     beforeEach(() => {
