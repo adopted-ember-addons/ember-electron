@@ -1,4 +1,4 @@
-/* global QUnit, io */
+/* global QUnit */
 
 ;(function (window) {
   'use strict'

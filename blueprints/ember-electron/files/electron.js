@@ -3,7 +3,8 @@
 
 const electron             = require('electron');
 const path                 = require('path');
-const {app, BrowserWindow} = electron;
+const app, BrowserWindow   = electron.app;
+const BrowserWindow        = electron.BrowserWindow;
 const dirname              = __dirname || path.resolve(path.dirname());
 const emberAppLocation     = `file://${dirname}/dist/index.html`;
 
