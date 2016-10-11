@@ -4,7 +4,7 @@ module.exports = function (environment) {
   var ENV = {
     modulePrefix: '<%= dasherizedPackageName %>',
     environment: environment,
-    baseURL: '/',
+    rootURL: null,
     // Uncomment below to allow "ember serve" & "ember electron" to both run.
     // Note ember serve must be run first at this time.
     // Security must be considered in this case, but may prove useful

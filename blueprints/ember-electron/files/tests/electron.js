@@ -1,7 +1,7 @@
 /* jshint undef: false */
 
-const BrowserWindow = require('electron').BrowserWindow
-const app = require('electron').app
+const BrowserWindow = require('electron').BrowserWindow;
+const app = require('electron').app;
 
 let mainWindow = null;
 
