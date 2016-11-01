@@ -13,7 +13,9 @@ Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-n
 To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
 
 ## Installation and Usage
-To install the addon, ensure you're at least on Node v6 and run:
+> :warning: This addon needs at least Node 6.
+
+To install the addon, run:
 ```
 ember install ember-electron
 ```
