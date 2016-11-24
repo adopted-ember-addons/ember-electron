@@ -59,6 +59,7 @@
     "chromium"
   ],
   "dependencies": {
+    "7zip-bin": "^2.0.4",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
