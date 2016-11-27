@@ -90,6 +90,14 @@ module.exports = {
           entitlements: null,
           'entitlements-inherit': null
         },
+        'win-opts': {
+          'loading-gif': null,
+          'icon-url': null,
+          'remote-releases': null,
+          'certificate-file': null,
+          'certificate-password': null,
+          'sign-with-params': null,
+        },
         overwrite: null,
         prune: null,
         'strict-ssl': null,
