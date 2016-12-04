@@ -79,6 +79,9 @@
     "socket.io": "^1.4.8",
     "testem": "^1.4.0"
   },
+  "optionalDependencies": {
+    "electron-winstaller": "^2.5.0"
+  },
   "ember-addon": {
     "defaultBlueprint": "ember-electron"
   },
