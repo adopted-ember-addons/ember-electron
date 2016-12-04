@@ -50,7 +50,7 @@
     "mock-spawn": "^0.2.6",
     "mockery": "^1.4.0",
     "sinon": "^1.17.2",
-    "standard": "^8.3.0"
+    "standard": "^8.6.0"
   },
   "keywords": [
     "ember-addon",
@@ -63,10 +63,10 @@
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
     "chalk": "^1.1.0",
-    "electron-packager": "^8.0.0",
+    "electron-packager": "^8.3.0",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-version-checker": "^1.1.6",
-    "ember-inspector": "2.0.3",
+    "ember-inspector": "2.0.4",
     "express": "^4.14.0",
     "fs-extra": "^0.30.0",
     "globby": "^6.0.0",
