@@ -139,6 +139,8 @@ You can pass options to the packager by either putting configuration into your a
 
 ### Used for Windows builds only
 
+**Note:** Windows builds on non-Windows platforms require [Wine](https://www.winehq.org/) to be available on your PATH before the build/package step is executed.
+
 * `--win32metadata` - *Object* Object hash of application metadata to embed into the executable (Windows only):
 
   - `CompanyName` - *String*
