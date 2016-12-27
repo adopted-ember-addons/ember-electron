@@ -118,7 +118,7 @@ You can pass options to the packager by either putting configuration into your a
 * `--name` - *String* The application name.
 * `--out` - *String* The directory where electron builds are saved. Defaults to `electron-builds/`.
 * `--overwrite` - *Boolean* Whether to replace an already existing output directory for a given platform (`true`) or skip recreating it (`false`). Defaults to `false`.
-* `--platform` - *String* Allowed values: *linux, win32, darwin, mas, all*
+* `--platform` - *String* Target platform for build outputs. Allowed values: *linux, win32, darwin, mas, all* 
 * `--prune` - *Boolean* Runs [`npm prune --production`](https://docs.npmjs.com/cli/prune) before starting to package the app.
 * `--version` - *String* Electron version (without the 'v') - for example, [`0.33.9`](https://github.com/atom/electron/releases/tag/v0.33.9), see [Electron releases](https://github.com/atom/electron/releases) for valid versions
 
@@ -138,6 +138,8 @@ You can pass options to the packager by either putting configuration into your a
 * `--protocol-name` - *Strings* The descriptive name of the URL protocol scheme(s) specified via the `protocol` option. Maps to the `CFBundleURLName` metadata property.
 
 ### Used for Windows builds only
+
+**Note:** Windows builds on non-Windows platforms require [Wine](https://www.winehq.org/) to be available on your PATH before the build/package step is executed.
 
 * `--win32metadata` - *Object* Object hash of application metadata to embed into the executable (Windows only):
 
