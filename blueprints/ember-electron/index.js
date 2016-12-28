@@ -95,7 +95,7 @@ module.exports = {
         'protocol': [],
         'protocol-names': [],
         'strict-ssl': null,
-        'version-string': {
+        'win32metadata': {
           CompanyName: null,
           FileDescription: null,
           OriginalFilename: null,
