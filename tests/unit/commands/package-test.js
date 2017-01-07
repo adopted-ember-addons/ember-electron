@@ -2,14 +2,13 @@
 
 const mockery = require('mockery')
 const RSVP = require('rsvp')
-const Command = require('ember-cli/lib/models/command')
 const MockUI = require('ember-cli/tests/helpers/mock-ui')
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics')
 const MockProject = require('../../helpers/mocks/project')
 const expect = require('../../helpers/expect')
 
 describe('ember electron:package command', () => {
-  var CommandUnderTest, commandOptions, _envElectron
+  let CommandUnderTest, commandOptions, _envElectron
 
   before(() => {
     process.env.EMBER_ELECTRON_TESTING = true
@@ -27,14 +26,9 @@ describe('ember electron:package command', () => {
     _envElectron = process.env.ELECTRON_PATH
     delete process.env.ELECTRON_PATH
 
-    var mockPackager = function (options, done) {
-      done()
-    }
-
+    let mockPackager = (options, done) => done()
     mockery.registerMock('electron-packager', mockPackager)
-
-    let cmd = require('../../../lib/commands/package')
-    CommandUnderTest = Command.extend(cmd)
+    CommandUnderTest = require('../../../lib/commands/package')
 
     commandOptions = {
       ui: new MockUI(),

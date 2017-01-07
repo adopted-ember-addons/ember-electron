@@ -98,7 +98,7 @@ module.exports = {
           'remote-releases': null,
           'certificate-file': null,
           'certificate-password': null,
-          'sign-with-params': null,
+          'sign-with-params': null
         },
         overwrite: null,
         prune: null,

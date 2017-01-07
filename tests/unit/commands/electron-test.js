@@ -11,7 +11,7 @@ const MockProject = require('../../helpers/mocks/project')
 const expect = require('../../helpers/expect')
 
 describe('ember electron command', () => {
-  var CommandUnderTest, commandOptions, spawn, platform, _envElectron
+  let CommandUnderTest, commandOptions, spawn, platform, _envElectron
 
   before(() => {
     mockery.enable({
@@ -29,21 +29,14 @@ describe('ember electron command', () => {
     delete process.env.ELECTRON_PATH
 
     spawn = mockSpawn()
-    mockery.registerMock('child_process', {
-      spawn: spawn
-    })
+    mockery.registerMock('child_process', {spawn})
+    mockery.registerMock('os', { platform: () => platform || os.platform() })
     mockery.registerMock('../helpers/debug-server', {
-      setRemoteDebugSocketScript: function () {},
-      start: function () {}
+      setRemoteDebugSocketScript () {},
+      start () {}
     })
 
-    platform = os.platform()
-    mockery.registerMock('os', {
-      platform: function () { return platform }
-    })
-
-    let cmd = require('../../../lib/commands/electron')
-    CommandUnderTest = Command.extend(cmd)
+    CommandUnderTest = Command.extend(require('../../../lib/commands/electron'))
 
     commandOptions = {
       ui: new MockUI(),
@@ -105,7 +98,7 @@ describe('ember electron command', () => {
   })
 
   it('should not keep watching if Electron fails to run', function () {
-    var tasks = []
+    let tasks = []
 
     commandOptions.buildWatch = function () {
       tasks.push('buildWatch')
@@ -117,7 +110,7 @@ describe('ember electron command', () => {
       return RSVP.reject()
     }
 
-    var command = new CommandUnderTest(commandOptions).validateAndRun()
+    let command = new CommandUnderTest(commandOptions).validateAndRun()
 
     return expect(command).to.be.rejected.then(() => {
       expect(tasks).to.deep.equal(['buildWatch', 'runElectron'])
