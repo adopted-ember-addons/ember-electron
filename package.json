@@ -59,6 +59,7 @@
     "chromium"
   ],
   "dependencies": {
+    "7zip-bin": "^2.0.4",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
@@ -77,6 +78,9 @@
     "rsvp": "^3.2.1",
     "socket.io": "^1.4.8",
     "testem": "^1.4.0"
+  },
+  "optionalDependencies": {
+    "electron-winstaller": "^2.5.0"
   },
   "ember-addon": {
     "defaultBlueprint": "ember-electron"
