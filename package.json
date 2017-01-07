@@ -70,7 +70,7 @@
     "ember-cli-version-checker": "^1.1.6",
     "ember-inspector": "2.0.4",
     "express": "^4.14.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "globby": "^6.0.0",
     "lodash": "^4.15.0",
     "npmi": "^2.0.1",
