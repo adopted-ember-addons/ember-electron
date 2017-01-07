@@ -90,10 +90,18 @@ module.exports = {
           entitlements: null,
           'entitlements-inherit': null
         },
-        'overwrite': null,
-        'prune': null,
         'protocol': [],
         'protocol-names': [],
+        'win-opts': {
+          'loading-gif': null,
+          'icon-url': null,
+          'remote-releases': null,
+          'certificate-file': null,
+          'certificate-password': null,
+          'sign-with-params': null,
+        },
+        overwrite: null,
+        prune: null,
         'strict-ssl': null,
         'win32metadata': {
           CompanyName: null,
