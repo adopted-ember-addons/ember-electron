@@ -34,8 +34,10 @@
     QUnit.log((details) => {
       if (details.result !== true) {
         const actualTestCount = testCount + 1
-        log(`# ${JSON.stringify(details)}`)
         log(`not ok ${actualTestCount} - ${details.module} - ${details.name}`)
+        log('  ---')
+        log(`  ${JSON.stringify(details)}`)
+        log('  ...')
       }
     })
 
