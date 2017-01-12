@@ -67,6 +67,7 @@
     "chromium"
   ],
   "dependencies": {
+    "broccoli-file-creator": "^1.1.1",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
@@ -76,18 +77,21 @@
     "ember-cli-version-checker": "^1.1.6",
     "ember-inspector": "2.0.4",
     "express": "^4.14.0",
+    "file-url": "^1.1.0",
     "fs-extra": "^1.0.0",
     "globby": "^6.0.0",
     "lodash": "^4.15.0",
     "npmi": "^2.0.1",
-    "optimist": "0.6.1",
     "quick-temp": "^0.1.5",
     "rsvp": "^3.2.1",
     "socket.io": "^1.4.8",
-    "testem": "^1.4.0"
+    "testem": "^1.15.0"
   },
   "ember-addon": {
-    "defaultBlueprint": "ember-electron"
+    "defaultBlueprint": "ember-electron",
+    "versionCompatibility": {
+      "ember": ">=2.3.0"
+    }
   },
   "standard": {
     "env": [

@@ -12,6 +12,8 @@ app.on('window-all-closed', function onWindowAllClosed() {
 });
 
 app.on('ready', function onReady() {
+    let testUrl = process.argv[2];
+
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
@@ -20,11 +22,7 @@ app.on('ready', function onReady() {
 
     delete mainWindow.module;
 
-    if (process.env.EMBER_ENV === 'test') {
-        mainWindow.loadURL('file://' + __dirname + '/index.html');
-    } else {
-        mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
-    }
+    mainWindow.loadURL(testUrl);
 
     mainWindow.on('closed', function onClosed() {
         mainWindow = null;
