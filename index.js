@@ -4,7 +4,7 @@
 var fs = require('fs');
 var path = require('path');
 
-var getRemoteDebugSocketScript = require('./lib/helpers/remote-debug-script');
+const InspectorServer = require('ember-electron/lib/utils/inspector-server');
 
 function injectScript(scriptName) {
     var dirname = __dirname || path.resolve(path.dirname());
@@ -12,10 +12,6 @@ function injectScript(scriptName) {
     return '<script>\n' + fs.readFileSync(filePath, {
             encoding: 'utf8'
         }) + '\n</script>';
-}
-
-function injectDebugScript(port, host, scheme) {
-    return '<script src="http://localhost:30820/ember_debug.js"></script>';
 }
 
 module.exports = {
@@ -122,7 +118,13 @@ module.exports = {
         }
 
         if (type === 'body' && process.env.EMBER_ENV === 'development' && process.env.EMBER_CLI_ELECTRON) {
-            return getRemoteDebugSocketScript(port, host) + injectDebugScript();
+          // todo: can we make these configurable?
+          let server = new InspectorServer({
+            host: 'localhost',
+            port: 30820
+          });
+
+          return server.inspectorScriptInjections({ includeDebugJs: true });
         }
     }
 };
