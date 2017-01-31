@@ -65,7 +65,7 @@
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
     "chalk": "^1.1.0",
-    "electron-forge": "^2.7.5",
+    "electron-forge": "isleofcode/electron-forge",
     "electron-packager": "^8.3.0",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-version-checker": "^1.1.6",
