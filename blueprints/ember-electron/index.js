@@ -31,9 +31,10 @@ class EmberElectronBlueprint extends Blueprint {
   afterInstall(options) {
     let logger = new Logger(this);
 
-    return forgeImport()
+    logger.startProgress('Installing electron build tools');
+
+    return forgeImport({ updateScripts: false })
       .then(() => this._ensurePackageJsonMainConfigured())
-      .then(() => this._ensureElectronPrebuiltCompile())
       .then(() => {
         // todo: update readme once upstream forge needs confirmed
         let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!'
@@ -70,23 +71,8 @@ class EmberElectronBlueprint extends Blueprint {
     return denodeify(readJson)(packageJsonPath)
       .then((json) => {
         json.main = 'electron.js';
-        return denodeify(writeJson)(packageJsonPath, json);
+        return denodeify(writeJson)(packageJsonPath, json, { spaces: 2 });
       });
-  }
-
-  // todo: rm once defaults are supported by forge import
-  //       - else will need to override addPackageToProject and use --save-exact
-  //       https://github.com/electron-userland/electron-forge/issues/108#issuecomment-275970938
-  _ensureElectronPrebuiltCompile() {
-    let dependencies = this.project.dependencies();
-    let dep = {
-      name: 'electron-prebuilt-compile',
-      target: '1.4.15'
-    };
-
-    if (dependencies[dep.name] === undefined) {
-      return this.addPackageToProject(dep.name, dep.target);
-    }
   }
 };
 
