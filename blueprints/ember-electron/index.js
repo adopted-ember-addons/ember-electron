@@ -67,7 +67,6 @@ class EmberElectronBlueprint extends Blueprint {
       return resolve();
     }
 
-    // todo: n.b. felix rm'ed dry run
     return denodeify(readJson)(packageJsonPath)
       .then((json) => {
         json.main = 'electron.js';
