@@ -99,9 +99,6 @@ module.exports = {
     },
 
     contentFor: function(type) {
-        var port = 30820,
-            host = 'localhost';
-
         if (type === 'head') {
             return injectScript('shim-head.js');
         }
