@@ -2,13 +2,40 @@
 
 const path = require('path')
 const mockery = require('mockery')
+const tmp = require('tmp')
+const denodeify = require('rsvp').denodeify
+const ncp = denodeify(require('ncp'))
+const copySync = require('fs-extra').copySync
+const execSync = require('child_process').execSync
 const expect = require('../../helpers/expect')
 
 describe('electron-finder', () => {
-  let fixturePath
+  let tmpObj
+  let findElectron
+
+  function setupFixture (name, platform) {
+    let fixturesPath = path.resolve(__dirname, '..', '..', 'fixtures')
+    let fixturePath = path.join(fixturesPath, name)
+    let destPath = path.join(tmpObj.name, name)
+    return ncp(fixturePath, destPath).then(() => {
+      let helpersPath = path.resolve(__dirname, '..', '..', '..', 'lib', 'helpers')
+      return ncp(helpersPath, destPath)
+    }).then(() => {
+      let scriptPath = path.join(destPath, 'test-find-electron.js')
+      copySync(path.join(fixturesPath, 'test-find-electron.js'), scriptPath)
+      findElectron = function () {
+        return execSync('node ' + scriptPath + ' ' + platform, { cwd: destPath }).toString()
+      }
+    })
+  }
 
   before(() => {
-    fixturePath = path.resolve(__dirname, '..', '..', 'fixtures')
+    tmpObj = tmp.dirSync({ unsafeCleanup: true })
+  })
+
+  after(() => {
+    tmpObj.removeCallback()
+    findElectron = undefined
   })
 
   describe('when the `electron-prebuilt` npm package is installed', () => {
@@ -24,8 +51,6 @@ describe('electron-finder', () => {
     })
 
     describe('and the platform is Mac', () => {
-      let findElectron
-
       before(() => {
         mockery.registerMock('os', {
           platform: function () {
@@ -33,7 +58,7 @@ describe('electron-finder', () => {
           }
         })
 
-        findElectron = require('../../../lib/helpers/find-electron').getElectronApp
+        return setupFixture('project-darwin', 'darwin')
       })
 
       after(() => {
@@ -42,11 +67,7 @@ describe('electron-finder', () => {
       })
 
       it('should be `node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron`', function () {
-        let project = {
-          root: path.join(fixturePath, 'project-darwin')
-        }
-
-        let electron = findElectron(project)
+        let electron = findElectron()
         let expectedElectron = ['node_modules', 'electron-prebuilt', 'dist', 'Electron.app', 'Contents', 'MacOS', 'Electron'].join(path.sep)
 
         expect(electron).to.contain(expectedElectron)
@@ -54,8 +75,6 @@ describe('electron-finder', () => {
     })
 
     describe('and the platform is Windows', () => {
-      let findElectron
-
       before(() => {
         mockery.registerMock('os', {
           platform: function () {
@@ -63,7 +82,7 @@ describe('electron-finder', () => {
           }
         })
 
-        findElectron = require('../../../lib/helpers/find-electron').getElectronApp
+        return setupFixture('project-win32', 'win32')
       })
 
       after(() => {
@@ -72,11 +91,7 @@ describe('electron-finder', () => {
       })
 
       it('should be `node_modules/electron/electronjs/electron.exe`', () => {
-        let project = {
-          root: path.join(fixturePath, 'project-win32')
-        }
-
-        let electron = findElectron(project)
+        let electron = findElectron()
         let expectedElectron = ['node_modules', 'electron-prebuilt', 'dist', 'electron.exe'].join(path.sep)
 
         expect(electron).to.contain(expectedElectron)
@@ -84,8 +99,6 @@ describe('electron-finder', () => {
     })
 
     describe('and the platform is not Mac or Windows (aka Linux)', () => {
-      let findElectron
-
       before(() => {
         mockery.registerMock('os', {
           platform: function () {
@@ -93,7 +106,7 @@ describe('electron-finder', () => {
           }
         })
 
-        findElectron = require('../../../lib/helpers/find-electron').getElectronApp
+        return setupFixture('project-linux', 'linux')
       })
 
       after(() => {
@@ -102,11 +115,7 @@ describe('electron-finder', () => {
       })
 
       it('should be `node_modules/electron-prebuilt/dist/electron`', () => {
-        let project = {
-          root: path.join(fixturePath, 'project-linux')
-        }
-
-        let electron = findElectron(project)
+        let electron = findElectron()
         let expectedElectron = ['node_modules', 'electron-prebuilt', 'dist', 'electron'].join(path.sep)
 
         expect(electron).to.contain(expectedElectron)
@@ -115,10 +124,10 @@ describe('electron-finder', () => {
   })
 
   describe('when the `electron-prebuilt` npm package is not installed', () => {
-    let findElectron, _envElectron
+    let _envElectron
 
     before(() => {
-      findElectron = require('../../../lib/helpers/find-electron').getElectronApp
+      return setupFixture('project-empty')
     })
 
     beforeEach(() => {
@@ -131,27 +140,19 @@ describe('electron-finder', () => {
 
     describe('and the `ELECTRON_PATH` environment variable is set', () => {
       it('should be the value of `ELECTRON_PATH`', () => {
-        let project = {
-          root: path.join(fixturePath, 'project-empty')
-        }
-
         let envElectron = '/custom/path/to/nw'
         process.env.ELECTRON_PATH = envElectron
 
-        let nw = findElectron(project)
+        let nw = findElectron()
         expect(nw).to.equal(envElectron)
       })
     })
 
     describe('and the `ELECTRON_PATH` environment variable is not set', () => {
       it('should be `electron`', () => {
-        let project = {
-          root: path.join(fixturePath, 'project-empty')
-        }
-
         delete process.env.ELECTRON_PATH
 
-        let electron = findElectron(project)
+        let electron = findElectron()
         expect(electron).to.equal('Electron')
       })
     })

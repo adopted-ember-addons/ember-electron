@@ -55,8 +55,10 @@
     "mocha-standard": "^1.0.0",
     "mock-spawn": "^0.2.6",
     "mockery": "^1.4.0",
+    "ncp": "^2.0.0",
     "sinon": "^1.17.2",
-    "standard": "^8.6.0"
+    "standard": "^8.6.0",
+    "tmp": "0.0.31"
   },
   "keywords": [
     "ember-addon",
