@@ -69,7 +69,7 @@ class EmberElectronBlueprint extends Blueprint {
 
     return denodeify(readJson)(packageJsonPath)
       .then((json) => {
-        json.main = 'electron.js';
+        json.main = 'ember-electron/electron.js';
         return denodeify(writeJson)(packageJsonPath, json, { spaces: 2 });
       });
   }
