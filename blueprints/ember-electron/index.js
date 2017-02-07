@@ -34,7 +34,7 @@ class EmberElectronBlueprint extends Blueprint {
     logger.startProgress('Installing electron build tools');
 
     return forgeImport({ updateScripts: false })
-      .then(() => this._ensurePackageJsonMainConfigured())
+      .then(() => this._ensurePackageJsonConfiguration())
       .then(() => {
         // todo: update readme once upstream forge needs confirmed
         let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!'
@@ -60,7 +60,7 @@ class EmberElectronBlueprint extends Blueprint {
     return { baseURLOption, baseURLTestOption };
   }
 
-  _ensurePackageJsonMainConfigured() {
+  _ensurePackageJsonConfiguration() {
     let packageJsonPath = path.join(this.project.root, 'package.json');
 
     if (this.project.pkg.main !== undefined) {
@@ -70,6 +70,18 @@ class EmberElectronBlueprint extends Blueprint {
     return denodeify(readJson)(packageJsonPath)
       .then((json) => {
         json.main = 'ember-electron/electron.js';
+
+        if (json.config === undefined) {
+          json.config = {};
+        }
+
+        json.config['ember-electron'] = {
+          'copy-files': [
+            'ember-electron/electron.js',
+            'package.json'
+          ]
+        };
+
         return denodeify(writeJson)(packageJsonPath, json, { spaces: 2 });
       });
   }
