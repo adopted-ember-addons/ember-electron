@@ -1,5 +1,5 @@
 'use strict'
-
+const sinon = require('sinon')
 const mockery = require('mockery')
 const RSVP = require('rsvp')
 const MockUI = require('ember-cli/tests/helpers/mock-ui')
@@ -130,6 +130,27 @@ describe('ember electron:package command', () => {
 
     return expect(command).to.be.rejected.then(() => {
       expect(tasks).to.deep.equal(['build'])
+    })
+  })
+
+  it('should call ui.startProgress() and ui.stopProgress()', () => {
+    const uiSpyStart = sinon.spy(commandOptions.ui, 'startProgress')
+    const uiSpyStop = sinon.spy(commandOptions.ui, 'stopProgress')
+    commandOptions.tasks = {
+      Build: function () {
+        return {
+          run: function (options) {
+            return RSVP.resolve()
+          }
+        }
+      }
+    }
+
+    let command = new CommandUnderTest(commandOptions).validateAndRun()
+
+    return expect(command).to.be.fulfilled.then(() => {
+      expect(uiSpyStart.calledOnce).to.equal(true)
+      expect(uiSpyStop.calledOnce).to.equal(true)
     })
   })
 })
