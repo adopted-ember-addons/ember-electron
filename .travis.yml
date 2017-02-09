@@ -7,11 +7,19 @@ node_js:
   - "6.0"
   - "7.0"
 
+cache:
+  directories:
+    - $HOME/.npm
+    - $HOME/.cache # includes bowers cache
+
 before_install:
-  - "npm config set spin false"
+  - npm config set spin false
+  - npm install -g bower
+  - bower --version
 
 install:
   - npm install --no-optional
+  - bower install
 
 script:
   - npm test
