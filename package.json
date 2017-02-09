@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/runner.js",
+    "test": "node node-tests/runner.js",
     "lint": "standard lib/**/*.js blueprints/ember-electron/index.js"
   },
   "repository": "https://github.com/felixrieseberg/ember-electron",
