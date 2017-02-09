@@ -7,7 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node node-tests/runner.js",
+    "test": "npm run test-node && ember electron:test",
+    "test-node": "mocha ./node-tests/unit/**",
     "lint": "standard lib/**/*.js blueprints/ember-electron/index.js"
   },
   "repository": "https://github.com/felixrieseberg/ember-electron",
@@ -32,6 +33,8 @@
     "broccoli-asset-rev": "^2.4.5",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
+    "console-ui": "^1.0.3",
+    "electron": "^1.4.15",
     "ember-ajax": "^2.4.1",
     "ember-cli": "2.11.0",
     "ember-cli-app-version": "^2.0.0",

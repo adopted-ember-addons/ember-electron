@@ -5,7 +5,7 @@ const mockSpawn = require('mock-spawn')
 const RSVP = require('rsvp')
 const os = require('os')
 const Command = require('ember-cli/lib/models/command')
-const MockUI = require('ember-cli/tests/helpers/mock-ui')
+const MockUI = require('console-ui/mock')
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics')
 const MockProject = require('../../helpers/mocks/project')
 const expect = require('../../helpers/expect')
@@ -118,6 +118,10 @@ describe('ember electron command', () => {
   })
 
   it('should spawn a `Electron` process with the right arguments', () => {
+    mockery.registerMock('../helpers/find-electron', {
+      getElectronApp () { return 'Electron' }
+    })
+
     commandOptions.buildWatch = function () {
       return RSVP.resolve()
     }
@@ -127,7 +131,7 @@ describe('ember electron command', () => {
 
     return expect(command).to.be.fulfilled.then(() => {
       expect(spawn.calls.length).to.equal(1)
-      expect(spawn.calls[0].command).to.equal('Electron')
+      expect(spawn.calls[0].command).to.contain('Electron')
       expect(spawn.calls[0].args).to.deep.equal(['.'])
 
       expect(ui.output).to.contain('Starting Electron...')
@@ -164,6 +168,10 @@ describe('ember electron command', () => {
   })
 
   it('should print a friendly message when the `Electron` command cannot be found', () => {
+    mockery.registerMock('../helpers/find-electron', {
+      getElectronApp () { return 'Electron' }
+    })
+
     commandOptions.buildWatch = function () {
       return RSVP.resolve()
     }

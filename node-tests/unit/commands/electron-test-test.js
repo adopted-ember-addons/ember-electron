@@ -1,6 +1,6 @@
 'use strict'
 
-const MockUI = require('ember-cli/tests/helpers/mock-ui')
+const MockUI = require('console-ui/mock')
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics')
 const MockProject = require('../../helpers/mocks/project')
 const expect = require('../../helpers/expect')
