@@ -90,6 +90,10 @@
   "standard": {
     "env": [
       "mocha"
+    ],
+    "ignore": [
+      "lib/resources/**/*.js",
+      "lib/blueprints/**/*.js"
     ]
   }
 }
