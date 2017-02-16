@@ -74,7 +74,7 @@ By default, ember-electron will package your whole `dist` folder and all product
 "ember-electron": {
   "copy-files": [
     "package.json",
-    "electron.js"
+    "electron.js",
     "main/*"
   ],
 }
