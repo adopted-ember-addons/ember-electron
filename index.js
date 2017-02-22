@@ -44,7 +44,7 @@ module.exports = {
             'electron': require('./lib/commands/electron'),
             'electron:test': require('./lib/commands/electron-test'),
             'electron:package': require('./lib/commands/package'),
-            'electron:ship': require('./lib/commands/ship')
+            'electron:make': require('./lib/commands/make')
         };
     },
 
