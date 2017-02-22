@@ -115,7 +115,6 @@ module.exports = {
         }
 
         if (type === 'body' && process.env.EMBER_ENV === 'development' && process.env.EMBER_CLI_ELECTRON) {
-          // todo: can we make these configurable?
           let server = new InspectorServer({
             host: 'localhost',
             port: 30820

@@ -36,7 +36,6 @@ class EmberElectronBlueprint extends Blueprint {
     return forgeImport({ updateScripts: false })
       .then(() => this._ensurePackageJsonConfiguration())
       .then(() => {
-        // todo: update readme once upstream forge needs confirmed
         let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!'
 
         logger.message(configMessage, logger.chalk.yellow)
@@ -44,7 +43,6 @@ class EmberElectronBlueprint extends Blueprint {
       })
   }
 
-  // todo: replace with direct replacement in config/env & log warnings
   locals (options) {
     const checker = new VersionChecker(this)
     const dep = checker.for('ember-cli', 'npm')
