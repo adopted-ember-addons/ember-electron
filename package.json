@@ -19,6 +19,11 @@
     "email": "felix@felixrieseberg.com",
     "url": "http://www.felixrieseberg.com"
   },
+  "contributors": [{
+    "name": "Aidan Nulman",
+    "email": "aidan@isleofcode.com",
+    "url": "https://isleofcode.com"
+  }],
   "bugs": {
     "url": "https://github.com/felixrieseberg/ember-electron/issues"
   },
