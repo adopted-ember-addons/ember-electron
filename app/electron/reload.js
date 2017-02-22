@@ -61,8 +61,13 @@
 
       if (results && results.isDirectory && results.isDirectory()) {
         var BrowserWindow = window.requireNode('electron').remote.BrowserWindow
+        var added = BrowserWindow.getDevToolsExtensions &&
+          BrowserWindow.getDevToolsExtensions().hasOwnProperty('Ember Inspector')
+
         try {
-          BrowserWindow.addDevToolsExtension(location)
+          if (!added) {
+            BrowserWindow.addDevToolsExtension(location)
+          }
         } catch (err) {
           // no-op
         }
