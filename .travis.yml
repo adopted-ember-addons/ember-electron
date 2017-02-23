@@ -1,4 +1,3 @@
-
 language: node_js
 
 sudo: false
@@ -6,6 +5,17 @@ sudo: false
 node_js:
   - "6.0"
   - "7.0"
+
+env:
+  - CXX=g++-4.8
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - xvfb
+      - g++-4.8
 
 cache:
   directories:
@@ -18,8 +28,10 @@ before_install:
   - bower --version
 
 install:
-  - npm install --no-optional
+  - npm install
   - bower install
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
 script:
   - npm test
