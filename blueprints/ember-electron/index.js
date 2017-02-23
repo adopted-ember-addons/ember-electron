@@ -4,7 +4,7 @@ const fs = require('fs-extra')
 const path = require('path')
 
 const Blueprint = require('ember-cli/lib/models/blueprint')
-const Logger = require('ember-electron/lib/utils/logger')
+const Logger = require('../../lib/utils/logger')
 const forgeImport = require('electron-forge/dist/api/import').default
 
 const {

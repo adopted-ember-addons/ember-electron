@@ -4,7 +4,7 @@
 var fs = require('fs');
 var path = require('path');
 
-const InspectorServer = require('ember-electron/lib/utils/inspector-server');
+const InspectorServer = require('./lib/utils/inspector-server');
 
 function injectScript(scriptName) {
     var dirname = __dirname || path.resolve(path.dirname());
