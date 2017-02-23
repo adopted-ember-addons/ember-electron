@@ -1,16 +1,10 @@
 /* jshint node: true */
 
-module.exports = function (environment) {
+module.exports = function(environment) {
   var ENV = {
-    modulePrefix: '<%= dasherizedPackageName %>',
+    modulePrefix: 'ember-electron',
     environment: environment,
-    rootURL: null,
-    // Uncomment below to allow "ember serve" & "ember electron" to both run.
-    // Note ember serve must be run first at this time.
-    // Security must be considered in this case, but may prove useful
-    // in testing and prototyping.
-    //
-    // locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
+    rootURL: '/',
     locationType: 'hash',
     EmberENV: {
       FEATURES: {
@@ -23,7 +17,7 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
-  }
+  };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -35,7 +29,6 @@ module.exports = function (environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
@@ -49,4 +42,4 @@ module.exports = function (environment) {
   }
 
   return ENV;
-}
+};

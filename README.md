@@ -59,6 +59,11 @@ To test your app, run `ember electron:test`. If you prefer the live-reload mode,
 * `--module` - The name of a test module to run
 * `--filter` - A string to filter tests to run
 
+When running `ember electron:test`, testem is configured to use `/testem-electron.js`
+instead of `/testem.js` (to allow projects to run as traditional ember apps as well
+as electron apps). The blueprint will install this file, but if you want to modify
+it to change any testem configuration, make sure to modify the right file.
+
 ## Packaging
 Ember-Electron comes with an integrated packager to create binaries (.app, .exe etc), which can be run with `ember electron:package`. By default, the packager creates binaries for all platforms and architectures using your app's name and version as defined in `package.json`. Under the hood, it uses the popular [electron-packager](https://github.com/maxogden/electron-packager) module.
 
@@ -149,6 +154,16 @@ You can pass options to the packager by either putting configuration into your a
   - `OriginalFilename` - *String*
   - `ProductName` - *String*
   - `InternalName` - *String*
+
+# Upgrading
+
+If you are upgrading to version 2.x from 1.x, you will need to make some updates to
+your application. The best way to do this is to re-run the blueprint after upgrading
+`ember-electron`:
+
+```
+ember generate ember-electron
+```
 
 # Advanced Usage
 

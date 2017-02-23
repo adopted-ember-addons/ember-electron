@@ -4,7 +4,7 @@
 var fs = require('fs');
 var path = require('path');
 
-const InspectorServer = require('ember-electron/lib/utils/inspector-server');
+const InspectorServer = require('./lib/utils/inspector-server');
 
 function injectScript(scriptName) {
     var dirname = __dirname || path.resolve(path.dirname());
@@ -26,16 +26,6 @@ module.exports = {
 
         if (app.env === 'development') {
             app.import('vendor/electron/reload.js');
-        }
-
-        if (process.env.ELECTRON_TESTS_DEV) {
-            app.import({
-                test: 'vendor/electron/browser-qunit-adapter.js'
-            });
-        } else {
-            app.import({
-                test: 'vendor/electron/tap-qunit-adapter.js'
-            });
         }
     },
 
@@ -59,38 +49,31 @@ module.exports = {
         }
 
         if (type === 'all' && process.env.EMBER_ENV === 'test') {
+            var trees = [tree];
+
             var funnel = require('broccoli-funnel');
             var mergeTrees = require('broccoli-merge-trees');
-            var replace = require('broccoli-string-replace');
 
-            // Update the base URL in `tests/index.html`
-            var index = replace(tree, {
-                files: ['tests/index.html'],
-                pattern: {
-                    match: /base href="\/"/,
-                    replacement: 'base href="../"'
+            // Copy package.json and electron.js from tests/, and any other
+            // files in the root package.json's copy-files. This allows the
+            // app's test/electron.js to share modules with the app's
+            // /electron.js in case the tests rely on some main-process
+            // functionality.
+            var ee = this.project.pkg['ember-electron'] || {};
+            var copyFiles = ee['copy-files'] || [];
+            var include = ['tests/package.json', 'tests/electron.js'];
+            for (var i = 0; i < copyFiles.length; i++) {
+                if (copyFiles[i] !== 'package.json' && copyFiles[i] !== 'electron.js') {
+                    include.push(copyFiles[i]);
                 }
-            });
-
-            // Copy `tests/package.json` to the output directory
-            var testPkg = funnel('tests', {
-                files: ['package.json', 'electron.js'],
-                destDir: '/tests'
-            });
-
-            var testPageOptions = process.env.ELECTRON_TEST_PAGE_OPTIONS;
-
-            if (testPageOptions) {
-                testPkg = replace(testPkg, {
-                    files: ['tests/electron.js'],
-                    patterns: [{
-                        match: /index.html/,
-                        replacement: '"index.html?' + testPageOptions + '"'
-                    }]
-                });
             }
 
-            return mergeTrees([tree, index, testPkg], {
+            trees.push(funnel('.', {
+                include: include,
+                destDir: '/'
+            }));
+
+            return mergeTrees(trees, {
                 overwrite: true
             });
         }
@@ -105,13 +88,6 @@ module.exports = {
 
         if (type === 'body-footer') {
             return injectScript('shim-footer.js');
-        }
-
-        if (type === 'test-body' && process.env.EMBER_ENV === 'test' && process.env.EMBER_CLI_ELECTRON) {
-            var testemServer = process.env.ELECTRON_TESTEM_SERVER_URL;
-            if (testemServer) {
-                return '<script src="' + testemServer + '/socket.io/socket.io.js"></script>';
-            }
         }
 
         if (type === 'body' && process.env.EMBER_ENV === 'development' && process.env.EMBER_CLI_ELECTRON) {
