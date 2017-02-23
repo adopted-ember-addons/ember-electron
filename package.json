@@ -13,7 +13,7 @@
   },
   "repository": "https://github.com/felixrieseberg/ember-electron",
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 6.0.0"
   },
   "author": {
     "name": "Felix Rieseberg",
