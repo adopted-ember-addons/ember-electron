@@ -19,6 +19,11 @@
     "email": "felix@felixrieseberg.com",
     "url": "http://www.felixrieseberg.com"
   },
+  "contributors": [{
+    "name": "Aidan Nulman",
+    "email": "aidan@isleofcode.com",
+    "url": "https://isleofcode.com"
+  }],
   "bugs": {
     "url": "https://github.com/felixrieseberg/ember-electron/issues"
   },
@@ -60,12 +65,11 @@
     "chromium"
   ],
   "dependencies": {
-    "7zip-bin": "^2.0.4",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
     "chalk": "^1.1.0",
-    "electron-packager": "^8.3.0",
+    "electron-forge": "^2.8.0",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-version-checker": "^1.1.6",
     "ember-inspector": "2.0.4",
@@ -80,15 +84,16 @@
     "socket.io": "^1.4.8",
     "testem": "^1.4.0"
   },
-  "optionalDependencies": {
-    "electron-winstaller": "^2.5.0"
-  },
   "ember-addon": {
     "defaultBlueprint": "ember-electron"
   },
   "standard": {
     "env": [
       "mocha"
+    ],
+    "ignore": [
+      "lib/resources/**/*.js",
+      "lib/blueprints/**/*.js"
     ]
   }
 }
