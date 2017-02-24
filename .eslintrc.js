@@ -42,7 +42,6 @@ module.exports = {
     'ember-suave/no-direct-property-access': 'off',
     'ember-suave/require-access-in-comments': 'off',
     'newline-before-return': 'error',
-    'new-cap': 'off',
     'no-console': 'off',
     'one-var': 'off',
   },
