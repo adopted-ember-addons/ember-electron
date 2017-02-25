@@ -18,7 +18,6 @@
 // The runner is configured to invoke this script as a command-line executable
 // with the proper arguments to run electron and communicate back to testem.
 //
-let path = require('path');
 
 module.exports = {
   'exe': 'node',
@@ -27,11 +26,12 @@ module.exports = {
 };
 
 if (require.main === module) {
+  let path = require('path');
   let fs = require('fs');
   let url = require('url');
   let fileUrl = require('file-url');
-  let { execFile } = require('child_process');
-  let { getElectronApp } = require('./lib/helpers/find-electron');
+  let treeKill = require('tree-kill');
+  let { start: efStart } = require('electron-forge');
 
   let [, , buildDir, baseObj, testPageObj, id] = process.argv;
   baseObj = url.parse(baseObj);
@@ -71,16 +71,22 @@ if (require.main === module) {
   let htmlFileObj = url.parse(fileUrl(htmlPath));
   htmlFileObj.query = testPageObj.query;
   htmlFileObj.query.testemId = id;
-
   let testUrl = url.format(htmlFileObj);
 
-  let child = execFile(getElectronApp(), [path.join(buildDir, 'tests', 'electron.js'), testUrl], function(error) {
-    if (error) {
-      throw error;
-    }
+  // Sym link node_modules to our root node_modules so electron forge will
+  // function properly
+  fs.symlinkSync(`${process.cwd()}/node_modules`, `${buildDir}/tests/node_modules`, 'dir');
+
+  // Start electron
+  let pid;
+  efStart({ dir: path.join(buildDir, 'tests'), args: [testUrl] }).then(({ pid: childPid }) => {
+    pid = childPid;
   });
 
+  // Clean up when we're killed
   process.on('SIGTERM', function() {
-    child.kill();
+    if (pid) {
+      treeKill(pid);
+    }
   });
 }
