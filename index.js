@@ -82,11 +82,13 @@ module.exports = {
   },
 
   contentFor(type) {
-    if (type === 'head') {
+    const { env: { EMBER_CLI_ELECTRON } } = process;
+
+    if (EMBER_CLI_ELECTRON && type === 'head') {
       return injectScript('shim-head.js');
     }
 
-    if (type === 'body-footer') {
+    if (EMBER_CLI_ELECTRON && type === 'body-footer') {
       return injectScript('shim-footer.js');
     }
   },
