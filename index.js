@@ -4,8 +4,6 @@
 var fs = require('fs');
 var path = require('path');
 
-const InspectorServer = require('./lib/utils/inspector-server');
-
 function injectScript(scriptName) {
     var dirname = __dirname || path.resolve(path.dirname());
     var filePath = path.join(dirname, 'lib', 'resources', scriptName);
@@ -88,15 +86,6 @@ module.exports = {
 
         if (type === 'body-footer') {
             return injectScript('shim-footer.js');
-        }
-
-        if (type === 'body' && process.env.EMBER_ENV === 'development' && process.env.EMBER_CLI_ELECTRON) {
-          let server = new InspectorServer({
-            host: 'localhost',
-            port: 30820
-          });
-
-          return server.inspectorScriptInjections({ includeDebugJs: true });
         }
     }
 };

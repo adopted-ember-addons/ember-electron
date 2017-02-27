@@ -82,7 +82,6 @@
     "ember-cli-babel": "^5.1.7",
     "ember-cli-version-checker": "^1.1.6",
     "ember-inspector": "2.0.4",
-    "express": "^4.14.0",
     "file-url": "^1.1.0",
     "fs-extra": "^1.0.0",
     "globby": "^6.0.0",

@@ -38,17 +38,6 @@ To run your app together with a file watcher in development mode (similar to `em
 ## Ember Inspector
 If you're running a later version of Electron, you will notice that ember-electron installs ember-inspector directly into Electron. Simply open up the developer tools and choose the Ember-tab, just like you would in Chrome.
 
-In addition, Whenever you run `ember electron`, the console output will give you a URL where Ember Inspector is live. Communication between your app in Electron and the Ember Inspector happens over WebSockets. By default, the console output should look like this:
-
-```
---------------------------------------------------------------------
-Ember Inspector running on http://localhost:30820
-Open the inspector URL in a browser to debug the app!
---------------------------------------------------------------------
-Starting Electron...
---------------------------------------------------------------------
-```
-
 ## Testing
 To test your app, run `ember electron:test`. If you prefer the live-reload mode, run `ember electron:test --server`. The usual parameters are supported:
 

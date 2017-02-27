@@ -31,10 +31,6 @@ describe('ember electron command', () => {
     spawn = mockSpawn()
     mockery.registerMock('child_process', {spawn})
     mockery.registerMock('os', { platform: () => platform || os.platform() })
-    mockery.registerMock('../helpers/debug-server', {
-      setRemoteDebugSocketScript () {},
-      start () {}
-    })
 
     CommandUnderTest = Command.extend(require('../../../lib/commands/electron'))
 
