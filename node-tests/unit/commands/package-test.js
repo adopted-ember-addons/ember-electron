@@ -1,156 +1,163 @@
-'use strict'
-const sinon = require('sinon')
-const mockery = require('mockery')
-const RSVP = require('rsvp')
-const MockUI = require('console-ui/mock')
-const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics')
-const MockProject = require('../../helpers/mocks/project')
-const expect = require('../../helpers/expect')
+'use strict';
+const sinon = require('sinon');
+const mockery = require('mockery');
+const RSVP = require('rsvp');
+const MockUI = require('console-ui/mock');
+const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
+const MockProject = require('../../helpers/mocks/project');
+const expect = require('../../helpers/expect');
 
 describe('ember electron:package command', () => {
-  let CommandUnderTest, commandOptions, _envElectron
+  let CommandUnderTest, commandOptions, _envElectron;
 
   before(() => {
-    process.env.EMBER_ELECTRON_TESTING = true
+    process.env.EMBER_ELECTRON_TESTING = true;
     mockery.enable({
       useCleanCache: true,
-      warnOnUnregistered: false
-    })
-  })
+      warnOnUnregistered: false,
+    });
+  });
 
   after(() => {
-    mockery.disable()
-  })
+    mockery.disable();
+  });
 
   beforeEach(() => {
-    _envElectron = process.env.ELECTRON_PATH
-    delete process.env.ELECTRON_PATH
+    _envElectron = process.env.ELECTRON_PATH;
+    delete process.env.ELECTRON_PATH;
 
-    let mockPackager = (options, done) => done()
-    mockery.registerMock('electron-packager', mockPackager)
-    CommandUnderTest = require('../../../lib/commands/package')
+    let mockPackager = (options, done) => done();
+    mockery.registerMock('electron-packager', mockPackager);
+    CommandUnderTest = require('../../../lib/commands/package');
 
     commandOptions = {
       ui: new MockUI(),
       analytics: new MockAnalytics(),
       settings: {},
-      project: new MockProject('project-empty')
-    }
-  })
+      project: new MockProject('project-empty'),
+    };
+  });
 
   afterEach(() => {
     if (_envElectron) {
-      process.env.ELECTRON_PATH = _envElectron
+      process.env.ELECTRON_PATH = _envElectron;
     } else {
-      delete process.env.ELECTRON_PATH
+      delete process.env.ELECTRON_PATH;
     }
 
-    mockery.deregisterAll()
-    mockery.resetCache()
-  })
+    mockery.deregisterAll();
+    mockery.resetCache();
+  });
 
   it('should build the project before organizing', () => {
-    let tasks = []
+    let tasks = [];
 
-    commandOptions.build = function () {
-      tasks.push('build')
-      return RSVP.resolve()
-    }
+    commandOptions.build = function() {
+      tasks.push('build');
 
-    commandOptions.organize = function () {
-      tasks.push('organize')
-      return RSVP.resolve()
-    }
+      return RSVP.resolve();
+    };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun()
+    commandOptions.organize = function() {
+      tasks.push('organize');
+
+      return RSVP.resolve();
+    };
+
+    let command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(tasks).to.deep.equal(['build', 'organize'])
-    })
-  })
+      expect(tasks).to.deep.equal(['build', 'organize']);
+    });
+  });
 
   it('should build for the appropriate environment', () => {
-    let testEnv = 'development'
-    let builtEnv = null
+    let testEnv = 'development';
+    let builtEnv = null;
 
-    commandOptions.settings.environment = testEnv
+    commandOptions.settings.environment = testEnv;
     commandOptions.tasks = {
-      Build: function () {
+      Build() {
         return {
-          run: function (options) {
-            builtEnv = options.environment
-            return RSVP.resolve()
-          }
-        }
-      }
-    }
+          run(options) {
+            builtEnv = options.environment;
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun()
+            return RSVP.resolve();
+          },
+        };
+      },
+    };
+
+    let command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(builtEnv).to.equal(testEnv)
-    })
-  })
+      expect(builtEnv).to.equal(testEnv);
+    });
+  });
 
   it('should build production environment by default', () => {
-    let builtEnv = null
+    let builtEnv = null;
 
     commandOptions.tasks = {
-      Build: function () {
+      Build() {
         return {
-          run: function (options) {
-            builtEnv = options.environment
-            return RSVP.resolve()
-          }
-        }
-      }
-    }
+          run(options) {
+            builtEnv = options.environment;
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun()
+            return RSVP.resolve();
+          },
+        };
+      },
+    };
+
+    let command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(builtEnv).to.equal('production')
-    })
-  })
+      expect(builtEnv).to.equal('production');
+    });
+  });
 
   it('should not attempt packaging when the build fails', () => {
-    let tasks = []
+    let tasks = [];
 
-    commandOptions.build = function () {
-      tasks.push('build')
-      return RSVP.reject()
-    }
+    commandOptions.build = function() {
+      tasks.push('build');
 
-    commandOptions.organize = function () {
-      tasks.push('organize')
-      return RSVP.resolve()
-    }
+      return RSVP.reject();
+    };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun()
+    commandOptions.organize = function() {
+      tasks.push('organize');
+
+      return RSVP.resolve();
+    };
+
+    let command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.rejected.then(() => {
-      expect(tasks).to.deep.equal(['build'])
-    })
-  })
+      expect(tasks).to.deep.equal(['build']);
+    });
+  });
 
   it('should call ui.startProgress() and ui.stopProgress()', () => {
-    const uiSpyStart = sinon.spy(commandOptions.ui, 'startProgress')
-    const uiSpyStop = sinon.spy(commandOptions.ui, 'stopProgress')
-    commandOptions.tasks = {
-      Build: function () {
-        return {
-          run: function (options) {
-            return RSVP.resolve()
-          }
-        }
-      }
-    }
+    let uiSpyStart = sinon.spy(commandOptions.ui, 'startProgress');
+    let uiSpyStop = sinon.spy(commandOptions.ui, 'stopProgress');
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun()
+    commandOptions.tasks = {
+      Build() {
+        return {
+          run(/* options */) {
+            return RSVP.resolve();
+          },
+        };
+      },
+    };
+
+    let command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(uiSpyStart.calledOnce).to.equal(true)
-      expect(uiSpyStop.calledOnce).to.equal(true)
-    })
-  })
-})
+      expect(uiSpyStart.calledOnce).to.equal(true);
+      expect(uiSpyStop.calledOnce).to.equal(true);
+    });
+  });
+});

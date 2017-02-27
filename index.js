@@ -1,91 +1,93 @@
 /* jshint node: true */
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+let fs = require('fs');
+let path = require('path');
 
 function injectScript(scriptName) {
-    var dirname = __dirname || path.resolve(path.dirname());
-    var filePath = path.join(dirname, 'lib', 'resources', scriptName);
-    return '<script>\n' + fs.readFileSync(filePath, {
-            encoding: 'utf8'
-        }) + '\n</script>';
+  let dirname = __dirname || path.resolve(path.dirname());
+  let filePath = path.join(dirname, 'lib', 'resources', scriptName);
+
+  return `<script>\n${  fs.readFileSync(filePath, {
+    encoding: 'utf8',
+  })  }\n</script>`;
 }
 
 module.exports = {
-    name: 'ember-electron',
+  name: 'ember-electron',
 
-    included: function(app) {
-        this._super.included(app);
+  included(app) {
+    this._super.included(app);
 
-        if (!process.env.EMBER_CLI_ELECTRON) {
-            return;
-        }
+    if (!process.env.EMBER_CLI_ELECTRON) {
+      return;
+    }
 
-        if (app.env === 'development') {
-            app.import('vendor/electron/reload.js');
-        }
-    },
+    if (app.env === 'development') {
+      app.import('vendor/electron/reload.js');
+    }
+  },
 
-    includedCommands: function() {
-        return {
-            'electron': require('./lib/commands/electron'),
-            'electron:test': require('./lib/commands/electron-test'),
-            'electron:package': require('./lib/commands/package'),
-            'electron:make': require('./lib/commands/make')
-        };
-    },
+  includedCommands() {
+    return {
+      'electron': require('./lib/commands/electron'),
+      'electron:test': require('./lib/commands/electron-test'),
+      'electron:package': require('./lib/commands/package'),
+      'electron:make': require('./lib/commands/make'),
+    };
+  },
 
-    treeForVendor: function() {
-        var dirname = __dirname || path.resolve(path.dirname());
-        return path.join(dirname, 'app');
-    },
+  treeForVendor() {
+    let dirname = __dirname || path.resolve(path.dirname());
 
-    postprocessTree: function(type, tree) {
-        if (!process.env.EMBER_CLI_ELECTRON) {
-            return tree;
-        }
+    return path.join(dirname, 'app');
+  },
 
-        if (type === 'all' && process.env.EMBER_ENV === 'test') {
-            var trees = [tree];
+  postprocessTree(type, tree) {
+    if (!process.env.EMBER_CLI_ELECTRON) {
+      return tree;
+    }
 
-            var funnel = require('broccoli-funnel');
-            var mergeTrees = require('broccoli-merge-trees');
+    if (type === 'all' && process.env.EMBER_ENV === 'test') {
+      let trees = [tree];
+
+      let funnel = require('broccoli-funnel');
+      let mergeTrees = require('broccoli-merge-trees');
 
             // Copy package.json and electron.js from tests/, and any other
             // files in the root package.json's copy-files. This allows the
             // app's test/electron.js to share modules with the app's
             // /electron.js in case the tests rely on some main-process
             // functionality.
-            var ee = this.project.pkg['ember-electron'] || {};
-            var copyFiles = ee['copy-files'] || [];
-            var include = ['tests/package.json', 'tests/electron.js'];
-            for (var i = 0; i < copyFiles.length; i++) {
-                if (copyFiles[i] !== 'package.json' && copyFiles[i] !== 'electron.js') {
-                    include.push(copyFiles[i]);
-                }
-            }
-
-            trees.push(funnel('.', {
-                include: include,
-                destDir: '/'
-            }));
-
-            return mergeTrees(trees, {
-                overwrite: true
-            });
+      let ee = this.project.pkg['ember-electron'] || {};
+      let copyFiles = ee['copy-files'] || [];
+      let include = ['tests/package.json', 'tests/electron.js'];
+      for (let i = 0; i < copyFiles.length; i++) {
+        if (copyFiles[i] !== 'package.json' && copyFiles[i] !== 'electron.js') {
+          include.push(copyFiles[i]);
         }
+      }
 
-        return tree;
-    },
+      trees.push(funnel('.', {
+        include,
+        destDir: '/',
+      }));
 
-    contentFor: function(type) {
-        if (type === 'head') {
-            return injectScript('shim-head.js');
-        }
-
-        if (type === 'body-footer') {
-            return injectScript('shim-footer.js');
-        }
+      return mergeTrees(trees, {
+        overwrite: true,
+      });
     }
+
+    return tree;
+  },
+
+  contentFor(type) {
+    if (type === 'head') {
+      return injectScript('shim-head.js');
+    }
+
+    if (type === 'body-footer') {
+      return injectScript('shim-footer.js');
+    }
+  },
 };
