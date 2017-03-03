@@ -1,9 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const { dirname, resolve } = require('path');
 
-const cwd = __dirname || resolve(dirname());
-const emberAppLocation = `file://${cwd}/../dist/index.html`;
-
+const emberAppLocation = `file://${__dirname || resolve(dirname(''))}/../dist/index.html`;
 let mainWindow = null;
 
 // Uncomment the lines below to enable Electron's crash reporter
