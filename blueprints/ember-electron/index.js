@@ -1,5 +1,4 @@
 const RSVP = require('rsvp');
-const VersionChecker = require('ember-cli-version-checker');
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -41,21 +40,6 @@ class EmberElectronBlueprint extends Blueprint {
         logger.message(configMessage, logger.chalk.yellow);
         logger.message('https://github.com/felixrieseberg/ember-electron');
       });
-  }
-
-  locals(/* options */) {
-    const checker = new VersionChecker(this);
-    const dep = checker.for('ember-cli', 'npm');
-
-    let baseURLOption = "baseURL: '/',";
-    let baseURLTestOption = "ENV.baseURL = '/';";
-
-    if (dep.satisfies('>= 2.7.0')) {
-      baseURLOption = 'rootURL: null,';
-      baseURLTestOption = '';
-    }
-
-    return { baseURLOption, baseURLTestOption };
   }
 
   _ensurePackageJsonConfiguration() {
