@@ -20,16 +20,13 @@ addons:
 cache:
   directories:
     - $HOME/.npm
-    - $HOME/.cache # includes bowers cache
+    - $HOME/.cache
 
 before_install:
   - npm config set spin false
-  - npm install -g bower
-  - bower --version
 
 install:
   - npm install
-  - bower install
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
