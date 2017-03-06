@@ -182,9 +182,7 @@ before_install:
   - "npm config set spin false"
 
 install:
-  - npm install -g bower
   - npm install
-  - bower install
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 ```
