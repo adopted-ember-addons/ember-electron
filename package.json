@@ -32,11 +32,15 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-preset-env": "^1.1.10",
+    "babel-preset-react": "^6.23.0",
     "broccoli-asset-rev": "^2.4.5",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "console-ui": "^1.0.3",
-    "electron": "^1.4.15",
+    "electron-compile": "^6.1.2",
+    "electron-prebuilt-compile": "1.4.15",
     "ember-ajax": "^2.4.1",
     "ember-cli": "^2.11.1",
     "ember-cli-app-version": "^2.0.0",
@@ -94,12 +98,49 @@
     "quick-temp": "^0.1.5",
     "rsvp": "^3.2.1",
     "socket.io": "^1.4.8",
-    "testem": "^1.15.0"
+    "testem": "^1.15.0",
+    "tree-kill": "^1.1.0"
   },
   "ember-addon": {
     "defaultBlueprint": "ember-electron",
     "versionCompatibility": {
       "ember": ">=2.3.0"
+    }
+  },
+  "config": {
+    "ember-electron": {
+      "copy-files": [
+        "ember-electron/electron.js",
+        "package.json",
+        "node-main/**"
+      ]
+    },
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {},
+      "electronWinstallerConfig": {
+        "name": ""
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": ""
+      }
     }
   },
   "standard": {

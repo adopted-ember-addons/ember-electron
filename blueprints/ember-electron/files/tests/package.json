@@ -1,4 +1,11 @@
 {
   "name": "ember-electron-test",
-  "main": "electron.js"
+  "version": "0.0.1",
+  "main": "electron.js",
+  "devDependencies": {
+    "electron-prebuilt-compile": "1.4.15"
+  },
+  "config": {
+    "forge": {}
+  }
 }
