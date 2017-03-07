@@ -11,7 +11,8 @@ const fs = require('fs');
  * @return {[type]}     a factory registering a secure schema and a file protocol
  */
 module.exports = (cwd) => {
-  const indexPath = join(cwd, 'index.html');
+  const directoryIndexFile = 'index.html';
+  const indexPath = join(cwd, directoryIndexFile);
   const cache = {};
 
   app.on('ready', () => {
@@ -21,7 +22,7 @@ module.exports = (cwd) => {
       const urlSegments = url.split('/');
 
       if (urlSegments[0] === '') {
-        urlSegments[0] = 'index.html';
+        urlSegments[0] = directoryIndexFile;
       }
 
       const filepath = join(cwd, ...urlSegments);
