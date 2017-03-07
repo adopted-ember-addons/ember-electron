@@ -1,5 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 
+// Make sure node modules are copied correctly and we can load them
+require('../node-main/helper.js')();
+
 let mainWindow = null;
 
 app.on('window-all-closed', function onWindowAllClosed() {

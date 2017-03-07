@@ -120,12 +120,6 @@ describe('ember electron command', () => {
   });
 
   it('should spawn a `Electron` process with the right arguments', () => {
-    mockery.registerMock('../helpers/find-electron', {
-      getElectronApp() {
-        return 'Electron';
-      },
-    });
-
     commandOptions.buildWatch = () => {
       return RSVP.resolve();
     };
@@ -172,12 +166,6 @@ describe('ember electron command', () => {
   });
 
   it('should print a friendly message when the `Electron` command cannot be found', () => {
-    mockery.registerMock('../helpers/find-electron', {
-      getElectronApp() {
-        return 'Electron';
-      },
-    });
-
     commandOptions.buildWatch = () => {
       return RSVP.resolve();
     };

@@ -54,16 +54,17 @@ module.exports = {
       let funnel = require('broccoli-funnel');
       let mergeTrees = require('broccoli-merge-trees');
 
-            // Copy package.json and electron.js from tests/, and any other
-            // files in the root package.json's copy-files. This allows the
-            // app's test/electron.js to share modules with the app's
-            // /electron.js in case the tests rely on some main-process
-            // functionality.
-      let ee = this.project.pkg['ember-electron'] || {};
+      // Copy package.json and electron.js from tests/, and any other
+      // files in the root package.json's copy-files. This allows the
+      // app's test/electron.js to share modules with the app's
+      // /electron.js in case the tests rely on some main-process
+      // functionality.
+      let config = this.project.pkg.config || {};
+      let ee = config['ember-electron'] || {};
       let copyFiles = ee['copy-files'] || [];
       let include = ['tests/package.json', 'tests/electron.js'];
       for (let i = 0; i < copyFiles.length; i++) {
-        if (copyFiles[i] !== 'package.json' && copyFiles[i] !== 'electron.js') {
+        if (copyFiles[i] !== 'package.json' && copyFiles[i] !== 'ember-electron/electron.js') {
           include.push(copyFiles[i]);
         }
       }
