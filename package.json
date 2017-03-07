@@ -86,7 +86,7 @@
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-string-replace": "^0.1.1",
     "chalk": "^1.1.0",
-    "electron-forge": "git+ssh://git@github.com:jacobq/electron-forge.git#feat/make-platforms",
+    "electron-forge": "git+ssh://git@github.com/jacobq/electron-forge.git#dist-included",
     "ember-cli-babel": "^5.1.7",
     "ember-cli-version-checker": "^1.1.6",
     "ember-inspector": "2.0.4",
