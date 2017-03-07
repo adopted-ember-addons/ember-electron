@@ -60,6 +60,7 @@ class EmberElectronBlueprint extends Blueprint {
         json.config['ember-electron'] = {
           'copy-files': [
             'ember-electron/electron.js',
+            'ember-electron/protocol-ember.js',
             'package.json',
           ],
         };

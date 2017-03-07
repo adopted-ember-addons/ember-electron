@@ -42,8 +42,6 @@ if (require.main === module) {
   let testemJsUrl = url.format(baseObj);
 
   // Process the HTML to:
-  // * add a <base> pointing to the current working directory so we can find
-  //   our scripts
   // * inject our getTestemId() script so the testem client can extract the ID
   //   from the query params and be able to communicate with the testem server
   // * rewrite the testem.js script to use an absolute URL pointing to the
@@ -52,7 +50,6 @@ if (require.main === module) {
   let htmlContent = fs.readFileSync(testPagePath, 'utf8').toString();
   htmlContent = htmlContent.replace(/^(\s*)<head>/m, [
     '$1<head>',
-    `$1  <base href="${  fileUrl(buildDir)  }/">`,
     '$1  <script>',
     '$1    window.getTestemId = function() {',
     '$1      var match = window.location.search.match(/[\?&]testemId=([^\?&]+)/);',
