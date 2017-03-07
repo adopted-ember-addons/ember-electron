@@ -16,8 +16,6 @@ app.on('ready', function onReady() {
     height: 600,
   });
 
-  delete mainWindow.module;
-
   if (process.env.EMBER_ENV === 'test') {
     mainWindow.loadUrl(`file://${__dirname}/index.html`);
   } else {
