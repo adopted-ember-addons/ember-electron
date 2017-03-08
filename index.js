@@ -59,6 +59,7 @@ module.exports = {
       // app's test/electron.js to share modules with the app's
       // /electron.js in case the tests rely on some main-process
       // functionality.
+      // FIXME: Modify to eliminate use of `copy-files` config; see GH issue #123
       let config = this.project.pkg.config || {};
       let ee = config['ember-electron'] || {};
       let copyFiles = ee['copy-files'] || [];
