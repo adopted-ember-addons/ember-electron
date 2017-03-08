@@ -16,3 +16,7 @@
 npm-debug.log*
 testem.log
 browse.VC.db
+
+# JetBrains IDEs, e.g. WebStorm
+.idea
+
