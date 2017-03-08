@@ -73,13 +73,6 @@ class EmberElectronBlueprint extends Blueprint {
           json.config = {};
         }
 
-        json.config['ember-electron'] = {
-          'copy-files': [
-            'ember-electron/electron.js',
-            'package.json',
-          ],
-        };
-
         return denodeify(writeJson)(packageJsonPath, json, { spaces: 2 });
       });
   }
