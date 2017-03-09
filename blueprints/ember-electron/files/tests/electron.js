@@ -20,8 +20,6 @@ app.on('ready', function onReady() {
         backgroundThrottling: false
     });
 
-    delete mainWindow.module;
-
     mainWindow.loadURL(testUrl);
 
     mainWindow.on('closed', function onClosed() {
