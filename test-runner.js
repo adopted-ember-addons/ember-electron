@@ -33,9 +33,10 @@ if (require.main === module) {
   let treeKill = require('tree-kill');
   let { start: efStart } = require('electron-forge');
 
-  let [, , buildDir, baseObj, testPageObj, id] = process.argv;
-  baseObj = url.parse(baseObj);
-  testPageObj = url.parse(testPageObj, true);
+  let [, , buildDir, baseUrl, testPageUrl, id] = process.argv;
+  let emberAppDir = path.join(buildDir, 'ember');
+  let baseObj = url.parse(baseUrl);
+  let testPageObj = url.parse(testPageUrl, true);
 
   // Build testem.js URL
   baseObj.pathname = '/testem.js';
@@ -46,7 +47,7 @@ if (require.main === module) {
   //   from the query params and be able to communicate with the testem server
   // * rewrite the testem.js script to use an absolute URL pointing to the
   //   testem server
-  let testPagePath = path.join(buildDir, path.join.apply(null, testPageObj.pathname.split('/')));
+  let testPagePath = path.join(emberAppDir, path.join.apply(null, testPageObj.pathname.split('/')));
   let htmlContent = fs.readFileSync(testPagePath, 'utf8').toString();
   htmlContent = htmlContent.replace(/^(\s*)<head>/m, [
     '$1<head>',
@@ -60,7 +61,7 @@ if (require.main === module) {
   // We look for an optional leading '/' in the src attribute because ember cli
   // <2.9.0 hard-coded the leading '/' instead of using {{rootURL}}
   htmlContent = htmlContent.replace(/src="\/?testem\.js"/, `src="${  testemJsUrl  }"`);
-  let htmlPath = path.join(buildDir, 'tests', 'index-electron.html');
+  let htmlPath = path.join(emberAppDir, 'tests', 'index-electron.html');
   fs.writeFileSync(htmlPath, htmlContent, 'utf8');
 
   // Build a file: URL to our temp file, preserving query params from the test
@@ -70,13 +71,9 @@ if (require.main === module) {
   htmlFileObj.query.testemId = id;
   let testUrl = url.format(htmlFileObj);
 
-  // Sym link node_modules to our root node_modules so electron forge will
-  // function properly
-  fs.symlinkSync(`${process.cwd()}/node_modules`, `${buildDir}/tests/node_modules`, 'dir');
-
   // Start electron
   let pid;
-  efStart({ dir: path.join(buildDir, 'tests'), args: [testUrl] }).then(({ pid: childPid }) => {
+  efStart({ appPath: buildDir, args: [testUrl] }).then(({ pid: childPid }) => {
     pid = childPid;
   });
 

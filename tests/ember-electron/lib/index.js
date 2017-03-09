@@ -1,10 +1,8 @@
+/* jshint node:true */
 const { app, BrowserWindow, protocol } = require('electron');
 const { dirname, resolve } = require('path');
 const url = require('url');
 const protocolServe = require('electron-protocol-serve');
-
-// Make sure node modules are copied correctly and we can load them
-require('../node-main/helper.js')();
 
 let mainWindow = null;
 
@@ -16,18 +14,17 @@ const {
   pathname: indexPath,
   search: indexQuery,
 } = url.parse(indexUrl);
-const emberAppLocation = `serve://dist/index.html${indexQuery}`;
+const emberAppLocation = `serve://dist${indexQuery}`;
 
+protocol.registerStandardSchemes(['serve'], { secure: true });
 // The index.html is in the tests/ directory, so we want all other assets to
 // load from its parent directory
 protocolServe({
   cwd: resolve(dirname(indexPath), '..'),
-  indexPath,
   app,
   protocol,
+  indexPath,
 });
-
-protocol.registerStandardSchemes(['serve'], { secure: true });
 
 app.on('window-all-closed', function onWindowAllClosed() {
   if (process.platform !== 'darwin') {
@@ -50,3 +47,15 @@ app.on('ready', function onReady() {
     mainWindow = null;
   });
 });
+
+let cwd = __dirname || resolve(dirname());
+// Make sure dependencies (node_modules) are copied correctly and we can
+// load them
+require('file-url')('foo.html');
+// Make sure local libraries are copied correctly and we can load them
+require('./helper.js')();
+// Make sure local resources are copied correctly and we can read them
+let content = require('fs').readFileSync(`${cwd}/../resources/foo.txt`).toString().trim();
+if (content !== 'hello') {
+  throw new Error(`${cwd}/../resources/foo.txt should be contain 'hello': ${content}`);
+}

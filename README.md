@@ -62,16 +62,29 @@ ember electron:package
 ```
 
 ### Defining Files to Package
-By default, ember-electron will package your whole `dist` folder and all production dependencies as defined in `package.json`. In addition, to ensure that Electron can start properly, it also includes `electron.js` and `package.json`. To configure which files make it into the package, use the `copy-files` property the ember-electron section in your `package.json`. Globs are accepted!
+By default, ember-electron will package your whole `dist` folder and all production dependencies as defined in `package.json`. In addition, to ensure that Electron can start properly, it also includes `ember-electron/electron.js` and `package.json`. Any additional files that should be packaged with the application should be put in `ember-electron/public`, and any platform-specific files in `ember-electron/public-<platform>` (which will overwrite files in non-platform-specific files at the same path).
 
-```json
-"ember-electron": {
-  "copy-files": [
-    "package.json",
-    "electron.js",
-    "main/*"
-  ],
-}
+### Directory Structure
+When the application is packaged up, the directory structure looks like this:
+
+```
+ .
+ ├── package.json
+ ├── node_modules
+ │   └── <production dependencies>
+ ├── electron
+ │   ├── electron.js
+ │   └── <contents of public and public-<platform>
+ └── ember
+     └── <ember build output>
+```
+
+So, for example, when loading your ember app from `electron.js`, you want something like this (which is included in the default `electron.js` in the blueprint):
+
+```javascript
+const emberAppLocation = `file://${dirname}/../ember/index.html`;
+// <snip>
+mainWindow.loadURL(emberAppLocation);
 ```
 
 ### Configuration

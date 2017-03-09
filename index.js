@@ -3,6 +3,7 @@
 
 let fs = require('fs');
 let path = require('path');
+let { clone } = require('lodash/lang');
 
 function injectScript(scriptName) {
   let dirname = __dirname || path.resolve(path.dirname());
@@ -47,28 +48,65 @@ module.exports = {
       return tree;
     }
 
-    if (type === 'all' && process.env.EMBER_ENV === 'test') {
-      let trees = [tree];
-
+    if (type === 'all') {
+      //
+      // Copy our files to assemble our electron and ember apps. Our directory
+      // structure inside our build output dir (dist/ or temp directory) is
+      // going to end up looking like this:
+      //
+      // .
+      // ├── package.json
+      // ├── .compilerc
+      // ├── <any other files/directories found in ember-electron, except resources-*>
+      // ├── resources
+      // │   ├── <file copied/merged from resources and resources-<platform>>
+      // │   ├── <file copied/merged from resources and resources-<platform>>
+      // │   └── ...
+      // └── ember
+      //     └── <ember build output>
+      //
       let funnel = require('broccoli-funnel');
+      let writeFile = require('broccoli-file-creator');
       let mergeTrees = require('broccoli-merge-trees');
+      let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM || process.platform;
 
-      // We want to copy all of the files listed in copy-files to the output
-      // tests directory, but we want to overwrite package.json and
-      // ember-electron/electron.js with the versions from our tests/ directory
-      let config = this.project.pkg.config || {};
-      let ee = config['ember-electron'] || {};
-      let copyFiles = ee['copy-files'] || [];
+      // We don't want to assume that our host package has a main entry that
+      // makes any sense for our packaged electron app, so let's just set it to
+      // be `index.js`.
+      let packageJson = clone(this.project.pkg);
+      packageJson.main = 'lib/index.js';
 
-      trees.push(funnel('.', {
-        include: copyFiles,
-        destDir: '/tests',
-      }));
+      let trees = [
+        // write package.json
+        writeFile('package.json', JSON.stringify(packageJson, null, '  ')),
+        // copy the rest of the ember-electron directory, with the exception of
+        // the resources directories that need to be merged
+        funnel('ember-electron', {
+          exclude: ['resources', 'resources-*'],
+        }),
+        // copy resources
+        funnel('ember-electron', {
+          srcDir: 'resources',
+          destDir: 'resources',
+          allowEmpty: true,
+        }),
+        funnel('ember-electron', {
+          srcDir: `resources-${platform}`,
+          destDir: 'resources',
+          allowEmpty: true,
+        }),
+        // copy ember build output
+        funnel(tree, {
+          destDir: 'ember',
+        }),
+      ];
 
-      trees.push(funnel('tests', {
-        include: ['package.json', 'ember-electron/electron.js'],
-        destDir: '/tests',
-      }));
+      if (process.env.EMBER_ENV === 'test') {
+        // Overwrite index.js with test index.js
+        trees.push(funnel('tests/ember-electron', {
+          files: ['lib/index.js'],
+        }));
+      }
 
       return mergeTrees(trees, {
         overwrite: true,

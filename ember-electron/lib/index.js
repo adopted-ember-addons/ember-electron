@@ -7,7 +7,7 @@ let mainWindow = null;
 // Registering a protocol & schema to serve our Ember application
 protocol.registerStandardSchemes(['serve'], { secure: true });
 protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'dist'),
+  cwd: join(__dirname || resolve(dirname('')), '..', 'ember'),
   app,
   protocol,
 });

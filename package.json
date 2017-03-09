@@ -105,16 +105,12 @@
     "defaultBlueprint": "ember-electron",
     "versionCompatibility": {
       "ember": ">=2.3.0"
-    }
+    },
+    "after": [
+      "ember-cli-sri"
+    ]
   },
   "config": {
-    "ember-electron": {
-      "copy-files": [
-        "ember-electron/electron.js",
-        "package.json",
-        "node-main/**"
-      ]
-    },
     "forge": {
       "make_targets": {
         "win32": [
