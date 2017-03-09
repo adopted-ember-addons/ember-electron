@@ -32,7 +32,13 @@ class EmberElectronBlueprint extends Blueprint {
 
     logger.startProgress('Installing electron build tools');
 
-    return forgeImport({ updateScripts: false })
+    return this.addPackagesToProject([
+      {
+        name: 'electron-protocol-serve',
+        target: '1.1.0',
+      },
+    ])
+      .then(() => forgeImport({ updateScripts: false }))
       .then(() => this._ensurePackageJsonConfiguration())
       .then(() => {
         let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
