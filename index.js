@@ -63,12 +63,12 @@ module.exports = {
 
       trees.push(funnel('.', {
         include: copyFiles,
-        destDir: '/tests'
+        destDir: '/tests',
       }));
 
       trees.push(funnel('tests', {
-        include: [ 'package.json', 'ember-electron/electron.js' ],
-        destDir: '/tests'
+        include: ['package.json', 'ember-electron/electron.js'],
+        destDir: '/tests',
       }));
 
       return mergeTrees(trees, {
