@@ -1,5 +1,4 @@
 const RSVP = require('rsvp');
-const VersionChecker = require('ember-cli-version-checker');
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -33,7 +32,13 @@ class EmberElectronBlueprint extends Blueprint {
 
     logger.startProgress('Installing electron build tools');
 
-    return forgeImport({ updateScripts: false })
+    return this.addPackagesToProject([
+      {
+        name: 'electron-protocol-serve',
+        target: '1.1.0',
+      },
+    ])
+      .then(() => forgeImport({ updateScripts: false }))
       .then(() => this._ensurePackageJsonConfiguration())
       .then(() => {
         let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
@@ -41,21 +46,6 @@ class EmberElectronBlueprint extends Blueprint {
         logger.message(configMessage, logger.chalk.yellow);
         logger.message('https://github.com/felixrieseberg/ember-electron');
       });
-  }
-
-  locals(/* options */) {
-    const checker = new VersionChecker(this);
-    const dep = checker.for('ember-cli', 'npm');
-
-    let baseURLOption = "baseURL: '/',";
-    let baseURLTestOption = "ENV.baseURL = '/';";
-
-    if (dep.satisfies('>= 2.7.0')) {
-      baseURLOption = 'rootURL: null,';
-      baseURLTestOption = '';
-    }
-
-    return { baseURLOption, baseURLTestOption };
   }
 
   _ensurePackageJsonConfiguration() {
@@ -76,6 +66,7 @@ class EmberElectronBlueprint extends Blueprint {
         json.config['ember-electron'] = {
           'copy-files': [
             'ember-electron/electron.js',
+            'ember-electron/protocol-ember.js',
             'package.json',
           ],
         };

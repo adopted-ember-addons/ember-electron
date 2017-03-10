@@ -86,6 +86,7 @@
     "broccoli-string-replace": "^0.1.1",
     "chalk": "^1.1.0",
     "electron-forge": "^2.8.0",
+    "electron-protocol-serve": "^1.1.0",
     "ember-cli-babel": "^5.1.7",
     "ember-cli-version-checker": "^1.1.6",
     "ember-inspector": "2.0.4",

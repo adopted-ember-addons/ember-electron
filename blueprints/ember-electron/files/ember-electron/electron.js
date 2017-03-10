@@ -1,12 +1,19 @@
-const { app, BrowserWindow } = require('electron');
-const { dirname, resolve } = require('path');
+const { app, BrowserWindow, protocol } = require('electron');
+const { dirname, join, resolve } = require('path');
+const protocolServe = require('electron-protocol-serve');
 
-const emberAppLocation = `file://${__dirname || resolve(dirname(''))}/../dist/index.html`;
 let mainWindow = null;
+
+// Registering a protocol & schema to serve our Ember application
+protocol.registerStandardSchemes(['serve'], { secure: true });
+protocolServe({
+  cwd: join(__dirname || resolve(dirname('')), '..', 'dist'),
+  app,
+  protocol,
+});
 
 // Uncomment the lines below to enable Electron's crash reporter
 // For more information, see http://electron.atom.io/docs/api/crash-reporter/
-
 // electron.crashReporter.start({
 //     productName: 'YourName',
 //     companyName: 'YourCompany',
@@ -29,12 +36,9 @@ app.on('ready', () => {
   // If you want to open up dev tools programmatically, call
   // mainWindow.openDevTools();
 
-  // By default, we'll open the Ember App by directly going to the
-  // file system.
-  //
-  // Please ensure that you have set the locationType option in the
-  // config/environment.js file to 'hash'. For more information,
-  // please consult the ember-electron readme.
+  const emberAppLocation = 'serve://dist';
+
+  // Load the ember application using our custom protocol/scheme
   mainWindow.loadURL(emberAppLocation);
 
   // If a loading operation goes wrong, we'll send Electron back to
