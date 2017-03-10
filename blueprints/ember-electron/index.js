@@ -18,7 +18,7 @@ class EmberElectronBlueprint extends Blueprint {
 
     logger.startProgress('Installing electron build tools');
 
-    return this.addPackagesToProject([
+    return this.addProductionPackagesToProject([
       {
         name: 'electron-protocol-serve',
         target: '1.1.0',
@@ -31,6 +31,37 @@ class EmberElectronBlueprint extends Blueprint {
         logger.message(configMessage, logger.chalk.yellow);
         logger.message('https://github.com/felixrieseberg/ember-electron');
       });
+  }
+
+  //
+  // Copied from ember-cli/lib/models/blueprint.js, and modified to install
+  // into dependencies instead of devDependencies
+  //
+  addProductionPackagesToProject(packages) {
+    let task = this.taskFor('npm-install');
+    let installText = (packages.length > 1) ? 'install packages' : 'install package';
+    let packageNames = [];
+    let packageArray = [];
+
+    for (let i = 0; i < packages.length; i++) {
+      packageNames.push(packages[i].name);
+
+      let packageNameAndVersion = packages[i].name;
+
+      if (packages[i].target) {
+        packageNameAndVersion += `@${packages[i].target}`;
+      }
+
+      packageArray.push(packageNameAndVersion);
+    }
+
+    this._writeStatusToUI(require('chalk').green, installText, packageNames.join(', '));
+
+    return task.run({
+      save: true,
+      verbose: false,
+      packages: packageArray,
+    });
   }
 }
 

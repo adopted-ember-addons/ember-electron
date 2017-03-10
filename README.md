@@ -20,20 +20,16 @@ To install the addon, run:
 ember install ember-electron
 ```
 
-Or, to install with npm - but please ensure (:warning:) that the blueprint generation runs - it creates necessary files and configuration for this addon to work. Please ensure that your `tests` folder contains a `package.json` and a `electron.js` - and that `locationType` in `config/environment.js` is set to `hash`.
+Or, to install with npm - but please ensure (:warning:) that the blueprint generation runs - it creates necessary files and configuration for this addon to work. Please ensure that you have a populated `ember-electron` folder at the root of your project, and another one (only containing `lib/index.js`) in your `tests` directory.
 ```
 npm install ember-electron
 ember g ember-electron
 ```
 
-Once you installed the addon, you'll notice that a new file called `electron.js` was created in the root folder of your application. This is the entry point for Electron and is responsible for creating browser windows and other interactions with Electron APIs.
+See below for more information on the layout of the `ember-electron` directory
 
-### Configuration and First Use
-To run your app together with a file watcher in development mode (similar to `ember serve`), you can run  `ember electron`. However, you will need to change your configuration for Ember and Electron to work well together: Electron does not support the History API. Therefore Ember-Cli must be configured to use the `hash` location type. Update your `config/environment.js`'s `locationType` config option to `hash`. If you would like to support running the app both within and outside of Electron you can use the following switch:
-
-```js
-  locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
-```
+### Running Your App
+To run your app together with a file watcher in development mode (similar to `ember serve`), you can run  `ember electron`.
 
 ## Ember Inspector
 If you're running a later version of Electron, you will notice that ember-electron installs ember-inspector directly into Electron. Simply open up the developer tools and choose the Ember-tab, just like you would in Chrome.
@@ -54,38 +50,45 @@ as electron apps). The blueprint will install this file, but if you want to modi
 it to change any testem configuration, make sure to modify the right file.
 
 ## Packaging
-Ember-Electron comes with an integrated packager to create binaries (.app, .exe etc), which can be run with `ember electron:package`. By default, the packager creates binaries for all platforms and architectures using your app's name and version as defined in `package.json`. Under the hood, it uses the popular [electron-packager](https://github.com/maxogden/electron-packager) module.
+Ember-Electron comes with an integrated packager to create binaries (.app, .exe etc), which can be run with `ember electron:package`. By default, the packager creates binaries for all platforms and architectures using your app's name and version as defined in `package.json`. Under the hood, it uses the popular [electron-packager](https://github.com/maxogden/electron-packager) module (via [electron-forge](https://github.com/electron-userland/electron-forge)).
 
-To create standalone binaries of your Ember App, simply run the following command.
+To create standalone binaries of your Ember App, simply run the following command:
+
 ```
 ember electron:package
 ```
 
-### Defining Files to Package
-By default, ember-electron will package your whole `dist` folder and all production dependencies as defined in `package.json`. In addition, to ensure that Electron can start properly, it also includes `ember-electron/electron.js` and `package.json`. Any additional files that should be packaged with the application should be put in `ember-electron/public`, and any platform-specific files in `ember-electron/public-<platform>` (which will overwrite files in non-platform-specific files at the same path).
+and they will be created in a `electron-out` directory at the root of your project.
 
-### Directory Structure
-When the application is packaged up, the directory structure looks like this:
+### Directories and Packaging
+The `ember-electron` folder created at the root of your project by `ember-electron`'s blueprint looks like this:
 
 ```
- .
+ ember-electron
+ ├── .compilerc
+ ├── lib
+ │   └── index.js
+ ├── resources
+ ├── resources-darwin
+ ├── resources-linux
+ └── resources-win32
+```
+
+The `lib` directory is meant for code, and the `resources` directories are meant for non-code resources, such as images, json files, etc. The `resources-<platform>` directories exist so you can supply resources that will only be included on certain platforms, augmenting or replacing your platform-independent resources in `resources`. When the `ember electron` assembles your Electron project, it will look like this:
+
+```
+ ember-electron
+ ├── .compilerc
  ├── package.json
- ├── node_modules
- │   └── <production dependencies>
- ├── electron
- │   ├── electron.js
- │   └── <contents of public and public-<platform>
+ ├── lib
+ │   └── index.js
+ ├── resources
  └── ember
-     └── <ember build output>
+     ├── index.html
+     └── <the rest of your built ember app>
 ```
 
-So, for example, when loading your ember app from `electron.js`, you want something like this (which is included in the default `electron.js` in the blueprint):
-
-```javascript
-const emberAppLocation = `file://${dirname}/../ember/index.html`;
-// <snip>
-mainWindow.loadURL(emberAppLocation);
-```
+where `package.json` is copied from the root of your project (and slightly modified), `resources` is assembled as described, `ember` contains the built Ember app, and everything else is simply copied over from the `ember-electron` directory. Any other files or directories that you add to the `ember-electron` directory will be copied over as well, so you can include anything you want and it will be propagated into your Electron project and available at runtime.
 
 ### Configuration
 You can pass options to the packager by either putting configuration into your app's `package.json`, or by passing a command line parameter to the `ember electron:package` command. You can extend your existing `package.json` with all available configuration options by running `ember generate ember-electron`. In the case that an option is defined both on the command line and in the package.json, the command line option will be used.
