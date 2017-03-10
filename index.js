@@ -7,10 +7,9 @@ let path = require('path');
 function injectScript(scriptName) {
   let dirname = __dirname || path.resolve(path.dirname());
   let filePath = path.join(dirname, 'lib', 'resources', scriptName);
+  let fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
 
-  return `<script>\n${  fs.readFileSync(filePath, {
-    encoding: 'utf8',
-  })  }\n</script>`;
+  return `<script>\n${fileContent}</script>`;
 }
 
 module.exports = {
@@ -82,12 +81,14 @@ module.exports = {
   contentFor(type) {
     const { env: { EMBER_CLI_ELECTRON } } = process;
 
-    if (EMBER_CLI_ELECTRON && type === 'head') {
-      return injectScript('shim-head.js');
-    }
+    if (EMBER_CLI_ELECTRON) {
+      if (type === 'body-footer') {
+        return injectScript('shim-footer.js');
+      }
 
-    if (EMBER_CLI_ELECTRON && type === 'body-footer') {
-      return injectScript('shim-footer.js');
+      if (type === 'head') {
+        return injectScript('shim-head.js');
+      }
     }
   },
 };

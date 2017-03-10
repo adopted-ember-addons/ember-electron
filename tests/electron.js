@@ -1,7 +1,8 @@
-/* jshint undef: false */
+const { app, BrowserWindow } = require('electron');
 
-let BrowserWindow = require('browser-window');
-let app = require('app');
+// Make sure node modules are copied correctly and we can load them
+require('../node-main/helper.js')();
+
 let mainWindow = null;
 
 app.on('window-all-closed', function onWindowAllClosed() {
@@ -11,20 +12,17 @@ app.on('window-all-closed', function onWindowAllClosed() {
 });
 
 app.on('ready', function onReady() {
+  let [, , testUrl] = process.argv;
+
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    backgroundThrottling: false,
   });
 
-  if (process.env.EMBER_ENV === 'test') {
-    mainWindow.loadUrl(`file://${__dirname}/index.html`);
-  } else {
-    mainWindow.loadUrl(`file://${__dirname}//dist/index.html`);
-  }
+  mainWindow.loadURL(testUrl);
 
   mainWindow.on('closed', function onClosed() {
     mainWindow = null;
   });
 });
-
-/* jshint undef: true */
