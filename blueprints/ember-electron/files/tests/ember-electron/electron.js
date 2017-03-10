@@ -1,7 +1,7 @@
 const { app, BrowserWindow, protocol } = require('electron');
 const { dirname, resolve } = require('path');
 const url = require('url');
-const protocolEmber = require('./protocol-ember.js');
+const protocolServe = require('electron-protocol-serve');
 
 let mainWindow = null;
 
@@ -13,12 +13,18 @@ const {
   pathname: indexPath,
   search: indexQuery,
 } = url.parse(indexUrl);
-const emberAppLocation = `ember://ember${indexQuery}`;
+const emberAppLocation = `serve://dist${indexQuery}`;
 
-protocol.registerStandardSchemes(['ember'], { secure: true });
 // The index.html is in the tests/ directory, so we want all other assets to
 // load from its parent directory
-protocolEmber(resolve(dirname(indexPath), '..'), indexPath);
+protocolServe({
+  cwd: resolve(dirname(indexPath), '..'),
+  indexPath,
+  app,
+  protocol,
+});
+
+protocol.registerStandardSchemes(['serve'], { secure: true });
 
 app.on('window-all-closed', function onWindowAllClosed() {
   if (process.platform !== 'darwin') {
