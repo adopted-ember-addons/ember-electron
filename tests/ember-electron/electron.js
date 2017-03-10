@@ -16,7 +16,7 @@ const {
   pathname: indexPath,
   search: indexQuery,
 } = url.parse(indexUrl);
-const emberAppLocation = `serve://dist${indexQuery}`;
+const emberAppLocation = `serve://dist/index.html${indexQuery}`;
 
 // The index.html is in the tests/ directory, so we want all other assets to
 // load from its parent directory
@@ -27,7 +27,7 @@ protocolServe({
   protocol,
 });
 
-protocol.registerStandardSchemes(['ember'], { secure: true });
+protocol.registerStandardSchemes(['serve'], { secure: true });
 
 app.on('window-all-closed', function onWindowAllClosed() {
   if (process.platform !== 'darwin') {
