@@ -105,43 +105,13 @@
     "defaultBlueprint": "ember-electron",
     "versionCompatibility": {
       "ember": ">=2.3.0"
-    }
+    },
+    "after": [
+      "ember-cli-sri"
+    ]
   },
   "config": {
-    "ember-electron": {
-      "copy-files": [
-        "ember-electron/electron.js",
-        "package.json",
-        "node-main/**"
-      ]
-    },
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {},
-      "electronWinstallerConfig": {
-        "name": ""
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "",
-        "name": ""
-      },
-      "windowsStoreConfig": {
-        "packageName": ""
-      }
-    }
+    "forge": "./ember-electron/.electron-forge"
   },
   "standard": {
     "env": [

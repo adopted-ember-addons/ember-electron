@@ -1,20 +1,14 @@
-const RSVP = require('rsvp');
 const fs = require('fs-extra');
 const path = require('path');
-
+const { denodeify } = require('rsvp');
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const Logger = require('../../lib/utils/logger');
-const forgeImport = require('electron-forge/dist/api/import').default;
+const { devDeps, exactDevDeps, deps } = require('electron-forge/dist/init/init-npm');
 
-const {
-  denodeify,
-  resolve,
-} = RSVP;
-
-const {
-  readJson,
-  writeJson,
-} = fs;
+const writeJson = denodeify(fs.writeJson);
+const readJson = denodeify(fs.readJson);
+const readFile = denodeify(fs.readFile);
+const writeFile = denodeify(fs.writeFile);
 
 class EmberElectronBlueprint extends Blueprint {
   constructor(options) {
@@ -29,49 +23,76 @@ class EmberElectronBlueprint extends Blueprint {
 
   afterInstall(/* options */) {
     let logger = new Logger(this);
+    let task = this.taskFor('npm-install');
 
     logger.startProgress('Installing electron build tools');
 
-    return this.addPackagesToProject([
-      {
-        name: 'electron-protocol-serve',
-        target: '1.1.0',
-      },
-    ])
-      .then(() => forgeImport({ updateScripts: false }))
-      .then(() => this._ensurePackageJsonConfiguration())
+    // There are two parts of electron-forge's import command that are relevant
+    // to us. One is installing dependencies, and the other is setting up the
+    // electron-forge configuration. However, it sets up the forge
+    // configuration inline in package.json, and we want it in an external
+    // file, so we install the dependencies here ourselves (including our own
+    // dependencies), and add an entry to package.json pointing the forge
+    // config to the config file that is copied from the blueprint files.
+    //
+    // addPackagesToProject() doesn't give us fine-grained control over save
+    // vs. save-dev, or the exact flag, so we need to
+    return task.run({
+      'save-dev': true,
+      verbose: false,
+      packages: devDeps
+    }).then(() => task.run({
+      'save-dev': true,
+      'save-exact': true,
+      verbose: false,
+      packages: exactDevDeps
+    })).then(() => task.run({
+      save: true,
+      verbose: true,
+      packages: ['electron-protocol-serve@1.1.0', ...deps]
+    })).then(() => this._ensurePackageJsonConfiguration())
+      .then(() => this._updateGitignore())
       .then(() => {
-        let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
+      let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
 
-        logger.message(configMessage, logger.chalk.yellow);
-        logger.message('https://github.com/felixrieseberg/ember-electron');
-      });
+      logger.message(configMessage, logger.chalk.yellow);
+      logger.message('https://github.com/felixrieseberg/ember-electron');
+    });
   }
 
   _ensurePackageJsonConfiguration() {
     let packageJsonPath = path.join(this.project.root, 'package.json');
+    // We can't use this.project.pkg because we modified package.json by
+    // installing dependencies, and that won't be reflected in this.project.pkg
+    return readJson(packageJsonPath)
+      .then((packageJson) => {
+        packageJson.config = packageJson.config || {};
+        packageJson.config.forge = './ember-electron/.electron-forge';
 
-    if (this.project.pkg.main !== undefined) {
-      return resolve();
-    }
+        return writeJson(packageJsonPath, packageJson, { spaces: 2 });
+      });
+  }
 
-    return denodeify(readJson)(packageJsonPath)
-      .then((json) => {
-        json.main = 'ember-electron/electron.js';
-
-        if (json.config === undefined) {
-          json.config = {};
+  _updateGitignore() {
+    let gitignorePath = path.join(this.project.root, '.gitignore');
+    let toAdd = '/electron-out';
+    return readFile(gitignorePath)
+      .then((gitignore) => {
+        let lines = gitignore.toString().split('\n');
+        if (lines.includes(toAdd)) {
+          return;
         }
 
-        json.config['ember-electron'] = {
-          'copy-files': [
-            'ember-electron/electron.js',
-            'ember-electron/protocol-ember.js',
-            'package.json',
-          ],
-        };
+        // Try to put it next to '/tmp' (in the built output section)
+        let tmpIndex = lines.indexOf('/tmp');
+        if (tmpIndex !== -1) {
+          lines.splice(tmpIndex + 1, 0, toAdd);
+        } else {
+          lines.push('');
+          lines.push(toAdd);
+        }
 
-        return denodeify(writeJson)(packageJsonPath, json, { spaces: 2 });
+        return writeFile(gitignorePath, lines.join('\n'));
       });
   }
 }
