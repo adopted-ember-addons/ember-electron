@@ -7,6 +7,8 @@ const { devDeps, exactDevDeps, deps } = require('electron-forge/dist/init/init-n
 
 const writeJson = denodeify(fs.writeJson);
 const readJson = denodeify(fs.readJson);
+const readFile = denodeify(fs.readFile);
+const writeFile = denodeify(fs.writeFile);
 
 class EmberElectronBlueprint extends Blueprint {
   constructor(options) {
@@ -49,6 +51,7 @@ class EmberElectronBlueprint extends Blueprint {
       verbose: true,
       packages: ['electron-protocol-serve@1.1.0', ...deps]
     })).then(() => this._ensurePackageJsonConfiguration())
+      .then(() => this._updateGitignore())
       .then(() => {
       let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
 
@@ -67,6 +70,29 @@ class EmberElectronBlueprint extends Blueprint {
         packageJson.config.forge = './ember-electron/.electron-forge';
 
         return writeJson(packageJsonPath, packageJson, { spaces: 2 });
+      });
+  }
+
+  _updateGitignore() {
+    let gitignorePath = path.join(this.project.root, '.gitignore');
+    let toAdd = '/electron-out';
+    return readFile(gitignorePath)
+      .then((gitignore) => {
+        let lines = gitignore.toString().split('\n');
+        if (lines.includes(toAdd)) {
+          return;
+        }
+
+        // Try to put it next to '/tmp' (in the built output section)
+        let tmpIndex = lines.indexOf('/tmp');
+        if (tmpIndex !== -1) {
+          lines.splice(tmpIndex + 1, 0, toAdd);
+        } else {
+          lines.push('');
+          lines.push(toAdd);
+        }
+
+        return writeFile(gitignorePath, lines.join('\n'));
       });
   }
 }
