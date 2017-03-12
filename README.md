@@ -1,7 +1,4 @@
 # Ember-Electron
-<a href="https://travis-ci.org/felixrieseberg/ember-electron"><img src="https://travis-ci.org/felixrieseberg/ember-electron.svg"></a> <a href="https://www.npmjs.com/package/ember-electron"><img src="https://badge.fury.io/js/ember-electron.svg" alt="npm version" height="18"></a> <a href="https://david-dm.org/felixrieseberg/ember-electron"><img src="https://david-dm.org/felixrieseberg/ember-electron.svg" alt="dependencies" height="18px"></a> <a href="http://emberobserver.com/addons/ember-electron"><img src="http://emberobserver.com/badges/ember-electron.svg" height="18px" /></a> <img src="https://img.shields.io/npm/dm/ember-electron.svg">
-
-<img src="https://raw.githubusercontent.com/felixrieseberg/ember-electron/master/logo.gif" alt="Logo" align="right" /> This addon enables the development of Desktop apps with Ember, Ember Cli, and GitHub's Electron. It enables live development with Electron (similar to `ember serve`) as well as testing in Electron (similar to `ember test` and `ember test --server`). It also comes with an integrated packager, turning your Ember App into standalone binaries for Windows, Mac OS X, and Linux. It also integrates the famous Ember Inspector. The commands are:
 
 * `ember electron` - Run app in Electron with live-reload server
 * `ember electron:test` - Test the app using Electron
@@ -50,7 +47,7 @@ as electron apps). The blueprint will install this file, but if you want to modi
 it to change any testem configuration, make sure to modify the right file.
 
 ## Packaging
-Ember-Electron comes with an integrated packager to create binaries (.app, .exe etc), which can be run with `ember electron:package`. By default, the packager creates binaries for all platforms and architectures using your app's name and version as defined in `package.json`. Under the hood, it uses the popular [electron-packager](https://github.com/maxogden/electron-packager) module (via [electron-forge](https://github.com/electron-userland/electron-forge)).
+Ember-Electron comes with an integrated packager to create binaries (.app, .exe etc), which can be run with `ember electron:package`. By default, the packager creates binaries for all platforms and architectures using your app's name and version as defined in `package.json`. Under the hood, it uses [electron-forge](https://github.com/electron-userland/electron-forge)).
 
 To create standalone binaries of your Ember App, simply run the following command:
 
@@ -66,6 +63,7 @@ The `ember-electron` folder created at the root of your project by `ember-electr
 ```
  ember-electron
  ├── .compilerc
+ ├── .electron-forge
  ├── lib
  │   └── index.js
  ├── resources
@@ -80,6 +78,7 @@ The `lib` directory is meant for code, and the `resources` directories are meant
  ember-electron
  ├── .compilerc
  ├── package.json
+ ├── .electron-forge
  ├── lib
  │   └── index.js
  ├── resources
@@ -91,7 +90,7 @@ The `lib` directory is meant for code, and the `resources` directories are meant
 where `package.json` is copied from the root of your project (and slightly modified), `resources` is assembled as described, `ember` contains the built Ember app, and everything else is simply copied over from the `ember-electron` directory. Any other files or directories that you add to the `ember-electron` directory will be copied over as well, so you can include anything you want and it will be propagated into your Electron project and available at runtime.
 
 ### Configuration
-You can pass options to the packager by either putting configuration into your app's `package.json`, or by passing a command line parameter to the `ember electron:package` command. You can extend your existing `package.json` with all available configuration options by running `ember generate ember-electron`. In the case that an option is defined both on the command line and in the package.json, the command line option will be used.
+You can pass options to the packager by either putting configuration into `ember-electron/.electron-forge`, or by passing a command line parameter to the `ember electron:package` command. In the case that an option is defined both on the command line and in the `.electron-forge`, the command line option will be used.
 
 * `--app-copyright` - *String* The human-readable copyright line for the app. Maps to the LegalCopyright metadata property on Windows, and NSHumanReadableCopyright on OS X.
 * `--app-version` - *String* The release version of the application. Maps to the `ProductVersion` metadata property on Windows, and `CFBundleShortVersionString` on OS X.

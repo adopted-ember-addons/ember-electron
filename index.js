@@ -70,11 +70,12 @@ module.exports = {
       let mergeTrees = require('broccoli-merge-trees');
       let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM || process.platform;
 
-      // We don't want to assume that our host package has a main entry that
-      // makes any sense for our packaged electron app, so let's just set it to
-      // be `index.js`.
+      // Set the main entry point for the electron application, and point the
+      // electron-forge config to ./.electron-forge
       let packageJson = clone(this.project.pkg);
       packageJson.main = 'lib/index.js';
+      packageJson.config = packageJson.config || {};
+      packageJson.config.forge = './.electron-forge';
 
       let trees = [
         // write package.json
