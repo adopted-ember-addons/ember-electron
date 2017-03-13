@@ -5,7 +5,7 @@ as easy as possible given the complex structure behind it there are still a few 
 
 
 
-## Upgrading rom 1.x to 2.x
+## Upgrading from 1.x to 2.x
 
 If you are upgrading to version 2.x from 1.x, you will need to make some updates to
 your application. The best way to do this is to re-run the blueprint after upgrading
