@@ -16,7 +16,7 @@
    * @param sub directory
    */
   let watch = function(sub) {
-    let dirname = __dirname || path.resolve(path.dirname());
+    let dirname = __dirname || process.cwd();
     let isInTest = !!window.QUnit;
 
     if (isInTest) {
@@ -74,7 +74,7 @@
   };
 
   document.addEventListener('DOMContentLoaded', (/* e */) => {
-    let dirname = __dirname || path.resolve(path.dirname());
+    let dirname = __dirname || process.cwd();
 
     fs.stat(dirname, (err/* , stat */) => {
       if (!err) {

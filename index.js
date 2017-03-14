@@ -6,7 +6,7 @@ let path = require('path');
 let { clone } = require('lodash/lang');
 
 function injectScript(scriptName) {
-  let dirname = __dirname || path.resolve(path.dirname());
+  let dirname = __dirname || process.cwd();
   let filePath = path.join(dirname, 'lib', 'resources', scriptName);
   let fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
 
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   treeForVendor() {
-    let dirname = __dirname || path.resolve(path.dirname());
+    let dirname = __dirname || process.cwd();
 
     return path.join(dirname, 'app');
   },
