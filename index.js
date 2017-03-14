@@ -83,7 +83,7 @@ module.exports = {
         // copy the rest of the ember-electron directory, with the exception of
         // the resources directories that need to be merged
         funnel('ember-electron', {
-          exclude: ['resources', 'resources-*'],
+          exclude: ['resources*/**', 'resources*/**/.*']
         }),
         // copy resources
         funnel('ember-electron', {
