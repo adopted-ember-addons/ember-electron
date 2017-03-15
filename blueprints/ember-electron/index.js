@@ -1,16 +1,13 @@
 const fs = require('fs-extra');
 const path = require('path');
 const { all, denodeify } = require('rsvp');
+
 const Blueprint = require('ember-cli/lib/models/blueprint');
+const efImport = require('electron-forge/dist/api/import').default;
+
 const Logger = require('../../lib/utils/logger');
 
-const writeJson = denodeify(fs.writeJson);
-const readJson = denodeify(fs.readJson);
-const readFile = denodeify(fs.readFile);
-const writeFile = denodeify(fs.writeFile);
-const ensureFile = denodeify(fs.ensureFile);
-
-class EmberElectronBlueprint extends Blueprint {
+module.exports = class EmberElectronBlueprint extends Blueprint {
   constructor(options) {
     super(options);
 
@@ -24,96 +21,63 @@ class EmberElectronBlueprint extends Blueprint {
   afterInstall(/* options */) {
     let logger = new Logger(this);
 
-    return this._installDependencies(logger)
-      .then(() => this._createResourcesDirectories())
-      .then(() => this._ensurePackageJsonConfiguration())
-      .then(() => this._updateGitignore())
-      .then(() => {
-        let configMessage = 'Ember Electron requires configuration. Please consult the Readme to ensure that this addon works!';
-        logger.message(configMessage, logger.chalk.yellow);
-        logger.message('https://github.com/felixrieseberg/ember-electron');
-      });
+    return this._installElectronTooling(logger)
+      .then(() => this._createResourcesDirectories(logger))
+      .then(() => this._ensurePackageJsonConfiguration(logger));
   }
 
-  _installDependencies(logger) {
-    // Since addPackagesToProject() doesn't give us fine-grained control over save vs. save-dev,
-    // or the exact flag, we use:
-    let task = this.taskFor('npm-install');
+  _installElectronTooling(logger) {
+    logger.startProgress('Installing electron build tools');
 
-    logger.startProgress('Installing electron tools (electron-forge + electron-protocol-serve)');
-
-    // There are two parts of electron-forge's import command that are relevant to us.
-    // One is installing dependencies, and the other is setting up the electron-forge configuration.
-    // Rather than embedding the forge configuration inline in package.json
-    // we want it in an external file, so we install the dependencies here ourselves
-    // (including our own dependencies), and add an entry to package.json
-    // pointing the forge config to the config file that is copied from the blueprint files.
-
-    const { devDeps, exactDevDeps, deps } = require('electron-forge/dist/init/init-npm');
-
-    return task.run({
-      'save-dev': true,
-      verbose: false,
-      packages: devDeps
-    }).then(() => task.run({
-      // Dependencies we need to keep locked at specific versions
-      'save-dev': true,
-      'save-exact': true,
-      verbose: false,
-      packages: exactDevDeps
-    })).then(() => task.run({
-      // Production dependencies
-      save: true,
-      verbose: true,
-      packages: ['electron-protocol-serve@1.1.0', ...deps]
-    }));
+    return efImport({
+      updateScripts: false,
+      outDir: 'electron-out',
+    })
+      .then(() => this.addPackageToProject('devtron', '^1.4.0'))
+      // n.b. addPackageToProject does not let us save prod deps, so we task
+      .then(() => this.taskFor('npm-install').run({
+        save: true,
+        verbose: false,
+        packages: ['electron-protocol-serve@1.1.0'],
+      }))
+      .then(() => logger.message('Installed electron build tools'));
   }
 
-  _createResourcesDirectories() {
-    const platforms = ['', 'darwin', 'linux', 'win32'];
-    let promises = platforms.map((platform) => {
-      let gitKeepPath = path.join(this.options.project.root, 'ember-electron', `resources${platform ? '-' : ''}${platform}`, '.gitkeep');
-      return ensureFile(gitKeepPath);
-    });
+  _createResourcesDirectories(logger) {
+    const ensureFile = denodeify(fs.ensureFile);
 
-    return all(promises);
+    logger.startProgress('Creating ember-electron resource dirs');
+
+    let rootDir = this.options.project.root;
+    let promises = [null, 'darwin', 'linux', 'win32']
+      .map((platform) => platform ? `resources-${platform}` : 'resources')
+      .map((dirName) => path.join(rootDir, 'ember-electron', dirName))
+      .map((dirPath) => ensureFile(path.join(dirPath, '.gitkeep')));
+
+    return all(promises)
+      .then(() => logger.message('Created ember-electron resource dirs'));
   }
 
-  _ensurePackageJsonConfiguration() {
+  _ensurePackageJsonConfiguration(logger) {
+    const readJson = denodeify(fs.readJson);
+    const writeFile = denodeify(fs.writeFile);
+    const writeJson = denodeify(fs.writeJson);
+
     let packageJsonPath = path.join(this.project.root, 'package.json');
-    // We can't use this.project.pkg because we modified package.json by
-    // installing dependencies, and that won't be reflected in this.project.pkg
+    let forgeConfigPath = './ember-electron/.electron-forge.js';
+
+    logger.startProgress('Extracting ember-electron forge config');
+
     return readJson(packageJsonPath)
       .then((packageJson) => {
-        packageJson.config = packageJson.config || {};
-        packageJson.config.forge = './ember-electron/.electron-forge';
+        let forgeConfig = `module.exports = ${packageJson.config.forge}`;
+        packageJson.config.forge = forgeConfigPath;
 
-        return writeJson(packageJsonPath, packageJson, { spaces: 2 });
-      });
+        return all([
+          writeFile(forgeConfigPath, forgeConfig),
+          writeJson(packageJsonPath, packageJson, { spaces: 2 }),
+        ]);
+      })
+      .then(() => logger.message('Extracted ember-electron forge config'));
   }
-
-  _updateGitignore() {
-    let gitignorePath = path.join(this.project.root, '.gitignore');
-    let toAdd = '/electron-out';
-    return readFile(gitignorePath)
-      .then((gitignore) => {
-        let lines = gitignore.toString().split('\n');
-        if (lines.includes(toAdd)) {
-          return;
-        }
-
-        // Try to put it next to '/tmp' (in the built output section)
-        let tmpIndex = lines.indexOf('/tmp');
-        if (tmpIndex !== -1) {
-          lines.splice(tmpIndex + 1, 0, toAdd);
-        } else {
-          lines.push('');
-          lines.push(toAdd);
-        }
-
-        return writeFile(gitignorePath, lines.join('\n'));
-      });
-  }
-}
-
-module.exports = EmberElectronBlueprint;
+};
