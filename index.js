@@ -26,6 +26,8 @@ module.exports = {
     if (app.env === 'development') {
       app.import('vendor/electron/reload.js');
     }
+
+    app.import('vendor/electron/adjust-module-search-paths.js');
   },
 
   includedCommands() {
