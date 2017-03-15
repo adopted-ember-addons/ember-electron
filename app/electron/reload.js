@@ -38,7 +38,8 @@
    * Install Devtron in the current window.
    */
   let installDevtron = function() {
-    let devtron = window.requireNode('devtron');
+    let pathToDevtron = window.processNode.cwd() + '/node_modules/devtron';
+    let devtron = window.requireNode(pathToDevtron);
 
     if (devtron) {
       devtron.install();
