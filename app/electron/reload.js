@@ -19,19 +19,7 @@
    * @param sub directory
    */
   let watch = function(sub) {
-    let dirname = __dirname || process.cwd();
-    let isInTest = !!window.QUnit;
-
-    if (isInTest) {
-      // In tests, __dirname is `<project>/tmp/<broccoli-dist-path>/tests`.
-      // In normal `ember:electron` it's `<project>/dist`.
-      // To achieve the regular behavior in testing, go to parent dir, which contains `tests` and `assets`
-      dirname = path.join(dirname, '..');
-    }
-
-    if (sub) {
-      dirname = path.join(dirname, sub);
-    }
+    let dirname = sub ? path.join(rootDir, sub) : rootDir;
 
     fs.watch(dirname, { recursive: true }, () => window.location.reload());
   };
@@ -91,8 +79,8 @@
         // given directory.  So, this hack just manually sets up watches on
         // the expected subdirs -- that is, `assets` and `tests`.
         if (process.platform === 'linux') {
-          watch('/assets');
-          watch('/tests');
+          watch('assets');
+          watch('tests');
         }
       }
     });
