@@ -27,14 +27,20 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   }
 
   _installElectronTooling(logger) {
+    // n.b. addPackageToProject does not let us save prod deps, so we task
+    let npmInstall = this.taskFor('npm-install');
+
     logger.startProgress('Installing electron build tools');
 
     return efImport({
       updateScripts: false,
       outDir: 'electron-out',
     })
-      .then(() => this.addPackageToProject('devtron', '^1.4.0'))
-      // n.b. addPackageToProject does not let us save prod deps, so we task
+      .then(() => npmInstall.run({
+        saveDev: true,
+        verbose: false,
+        packages: ['devtron@1.4.0'],
+      }))
       .then(() => this.taskFor('npm-install').run({
         save: true,
         verbose: false,
