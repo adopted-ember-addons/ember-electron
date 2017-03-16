@@ -80,14 +80,20 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     return readJson(packageJsonPath)
       .then((packageJson) => {
-        let forgeConfig = JSON.stringify(packageJson.config.forge, 2);
+        let forgeConfig = packageJson.config.forge;
+
+        if (typeof packageJson.config.forge === 'string') {
+          return;
+        }
+
+        forgeConfig = JSON.stringify(forgeConfig, 2);
         packageJson.config.forge = forgeConfigPath;
 
         return all([
           writeFile(forgeConfigPath, `module.exports = ${forgeConfig}`),
           writeJson(packageJsonPath, packageJson, { spaces: 2 }),
-        ]);
-      })
-      .then(() => logger.message('Extracted ember-electron forge config'));
+        ])
+          .then(() => logger.message('Extracted ember-electron forge config'));
+      });
   }
 };
