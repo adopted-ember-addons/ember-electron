@@ -7,17 +7,19 @@
   var path = window.requireNode('path');
   var module = window.requireNode('module');
 
-  var pathsToAdd = [
-    path.join(window.processNode.cwd(), 'node_modules'),
-    path.resolve(window.processNode.resourcesPath, 'app', 'node_modules')
-  ];
+  var searchPaths = window.processNode.mainModule.paths;
+  var packagedNodeModulesPath = path.resolve(window.processNode.resourcesPath, 'app', 'node_modules');
+  var projectRootNodeModulesPath = (function() {
+    // n.b. if we are using `electron-prebuilt-compile` seek top-level node_modules dir
+    var epcIndex = __dirname.indexOf('electron-prebuilt-compile');
+    if (epcIndex !== -1) {
+      return __dirname.slice(0, epcIndex);
+    }
+  }());
 
-  // n.b. if we are running in `electron-prebuilt-compile`,
-  // TODO @jacobq is this still necessary given window.processNoce.cwd() above?
-  //      - if so, plz explain what __dirname is, why you're slicing, etc
-  var epcIndex = __dirname.indexOf('electron-prebuilt-compile');
-  if (epcIndex !== -1) {
-    pathsToAdd.push(__dirname.slice(0, epcIndex));
+  var pathsToAdd = [packagedNodeModulesPath];
+  if (projectRootNodeModulesPath) {
+    pathsToAdd.push(projectRootNodeModulesPath);
   }
 
   pathsToAdd.forEach(function(pathToAdd) {
@@ -25,12 +27,11 @@
       // n.b. use statSync to prevent race conditions
       var stats = fs.statSync(pathToAdd);
 
-      // TODO @jacobq explain why you are setting globalPaths vs paths
-      if (stats.isDirectory() && module.globalPaths.indexOf(pathToAdd) === -1) {
-        module.globalPaths.push(pathToAdd);
+      if (stats.isDirectory() && searchPaths.indexOf(pathToAdd) === -1) {
+        searchPaths.push(pathToAdd);
       }
     } catch(e) {
-      // n.b. ignore "dir does not exist" errors, else throw
+      // n.b. ignore "dir does not exist" errors (app may not be packaged)
       if (e.code !== 'ENOENT') {
         throw e;
       }
