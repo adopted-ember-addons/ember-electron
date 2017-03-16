@@ -19,7 +19,10 @@
   var path = window.requireNode('path');
   var module = window.requireNode('module');
 
-  var pathsToAdd = [];
+  var pathsToAdd = [
+    path.join(window.processNode.cwd(), 'node_modules'),
+    path.resolve(window.processNode.resourcesPath, 'app', 'node_modules')
+  ];
 
   // Check if we're running with resource root inside of a `electron-prebuilt-compile` dir.
   // This should correspond to when running `ember electron`
