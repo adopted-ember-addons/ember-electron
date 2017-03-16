@@ -86,7 +86,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
           return;
         }
 
-        forgeConfig = JSON.stringify(forgeConfig, 2);
+        forgeConfig = JSON.stringify(forgeConfig, null, 2);
         packageJson.config.forge = forgeConfigPath;
 
         return all([
