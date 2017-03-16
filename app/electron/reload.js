@@ -18,8 +18,8 @@
    *
    * @param sub directory
    */
-  let watch = function(sub) {
-    let dirname = sub ? path.join(rootDir, sub) : rootDir;
+  let watch = function(...sub) {
+    let dirname = path.join(rootDir, ...sub);
 
     fs.watch(dirname, { recursive: true }, () => window.location.reload());
   };
@@ -70,7 +70,8 @@
 
     fs.stat(dirname, (err/* , stat */) => {
       if (!err) {
-        watch();
+        watch('ember');
+        watch('ember-electron');
 
         // On linux, the recursive `watch` command is not fully supported:
         // https://nodejs.org/docs/latest/api/fs.html#fs_fs_watch_filename_options_listener
@@ -79,8 +80,8 @@
         // given directory.  So, this hack just manually sets up watches on
         // the expected subdirs -- that is, `assets` and `tests`.
         if (process.platform === 'linux') {
-          watch('assets');
-          watch('tests');
+          watch('ember', 'assets');
+          watch('ember', 'tests');
         }
       }
     });
