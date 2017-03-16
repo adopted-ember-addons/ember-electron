@@ -40,12 +40,12 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       .then(() => npmInstall.run({
         saveDev: true,
         verbose: false,
-        packages: ['devtron@1.4.0'],
+        packages: ['devtron@^1.4.0'],
       }))
       .then(() => this.taskFor('npm-install').run({
         save: true,
         verbose: false,
-        packages: ['electron-protocol-serve@1.1.0'],
+        packages: ['electron-protocol-serve@^1.3.0'],
       }))
       .then(() => logger.message('Installed electron build tools'));
   }
