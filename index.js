@@ -68,14 +68,10 @@ module.exports = {
       let funnel = require('broccoli-funnel');
       let writeFile = require('broccoli-file-creator');
       let mergeTrees = require('broccoli-merge-trees');
-      let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM || process.platform;
 
-      // Set the main entry point for the electron application, and point the
-      // electron-forge config to ./.electron-forge
+      let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM || process.platform;
       let packageJson = clone(this.project.pkg);
       packageJson.main = 'lib/index.js';
-      packageJson.config = packageJson.config || {};
-      packageJson.config.forge = './.electron-forge';
 
       let trees = [
         // write package.json
