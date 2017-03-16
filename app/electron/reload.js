@@ -7,9 +7,7 @@
   // Reload the page when anything in `dist` changes
   let fs = window.requireNode('fs');
   let path = window.requireNode('path');
-
   let rootDir = window.processNode.cwd();
-  let nodeModules = path.join(rootDir, 'node_modules');
 
   /**
    * @private
@@ -29,8 +27,7 @@
    * Install Devtron in the current window.
    */
   let installDevtron = function() {
-    let pathToDevtron = path.join(nodeModules, 'devtron');
-    let devtron = window.requireNode(pathToDevtron);
+    let devtron = window.requireNode('devtron');
 
     if (devtron) {
       devtron.install();
@@ -42,7 +39,7 @@
    * Install Ember-Inspector in the current window.
    */
   let installEmberInspector = function() {
-    let location = path.join(nodeModules, 'ember-inspector', 'dist', 'chrome');
+    let location = path.join(rootDir, 'node_modules', 'ember-inspector', 'dist', 'chrome');
 
     fs.lstat(location, (err, results) => {
       if (err) {

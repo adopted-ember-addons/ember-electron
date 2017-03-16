@@ -17,15 +17,15 @@ module.exports = {
   name: 'ember-electron',
 
   included(app) {
+    if (process.env.EMBER_CLI_ELECTRON) {
+      app.import('vendor/electron/adjust-module-search-paths.js');
+
+      if (app.env === 'development') {
+        app.import('vendor/electron/reload.js');
+      }
+    }
+
     this._super.included(app);
-
-    if (!process.env.EMBER_CLI_ELECTRON) {
-      return;
-    }
-
-    if (app.env === 'development') {
-      app.import('vendor/electron/reload.js');
-    }
   },
 
   includedCommands() {
