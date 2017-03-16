@@ -1,9 +1,9 @@
 /* jshint node: true */
 'use strict';
 
-let fs = require('fs');
-let path = require('path');
-let { clone } = require('lodash/lang');
+const fs = require('fs-extra');
+const path = require('path');
+const { clone } = require('lodash/lang');
 
 function injectScript(scriptName) {
   let dirname = __dirname || process.cwd();
@@ -65,9 +65,9 @@ module.exports = {
       // └── ember
       //     └── <ember build output>
       //
-      let funnel = require('broccoli-funnel');
-      let writeFile = require('broccoli-file-creator');
-      let mergeTrees = require('broccoli-merge-trees');
+      const funnel = require('broccoli-funnel');
+      const writeFile = require('broccoli-file-creator');
+      const mergeTrees = require('broccoli-merge-trees');
 
       let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM || process.platform;
       let packageJson = clone(this.project.pkg);
