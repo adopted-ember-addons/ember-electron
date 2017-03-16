@@ -49,8 +49,12 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     logger.startProgress('Creating ember-electron resource dirs');
 
     let rootDir = this.options.project.root;
-    let promises = [null, 'darwin', 'linux', 'win32']
-      .map((platform) => platform ? `resources-${platform}` : 'resources')
+    let promises = [
+      'resources',
+      'resources-darwin',
+      'resources-linux',
+      'resources-win32',
+    ]
       .map((dirName) => path.join(rootDir, 'ember-electron', dirName))
       .map((dirPath) => ensureFile(path.join(dirPath, '.gitkeep')));
 
