@@ -65,7 +65,7 @@ class EmberElectronBlueprint extends Blueprint {
       // Production dependencies
       save: true,
       verbose: true,
-      packages: ['electron-protocol-serve@1.1.0', ...deps]
+      packages: ['electron-protocol-serve@^1.3.0', ...deps]
     }));
   }
 
