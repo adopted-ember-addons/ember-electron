@@ -74,11 +74,11 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     return readJson(packageJsonPath)
       .then((packageJson) => {
-        let forgeConfig = `module.exports = ${packageJson.config.forge}`;
+        let forgeConfig = JSON.stringify(packageJson.config.forge, 2);
         packageJson.config.forge = forgeConfigPath;
 
         return all([
-          writeFile(forgeConfigPath, forgeConfig),
+          writeFile(forgeConfigPath, `module.exports = ${forgeConfig}`),
           writeJson(packageJsonPath, packageJson, { spaces: 2 }),
         ]);
       })
