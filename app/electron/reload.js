@@ -66,7 +66,7 @@
 
     fs.stat(dirname, (err/* , stat */) => {
       if (!err) {
-        watch();
+        watch('ember');
 
         // On linux, the recursive `watch` command is not fully supported:
         // https://nodejs.org/docs/latest/api/fs.html#fs_fs_watch_filename_options_listener
