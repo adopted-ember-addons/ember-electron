@@ -75,8 +75,8 @@
         // given directory.  So, this hack just manually sets up watches on
         // the expected subdirs -- that is, `assets` and `tests`.
         if (process.platform === 'linux') {
-          watch('assets');
-          watch('tests');
+          watch('ember', 'assets');
+          watch('ember', 'tests');
         }
       }
     });
