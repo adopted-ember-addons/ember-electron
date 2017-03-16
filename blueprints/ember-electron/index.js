@@ -23,7 +23,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     return this._installElectronTooling(logger)
       .then(() => this._createResourcesDirectories(logger))
-      .then(() => this._ensureForgeConfig(logger));
+      .then(() => this._ensureForgeConfig(logger))
+      .then(() => this._updateGitignore(logger));
   }
 
   _installElectronTooling(logger) {
@@ -95,5 +96,35 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         ])
           .then(() => logger.message('Extracted ember-electron forge config'));
       });
+  }
+
+  _updateGitignore(logger) {
+    const readFile = denodeify(fs.readFile);
+    const writeFile = denodeify(fs.writeFile);
+
+    let gitignorePath = path.join(this.project.root, '.gitignore');
+
+    logger.startProgress('Updating ember-electron gitignores');
+
+    return readFile(gitignorePath)
+      .then((gitignore) => {
+        let lines = gitignore.toString().split('\n');
+        let tmpLineIndex = lines.indexOf('/tmp');
+        let toAdd = [
+          '/electron-out',
+        ]
+          .filter((dir) => !lines.includes(dir));
+
+        if (toAdd.length === 0) {
+          return;
+        } else if (tmpLineIndex > -1) {
+          lines.splice(tmpLineIndex, 0, ...toAdd);
+        } else {
+          lines.splice(lines.length, 0, '', ...toAdd);
+        }
+
+        return writeFile(gitignorePath, lines.join('\n'));
+      })
+      .then(() => logger.message('Updated ember-electron gitignores'));
   }
 };
