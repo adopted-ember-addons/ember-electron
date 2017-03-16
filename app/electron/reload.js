@@ -8,9 +8,6 @@
   let fs = window.requireNode('fs');
   let path = window.requireNode('path');
 
-  let rootDir = window.processNode.cwd();
-  let nodeModules = path.join(rootDir, 'node_modules');
-
   /**
    * @private
    * Watch a given directory for changes and reload
@@ -18,8 +15,8 @@
    *
    * @param sub directory
    */
-  let watch = function(sub) {
-    let dirname = sub ? path.join(rootDir, sub) : rootDir;
+  let watch = function(...sub) {
+    let dirname = path.join(__dirname, ...sub);
 
     fs.watch(dirname, { recursive: true }, () => window.location.reload());
   };
@@ -29,8 +26,7 @@
    * Install Devtron in the current window.
    */
   let installDevtron = function() {
-    let pathToDevtron = path.join(nodeModules, 'devtron');
-    let devtron = window.requireNode(pathToDevtron);
+    let devtron = window.requireNode('devtron');
 
     if (devtron) {
       devtron.install();
@@ -42,7 +38,7 @@
    * Install Ember-Inspector in the current window.
    */
   let installEmberInspector = function() {
-    let location = path.join(nodeModules, 'ember-inspector', 'dist', 'chrome');
+    let location = path.join(__dirname, 'node_modules', 'ember-inspector', 'dist', 'chrome');
 
     fs.lstat(location, (err, results) => {
       if (err) {
