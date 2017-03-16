@@ -49,21 +49,20 @@ module.exports = {
     }
 
     if (type === 'all') {
-      //
       // Copy our files to assemble our electron and ember apps. Our directory
       // structure inside our build output dir (dist/ or temp directory) is
       // going to end up looking like this:
       //
-      // .
       // ├── package.json
       // ├── .compilerc
-      // ├── <any other files/directories found in ember-electron, except resources-*>
-      // ├── resources
-      // │   ├── <file copied/merged from resources and resources-<platform>>
-      // │   ├── <file copied/merged from resources and resources-<platform>>
-      // │   └── ...
-      // └── ember
-      //     └── <ember build output>
+      // ├── ember
+      // │   ├── <ember build output>
+      // ├── ember-electron
+      //     ├── .electron-forge
+      //     ├── index.js
+      //     ├── resources
+      //         ├── <file copied/merged from resources and resources-<platform>>
+      //         ├── <file copied/merged from resources and resources-<platform>>
       //
       const funnel = require('broccoli-funnel');
       const writeFile = require('broccoli-file-creator');
@@ -71,28 +70,37 @@ module.exports = {
 
       let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM || process.platform;
       let packageJson = clone(this.project.pkg);
-      packageJson.main = 'lib/index.js';
+
+      let emberElectronPath = path.join(this.project.root, 'ember-electron');
+      let compileRcPath = path.join(emberElectronPath, '.compilerc');
+
+      packageJson.main = 'ember-electron/index.js';
 
       let trees = [
-        // write package.json
         writeFile('package.json', JSON.stringify(packageJson, null, '  ')),
-        // copy the rest of the ember-electron directory, with the exception of
-        // the resources directories that need to be merged
+        writeFile('.compilerc', fs.readFileSync(compileRcPath)),
+
         funnel('ember-electron', {
-          exclude: ['resources*/**', 'resources*/**/.*']
+          destDir: 'ember-electron',
+          exclude: [
+            '.compilerc',
+            'resources*/**',
+            'resources*/**/.*',
+          ],
         }),
-        // copy resources
+
         funnel('ember-electron', {
           srcDir: 'resources',
-          destDir: 'resources',
+          destDir: 'ember-electron/resources',
           allowEmpty: true,
         }),
+
         funnel('ember-electron', {
           srcDir: `resources-${platform}`,
-          destDir: 'resources',
+          destDir: 'ember-electron/resources',
           allowEmpty: true,
         }),
-        // copy ember build output
+
         funnel(tree, {
           destDir: 'ember',
         }),
@@ -101,7 +109,7 @@ module.exports = {
       if (process.env.EMBER_ENV === 'test') {
         // Overwrite index.js with test index.js
         trees.push(funnel('tests/ember-electron', {
-          files: ['lib/index.js'],
+          files: ['index.js'],
         }));
       }
 
