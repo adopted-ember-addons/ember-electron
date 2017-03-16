@@ -68,7 +68,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     const writeJson = denodeify(fs.writeJson);
 
     let packageJsonPath = path.join(this.project.root, 'package.json');
-    let forgeConfigPath = './ember-electron/.electron-forge.js';
+    let forgeConfigPath = './ember-electron/.electron-forge';
 
     logger.startProgress('Extracting ember-electron forge config');
 
