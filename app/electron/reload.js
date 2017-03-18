@@ -7,6 +7,10 @@
   // Reload the page when anything in `dist` changes
   let fs = window.requireNode('fs');
   let path = window.requireNode('path');
+  // Note: This path assumes we're running in development, but
+  // if app.env !== 'development' then this file shouldn't have been imported at all
+  // (see ../../index.js)
+  const emberDistDir = path.resolve('dist', 'ember');
 
   /**
    * @private
@@ -16,21 +20,21 @@
    * @param sub directory
    */
   let watch = function(sub) {
-    let dirname = __dirname || process.cwd();
     let isInTest = !!window.QUnit;
+    let dirToWatch = emberDistDir;
 
     if (isInTest) {
       // In tests, __dirname is `<project>/tmp/<broccoli-dist-path>/tests`.
       // In normal `ember:electron` it's `<project>/dist`.
       // To achieve the regular behavior in testing, go to parent dir, which contains `tests` and `assets`
-      dirname = path.join(dirname, '..');
+      dirToWatch = path.join(dirToWatch, '..');
     }
 
     if (sub) {
-      dirname = path.join(dirname, sub);
+      dirToWatch = path.join(dirToWatch, sub);
     }
 
-    fs.watch(dirname, { recursive: true }, () => window.location.reload());
+    fs.watch(dirToWatch, { recursive: true }, () => window.location.reload());
   };
 
   /**
@@ -74,9 +78,7 @@
   };
 
   document.addEventListener('DOMContentLoaded', (/* e */) => {
-    let dirname = __dirname || process.cwd();
-
-    fs.stat(dirname, (err/* , stat */) => {
+    fs.stat(emberDistDir, (err/* , stat */) => {
       if (!err) {
         watch();
 
