@@ -1,0 +1,256 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+html {
+	color: #7F8082;
+	background: #EAECF3;
+	font-size: 62.5%;
+}
+
+body {
+	font: 1.4rem/2.5rem 'open Sans', sans-serif;
+}
+
+code {
+	display: inline;
+	font-family: 'Fira Mono', monospace;
+	font-size: 0.9em;
+	line-height: 1.2;
+}
+
+h1,
+h2,
+h3 {
+	padding: 0;
+	color: #494D57;
+	font-weight: 400;
+}
+
+h1 {
+	margin: 0;
+	padding: 0;
+}
+
+h2 {
+	margin: 10rem 0 0;
+	font-size: 3rem;
+	line-height: 4rem;
+}
+
+h3 {
+	margin: 4rem 0 0;
+	font-size: 2rem;
+	line-height: 3rem;
+}
+
+p {
+	margin: 0;
+}
+
+h2 + *,
+h3 + * {
+	margin-top: 1rem;
+}
+
+h3 code,
+.top code {
+	padding: 0;
+	border: 0;
+	background: none;
+}
+
+.top code {
+
+}
+
+.page p code {
+	padding: 0.3rem 0.5rem;
+	background: #F0F1F3;
+	border: 1px solid #CBD5E9;
+	border-radius: 0.3rem;
+	font-size: 1.3rem;
+	color: #4E669A;
+}
+
+p {
+	max-width: 80rem;
+}
+
+nav {
+	margin: 6rem 0 0;
+}
+
+a,
+a:link,
+a:visited {
+	text-decoration: none;
+	color: #4E669A;
+}
+
+/* Layout blocks */
+
+.top,
+.page,
+.end {
+	position: relative;
+	padding: 2rem 14rem;
+}
+
+body > * > div,
+body > * > nav {
+	position: relative;
+	z-index: 1;
+	max-width: 84rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.top {
+	padding-top: 3rem;
+	background: #2A2F3A;
+}
+
+.top h2 {
+	margin-top: 0;
+	color: #7F8082;
+}
+
+.top h2 span {
+	display: block;
+}
+
+.top h3 {
+	margin-top: 9rem;
+	color: #FFF;
+	font-size: 1.3rem;
+	line-height: 2.0rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+}
+
+.top h3 + * {
+	margin-top: 0;
+}
+
+.top code {
+	display: block;
+	font-size: 2rem;
+	line-height: 3rem;
+}
+
+.top strong {
+	font-weight: 400;
+	color: #FFF;
+}
+
+.top .badge {
+	position: absolute;
+	top: 3rem;
+	right: 0;
+}
+
+.page {
+	background: #F7F8FA;
+}
+
+svg.swoosh {
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+}
+
+.end {
+	padding: 12rem 14rem 1rem;
+	color: #4E669A;
+}
+
+/* Elements */
+
+.logo {
+	position: relative;
+	display: block;
+	width: 40rem;
+	min-height: 8rem;
+	margin: 0 0 0 -12rem;
+	padding: 0 0 0 12rem;
+}
+
+.logo img {
+	position: absolute;
+	left: 0;
+	width: 10rem;
+	height: 8rem;
+}
+
+.logo h1 {
+	padding: 3rem 0 0;
+	color: #FFF;
+	font-family: 'Fira Mono', monospace;
+	font-size: 2.5rem;
+	font-weight: 500;
+	line-height: 3rem;
+}
+
+.logo + h2 {
+	margin-top: 0;
+}
+
+.btn {
+	display: inline-block;
+	padding: 1rem 3rem;
+	background: #FFF;
+	box-shadow: 0 2px 15px 0 rgba(42,46,58,0.10), 0 1px 3px 0 rgba(42,46,58,0.10);
+	border-radius: 3px;
+	font-size: 1.6rem;
+	line-height: 3rem;
+	text-decoration: none;
+}
+
+.btn + .btn {
+	margin-left: 1rem;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+	color: #4E669A;
+}
+
+.intro {
+	padding-top: 5rem;
+	font-size: 2rem;
+	line-height: 3rem;
+}
+
+
+@media (max-width: 640px) {
+	.top,
+	.page,
+	.end {
+		padding: 2rem 1.5rem;
+	}
+
+	.top h2 span {
+		display: inline;
+	}
+
+	.logo img {
+		position: relative;
+	}
+
+	.logo h1 {
+		padding-top: 0;
+	}
+}
