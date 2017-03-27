@@ -21,10 +21,34 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   afterInstall(/* options */) {
     let logger = new Logger(this);
 
-    return this._installElectronTooling(logger)
+    return this._checkForgeConfig(logger)
+      .then(() => this._installElectronTooling(logger))
       .then(() => this._createResourcesDirectories(logger))
       .then(() => this._ensureForgeConfig(logger))
       .then(() => this._updateGitignore(logger));
+  }
+
+  _checkForgeConfig(logger) {
+    const readJson = denodeify(fs.readJson);
+
+    let packageJsonPath = path.join(this.project.root, 'package.json');
+
+    return readJson(packageJsonPath)
+      .then((packageJson) => {
+        let hasForgeConfig = false;
+        let message;
+
+        try {
+          hasForgeConfig = packageJson.config.forge !== undefined;
+        } catch(err) {
+          // no-op
+        }
+
+        this.hasForgeConfig = hasForgeConfig;
+        message = `Project ${hasForgeConfig ? 'has' : 'needs'} forge config`;
+
+        logger.message(message);
+      });
   }
 
   _installElectronTooling(logger) {
@@ -77,6 +101,10 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     let packageJsonPath = path.join(this.project.root, 'package.json');
     let forgeConfigPath = './ember-electron/.electron-forge';
 
+    if (this.hasForgeConfig) {
+      return;
+    }
+
     logger.startProgress('Extracting ember-electron forge config');
 
     return readJson(packageJsonPath)
@@ -88,7 +116,12 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         }
 
         forgeConfig = JSON.stringify(forgeConfig, null, 2);
-        packageJson.config.forge = forgeConfigPath;
+
+        delete packageJson.config.forge;
+
+        if (Object.keys(packageJson.config).length === 0) {
+          delete packageJson.config;
+        }
 
         return all([
           writeFile(forgeConfigPath, `module.exports = ${forgeConfig}`),

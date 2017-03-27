@@ -75,6 +75,9 @@ module.exports = {
       let compileRcPath = path.join(emberElectronPath, '.compilerc');
 
       packageJson.main = 'ember-electron/index.js';
+      packageJson.config = packageJson.config || {};
+      packageJson.config.forge = packageJson.config.forge
+        || 'ember-electron/.electron-forge';
 
       let trees = [
         writeFile('package.json', JSON.stringify(packageJson, null, '  ')),
