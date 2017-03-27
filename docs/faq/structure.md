@@ -7,7 +7,7 @@ The `ember-electron` folder created at the root of your project by
  ember-electron
  ├── .compilerc
  ├── .electron-forge
- ├── index.js
+ ├── main.js
  ├── resources
  ├── resources-darwin
  ├── resources-linux
@@ -28,7 +28,7 @@ electron` assembles your Electron project, it will look like this:
  │   ├── <ember build output>
  ├── ember-electron
  │   ├── .electron-forge
- │   ├── index.js
+ │   ├── main.js
  │   ├── resources
  │       ├── <file copied/merged from resources and resources-<platform>>
  │       ├── <file copied/merged from resources and resources-<platform>>
