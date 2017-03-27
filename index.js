@@ -59,7 +59,7 @@ module.exports = {
       // │   ├── <ember build output>
       // ├── ember-electron
       //     ├── .electron-forge
-      //     ├── index.js
+      //     ├── main.js
       //     ├── resources
       //         ├── <file copied/merged from resources and resources-<platform>>
       //         ├── <file copied/merged from resources and resources-<platform>>
@@ -68,13 +68,14 @@ module.exports = {
       const writeFile = require('broccoli-file-creator');
       const mergeTrees = require('broccoli-merge-trees');
 
-      let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM || process.platform;
       let packageJson = clone(this.project.pkg);
+      let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM
+        || process.platform;
 
       let emberElectronPath = path.join(this.project.root, 'ember-electron');
       let compileRcPath = path.join(emberElectronPath, '.compilerc');
 
-      packageJson.main = 'ember-electron/index.js';
+      packageJson.main = 'ember-electron/main.js';
       packageJson.config = packageJson.config || {};
       packageJson.config.forge = packageJson.config.forge
         || 'ember-electron/.electron-forge';
@@ -110,9 +111,9 @@ module.exports = {
       ];
 
       if (process.env.EMBER_ENV === 'test') {
-        // Overwrite index.js with test index.js
+        // Overwrite main.js with test main.js
         trees.push(funnel('tests/ember-electron', {
-          files: ['index.js'],
+          files: ['main.js'],
         }));
       }
 
