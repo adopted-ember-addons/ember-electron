@@ -113,6 +113,7 @@ module.exports = {
       if (process.env.EMBER_ENV === 'test') {
         // Overwrite main.js with test main.js
         trees.push(funnel('tests/ember-electron', {
+          destDir: 'ember-electron',
           files: ['main.js'],
         }));
       }
