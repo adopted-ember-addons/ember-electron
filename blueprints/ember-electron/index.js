@@ -124,7 +124,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         }
 
         return all([
-          writeFile(forgeConfigPath, `module.exports = ${forgeConfig}`),
+          writeFile(forgeConfigPath, `module.exports = ${forgeConfig};`),
           writeJson(packageJsonPath, packageJson, { spaces: 2 }),
         ])
           .then(() => logger.message('Extracted ember-electron forge config'));
