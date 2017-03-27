@@ -82,7 +82,10 @@ module.exports = {
 
       let trees = [
         writeFile('package.json', JSON.stringify(packageJson, null, '  ')),
-        writeFile('.compilerc', fs.readFileSync(compileRcPath)),
+
+        funnel('ember-electron', {
+          files: ['.compilerc'],
+        }),
 
         funnel('ember-electron', {
           destDir: 'ember-electron',
