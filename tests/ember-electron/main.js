@@ -53,9 +53,9 @@ let cwd = __dirname || resolve(dirname());
 // load them
 require('file-url')('foo.html');
 // Make sure local libraries are copied correctly and we can load them
-require('./helper.js')();
+require('./lib/helper.js')();
 // Make sure local resources are copied correctly and we can read them
-let content = require('fs').readFileSync(`${cwd}/../resources/foo.txt`).toString().trim();
+let content = require('fs').readFileSync(`${cwd}/resources/foo.txt`).toString().trim();
 if (content !== 'hello') {
-  throw new Error(`${cwd}/../resources/foo.txt should be contain 'hello': ${content}`);
+  throw new Error(`${cwd}/resources/foo.txt should be contain 'hello': ${content}`);
 }
