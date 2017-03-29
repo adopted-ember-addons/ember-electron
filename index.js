@@ -72,9 +72,6 @@ module.exports = {
       let platform = process.env.EMBER_CLI_ELECTRON_BUILD_PLATFORM
         || process.platform;
 
-      let emberElectronPath = path.join(this.project.root, 'ember-electron');
-      let compileRcPath = path.join(emberElectronPath, '.compilerc');
-
       packageJson.main = packageJson.main || 'ember-electron/main.js';
       packageJson.config = packageJson.config || {};
       packageJson.config.forge = packageJson.config.forge
