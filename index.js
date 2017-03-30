@@ -4,6 +4,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const { clone } = require('lodash/lang');
+const Logger = require('./lib/utils/logger');
 
 function injectScript(scriptName) {
   let dirname = __dirname || process.cwd();
@@ -11,6 +12,10 @@ function injectScript(scriptName) {
   let fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
 
   return `<script>\n${fileContent}</script>`;
+}
+
+function hasEmberWelcomePage(pkg) {
+  return pkg && pkg.devDependencies && pkg.devDependencies['ember-welcome-page'];
 }
 
 module.exports = {
@@ -76,6 +81,18 @@ module.exports = {
       packageJson.config = packageJson.config || {};
       packageJson.config.forge = packageJson.config.forge
         || 'ember-electron/.electron-forge';
+
+      if (hasEmberWelcomePage(packageJson)) {
+        let logger = new Logger(this);
+
+        logger.message(`
+"ember-welcome-page" was detected in your devDependencies!
+
+Please note that this addon only works in development environment
+and will not render in production mode. It is safe to uninstall
+this addon once you removed the {{welcome-page}} template tag.
+`);
+      }
 
       let trees = [
         writeFile('package.json', JSON.stringify(packageJson, null, '  ')),
