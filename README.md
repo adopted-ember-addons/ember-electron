@@ -10,7 +10,7 @@ To see a real world example, check out [Ghost Desktop](https://github.com/trygho
 
 ## Usage
 
-See [docs](docs) for detailed guides on [installation](docs/installation.md), [usage](docs/usage.md) and more.
+See [docs](docs) for detailed guides on [installation](docs/guides/installation.md), [usage](docs/guides/usage.md) and more.
 
 ## Authors
 
