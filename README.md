@@ -1,3 +1,5 @@
+<p align="center"><img src="https://github.com/felixrieseberg/ember-electron/raw/gh-pages/assets/logo-github%402x.png" alt="Ember-Electron logo showing an electron orbiting a flame" width="300" height="250"></p>
+
 # Ember-Electron
 An Ember addon to turn Ember apps into cross-platform desktop applications, taking care of development, tests, compilation, and installer creation.
 
