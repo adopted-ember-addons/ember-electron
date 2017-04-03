@@ -1,4 +1,5 @@
 # Ember-Electron
+An Ember addon to turn Ember apps into cross-platform desktop applications, taking care of development, tests, compilation, and installer creation.
 
 * `ember electron` - Run app in Electron with live-reload server
 * `ember electron:test` - Test the app using Electron
