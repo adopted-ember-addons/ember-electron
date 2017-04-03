@@ -1,4 +1,4 @@
-# Configuration 
+# Configuration
 
 ## electron-forge / electron-packager
 
@@ -39,7 +39,7 @@ You can pass options to the packager by either putting configuration into `ember
 * `--name` - *String* The application name.
 * `--out` - *String* The directory where electron builds are saved. Defaults to `electron-builds/`.
 * `--overwrite` - *Boolean* Whether to replace an already existing output directory for a given platform (`true`) or skip recreating it (`false`). Defaults to `false`.
-* `--platform` - *String* Target platform for build outputs. Allowed values: *linux, win32, darwin, mas, all* 
+* `--platform` - *String* Target platform for build outputs. Allowed values: *linux, win32, darwin, mas, all*
 * `--prune` - *Boolean* Runs [`npm prune --production`](https://docs.npmjs.com/cli/prune) before starting to package the app.
 * `--version` - *String* Electron version (without the 'v') - for example, [`0.33.9`](https://github.com/atom/electron/releases/tag/v0.33.9), see [Electron releases](https://github.com/atom/electron/releases) for valid versions
 

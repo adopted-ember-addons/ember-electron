@@ -5,19 +5,18 @@
 * `ember electron:test --server` - Test with Electron in development server mode
 * `ember electron:package` - Create binaries (.app, .exe, etc) for your app
 
-Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-nwjs`](https://github.com/brzpegasus/ember-cli-nwjs)) and @joostdevries (author of [`ember-cli-remote-inspector`](https://github.com/joostdevries/ember-cli-remote-inspector)).
-
 To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
 
+## Usage
 
+See [docs](docs) for detailed guides on [installation](docs/installation.md), [usage](docs/usage.md) and more.
 
-## Documentation
+## Authors
 
-See [docs](docs) for detailed guides on setup, usage and more.
+Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-nwjs`](https://github.com/brzpegasus/ember-cli-nwjs)) and @joostdevries (author of [`ember-cli-remote-inspector`](https://github.com/joostdevries/ember-cli-remote-inspector)). Our gratitude to both of them for their amazing work.
 
-
-
-## License & Credits
-MIT - (C) Copyright 2015 Felix Rieseberg. Please see `LICENSE` for details. 
-
-Huge thanks to @brzpegasus (author of [`ember-cli-nwjs`](https://github.com/brzpegasus/ember-cli-nwjs)) and @joostdevries (author of [`ember-cli-remote-inspector`](https://github.com/joostdevries/ember-cli-remote-inspector)) - their projects made the development of this project *a lot* easier.
+* Felix Rieseberg ([@felixrieseberg](https://github.com/felixriesberg))
+* Aidan Nulman ([@anulman](https://github.com/anulman))
+* Florian Pichler ([@pichfl](https://github.com/pichfl))
+* Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+* [...and many other contributors](https://github.com/felixrieseberg/ember-electron/graphs/contributors)

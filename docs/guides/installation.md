@@ -15,4 +15,4 @@ npm install ember-electron
 ember g ember-electron
 ```
 
-See [FAQ: Structure](../faq/structure.md) for more information on the layout of the `ember-electron` directory
+See [FAQ: Structure](../faq/structure.md) for more information on the layout of the `ember-electron` directory.

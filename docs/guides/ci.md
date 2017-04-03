@@ -1,6 +1,4 @@
-# Advanced Usage
-
-## Running CI Tests on Travis CI, Circle CI, Jenkins and other headless systems
+# Running CI Tests on Travis CI, Circle CI, Jenkins and other headless systems
 You can test your application using Electron with the `ember electron:test` command. However, because Chromium requires a display to work, you will need to create a fake display during your test in a headless environment like Travis CI or Circle CI. This addon automatically configures `.travis.yml`, but if you'd like to configure it manually, ensure that you take the following steps:
 
  * Install [`xvfb`](https://en.wikipedia.org/wiki/Xvfb). It's a virtual framebuffer, implementing the X11 display server protocol - it performs all graphical operations in memory without showing any screen output, which is exactly what we need. A [Jenkins addon is available](https://wiki.jenkins-ci.org/display/JENKINS/Xvfb+Plugin).
@@ -30,9 +28,3 @@ install:
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 ```
-
-
-
-## Creating Installers
-
-Ember-Electron does currently not create installers for you, but plenty of modules exist to automate this task. For Windows installers, GitHub's very own [grunt-electron-installer](https://github.com/atom/grunt-electron-installer) does a great job. On OS X, you probably want to create a pretty DMG image - [node-appdmg](https://github.com/LinusU/node-appdmg) is a great command line tool to create images. If you'd like to follow GitHub's lead and stick with Grunt, consider [grunt-appdmg](https://www.npmjs.com/package/grunt-appdmg).

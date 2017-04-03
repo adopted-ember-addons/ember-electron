@@ -3,12 +3,13 @@
 ## Guides
 
 - [Installation](guides/installation.md)
-- [Upgrading from 1.x to 2.x](guides/upgrade.md)
+- [Usage](guides/usage.md)
 - [Configuration](guides/configuration.md)
-- [Development with Ember Electron](guides/usage.md)
 - [Testing](guides/testing.md)
 - [Packaging](guides/packaging.md)
-- [Advanced Usage](guides/usage-advanced.md)
+
+- [Upgrading from ember-electron 1.x to 2.x](guides/upgrade.md)
+- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](guides/ci.md)
 
 ## FAQ
 
