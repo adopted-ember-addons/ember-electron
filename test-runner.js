@@ -31,6 +31,7 @@ if (require.main === module) {
   let url = require('url');
   let fileUrl = require('file-url');
   let treeKill = require('tree-kill');
+  let symlinkOrCopySync = require('symlink-or-copy').sync;
   let { start: efStart } = require('electron-forge');
 
   let [, , buildDir, baseUrl, testPageUrl, id] = process.argv;
@@ -58,6 +59,7 @@ if (require.main === module) {
     '$1    }',
     '$1  </script>',
   ].join('\n'));
+
   // We look for an optional leading '/' in the src attribute because ember cli
   // <2.9.0 hard-coded the leading '/' instead of using {{rootURL}}
   htmlContent = htmlContent.replace(/src="\/?testem\.js"/, `src="${  testemJsUrl  }"`);
@@ -71,9 +73,15 @@ if (require.main === module) {
   htmlFileObj.query.testemId = id;
   let testUrl = url.format(htmlFileObj);
 
+  // Symlink
+  // Todo: The source sucks. We need to fix this.
+  const source = path.join(process.cwd(), 'node_modules');
+  const target = path.join(buildDir, 'node_modules');
+  symlinkOrCopySync(source, target);
+
   // Start electron
   let pid;
-  efStart({ appPath: buildDir, args: [testUrl] }).then(({ pid: childPid }) => {
+  efStart({ appPath: buildDir, dir: buildDir, args: [testUrl] }).then(({ pid: childPid }) => {
     pid = childPid;
   });
 
