@@ -98,6 +98,7 @@
     "quick-temp": "^0.1.5",
     "rsvp": "^3.2.1",
     "socket.io": "^1.4.8",
+    "symlink-or-copy": "^1.1.8",
     "testem": "^1.15.0",
     "tree-kill": "^1.1.0"
   },
