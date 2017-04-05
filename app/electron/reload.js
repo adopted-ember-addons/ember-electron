@@ -1,12 +1,27 @@
-(() => {
+function setupLivereload() {
+  const process = window ? window.process : null;
+
   // Exit immediately if we're not running in Electron
-  if (!window.ELECTRON) {
+  if (!window.ELECTRON || (process && process.env && process.env.DO_NOT_SETUP_LIVERELOAD)) {
     return;
   }
 
   // Reload the page when anything in `dist` changes
-  let fs = window.requireNode('fs');
-  let path = window.requireNode('path');
+  let fs;
+  let path;
+  let devtron;
+
+  try {
+    fs = window.requireNode('fs');
+    path = window.requireNode('path');
+  } catch(e) {
+    console.warn('ember-electron tried to require fs and path to enable live-reload features, but failed.');
+    console.warn('Automatic reloading is therefore disabled.');
+    console.warn(e);
+
+    return;
+  }
+
 
   /**
    * @private
@@ -26,10 +41,14 @@
    * Install Devtron in the current window.
    */
   let installDevtron = function() {
-    let devtron = window.requireNode('devtron');
+    try {
+      devtron = window.requireNode('devtron');
 
-    if (devtron) {
-      devtron.install();
+      if (devtron) {
+        devtron.install();
+      }
+    } catch(e) {
+      // no-op
     }
   };
 
@@ -62,7 +81,11 @@
   };
 
   document.addEventListener('DOMContentLoaded', (/* e */) => {
-    let dirname = __dirname || process.cwd();
+    let dirname = __dirname || (process && (process || {}).cwd) ? process.cwd() : null;
+
+    if (!dirname) {
+      return;
+    }
 
     fs.stat(dirname, (err/* , stat */) => {
       if (!err) {
@@ -74,7 +97,7 @@
         // However, the recursive option WILL watch direct children of the
         // given directory.  So, this hack just manually sets up watches on
         // the expected subdirs -- that is, `assets` and `tests`.
-        if (process.platform === 'linux') {
+        if (process && process.platform === 'linux') {
           watch('assets');
           watch('tests');
         }
@@ -84,4 +107,6 @@
     installDevtron();
     installEmberInspector();
   });
-})();
+}
+
+setupLivereload();
