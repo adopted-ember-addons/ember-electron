@@ -62,7 +62,7 @@ module.exports = {
       // ├── ember
       // │   ├── <ember build output>
       // ├── ember-electron
-      //     ├── .electron-forge
+      //     ├── electron-forge-config.js
       //     ├── main.js
       //     ├── resources
       //         ├── <file copied/merged from resources and resources-<platform>>
@@ -79,7 +79,7 @@ module.exports = {
       packageJson.main = packageJson.main || 'ember-electron/main.js';
       packageJson.config = packageJson.config || {};
       packageJson.config.forge = packageJson.config.forge
-        || 'ember-electron/.electron-forge';
+        || 'ember-electron/electron-forge-config.js';
 
       if (hasEmberWelcomePage(packageJson)) {
         let logger = new Logger(this);

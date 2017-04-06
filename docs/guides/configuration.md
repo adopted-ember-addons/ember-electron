@@ -2,7 +2,9 @@
 
 ## electron-forge / electron-packager
 
-You can pass options to the packager by either putting configuration into `ember-electron/.electron-forge`, or by passing a command line parameter to the `ember electron:package` command. In the case that an option is defined both on the command line and in the `.electron-forge`, the command line option will be used.
+You can pass options to the packager by either putting configuration into `ember-electron/electron-forge-config.js`, or by passing a command line parameter to the `ember electron:package` command. In the case that an option is defined both on the command line and in the `electron-forge-config.js`, the command line option will be used.
+
+> :warning: The `electron-forge-config.js` file will be copied to a temporary folder during compilation, meaning that relative paths will be different. If you require resources from other folders (for intsance using a `require('../myscript')`, please do keep in mind that `electron-forge-config.js`.
 
 * `--app-copyright` - *String* The human-readable copyright line for the app. Maps to the LegalCopyright metadata property on Windows, and NSHumanReadableCopyright on OS X.
 * `--app-version` - *String* The release version of the application. Maps to the `ProductVersion` metadata property on Windows, and `CFBundleShortVersionString` on OS X.

@@ -27,7 +27,7 @@ electron` assembles your Electron project, it will look like this:
  ├── ember
  │   ├── <ember build output>
  ├── ember-electron
- │   ├── .electron-forge
+ │   ├── electron-forge-config.js
  │   ├── main.js
  │   ├── resources
  │       ├── <file copied/merged from resources and resources-<platform>>

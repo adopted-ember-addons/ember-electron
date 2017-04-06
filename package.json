@@ -111,7 +111,7 @@
     ]
   },
   "config": {
-    "forge": "./ember-electron/.electron-forge"
+    "forge": "./ember-electron/electron-forge-config.js"
   },
   "standard": {
     "env": [
