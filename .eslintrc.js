@@ -9,6 +9,7 @@ module.exports = {
     'plugin:ember-suave/recommended',
   ],
   env: {
+    es6: true,
     qunit: true,
     node: true,
   },

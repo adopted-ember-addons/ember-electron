@@ -1,17 +1,15 @@
 'use strict';
 
 const mockery = require('mockery');
-const mockSpawn = require('mock-spawn');
+const MockElectronForgeStart = require('../../helpers/mocks/ef-start');
 const RSVP = require('rsvp');
-const os = require('os');
-const Command = require('ember-cli/lib/models/command');
 const MockUI = require('console-ui/mock');
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 
 describe('ember electron command', () => {
-  let CommandUnderTest, commandOptions, spawn, platform, _envElectron;
+  let CommandUnderTest, commandOptions, mockElectronForgeStart, _envElectron;
 
   before(() => {
     mockery.enable({
@@ -25,14 +23,11 @@ describe('ember electron command', () => {
   });
 
   beforeEach(() => {
-    _envElectron = process.env.ELECTRON_PATH;
-    delete process.env.ELECTRON_PATH;
+    mockElectronForgeStart = new MockElectronForgeStart();
+    mockery.registerMock('electron-forge/dist/api/start', mockElectronForgeStart);
 
-    spawn = mockSpawn();
-    mockery.registerMock('child_process', { spawn });
-    mockery.registerMock('os', { platform: () => platform || os.platform() });
-
-    CommandUnderTest = Command.extend(require('../../../lib/commands/electron'));
+    const cmd = require('../../../lib/commands/electron');
+    CommandUnderTest = cmd.extend();
 
     commandOptions = {
       ui: new MockUI(),
@@ -54,140 +49,80 @@ describe('ember electron command', () => {
   });
 
   it('should build the project before running Electron', () => {
-    let tasks = [];
+    const tasks = [];
 
-    commandOptions.buildWatch = () => {
-      tasks.push('buildWatch');
-
-      return RSVP.resolve();
-    };
-
-    commandOptions.runElectron = () => {
-      tasks.push('runElectron');
+    commandOptions._buildAndWatch = () => {
+      tasks.push('_buildAndWatch');
 
       return RSVP.resolve();
     };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
+    commandOptions._startElectron = () => {
+      tasks.push('_startElectron');
+
+      return RSVP.resolve();
+    };
+
+    const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(tasks).to.deep.equal(['buildWatch', 'runElectron']);
+      expect(tasks).to.deep.equal(['_buildAndWatch', '_startElectron']);
     });
   });
 
   it('should not run Electron when the build fails', () => {
-    let tasks = [];
+    const tasks = [];
 
-    commandOptions.buildWatch = () => {
-      tasks.push('buildWatch');
+    commandOptions._buildAndWatch = () => {
+      tasks.push('_buildAndWatch');
 
       return RSVP.reject();
     };
 
-    commandOptions.runElectron = () => {
-      tasks.push('runElectron');
+    commandOptions._startElectron = () => {
+      tasks.push('_startElectron');
 
       return RSVP.resolve();
     };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
+    const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.rejected.then(() => {
-      expect(tasks).to.deep.equal(['buildWatch']);
+      expect(tasks).to.deep.equal(['_buildAndWatch']);
     });
   });
 
   it('should not keep watching if Electron fails to run', () => {
-    let tasks = [];
+    const tasks = [];
 
-    commandOptions.buildWatch = () => {
-      tasks.push('buildWatch');
+    commandOptions._buildAndWatch = () => {
+      tasks.push('_buildAndWatch');
 
       return RSVP.resolve();
     };
 
-    commandOptions.runElectron = () => {
-      tasks.push('runElectron');
+    commandOptions._startElectron = () => {
+      tasks.push('_startElectron');
 
       return RSVP.reject();
     };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
+    const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.rejected.then(() => {
-      expect(tasks).to.deep.equal(['buildWatch', 'runElectron']);
+      expect(tasks).to.deep.equal(['_buildAndWatch', '_startElectron']);
     });
   });
 
-  it('should spawn a `Electron` process with the right arguments', () => {
-    commandOptions.buildWatch = () => {
+  it('should try to start `electron-forge` process', () => {
+    commandOptions._buildAndWatch = () => {
       return RSVP.resolve();
     };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-    let { ui } = commandOptions;
+    const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(spawn.calls.length).to.equal(1);
-      expect(spawn.calls[0].command).to.contain('Electron');
-      expect(spawn.calls[0].args).to.deep.equal(['.']);
-
-      expect(ui.output).to.contain('Starting Electron...');
-      expect(ui.output).to.contain('Electron exited.');
+      expect(mockElectronForgeStart.calls.length).to.equal(1);
     });
-  });
-
-  it('should set the spawn shell option to true on win32', () => {
-    commandOptions.buildWatch = () => {
-      return RSVP.resolve();
-    };
-
-    platform = 'win32';
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-
-    return expect(command).to.be.fulfilled.then(() => {
-      expect(spawn.calls.length).to.equal(1);
-      expect(spawn.calls[0].opts.shell).to.equal(true);
-    });
-  });
-
-  it('should set the spawn shell option to false if not on win32', () => {
-    commandOptions.buildWatch = () => {
-      return RSVP.resolve();
-    };
-
-    platform = 'darwin';
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-
-    return expect(command).to.be.fulfilled.then(() => {
-      expect(spawn.calls.length).to.equal(1);
-      expect(spawn.calls[0].opts.shell).to.equal(false);
-    });
-  });
-
-  it('should print a friendly message when the `Electron` command cannot be found', () => {
-    commandOptions.buildWatch = () => {
-      return RSVP.resolve();
-    };
-
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-    let { ui } = commandOptions;
-
-    spawn.sequence.add(() => {
-      this.emit('error', {
-        code: 'ENOENT',
-      });
-    });
-
-    return expect(command).to.be.rejected
-      .then(() => {
-        expect(spawn.calls.length).to.equal(1);
-        expect(spawn.calls[0].command).to.equal('Electron');
-        expect(spawn.calls[0].args).to.deep.equal(['.']);
-
-        expect(ui.output).to.contain('Starting Electron...');
-        expect(ui.output).to.contain('Error running the following command: Electron');
-        expect(ui.output).to.contain('re-run the blueprint');
-      });
   });
 });

@@ -13,7 +13,6 @@ function addFiles(mocha, files) {
   glob.sync(root + files).forEach(mocha.addFile.bind(mocha));
 }
 
-addFiles(mocha, 'mocha-standard.js');
 addFiles(mocha, '/unit/**/*-test.js');
 
 mocha.run(function(failures) {
