@@ -1,17 +1,17 @@
 'use strict';
-const sinon = require('sinon');
+
 const mockery = require('mockery');
+const MockElectronForgePackage = require('../../helpers/mocks/ef-package');
 const RSVP = require('rsvp');
 const MockUI = require('console-ui/mock');
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 
-describe('ember electron:package command', () => {
-  let CommandUnderTest, commandOptions, _envElectron;
+describe('electron:package command', () => {
+  let CommandUnderTest, commandOptions, mockElectronForgePackage;
 
   before(() => {
-    process.env.EMBER_ELECTRON_TESTING = true;
     mockery.enable({
       useCleanCache: true,
       warnOnUnregistered: false,
@@ -23,12 +23,11 @@ describe('ember electron:package command', () => {
   });
 
   beforeEach(() => {
-    _envElectron = process.env.ELECTRON_PATH;
-    delete process.env.ELECTRON_PATH;
+    mockElectronForgePackage = new MockElectronForgePackage();
+    mockery.registerMock('electron-forge/dist/api/package', mockElectronForgePackage);
 
-    let mockPackager = (options, done) => done();
-    mockery.registerMock('electron-packager', mockPackager);
-    CommandUnderTest = require('../../../lib/commands/package');
+    const cmd = require('../../../lib/commands/package');
+    CommandUnderTest = cmd.extend();
 
     commandOptions = {
       ui: new MockUI(),
@@ -39,125 +38,29 @@ describe('ember electron:package command', () => {
   });
 
   afterEach(() => {
-    if (_envElectron) {
-      process.env.ELECTRON_PATH = _envElectron;
-    } else {
-      delete process.env.ELECTRON_PATH;
-    }
-
     mockery.deregisterAll();
     mockery.resetCache();
   });
 
-  it('should build the project before organizing', () => {
-    let tasks = [];
+  it('should build the project before starting to package', () => {
+    const tasks = [];
 
-    commandOptions.build = function() {
-      tasks.push('build');
-
-      return RSVP.resolve();
-    };
-
-    commandOptions.organize = function() {
-      tasks.push('organize');
+    commandOptions.prepareBuild = () => {
+      tasks.push('prepareBuild');
 
       return RSVP.resolve();
     };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-
-    return expect(command).to.be.fulfilled.then(() => {
-      expect(tasks).to.deep.equal(['build', 'organize']);
-    });
-  });
-
-  it('should build for the appropriate environment', () => {
-    let testEnv = 'development';
-    let builtEnv = null;
-
-    commandOptions.settings.environment = testEnv;
-    commandOptions.tasks = {
-      Build() {
-        return {
-          run(options) {
-            builtEnv = options.environment;
-
-            return RSVP.resolve();
-          },
-        };
-      },
-    };
-
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-
-    return expect(command).to.be.fulfilled.then(() => {
-      expect(builtEnv).to.equal(testEnv);
-    });
-  });
-
-  it('should build production environment by default', () => {
-    let builtEnv = null;
-
-    commandOptions.tasks = {
-      Build() {
-        return {
-          run(options) {
-            builtEnv = options.environment;
-
-            return RSVP.resolve();
-          },
-        };
-      },
-    };
-
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-
-    return expect(command).to.be.fulfilled.then(() => {
-      expect(builtEnv).to.equal('production');
-    });
-  });
-
-  it('should not attempt packaging when the build fails', () => {
-    let tasks = [];
-
-    commandOptions.build = function() {
-      tasks.push('build');
-
-      return RSVP.reject();
-    };
-
-    commandOptions.organize = function() {
-      tasks.push('organize');
+    commandOptions.builder = () => {
+      tasks.push('builder');
 
       return RSVP.resolve();
     };
 
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
-
-    return expect(command).to.be.rejected.then(() => {
-      expect(tasks).to.deep.equal(['build']);
-    });
-  });
-
-  it('should call ui.startProgress() and ui.stopProgress()', () => {
-    let uiSpyStart = sinon.spy(commandOptions.ui, 'startProgress');
-    let uiSpyStop = sinon.spy(commandOptions.ui, 'stopProgress');
-
-    commandOptions.tasks = {
-      Build() {
-        return {
-          run(/* options */) {
-            return RSVP.resolve();
-          },
-        };
-      },
-    };
-
-    let command = new CommandUnderTest(commandOptions).validateAndRun();
+    const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(uiSpyStart.calledOnce).to.equal(true);
-      expect(uiSpyStop.calledOnce).to.equal(true);
+      expect(tasks).to.deep.equal(['prepareBuild', 'builder']);
     });
   });
 });

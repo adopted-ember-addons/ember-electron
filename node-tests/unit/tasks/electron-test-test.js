@@ -6,7 +6,7 @@ const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 const ElectronTestTask = require('../../../lib/tasks/electron-test');
 
-describe('electron test task', () => {
+describe('electron:test task', () => {
   let task;
 
   beforeEach(() => {

@@ -8,8 +8,8 @@ const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 
-describe('ember electron command', () => {
-  let CommandUnderTest, commandOptions, mockElectronForgeStart, _envElectron;
+describe('electron command', () => {
+  let CommandUnderTest, commandOptions, mockElectronForgeStart;
 
   before(() => {
     mockery.enable({
@@ -38,12 +38,6 @@ describe('ember electron command', () => {
   });
 
   afterEach(() => {
-    if (_envElectron) {
-      process.env.ELECTRON_PATH = _envElectron;
-    } else {
-      delete process.env.ELECTRON_PATH;
-    }
-
     mockery.deregisterAll();
     mockery.resetCache();
   });
