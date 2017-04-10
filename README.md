@@ -9,7 +9,8 @@ An Ember addon to turn Ember apps into cross-platform desktop applications, taki
 * `ember electron` - Run app in Electron with live-reload server
 * `ember electron:test` - Test the app using Electron
 * `ember electron:test --server` - Test with Electron in development server mode
-* `ember electron:package` - Create binaries (.app, .exe, etc) for your app
+* `ember electron:package` - Create binaries (.app, .exe, etc)
+* `ember electron:make` - Generate platform specific distributables (installers, distribution packages, etc)
 
 To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
 
