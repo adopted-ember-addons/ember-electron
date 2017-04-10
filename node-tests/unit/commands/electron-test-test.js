@@ -6,7 +6,7 @@ const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 const ElectronTestCommand = require('../../../lib/commands/electron-test');
 
-describe('ember electron:test command', () => {
+describe('electron:test command', () => {
   let env;
   let command;
 

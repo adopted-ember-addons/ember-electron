@@ -64,12 +64,12 @@
     "eslint": "^3.16.1",
     "eslint-config-ember": "^0.3.0",
     "eslint-plugin-ember-suave": "^1.0.0",
-    "loader.js": "^4.0.10",
     "mocha": "^2.3.4",
     "mock-spawn": "^0.2.6",
     "mockery": "^1.4.0",
     "ncp": "^2.0.0",
     "sinon": "^1.17.2",
+    "testdouble": "^2.1.2",
     "tmp": "0.0.31"
   },
   "keywords": [
@@ -99,7 +99,8 @@
     "socket.io": "^1.4.8",
     "symlink-or-copy": "^1.1.8",
     "testem": "^1.15.0",
-    "tree-kill": "^1.1.0"
+    "tree-kill": "^1.1.0",
+    "loader.js": "^4.2.3"
   },
   "ember-addon": {
     "defaultBlueprint": "ember-electron",
