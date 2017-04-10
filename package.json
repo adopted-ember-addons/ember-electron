@@ -69,6 +69,7 @@
     "mockery": "^1.4.0",
     "ncp": "^2.0.0",
     "sinon": "^1.17.2",
+    "testdouble": "^2.1.2",
     "tmp": "0.0.31"
   },
   "keywords": [
