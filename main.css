@@ -103,7 +103,7 @@ a:visited {
 .page,
 .end {
 	position: relative;
-	padding: 2rem 14rem;
+	padding: 2rem 14rem 1vw;
 }
 
 body > * > div,
@@ -239,7 +239,14 @@ svg.swoosh {
 	.top,
 	.page,
 	.end {
-		padding: 2rem 1.5rem;
+		padding-top: 2rem;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+
+	.top,
+	.page {
+		padding-bottom: 0;
 	}
 
 	.top h2 span {
