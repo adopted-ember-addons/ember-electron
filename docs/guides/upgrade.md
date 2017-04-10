@@ -24,6 +24,17 @@ application. The best way to do this is to re-run the blueprint after upgrading
 ember generate ember-electron
 ```
 
-- New project structure
-- Added dependencies
-- ...
+## Configuration Upgrade
+The biggest change is where your configuration lives - in the past, `ember-electron` managed your
+configuration, passing it on to internal tools that would take care of the actual creation of
+binaries.
+
+Now, `ember electron:package` and `ember electron:make` use `electron-forge` to join forces with
+the greater Electron community. All configuration is now done using an `electron-forge-config.js`
+file inside your `ember-electron` folder. For details, [check out the documentation](forge-config).
+
+## Example Upgrade
+To see an upgrade in action, check out how Ghost Desktop [moved from ember-electron v1 to v2](ghost-pr).
+
+[forge-config][https://github.com/electron-userland/electron-forge#config]
+[ghost-pr][https://github.com/TryGhost/Ghost-Desktop/pull/263]
