@@ -38,7 +38,7 @@
 
 	<section class="page">
 		<div class="intro">
-			<p>Extend any Ember.js application with the access and options of a full sized desktop application in minutes. Ember-Electron is powered by electron-forge and provides all the tooling neccessary to build, test and ship your application. </p>
+			<p>Extend any Ember.js application with the access and options of a full sized desktop application in minutes. Ember-Electron is powered by <a href="https://github.com/electron-userland/electron-forge" target="_blank">electron-forge</a> and provides all the tooling neccessary to build, test and ship your application. </p>
 		</div>
 
 		<div>
@@ -50,13 +50,14 @@
 			<h3><code>ember electron</code></h3>
 			<p>Run your project in development mode. This works pretty much like ember serve except it runs in Electron. We install the Ember Inspector and Devtron for you, so just use the Developer Tools as you would in your browser. Please note that we do not restart Electron yet when you change code there.</p>
 
-			<h3><code>ember electron:package</code></h3>
-			<p>Creates binaries or your app using electron-forge and electron-packager in the background. Options can be specified in <code>ember-electron/.electron-forge</code></p>
-
-			<h3>
-				<code>ember electron:test</code>
-			</h3>
+			<h3><code>ember electron:test</code></h3>
 			<p>Test your app in Electron. Supports live reloading using the <code>--server</code> flag.</p>
+
+			<h3><code>ember electron:package</code></h3>
+			<p>Creates binaries or your app using electron-forge and electron-packager in the background. Options can be specified in <code>ember-electron/electron-forge-config.js</code></p>
+
+			<h3><code>ember electron:make</code></h3>
+			<p>Creates installers and distribution bundles. For Windows, that means a Squirrel Installer and a Windows Store Package; for macOS, zip/dmg files and a Mac App Store Package, while Linux users enjoy the creation of deb, rpm, and flatpak files. Againn, options can be specified in <code>ember-electron/electron-forge-config.js</code></p>
 		</div>
 
 		<nav>
