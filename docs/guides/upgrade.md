@@ -11,7 +11,7 @@ grew bigger, more and more modules emerged that cover parts of the same operatio
 ember-electron - and over time it became clear that this module should depend on other, more
 popular utility modules than to take care of all possible operations itself.
 
-ember-electron v2 is almost a complete rewrite, utilitizing electron-forge to build and package
+ember-electron v2 is almost a complete rewrite, utilizing electron-forge to build and package
 your desktop applications. It allows ember-electron to focus on the Ember parts of this
 module, while the whole Electron community can work together to polish the creation of installers,
 the compilation of small packages, and the developer experience around native modules.
@@ -36,5 +36,5 @@ file inside your `ember-electron` folder. For details, [check out the documentat
 ## Example Upgrade
 To see an upgrade in action, check out how Ghost Desktop [moved from ember-electron v1 to v2](ghost-pr).
 
-[forge-config][https://github.com/electron-userland/electron-forge#config]
-[ghost-pr][https://github.com/TryGhost/Ghost-Desktop/pull/263]
+[forge-config]: https://github.com/electron-userland/electron-forge#config
+[ghost-pr]: https://github.com/TryGhost/Ghost-Desktop/pull/263
