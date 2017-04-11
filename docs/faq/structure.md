@@ -43,3 +43,10 @@ electron` assembles your Electron project, it will look like this:
     - `resources`, assembled as described; and
     - everything else in your ember-electron dir
 
+If you want to see your assembled project to poke around or debug, you can run
+`ember electron:assemble` to generate it. Once generated, you can run it using
+electron forge:
+
+```
+$ ./node_modules/.bin/forge -p electron-out/project start
+```

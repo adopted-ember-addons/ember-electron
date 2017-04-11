@@ -9,20 +9,20 @@ const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 
-describe('electron:package command', () => {
-  let packageTaskOptions;
-  let packageRunOptions;
+describe('electron:make command', () => {
+  let makeTaskOptions;
+  let makeRunOptions;
 
   let command;
 
-  class MockPackageTask extends CoreObject {
+  class MockMakeTask extends CoreObject {
     constructor(options) {
       super(...arguments);
-      packageTaskOptions = clone(options);
+      makeTaskOptions = clone(options);
     }
 
     run(options) {
-      packageRunOptions = clone(options);
+      makeRunOptions = clone(options);
 
       return resolve();
     }
@@ -40,13 +40,13 @@ describe('electron:package command', () => {
   });
 
   beforeEach(() => {
-    packageTaskOptions = null;
-    packageRunOptions = null;
+    makeTaskOptions = null;
+    makeRunOptions = null;
 
-    mockery.registerMock('../tasks/package', MockPackageTask);
+    mockery.registerMock('../tasks/make', MockMakeTask);
 
-    const PackageCommand = require('../../../lib/commands/package');
-    command = new PackageCommand({
+    const MakeCommand = require('../../../lib/commands/make');
+    command = new MakeCommand({
       ui: new MockUI(),
       analytics: new MockAnalytics(),
       settings: {},
@@ -60,17 +60,17 @@ describe('electron:package command', () => {
     mockery.resetCache();
   });
 
-  it('should invoke the package command with the correct options', () => {
+  it('should invoke the make command with the correct options', () => {
     let options = {
       outputPath: 'output',
     };
 
     return command.run(options).then(() => {
-      expect(packageTaskOptions.ui).to.equal(command.ui);
-      expect(packageTaskOptions.analytics).to.equal(command.analytics);
-      expect(packageTaskOptions.project).to.equal(command.project);
+      expect(makeTaskOptions.ui).to.equal(command.ui);
+      expect(makeTaskOptions.analytics).to.equal(command.analytics);
+      expect(makeTaskOptions.project).to.equal(command.project);
 
-      expect(packageRunOptions.outputPath).to.equal('output');
+      expect(makeRunOptions.outputPath).to.equal('output');
     });
   });
 });
