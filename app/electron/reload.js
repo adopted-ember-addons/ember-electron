@@ -81,7 +81,7 @@ function setupLivereload() {
   };
 
   document.addEventListener('DOMContentLoaded', (/* e */) => {
-    let dirname = __dirname || (process && (process || {}).cwd) ? process.cwd() : null;
+    let dirname = __dirname || ((process && (process || {}).cwd) ? process.cwd() : null);
 
     if (!dirname) {
       return;
