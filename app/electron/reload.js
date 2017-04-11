@@ -30,17 +30,17 @@ function setupLivereload() {
    *
    * @param sub directory
    */
-  let watch = function(...sub) {
-    let dirname = path.join(__dirname, ...sub);
+  function watch(...sub) {
+    const dirname = path.join(__dirname, ...sub);
 
     fs.watch(dirname, { recursive: true }, () => window.location.reload());
-  };
+  }
 
   /**
    * @private
    * Install Devtron in the current window.
    */
-  let installDevtron = function() {
+  function installDevtron() {
     try {
       devtron = window.requireNode('devtron');
 
@@ -50,24 +50,32 @@ function setupLivereload() {
     } catch(e) {
       // no-op
     }
-  };
+  }
 
   /**
    * @private
    * Install Ember-Inspector in the current window.
    */
-  let installEmberInspector = function() {
-    let location = path.join(__dirname, '..', 'node_modules', 'ember-inspector', 'dist', 'chrome');
+  function installEmberInspector() {
+    let location;
+
+    try {
+      const eiLocation = window.requireNode.resolve('ember-inspector');
+      location = path.join(eiLocation, 'dist', 'chrome');
+    } catch(error) {
+      location = path.join(__dirname, '..', 'node_modules', 'ember-inspector', 'dist', 'chrome');
+    }
 
     fs.lstat(location, (err, results) => {
       if (err) {
         console.warn('Error loading Ember Inspector', err);
+
         return;
       }
 
       if (results && results.isDirectory && results.isDirectory()) {
-        let { BrowserWindow } = window.requireNode('electron').remote;
-        let added = BrowserWindow.getDevToolsExtensions
+        const { BrowserWindow } = window.requireNode('electron').remote;
+        const added = BrowserWindow.getDevToolsExtensions
           && BrowserWindow.getDevToolsExtensions().hasOwnProperty('Ember Inspector');
 
         try {
@@ -79,10 +87,10 @@ function setupLivereload() {
         }
       }
     });
-  };
+  }
 
   document.addEventListener('DOMContentLoaded', (/* e */) => {
-    let dirname = __dirname || ((process && (process || {}).cwd) ? process.cwd() : null);
+    const dirname = __dirname || ((process && (process || {}).cwd) ? process.cwd() : null);
 
     if (!dirname) {
       return;
