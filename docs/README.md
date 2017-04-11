@@ -15,6 +15,6 @@
 
 ## FAQ
 
-- [FAQ](fag/faq.md)
+- [FAQ](faq/faq.md)
 - [Common issues](faq/common-issues.md)
 - [File Structure](faq/structure.md)
