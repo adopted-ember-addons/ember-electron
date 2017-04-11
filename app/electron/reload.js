@@ -57,10 +57,11 @@ function setupLivereload() {
    * Install Ember-Inspector in the current window.
    */
   let installEmberInspector = function() {
-    let location = path.join(__dirname, 'node_modules', 'ember-inspector', 'dist', 'chrome');
+    let location = path.join(__dirname, '..', 'node_modules', 'ember-inspector', 'dist', 'chrome');
 
     fs.lstat(location, (err, results) => {
       if (err) {
+        console.warn('Error loading Ember Inspector', err);
         return;
       }
 
@@ -81,7 +82,7 @@ function setupLivereload() {
   };
 
   document.addEventListener('DOMContentLoaded', (/* e */) => {
-    let dirname = __dirname || (process && (process || {}).cwd) ? process.cwd() : null;
+    let dirname = __dirname || ((process && (process || {}).cwd) ? process.cwd() : null);
 
     if (!dirname) {
       return;
