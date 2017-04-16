@@ -9,20 +9,20 @@ const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 
-describe('electron:package command', () => {
-  let packageTaskOptions;
-  let packageRunOptions;
+describe('electron:assemble command', () => {
+  let assembleTaskOptions;
+  let assembleRunOptions;
 
   let command;
 
-  class MockPackageTask extends CoreObject {
+  class MockAssembleTask extends CoreObject {
     constructor(options) {
       super(...arguments);
-      packageTaskOptions = clone(options);
+      assembleTaskOptions = clone(options);
     }
 
     run(options) {
-      packageRunOptions = clone(options);
+      assembleRunOptions = clone(options);
 
       return resolve();
     }
@@ -40,13 +40,13 @@ describe('electron:package command', () => {
   });
 
   beforeEach(() => {
-    packageTaskOptions = null;
-    packageRunOptions = null;
+    assembleTaskOptions = null;
+    assembleRunOptions = null;
 
-    mockery.registerMock('../tasks/package', MockPackageTask);
+    mockery.registerMock('../tasks/assemble', MockAssembleTask);
 
-    const PackageCommand = require('../../../lib/commands/package');
-    command = new PackageCommand({
+    const AssembleCommand = require('../../../lib/commands/assemble');
+    command = new AssembleCommand({
       ui: new MockUI(),
       analytics: new MockAnalytics(),
       settings: {},
@@ -60,17 +60,17 @@ describe('electron:package command', () => {
     mockery.resetCache();
   });
 
-  it('should invoke the package command with the correct options', () => {
+  it('should invoke the assemble command with the correct options', () => {
     let options = {
       outputPath: 'output',
     };
 
     return command.run(options).then(() => {
-      expect(packageTaskOptions.ui).to.equal(command.ui);
-      expect(packageTaskOptions.analytics).to.equal(command.analytics);
-      expect(packageTaskOptions.project).to.equal(command.project);
+      expect(assembleTaskOptions.ui).to.equal(command.ui);
+      expect(assembleTaskOptions.analytics).to.equal(command.analytics);
+      expect(assembleTaskOptions.project).to.equal(command.project);
 
-      expect(packageRunOptions.outputPath).to.equal('output');
+      expect(assembleRunOptions.outputPath).to.equal('output');
     });
   });
 });

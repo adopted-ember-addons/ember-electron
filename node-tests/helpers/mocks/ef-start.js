@@ -8,9 +8,9 @@ class MockElectronForgeStart {
   }
 
   default() {
-    return new Promise((resolve) => {
-      this.calls.push({ arguments });
+    this.calls.push({ arguments });
 
+    return new Promise((resolve) => {
       resolve(this.handle);
     });
   }
