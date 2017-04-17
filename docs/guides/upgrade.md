@@ -31,10 +31,10 @@ binaries.
 
 Now, `ember electron:package` and `ember electron:make` use `electron-forge` to join forces with
 the greater Electron community. All configuration is now done using an `electron-forge-config.js`
-file inside your `ember-electron` folder. For details, [check out the documentation](forge-config).
+file inside your `ember-electron` folder. For details, [check out the documentation][forge-config].
 
 ## Example Upgrade
-To see an upgrade in action, check out how Ghost Desktop [moved from ember-electron v1 to v2](ghost-pr).
+To see an upgrade in action, check out how Ghost Desktop [moved from ember-electron v1 to v2][ghost-pr].
 
 [forge-config]: https://github.com/electron-userland/electron-forge#config
 [ghost-pr]: https://github.com/TryGhost/Ghost-Desktop/pull/263
