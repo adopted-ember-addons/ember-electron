@@ -1,7 +1,7 @@
 # Usage
 
 ## Running Your App
-To run your app together with a file watcher in development mode (similar to `ember serve`), you can run `ember electron`, which will use Electron to  start `ember-electron/main.js`. Electron's main process runs roughly like a Node process, meaning that it does not immediaetly open a browser window. This addon's blueprint adds a default `main.js` file to your project, which will automatically open up a new browser window with your Ember application.
+To run your app together with a file watcher in development mode (similar to `ember serve`), you can run `ember electron`, which will use Electron to  start `ember-electron/main.js`. Electron's main process runs roughly like a Node process, meaning that it does not immediately open a browser window. This addon's blueprint adds a default `main.js` file to your project, which will automatically open up a new browser window with your Ember application.
 
 ## Ember Inspector
 If you're running a later version of Electron, you will notice that ember-electron installs ember-inspector directly into Electron. Simply open up the developer tools and choose the Ember-tab, just like you would in Chrome.
