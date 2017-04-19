@@ -11,14 +11,14 @@ options can be configured to run all preceding pipeline steps, or to skip some
 of the first steps, and use the output of a previous (partial) build. For
 example the following would produce equivalent output:
 
-```
+```bash
 $ ember electron:build --output-path electron-out/ember
 $ ember electron:assemble --build-path electron-out/ember --output-path electron-out/project
 ```
 
 and
 
-```
+```bash
 $ ember electron:assemble --output-path electron-out/project
 ```
 
@@ -28,7 +28,7 @@ temp directory and delete it when it's done.
 A similar example of equivalent commands that illustrates the entire pipeline
 is:
 
-```
+```bash
 $ ember electron:build --output-path electron-out/ember
 $ ember electron:assemble --build-path electron-out/ember --output-path electron-out/project
 $ ember electron:package --project-path electron-out/project
@@ -42,13 +42,13 @@ little different.
 Each build step will also accept an input path valid for any of the previous
 steps. For example, the following are equivalent:
 
-```
+```bash
 $ ember electron:build --output-path electron-out/ember
 $ ember electron:make --build-path electron-out/ember
 ```
 
 and
 
-```
+```bash
 $ ember electron:make
 ```
