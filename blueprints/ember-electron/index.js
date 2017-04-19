@@ -61,7 +61,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       outDir: 'electron-out',
     })
       .then(() => npmInstall.run({
-        saveDev: true,
+        'save-dev': true,
         verbose: false,
         packages: ['devtron@^1.4.0'],
       }))
