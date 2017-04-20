@@ -19,6 +19,11 @@ describe('Assembler model', () => {
   }
 
   const emberBuildPath = fixturePath('ember-build');
+  const pkg = {
+    config: {
+      forge: 'ember-electron/electron-forge-config.js',
+    },
+  };
 
   function assemble(projectPath, { platform } = {}) {
     let { name: tmpRoot } = tmp.dirSync();
@@ -29,7 +34,7 @@ describe('Assembler model', () => {
     let ui = new MockUI();
     assembler = new Assembler({
       ui,
-      project: new MockProject({ ui }),
+      project: new MockProject({ ui, pkg }),
       platform,
       emberBuildPath,
       outputPath: path.join(tmpRoot, 'output'),
