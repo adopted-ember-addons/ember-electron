@@ -1,4 +1,4 @@
-/* jshint node:true */
+/* eslint-env node */
 const { app, BrowserWindow, protocol } = require('electron');
 const { dirname, resolve } = require('path');
 const url = require('url');
