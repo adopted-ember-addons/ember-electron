@@ -16,9 +16,38 @@ An Ember addon to turn Ember apps into cross-platform desktop applications, taki
 
 To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
 
-## Usage
 
-See [docs](docs) for detailed guides on [installation](docs/guides/installation.md), [usage](docs/guides/usage.md) and more.
+
+## Documentation
+
+### Basics
+- [Installation](docs/guides/installation.md)
+- [Usage](docs/guides/usage.md)
+- [Configuration](docs/guides/configuration.md)
+- [Testing](docs/guides/testing.md)
+- [Packaging](docs/guides/packaging.md)
+
+### Advanced Guides
+- [Upgrading from ember-electron 1.x to 2.x](docs/guides/upgrade.md)
+- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](docs/guides/ci.md)
+- [Build pipeline](docs/guides/build-pipeline.md)
+
+### FAQ
+
+- [FAQ & Common issues](docs/faq/common-issues.md)
+- [File Structure](docs/faq/structure.md)
+
+Somethings missing? Contributions to our docs are welcome!
+
+
+
+## Support
+
+Ember-Electron is a small open source project. Use [GitHub Issues](https://github.com/felixrieseberg/ember-electron/issues) to report bugs and errors within the addon. 
+
+If you need help *using* the addon with your application, feel free to drop by the [Ember Community Slack](https://emberjs.com/community/) and ask in `#e-electron`. If you have questions regarding Electron, their [Slack and forum](https://electron.atom.io/contact/) will be helpful as well. 
+
+
 
 ## Authors
 

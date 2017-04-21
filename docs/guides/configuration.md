@@ -61,6 +61,7 @@ You can pass options to the packager by either putting configuration into `ember
 * `--protocol` - *Array of strings* The URL protocol scheme(s) to associate the app with. For example, specifying `myapp` would cause URLs such as `myapp://path` to be opened with the app. Maps to the `CFBundleURLSchemes` metadata property. This option requires a corresponding `protocol-name` option to be specified.
 * `--protocol-name` - *Strings* The descriptive name of the URL protocol scheme(s) specified via the `protocol` option. Maps to the `CFBundleURLName` metadata property.
 
+
 ### Used for Windows builds only
 
 **Note:** Windows builds on non-Windows platforms require [Wine](https://www.winehq.org/) to be available on your PATH before the build/package step is executed.
