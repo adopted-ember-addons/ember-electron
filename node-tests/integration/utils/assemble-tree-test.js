@@ -64,13 +64,13 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        path.join('.compilerc'),
-        path.join('ember-electron', 'electron-forge-config.js'),
-        path.join('ember-electron', 'main.js'),
-        path.join('ember', 'assets', 'app.css'),
-        path.join('ember', 'assets', 'app.js'),
-        path.join('ember', 'index.html'),
-        path.join('package.json'),
+        '.compilerc',
+        'ember-electron/electron-forge-config.js',
+        'ember-electron/main.js',
+        'ember/assets/app.css',
+        'ember/assets/app.js',
+        'ember/index.html',
+        'package.json',
       ]);
     });
   });
@@ -82,13 +82,13 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        path.join('.compilerc'),
-        path.join('ember-electron', 'electron-forge-config.js'),
-        path.join('ember-electron', 'main.js'),
-        path.join('ember', 'assets', 'app.css'),
-        path.join('ember', 'assets', 'app.js'),
-        path.join('ember', 'index.html'),
-        path.join('package.json'),
+        '.compilerc',
+        'ember-electron/electron-forge-config.js',
+        'ember-electron/main.js',
+        'ember/assets/app.css',
+        'ember/assets/app.js',
+        'ember/index.html',
+        'package.json',
       ]);
     });
   });
@@ -100,16 +100,16 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode, platform: 'win32' }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        path.join('.compilerc'),
-        path.join('ember-electron', 'electron-forge-config.js'),
-        path.join('ember-electron', 'main.js'),
-        path.join('ember-electron', 'resources', 'platform.txt'),
-        path.join('ember-electron', 'resources', 'resource.txt'),
-        path.join('ember-electron', 'resources', 'win32.txt'),
-        path.join('ember', 'assets', 'app.css'),
-        path.join('ember', 'assets', 'app.js'),
-        path.join('ember', 'index.html'),
-        path.join('package.json'),
+        '.compilerc',
+        'ember-electron/electron-forge-config.js',
+        'ember-electron/main.js',
+        'ember-electron/resources/platform.txt',
+        'ember-electron/resources/resource.txt',
+        'ember-electron/resources/win32.txt',
+        'ember/assets/app.css',
+        'ember/assets/app.js',
+        'ember/index.html',
+        'package.json',
       ]);
 
       let filePath = path.join(directory, 'ember-electron', 'resources', 'platform.txt');

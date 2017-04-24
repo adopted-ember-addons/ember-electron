@@ -9,11 +9,20 @@ let mainWindow = null;
 // The testUrl is a file: url pointing to our index.html, with some query
 // params we need to preserve for testem. So we need to register our ember
 // protocol accordingly.
-const [, , indexUrl] = process.argv;
-const {
+let [, , indexUrl] = process.argv;
+// Undo workaround for windows (see test-runner.js for explanation)
+indexUrl = indexUrl.replace(/__amp__/g, '&');
+let {
   pathname: indexPath,
   search: indexQuery,
 } = url.parse(indexUrl);
+// When we extract the pathname from an absolute path on windows, it starts
+// with '/C:/', and the leading slash confuses everything, so we need to strip
+// it.
+if (process.platform === 'win32') {
+  indexPath = indexPath.slice(1);
+}
+indexPath = resolve(indexPath);
 const emberAppLocation = `serve://dist${indexQuery}`;
 
 protocol.registerStandardSchemes(['serve'], { secure: true });

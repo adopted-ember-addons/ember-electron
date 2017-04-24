@@ -112,7 +112,8 @@
     "sinon": "^1.17.2",
     "testdouble": "^2.1.2",
     "tmp": "0.0.31",
-    "walk-sync": "^0.3.1"
+    "walk-sync": "^0.3.1",
+    "yarn": "^0.23.2"
   },
   "engines": {
     "node": ">= 6.0.0"

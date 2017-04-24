@@ -52,6 +52,10 @@ describe('end-to-end', function() {
       writeJsonSync('package.json', packageJson, { spaces: 2 });
 
       return ember('g', 'ember-electron');
+    }).then(() => {
+      // Restore correct version of ember-electron now that forge's import
+      // probably replaced it with a production version
+      return run('npm', ['install', '--save-dev', path.join(tmpDir, `ember-electron-${version}.tgz`)]);
     });
   });
 
