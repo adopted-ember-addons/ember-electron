@@ -19,6 +19,11 @@ describe('Assembler model', () => {
   }
 
   const emberBuildPath = fixturePath('ember-build');
+  const pkg = {
+    config: {
+      forge: 'ember-electron/electron-forge-config.js',
+    },
+  };
 
   function assemble(projectPath, { platform } = {}) {
     let { name: tmpRoot } = tmp.dirSync();
@@ -29,7 +34,7 @@ describe('Assembler model', () => {
     let ui = new MockUI();
     assembler = new Assembler({
       ui,
-      project: new MockProject({ ui }),
+      project: new MockProject({ ui, pkg }),
       platform,
       emberBuildPath,
       outputPath: path.join(tmpRoot, 'output'),
@@ -56,13 +61,13 @@ describe('Assembler model', () => {
     return assemble(fixturePath('project-simple')).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        path.join('.compilerc'),
-        path.join('ember-electron', 'electron-forge-config.js'),
-        path.join('ember-electron', 'main.js'),
-        path.join('ember', 'assets', 'app.css'),
-        path.join('ember', 'assets', 'app.js'),
-        path.join('ember', 'index.html'),
-        path.join('package.json'),
+        '.compilerc',
+        'ember-electron/electron-forge-config.js',
+        'ember-electron/main.js',
+        'ember/assets/app.css',
+        'ember/assets/app.js',
+        'ember/index.html',
+        'package.json',
       ]);
     });
   });

@@ -72,6 +72,12 @@ if (require.main === module) {
   htmlFileObj.query = testPageObj.query;
   htmlFileObj.query.testemId = id;
   let testUrl = url.format(htmlFileObj);
+  // On windows the testUrl argv is truncated before the first '&' by the time
+  // it reaches our main.js. This appears to have something to do with how
+  // electron-compile (I think) uses a batch script to invoke its cli.js, and
+  // the fact that '&' is a special shell character. So we do our own cheesy
+  // workaround.
+  testUrl = testUrl.replace(/&/g, '__amp__');
 
   // Symlink
   // Todo: The source sucks. We need to fix this.

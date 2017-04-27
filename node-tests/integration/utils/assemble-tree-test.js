@@ -20,9 +20,17 @@ describe('assembleTree', () => {
     return path.resolve(__dirname, '..', '..', 'fixtures', name);
   }
 
+  function defaultPkg() {
+    return {
+      config: {
+        forge: 'ember-electron/electron-forge-config.js',
+      },
+    };
+  }
+
   const emberBuildPath = fixturePath('ember-build');
 
-  function buildTree(projectPath, { inputNode, platform, pkg = {} }) {
+  function buildTree(projectPath, { inputNode, platform, pkg = defaultPkg() }) {
     let { name: tmpRoot } = tmp.dirSync();
     let tmpDir = path.join(tmpRoot, 'project');
     copySync(projectPath, tmpDir);
@@ -56,13 +64,13 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        path.join('.compilerc'),
-        path.join('ember-electron', 'electron-forge-config.js'),
-        path.join('ember-electron', 'main.js'),
-        path.join('ember', 'assets', 'app.css'),
-        path.join('ember', 'assets', 'app.js'),
-        path.join('ember', 'index.html'),
-        path.join('package.json'),
+        '.compilerc',
+        'ember-electron/electron-forge-config.js',
+        'ember-electron/main.js',
+        'ember/assets/app.css',
+        'ember/assets/app.js',
+        'ember/index.html',
+        'package.json',
       ]);
     });
   });
@@ -74,13 +82,13 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        path.join('.compilerc'),
-        path.join('ember-electron', 'electron-forge-config.js'),
-        path.join('ember-electron', 'main.js'),
-        path.join('ember', 'assets', 'app.css'),
-        path.join('ember', 'assets', 'app.js'),
-        path.join('ember', 'index.html'),
-        path.join('package.json'),
+        '.compilerc',
+        'ember-electron/electron-forge-config.js',
+        'ember-electron/main.js',
+        'ember/assets/app.css',
+        'ember/assets/app.js',
+        'ember/index.html',
+        'package.json',
       ]);
     });
   });
@@ -92,16 +100,16 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode, platform: 'win32' }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        path.join('.compilerc'),
-        path.join('ember-electron', 'electron-forge-config.js'),
-        path.join('ember-electron', 'main.js'),
-        path.join('ember-electron', 'resources', 'platform.txt'),
-        path.join('ember-electron', 'resources', 'resource.txt'),
-        path.join('ember-electron', 'resources', 'win32.txt'),
-        path.join('ember', 'assets', 'app.css'),
-        path.join('ember', 'assets', 'app.js'),
-        path.join('ember', 'index.html'),
-        path.join('package.json'),
+        '.compilerc',
+        'ember-electron/electron-forge-config.js',
+        'ember-electron/main.js',
+        'ember-electron/resources/platform.txt',
+        'ember-electron/resources/resource.txt',
+        'ember-electron/resources/win32.txt',
+        'ember/assets/app.css',
+        'ember/assets/app.js',
+        'ember/index.html',
+        'package.json',
       ]);
 
       let filePath = path.join(directory, 'ember-electron', 'resources', 'platform.txt');
@@ -132,10 +140,9 @@ describe('assembleTree', () => {
   it('uses the correct main.js when EMBER_ENV is not "test"', () => {
     let projectPath = fixturePath('project-simple');
     let inputNode = emberBuildPath;
-    let pkg = { devDependencies: { 'ember-welcome-page': '^1.0.0' } };
     process.env.EMBER_ENV = 'production';
 
-    return buildTree(projectPath, { inputNode, pkg }).then(({ directory }) => {
+    return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let mainPath = path.join(directory, 'ember-electron', 'main.js');
       expect(readFileSync(mainPath).toString().trim()).to.be.equal('// main.js');
     });
@@ -144,10 +151,9 @@ describe('assembleTree', () => {
   it('uses the correct main.js when EMBER_ENV is "test"', () => {
     let projectPath = fixturePath('project-simple');
     let inputNode = emberBuildPath;
-    let pkg = { devDependencies: { 'ember-welcome-page': '^1.0.0' } };
     process.env.EMBER_ENV = 'test';
 
-    return buildTree(projectPath, { inputNode, pkg }).then(({ directory }) => {
+    return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let mainPath = path.join(directory, 'ember-electron', 'main.js');
       expect(readFileSync(mainPath).toString().trim()).to.be.equal('// tests/main.js');
     });
@@ -156,7 +162,8 @@ describe('assembleTree', () => {
   it('warns when ember-welcome-page is installed', () => {
     let projectPath = fixturePath('project-simple');
     let inputNode = emberBuildPath;
-    let pkg = { devDependencies: { 'ember-welcome-page': '^1.0.0' } };
+    let pkg = defaultPkg();
+    pkg.devDependencies = { 'ember-welcome-page': '^1.0.0' };
 
     return buildTree(projectPath, { inputNode, pkg }).then(() => {
       expect(ui.output).to.contain('ember-welcome-page');
@@ -172,17 +179,6 @@ describe('assembleTree', () => {
     });
   });
 
-  it('preserves package.json\'s "main" entry when present', () => {
-    let projectPath = fixturePath('project-simple');
-    let inputNode = emberBuildPath;
-    let pkg = { main: 'foo/bar.js' };
-
-    return buildTree(projectPath, { inputNode, pkg }).then(({ directory }) => {
-      let packageJson = require(`${directory}/package.json`);
-      expect(packageJson.main).to.equal('foo/bar.js');
-    });
-  });
-
   it('fills in a default when package.json has no "main" entry', () => {
     let projectPath = fixturePath('project-simple');
     let inputNode = emberBuildPath;
@@ -193,35 +189,19 @@ describe('assembleTree', () => {
     });
   });
 
-  it('preserves package.json\'s forge config when present', () => {
-    let projectPath = fixturePath('project-simple');
+  it('throws an error when ember-electron/main.js does not exist', () => {
+    let projectPath = fixturePath('project-missing-main');
     let inputNode = emberBuildPath;
-    let pkg = { config: { forge: 'forge.js' } };
 
-    return buildTree(projectPath, { inputNode, pkg }).then(({ directory }) => {
-      let packageJson = require(`${directory}/package.json`);
-      expect(packageJson.config.forge).to.equal('forge.js');
-    });
+    expect(() => buildTree(projectPath, { inputNode })).to.throw(/main module/);
   });
 
-  it('fills in a default forge config when package.json has none', () => {
-    let projectPath = fixturePath('project-simple');
-    let inputNode = emberBuildPath;
-    let pkg = { config: {} };
-
-    return buildTree(projectPath, { inputNode, pkg }).then(({ directory }) => {
-      let packageJson = require(`${directory}/package.json`);
-      expect(packageJson.config.forge).to.equal('ember-electron/electron-forge-config.js');
-    });
-  });
-
-  it('fills in a default forge config when package.json has no config entry at all', () => {
+  it('throws an error when package.json has no forge config', () => {
     let projectPath = fixturePath('project-simple');
     let inputNode = emberBuildPath;
 
-    return buildTree(projectPath, { inputNode }).then(({ directory }) => {
-      let packageJson = require(`${directory}/package.json`);
-      expect(packageJson.config.forge).to.equal('ember-electron/electron-forge-config.js');
-    });
+    expect(() => buildTree(projectPath, { inputNode, pkg: {} })).to.throw(/config\.forge/);
+    expect(() => buildTree(projectPath, { inputNode, pkg: { config: {} } })).to.throw(/config\.forge/);
   });
+
 });
