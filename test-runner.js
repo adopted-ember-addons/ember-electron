@@ -83,18 +83,18 @@ if (require.main === module) {
   // Todo: The source sucks. We need to fix this.
   const source = path.join(process.cwd(), 'node_modules');
   const target = path.join(buildDir, 'node_modules');
+
   symlinkOrCopySync(source, target);
 
-  // Start electron
-  let pid;
-  efStart({ appPath: buildDir, dir: buildDir, args: [testUrl] }).then(({ pid: childPid }) => {
-    pid = childPid;
+  process.on('exit', () => {
+    fs.unlinkSync(target);
   });
 
-  // Clean up when we're killed
-  process.on('SIGTERM', function() {
-    if (pid) {
+  // Start electron
+  efStart({ appPath: buildDir, dir: buildDir, args: [testUrl] }).then(({ pid }) => {
+    // Clean up when we're killed
+    process.on('SIGTERM', () => {
       treeKill(pid);
-    }
+    });
   });
 }
