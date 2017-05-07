@@ -19,8 +19,6 @@ addons:
 
 cache:
   yarn: true
-  directories:
-    - $HOME/.cache
 
 before_install:
   # We need at least 0.23.3 for the optional dependencies fix, otherwise
