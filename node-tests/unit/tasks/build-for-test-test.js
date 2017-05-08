@@ -5,8 +5,8 @@ const { clone } = require('lodash/lang');
 const CoreObject = require('core-object');
 const expect = require('../../helpers/expect');
 
-describe('BuildAndAssembleTask', () => {
-  let BuildAndAssembleTask;
+describe('BuildForTestTask', () => {
+  let BuildForTestTask;
   let runOptions;
 
   class MockBuildTask extends CoreObject {
@@ -29,7 +29,7 @@ describe('BuildAndAssembleTask', () => {
   beforeEach(() => {
     mockery.registerMock('./build', MockBuildTask);
 
-    BuildAndAssembleTask = require('../../../lib/tasks/build-and-assemble');
+    BuildForTestTask = require('../../../lib/tasks/build-for-test');
   });
 
   afterEach(() => {
@@ -37,11 +37,12 @@ describe('BuildAndAssembleTask', () => {
     mockery.resetCache();
   });
 
-  it('builds and assembles', () => {
-    let task = new BuildAndAssembleTask();
+  it('builds, assembles and symlinks node_modules', () => {
+    let task = new BuildForTestTask();
     task.run({ platform: 'win32', outputPath: 'output' });
     expect(runOptions.platform).to.be.equal('win32');
     expect(runOptions.outputPath).to.be.equal('output');
     expect(runOptions.assemble).to.be.ok;
+    expect(runOptions.symlinkNodeModules).to.be.ok;
   });
 });

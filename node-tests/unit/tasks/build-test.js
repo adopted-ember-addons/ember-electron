@@ -75,6 +75,7 @@ describe('BuildTask', () => {
       expect(builderOptions.outputPath).to.equal('output');
       expect(builderOptions.environment).to.be.undefined;
       expect(builderOptions.assemble).to.be.undefined;
+      expect(builderOptions.symlinkNodeModules).to.be.undefined;
       expect(builderOptions.platform).to.be.undefined;
 
       expect(operations).to.deep.equal(['build', 'cleanup']);
@@ -88,6 +89,7 @@ describe('BuildTask', () => {
       outputPath: 'output',
       environment: 'test',
       assemble: true,
+      symlinkNodeModules: true,
       platform: 'win32',
     }).then(() => {
       expect(builderOptions.ui).to.equal(task.ui);
@@ -95,6 +97,7 @@ describe('BuildTask', () => {
       expect(builderOptions.outputPath).to.equal('output');
       expect(builderOptions.environment).to.equal('test');
       expect(builderOptions.assemble).to.be.true;
+      expect(builderOptions.symlinkNodeModules).to.be.true;
       expect(builderOptions.platform).to.equal('win32');
 
       expect(operations).to.deep.equal(['build', 'cleanup']);
