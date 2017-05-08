@@ -21,7 +21,7 @@ describe('electron:test command', () => {
 
   it('uses the correct models and tasks', () => {
     expect(command.Builder).to.equal(require('../../../lib/models/builder'));
-    expect(command.tasks.Build).to.equal(require('../../../lib/tasks/build-and-assemble'));
+    expect(command.tasks.Build).to.equal(require('../../../lib/tasks/build-for-test'));
     expect(command.tasks.Test).to.equal(require('../../../lib/tasks/test'));
     expect(command.tasks.TestServer).to.equal(require('../../../lib/tasks/test-server'));
   });

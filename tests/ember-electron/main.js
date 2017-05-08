@@ -61,11 +61,14 @@ app.on('ready', function onReady() {
 let cwd = __dirname || resolve(dirname());
 // Make sure dependencies (node_modules) are copied correctly and we can
 // load them
-require('file-url')('foo.html');
+const fileUrl = require('file-url');
+fileUrl('foo.html');
 // Make sure local libraries are copied correctly and we can load them
-require('./lib/helper.js')();
+const helper = require('./lib/helper.js');
+helper();
 // Make sure local resources are copied correctly and we can read them
-let content = require('fs').readFileSync(`${cwd}/resources/foo.txt`).toString().trim();
+const { readFileSync } = require('fs');
+let content = readFileSync(`${cwd}/resources/foo.txt`).toString().trim();
 if (content !== 'hello') {
   throw new Error(`${cwd}/resources/foo.txt should be contain 'hello': ${content}`);
 }
