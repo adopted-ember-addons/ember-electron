@@ -12,8 +12,10 @@ const tmp = require('tmp');
 
 const expect = require('../helpers/expect');
 
-function run(...args) {
-  return execa(...args, { stdio: 'inherit' });
+function run(cmd, args, opts = {}) {
+  opts.stdio = opts.stdio || 'inherit';
+
+  return execa(cmd, args, opts);
 }
 
 describe('end-to-end', function() {
@@ -23,39 +25,39 @@ describe('end-to-end', function() {
   let emberPath = path.join(rootDir, 'node_modules', '.bin', 'ember');
 
   function ember(...args) {
-    return run(emberPath, args);
+    return listenForPrompts(run(emberPath, args, {
+      stdio: ['pipe', 'pipe', process.stderr],
+    }));
   }
 
   before(function() {
     this.timeout(10 * 60 * 1000);
 
-    let { version } = require(path.join(rootDir, 'package.json'));
     let { name: tmpDir } = tmp.dirSync();
-    process.chdir(tmpDir);
 
-    return run('npm', ['pack', rootDir]).then(() => {
-      return ember('new', 'ee-test-app');
+    return run('yarn', ['pack', '--filename', path.join(tmpDir, 'ember-electron.tgz')]).then(() => {
+      process.chdir(tmpDir);
+
+      // yarn won't install from a gzipped tarball, and try as I might I can't
+      // get node-tar or tar.gz to untar the tarballs created by yarn or npm
+      return run('tar', ['-xzf', 'ember-electron.tgz']);
+    }).then(() => {
+      // Prevent yarn caching from screwing us
+      let packageJson = readJsonSync(path.join('package', 'package.json'));
+      packageJson.version = `packageJson.version-${new Date().getTime()}`;
+      writeJsonSync(path.join('package', 'package.json'), packageJson);
+
+      return ember('new', 'ee-test-app', '--yarn');
     }).then(() => {
       process.chdir('ee-test-app');
 
-      // We can't tell the blueprint not to prompt :(
-      removeSync('.travis.yml');
-
-      // yarn currently has some kind of bug when installing from the filesystem
-      return run('npm', ['install', '--save-dev', path.join(tmpDir, `ember-electron-${version}.tgz`)]);
+      return ember('install', 'ember-electron@file:../package');
     }).then(() => {
-      // yarn bug -- need to get the file: URI out of package.json or when the
-      // blueprint triggers forge import, which uses yarn to install
-      // dependencies, yarn will barf
-      let packageJson = readJsonSync('package.json');
-      packageJson.devDependencies['ember-electron'] = version;
-      writeJsonSync('package.json', packageJson, { spaces: 2 });
-
-      return ember('g', 'ember-electron');
-    }).then(() => {
-      // Restore correct version of ember-electron now that forge's import
-      // probably replaced it with a production version
-      return run('npm', ['install', '--save-dev', path.join(tmpDir, `ember-electron-${version}.tgz`)]);
+      // yarn has some kind of bug that causes it to hoist the wrong version of
+      // npmlog during one of the operations performed by the ember-electron
+      // blueprint, which causes things to explode. Running yarn upgrade
+      // corrects the situation.
+      return run('yarn', ['upgrade']);
     });
   });
 
@@ -97,3 +99,23 @@ describe('end-to-end', function() {
     });
   });
 });
+
+function listenForPrompts(child) {
+  let { stdout, stdin } = child;
+
+  let stdoutData = '';
+  stdout.setEncoding('utf8');
+  stdout.on('data', (chunk) => {
+    process.stdout.write(chunk);
+
+    // See if we have a prompt
+    stdoutData += chunk;
+    if (/^\? Overwrite/m.test(stdoutData)) {
+      stdin.write('n\n');
+    }
+    // Chop off all complete lines
+    stdoutData = stdoutData.slice(stdoutData.lastIndexOf('\n') + 1);
+  });
+
+  return child;
+}
