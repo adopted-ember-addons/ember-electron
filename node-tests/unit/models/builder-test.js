@@ -121,21 +121,4 @@ describe('Builder model', () => {
       expect(fs.existsSync(path.join(outputPath, 'node_modules'))).to.be.ok;
     });
   });
-
-  describe('cleanup', () => {
-    it('works with no node_modules symlink', () => {
-      let builder = new Builder({ project, outputPath });
-      builder.copyToOutputPath();
-      builder.cleanup();
-      expect(fs.existsSync(path.join(outputPath, 'build'))).to.not.be.ok;
-    });
-
-    it('works with a node_modules symlink', () => {
-      let builder = new Builder({ project, outputPath, symlinkNodeModules: true });
-      builder.copyToOutputPath();
-      builder.cleanup();
-      expect(fs.existsSync(path.join(outputPath, 'build'))).to.not.be.ok;
-      expect(fs.existsSync(path.join(outputPath, 'node_modules'))).to.not.be.ok;
-    });
-  });
 });

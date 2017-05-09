@@ -31,7 +31,6 @@ if (require.main === module) {
   let url = require('url');
   let fileUrl = require('file-url');
   let treeKill = require('tree-kill');
-  let symlinkOrCopySync = require('symlink-or-copy').sync;
   let { start: efStart } = require('electron-forge');
 
   let [, , buildDir, baseUrl, testPageUrl, id] = process.argv;
@@ -78,17 +77,6 @@ if (require.main === module) {
   // the fact that '&' is a special shell character. So we do our own cheesy
   // workaround.
   testUrl = testUrl.replace(/&/g, '__amp__');
-
-  // Symlink
-  // Todo: The source sucks. We need to fix this.
-  const source = path.join(process.cwd(), 'node_modules');
-  const target = path.join(buildDir, 'node_modules');
-
-  symlinkOrCopySync(source, target);
-
-  process.on('exit', () => {
-    fs.unlinkSync(target);
-  });
 
   // Start electron
   efStart({ appPath: buildDir, dir: buildDir, args: [testUrl] }).then(({ pid }) => {
