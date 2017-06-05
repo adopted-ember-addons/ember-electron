@@ -2,10 +2,10 @@
 
 ## What is electron-protocol-serve and why do I need this?
 
-`electron-protocol-serve` is a module created for Ember-Electron, mimicking the behaviour Ember expects from a server. 
-This allows Ember-Electron to load an Ember application without modifiying. 
+`electron-protocol-serve` is a module created for Ember-Electron, mimicking the behaviour Ember expects from a server.
+This allows Ember-Electron to load an Ember application without modifiying.
 
-This also migitates problems eisiting with XHR and the `file://` protocol, allows the application to have absolute paths, use `location: auto` and resolve just as if served from a static webserver. 
+This also migitates problems eisiting with XHR and the `file://` protocol, allows the application to have absolute paths, use `location: auto` and resolve just as if served from a static webserver.
 
 However this also means that if you want to access files on your local file system, they must be addressed using the the `file://` protocol. To access local files, the `BrowserWindow` has to be configured to load local files like this:
 
@@ -18,10 +18,18 @@ mainWindow = new BrowserWindow({
 });
 ```
 
-This disables the same-origin policy, so this should done only after careful evaluation. 
+This disables the same-origin policy, so this should done only after careful evaluation.
 
 If you need to read a local file, using the [`FileReader`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader) API might be another good option that works without changing the `webPreferences`.
 
+
+## When I make AJAX requests they fail due to CORS problems (`Access-Control-Allow-Origin` header)
+
+This is also a side-effect of using `electron-protocol-serve`, and can be solved by setting `webPreferences` when opening your `BrowserWindow` as described above. However, this is only safe if you know you will never be running untrusted code in the `BrowserWindow` or allowing the `BrowserWindow` to navigate to a non-local URL.
+
+The reason this is necessary has to do with Electron's configuration of WebKit. Electron sets the [allow_universal_access_from_file_urls](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitSettings.html#WebKitSettings--allow-universal-access-from-file-urls), which disables the same-origin policy for Javascript loaded from `file:` URLs. However, since `electron-protocol-serve` causes us to load files from the custom `serve:` protocol, WebKit doesn't know that they are local files and enforces the same-origin policy by default, so we have to disable it using `webPreferences`.
+
+You should carefully consider if doing this is safe, as it potentially opens up new security holes that vanilla Electron using `file:` URLs does not. The difference is that the `allow_universal_access_from_file_urls` option evaluates the situation on each request, and if the current origin isn't a `file:` URL, it will enforce the same-origin policy. When using `webPreferences` you are disabling the same-origin policy for the entire window, so if the window somehow navigates to an `http:` URL, the same-origin policy will still be disabled. So be sure to consider your circumstances carefully from a security standpoint when doing this, and ensure that if your window needs to display remote or untrusted content, it does so in a sandboxed `WebView`.
 
 
 ## I can't open the Developer Tools in the packaged app
