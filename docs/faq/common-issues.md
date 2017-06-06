@@ -2,10 +2,10 @@
 
 ## What is electron-protocol-serve and why do I need this?
 
-`electron-protocol-serve` is a module created for Ember-Electron, mimicking the behaviour Ember expects from a server.
-This allows Ember-Electron to load an Ember application without modifiying.
+`electron-protocol-serve` is a module created for Ember-Electron, mimicking the behavior Ember expects from a server.
+This allows Ember-Electron to load an Ember application without modifying.
 
-This also migitates problems eisiting with XHR and the `file://` protocol, allows the application to have absolute paths, use `location: auto` and resolve just as if served from a static webserver.
+This also mitigates problems existing with XHR and the `file://` protocol, allows the application to have absolute paths, use `location: auto` and resolve just as if served from a static webserver.
 
 However this also means that if you want to access files on your local file system, they must be addressed using the the `file://` protocol. To access local files, the `BrowserWindow` has to be configured to load local files like this:
 
@@ -25,7 +25,7 @@ If you need to read a local file, using the [`FileReader`](https://developer.moz
 
 ## When I make AJAX requests they fail due to CORS problems (`Access-Control-Allow-Origin` header)
 
-This is also a side-effect of using `electron-protocol-serve`, and can be solved by setting `webPreferences` when opening your `BrowserWindow` as described above. However, this is only safe if you know you will never be running untrusted code in the `BrowserWindow` or allowing the `BrowserWindow` to navigate to a non-local URL.
+This is also a side-effect of using `electron-protocol-serve`. One solution is to add an `Access-Control-Allow-Origin` header to the endpoint you are accessing, but that requires that you have control over that endpoint and that this fits with the security model of the server. Otherwise, this can be solved by setting `webPreferences` when opening your `BrowserWindow` as described above. However, this is only safe if you know you will never be running untrusted code in the `BrowserWindow` or allowing the `BrowserWindow` to navigate to a non-local URL.
 
 The reason this is necessary has to do with Electron's configuration of WebKit. Electron sets the [allow_universal_access_from_file_urls](https://webkitgtk.org/reference/webkit2gtk/stable/WebKitSettings.html#WebKitSettings--allow-universal-access-from-file-urls), which disables the same-origin policy for Javascript loaded from `file:` URLs. However, since `electron-protocol-serve` causes us to load files from the custom `serve:` protocol, WebKit doesn't know that they are local files and enforces the same-origin policy by default, so we have to disable it using `webPreferences`.
 
@@ -54,4 +54,4 @@ If you try out Ember-Electron for the first time on a brand new Ember project ge
 
 While this might be a little confusing, it is the default behavior of the `ember-welcome-page` addon, which simply removes itself when run with the environment flag `--env=production`, which is our default while packaging applications.
 
-Since you probably don't need that page anyway, you can savely follow it's own instructions and remove it from your `package.json` as well as the template tag `{{welcome-page}}` from your `app/templates/application.hbs`.
+Since you probably don't need that page anyway, you can safely follow it's own instructions and remove it from your `package.json` as well as the template tag `{{welcome-page}}` from your `app/templates/application.hbs`.
