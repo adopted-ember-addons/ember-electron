@@ -120,5 +120,14 @@ describe('Builder model', () => {
       builder.copyToOutputPath();
       expect(fs.existsSync(path.join(outputPath, 'node_modules'))).to.be.ok;
     });
+
+    it('manages the node_modules symlink across multiple calls with symlinkNodeModules changing', () => {
+      let builder = new Builder({ project, outputPath, symlinkNodeModules: true });
+      builder.copyToOutputPath();
+      builder = new Builder({ project, outputPath });
+      builder.copyToOutputPath();
+      expect(fs.existsSync(path.join(outputPath, 'node_modules'))).to.not.be.ok;
+      expect(fs.existsSync(path.join(project.root, 'node_modules'))).to.be.ok;
+    });
   });
 });
