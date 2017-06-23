@@ -3,20 +3,14 @@ platform:
 environment:
   nodejs_version: "6"
 cache:
-- '%LOCALAPPDATA%\Yarn'
-- '%USERPROFILE%\.electron'
+  - '%LOCALAPPDATA%\Yarn'
+  - '%USERPROFILE%\.electron'
 
 install:
-- choco install handle
-# We need at least 0.23.2 for the optional dependencies fix, otherwise
-# electron-forge fails to install. This can be removed when appveyor updates
-# their build image to a new enough yarn version. choco upgrade yarn also
-# installs nodejs, so comment out the Install-Product step for now to save time
-#- ps: Install-Product node $env:nodejs_version $env:platform
-- choco upgrade yarn --version 0.23.2
-- yarn
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - yarn
 
 test_script:
-- yarn test
+  - yarn test
 
 build: off
