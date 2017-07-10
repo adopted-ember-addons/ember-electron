@@ -9,7 +9,7 @@ const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 
 describe('electron command', () => {
-  let CommandUnderTest, commandOptions, mockElectronForgeStart;
+  let CommandUnderTest, commandOptions, mockElectronForgeStart, argv;
 
   before(() => {
     mockery.enable({
@@ -25,9 +25,14 @@ describe('electron command', () => {
   beforeEach(() => {
     mockElectronForgeStart = new MockElectronForgeStart();
     mockery.registerMock('electron-forge/dist/api/start', mockElectronForgeStart);
+    argv = ['./electron', './project'];
 
     const cmd = require('../../../lib/commands/electron');
-    CommandUnderTest = cmd.extend();
+    CommandUnderTest = cmd.extend({
+      _getArgv() {
+        return argv;
+      },
+    });
 
     commandOptions = {
       ui: new MockUI(),
@@ -117,6 +122,33 @@ describe('electron command', () => {
 
     return expect(command).to.be.fulfilled.then(() => {
       expect(mockElectronForgeStart.calls.length).to.equal(1);
+    });
+  });
+
+  it('should pass an empty args through if no --- is found', () => {
+    commandOptions._buildAndWatch = () => {
+      return RSVP.resolve();
+    };
+
+    const command = new CommandUnderTest(commandOptions).validateAndRun();
+
+    return expect(command).to.be.fulfilled.then(() => {
+      expect(mockElectronForgeStart.calls.length).to.equal(1);
+      expect(mockElectronForgeStart.calls[0][0].args).to.deep.equal([]);
+    });
+  });
+
+  it('should pass an args through if --- is found', () => {
+    commandOptions._buildAndWatch = () => {
+      return RSVP.resolve();
+    };
+
+    argv.push(...['---', 'arg1', '--arg2', '--arg3=value']);
+    const command = new CommandUnderTest(commandOptions).validateAndRun();
+
+    return expect(command).to.be.fulfilled.then(() => {
+      expect(mockElectronForgeStart.calls.length).to.equal(1);
+      expect(mockElectronForgeStart.calls[0][0].args).to.deep.equal(['arg1', '--arg2', '--arg3=value']);
     });
   });
 });
