@@ -1,6 +1,6 @@
 {
   "name": "ember-electron",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "An addon for building Desktop apps with Ember and Electron.",
   "keywords": [
     "ember-addon",
