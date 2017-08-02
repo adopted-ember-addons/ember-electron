@@ -75,7 +75,6 @@ describe('Assembler model', () => {
         '.compilerc',
         'ember-electron/electron-forge-config.js',
         'ember-electron/main.js',
-        'ember-electron/test-main.js',
         'ember/assets/app.css',
         'ember/assets/app.js',
         'ember/index.html',
