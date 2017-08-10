@@ -39,11 +39,11 @@
     "url": "https://github.com/felixrieseberg/ember-electron/issues"
   },
   "scripts": {
-    "test": "npm run test-node-all && npm run lint",
-    "test-fast": "npm run test-node && npm run lint",
+    "test": "yarn run test-node-all && yarn run lint",
+    "test-fast": "yarn run test-node && yarn run lint",
     "test-node": "mocha node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
     "test-node-slow": "mocha ./node-tests/acceptance/**/*.js",
-    "test-node-all": "npm run test-node && npm run test-node-slow",
+    "test-node-all": "yarn run test-node && yarn run test-node-slow",
     "lint": "eslint ./*.js app lib node-tests"
   },
   "dependencies": {
@@ -68,7 +68,7 @@
     "npmi": "^2.0.1",
     "quick-temp": "^0.1.5",
     "rimraf": "^2.6.1",
-    "rsvp": "^3.2.1",
+    "rsvp": "^4.0.1",
     "silent-error": "^1.0.1",
     "socket.io": "^1.4.8",
     "symlink-or-copy": "^1.1.8",
@@ -112,8 +112,7 @@
     "ncp": "^2.0.0",
     "sinon": "^1.17.2",
     "testdouble": "^2.1.2",
-    "walk-sync": "^0.3.1",
-    "yarn": "^0.23.2"
+    "walk-sync": "^0.3.1"
   },
   "engines": {
     "node": ">= 6.0.0"
