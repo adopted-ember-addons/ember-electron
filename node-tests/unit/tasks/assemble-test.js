@@ -20,7 +20,6 @@ describe('AssembleTask', () => {
   let assemblerFail;
 
   let installOptions;
-  let installFail;
 
   let task;
 
@@ -55,11 +54,11 @@ describe('AssembleTask', () => {
     }
   }
 
-  function mockInstall(options, cb) {
-    operations.push('install');
-    installOptions = clone(options);
+  function mockInstall(command, args, opts) {
+    operations.push('install-dependencies');
+    installOptions = opts;
 
-    return cb(installFail ? new Error('Failed to install') : undefined);
+    return resolve();
   }
 
   before(() => {
@@ -81,11 +80,10 @@ describe('AssembleTask', () => {
     assemblerOptions = null;
     assemblerFail = false;
     installOptions = null;
-    installFail = false;
 
     mockery.registerMock('./build', MockBuildTask);
     mockery.registerMock('../models/assembler', MockAssembler);
-    mockery.registerMock('npmi', mockInstall);
+    mockery.registerMock('execa', mockInstall);
 
     const AssembleTask = require('../../../lib/tasks/assemble');
     task = new AssembleTask({
@@ -106,7 +104,7 @@ describe('AssembleTask', () => {
     };
 
     return task.run(options).then(() => {
-      expect(operations).to.deep.equal(['build', 'install']);
+      expect(operations).to.deep.equal(['build', 'install-dependencies']);
 
       expect(buildTaskOptions.ui).to.equal(task.ui);
       expect(buildTaskOptions.analytics).to.equal(task.analytics);
@@ -118,12 +116,7 @@ describe('AssembleTask', () => {
       expect(buildRunOptions.platform).to.not.be.ok;
 
       expect(installOptions).to.deep.equal({
-        path: 'output',
-        npmLoad: {
-          production: true,
-          progress: false,
-          logLevel: 'error',
-        },
+        cwd: 'output',
       });
     });
   });
@@ -136,7 +129,7 @@ describe('AssembleTask', () => {
     };
 
     return task.run(options).then(() => {
-      expect(operations).to.deep.equal(['build', 'install']);
+      expect(operations).to.deep.equal(['build', 'install-dependencies']);
 
       expect(buildRunOptions.environment).to.equal('test');
       expect(buildRunOptions.platform).to.equal('linux');
@@ -161,7 +154,7 @@ describe('AssembleTask', () => {
     };
 
     return task.run(options).then(() => {
-      expect(operations).to.deep.equal(['assemble', 'cleanup', 'install']);
+      expect(operations).to.deep.equal(['assemble', 'cleanup', 'install-dependencies']);
 
       expect(assemblerOptions.ui).to.equal(task.ui);
       expect(assemblerOptions.platform).to.not.be.ok;
@@ -170,12 +163,7 @@ describe('AssembleTask', () => {
       expect(assemblerOptions.project).to.equal(task.project);
 
       expect(installOptions).to.deep.equal({
-        path: 'output',
-        npmLoad: {
-          production: true,
-          progress: false,
-          logLevel: 'error',
-        },
+        cwd: 'output',
       });
     });
   });
@@ -188,7 +176,7 @@ describe('AssembleTask', () => {
     };
 
     return task.run(options).then(() => {
-      expect(operations).to.deep.equal(['assemble', 'cleanup', 'install']);
+      expect(operations).to.deep.equal(['assemble', 'cleanup', 'install-dependencies']);
 
       expect(assemblerOptions.platform).to.equal('linux');
     });

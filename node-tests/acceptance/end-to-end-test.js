@@ -54,7 +54,7 @@ describe('end-to-end', function() {
     }).then(() => {
       process.chdir('ee-test-app');
 
-      return ember('install', 'ember-electron@file:../package');
+      return ember('install', `ember-electron@file:${tmpDir}/package`);
     }).then(() => {
       // yarn has some kind of bug that causes it to hoist the wrong version of
       // npmlog during one of the operations performed by the ember-electron
