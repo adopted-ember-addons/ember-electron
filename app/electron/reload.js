@@ -1,5 +1,5 @@
 function setupLivereload() {
-  const process = window ? window.process : null;
+  const process = window ? window.processNode : null;
 
   // Exit immediately if we're not running in Electron
   if (!window.ELECTRON || (process && process.env && process.env.DO_NOT_SETUP_LIVERELOAD)) {
