@@ -1,8 +1,10 @@
 /* eslint-env node */
 const { app, BrowserWindow, protocol } = require('electron');
-const { dirname, resolve } = require('path');
+const { dirname, resolve, basename } = require('path');
+const fs = require('fs');
 const url = require('url');
 const protocolServe = require('electron-protocol-serve');
+const tmp = require('tmp');
 
 let mainWindow = null;
 
@@ -14,23 +16,30 @@ let [, , indexUrl] = process.argv;
 indexUrl = indexUrl.replace(/__amp__/g, '&');
 console.log(`URL: ${indexUrl}`);
 let {
-  pathname: indexPath,
+  pathname: originalIndexPath,
   search: indexQuery,
 } = url.parse(indexUrl);
 // When we extract the pathname from an absolute path on windows, it starts
 // with '/C:/', and the leading slash confuses everything, so we need to strip
 // it.
 if (process.platform === 'win32') {
-  indexPath = indexPath.slice(1);
+  originalIndexPath = originalIndexPath.slice(1);
 }
-indexPath = resolve(indexPath);
+
+// Copy index-electron.html to a location not managed by broccoli so that it
+// doesn't get deleted when a change is detected.
+originalIndexPath = resolve(originalIndexPath);
+let emberAppDir = resolve(dirname(originalIndexPath), '..');
+let tmpDir = tmp.dirSync().name;
+let indexPath = resolve(tmpDir, basename(originalIndexPath));
+fs.writeFileSync(indexPath, fs.readFileSync(originalIndexPath, 'utf8').toString());
 const emberAppLocation = `serve://dist${indexQuery}`;
 
 protocol.registerStandardSchemes(['serve'], { secure: true });
-// The index.html is in the tests/ directory, so we want all other assets to
-// load from its parent directory
+// The index-electron.html was copied to the tmp directory, so we want all other
+// assets to load from the parent directory of the original file (emberAppDir).
 protocolServe({
-  cwd: resolve(dirname(indexPath), '..'),
+  cwd: emberAppDir,
   app,
   protocol,
   indexPath,
@@ -51,6 +60,7 @@ app.on('ready', function onReady() {
 
   delete mainWindow.module;
 
+  process.env.ELECTRON_PROTOCOL_SERVE_INDEX = originalIndexPath;
   mainWindow.loadURL(emberAppLocation);
 
   mainWindow.on('closed', function onClosed() {
