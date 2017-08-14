@@ -39,12 +39,12 @@
     "url": "https://github.com/felixrieseberg/ember-electron/issues"
   },
   "scripts": {
-    "test": "npm run test-node-all",
-    "test-fast": "npm run test-node",
+    "test": "npm run test-node-all && npm run lint",
+    "test-fast": "npm run test-node && npm run lint",
     "test-node": "mocha node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
     "test-node-slow": "mocha ./node-tests/acceptance/**/*.js",
     "test-node-all": "npm run test-node && npm run test-node-slow",
-    "lint": "eslint ."
+    "lint": "eslint ./*.js app lib node-tests"
   },
   "dependencies": {
     "broccoli-file-creator": "^1.1.1",
