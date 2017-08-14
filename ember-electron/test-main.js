@@ -46,7 +46,9 @@ app.on('ready', function onReady() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    backgroundThrottling: false,
+    webPreferences: {
+      backgroundThrottling: false,
+    },
   });
 
   delete mainWindow.module;
