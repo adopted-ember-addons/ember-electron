@@ -39,9 +39,8 @@
     "url": "https://github.com/felixrieseberg/ember-electron/issues"
   },
   "scripts": {
-    "test": "npm run test-node-all && npm run test-ember",
-    "test-fast": "npm run test-node && npm run test-ember",
-    "test-ember": "ember electron:test",
+    "test": "npm run test-node-all",
+    "test-fast": "npm run test-node",
     "test-node": "mocha node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
     "test-node-slow": "mocha ./node-tests/acceptance/**/*.js",
     "test-node-all": "npm run test-node && npm run test-node-slow",
