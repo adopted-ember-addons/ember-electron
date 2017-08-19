@@ -22,7 +22,6 @@ function setupLivereload() {
     return;
   }
 
-
   /**
    * @private
    * Watch a given directory for changes and reload

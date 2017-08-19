@@ -2,9 +2,12 @@
 
 const path = require('path');
 const {
+  copySync,
   existsSync,
+  readFileSync,
   readJsonSync,
   removeSync,
+  writeFileSync,
   writeJsonSync,
 } = require('fs-extra');
 const execa = require('execa');
@@ -97,6 +100,26 @@ describe('end-to-end', function() {
     return ember('electron:make', '--targets', 'zip').then(() => {
       expect(existsSync(path.join('electron-out', 'make'))).to.be.ok;
     });
+  });
+
+  it('extra checks pass', () => {
+    let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
+
+    // Append our extra test content to the end of test-main.js
+    let testMainPath = path.join('ember-electron', 'test-main.js');
+    let extraContentPath = path.join(fixturePath, 'test-main-extra.js');
+    let content = [
+      readFileSync(testMainPath),
+      readFileSync(extraContentPath),
+    ].join('\n');
+    writeFileSync(path.join('ember-electron', 'test-main.js'), content);
+
+    // Copy the lib and resources directories over
+    ['lib', 'resources'].forEach((dir) => {
+      copySync(path.join(fixturePath, dir), path.join('ember-electron', dir));
+    });
+
+    return expect(ember('electron:test')).to.eventually.be.fulfilled;
   });
 });
 
