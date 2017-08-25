@@ -22,13 +22,13 @@ describe('BuildTask', () => {
     build() {
       operations.push('build');
 
-      return failBuild ? reject() : resolve();
+      return failBuild ? reject('build rejection') : resolve('build resolution');
     }
 
     cleanup() {
       operations.push('cleanup');
 
-      return resolve;
+      return resolve('cleanup resolve');
     }
   }
 
