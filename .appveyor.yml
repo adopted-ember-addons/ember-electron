@@ -8,6 +8,7 @@ cache:
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
+  - npm install yarn -g
   - yarn
 
 test_script:
