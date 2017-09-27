@@ -124,7 +124,8 @@
       "ember": ">=2.3.0"
     },
     "after": [
-      "ember-cli-sri"
+      "ember-cli-sri",
+      "ember-engines"
     ]
   },
   "config": {
