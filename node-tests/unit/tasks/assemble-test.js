@@ -19,6 +19,9 @@ describe('AssembleTask', () => {
   let assemblerOptions;
   let assemblerFail;
 
+  let useYarn;
+
+  let installCommand;
   let installOptions;
 
   let task;
@@ -56,6 +59,7 @@ describe('AssembleTask', () => {
 
   function mockInstall(command, args, opts) {
     operations.push('install-dependencies');
+    installCommand = command;
     installOptions = opts;
 
     return resolve();
@@ -83,6 +87,7 @@ describe('AssembleTask', () => {
 
     mockery.registerMock('./build', MockBuildTask);
     mockery.registerMock('../models/assembler', MockAssembler);
+    mockery.registerMock('../utils/yarn-or-npm', { shouldUseYarn: () => useYarn });
     mockery.registerMock('execa', mockInstall);
 
     const AssembleTask = require('../../../lib/tasks/assemble');
@@ -179,6 +184,28 @@ describe('AssembleTask', () => {
       expect(operations).to.deep.equal(['assemble', 'cleanup', 'install-dependencies']);
 
       expect(assemblerOptions.platform).to.equal('linux');
+    });
+  });
+
+  it('should use yarn when appropriate', () => {
+    let options = {
+      outputPath: 'output',
+    };
+    useYarn = true;
+
+    expect(task.run(options)).to.be.rejected.then(() => {
+      expect(installCommand).to.equal('yarn');
+    });
+  });
+
+  it('should use npm when appropriate', () => {
+    let options = {
+      outputPath: 'output',
+    };
+    useYarn = false;
+
+    expect(task.run(options)).to.be.rejected.then(() => {
+      expect(installCommand).to.equal('npm');
     });
   });
 

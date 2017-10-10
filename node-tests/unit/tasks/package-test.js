@@ -10,12 +10,16 @@ const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
 
 describe('PackageTask', () => {
+  let oldEnv;
+  let useYarn;
+
   let operations;
 
   let assembleTaskOptions;
   let assembleRunOptions;
   let assembleFail;
 
+  let forgePackageEnv;
   let forgePackageOptions;
   let forgePackageFail;
 
@@ -37,6 +41,7 @@ describe('PackageTask', () => {
 
   function mockForgePackage(options) {
     operations.push('forgePackage');
+    forgePackageEnv = clone(process.env);
     forgePackageOptions = clone(options);
 
     return forgePackageFail ? reject() : resolve();
@@ -54,14 +59,21 @@ describe('PackageTask', () => {
   });
 
   beforeEach(() => {
+    oldEnv = clone(process.env);
     operations = [];
     assembleTaskOptions = null;
     assembleRunOptions = null;
     assembleFail = false;
+    forgePackageEnv = null;
     forgePackageOptions = null;
     forgePackageFail = false;
 
     mockery.registerMock('./assemble', MockAssembleTask);
+    mockery.registerMock('../utils/yarn-or-npm', {
+      setupForgeEnv() {
+        process.env.NODE_INSTALLER = useYarn ? 'yarn' : 'npm';
+      },
+    });
     mockery.registerMock('electron-forge/dist/api/package', { default: mockForgePackage });
 
     const PackageTask = require('../../../lib/tasks/package');
@@ -75,6 +87,7 @@ describe('PackageTask', () => {
   afterEach(() => {
     mockery.deregisterAll();
     mockery.resetCache();
+    process.env = oldEnv;
   });
 
   it('should build, assemble and package when no input path is specified', () => {
@@ -163,6 +176,30 @@ describe('PackageTask', () => {
 
       expect(forgePackageOptions.platform).to.equal('win32');
       expect(forgePackageOptions.arch).to.equal('ia32');
+    });
+  });
+
+  it('should tell electron-forge to use yarn when appropriate', () => {
+    useYarn = true;
+
+    let options = {
+      outputPath: 'output',
+    };
+
+    return task.run(options).then(() => {
+      expect(forgePackageEnv.NODE_INSTALLER).to.equal('yarn');
+    });
+  });
+
+  it('should tell electron-forge to use npm when appropriate', () => {
+    useYarn = false;
+
+    let options = {
+      outputPath: 'output',
+    };
+
+    return task.run(options).then(() => {
+      expect(forgePackageEnv.NODE_INSTALLER).to.equal('npm');
     });
   });
 

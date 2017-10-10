@@ -107,7 +107,7 @@
     "eslint": "^3.16.1",
     "eslint-config-ember": "^0.3.0",
     "eslint-plugin-ember-suave": "^1.0.0",
-    "mocha": "^2.3.4",
+    "mocha": "^3.5.3",
     "mock-spawn": "^0.2.6",
     "mockery": "^1.4.0",
     "ncp": "^2.0.0",

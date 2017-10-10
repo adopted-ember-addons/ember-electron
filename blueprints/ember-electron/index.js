@@ -4,6 +4,7 @@ const { all, denodeify } = require('rsvp');
 
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const efImport = require('electron-forge/dist/api/import').default;
+const { setupForgeEnv } = require('../../lib/utils/yarn-or-npm');
 
 const Logger = require('../../lib/utils/logger');
 
@@ -53,6 +54,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   _installElectronTooling(logger) {
     // n.b. addPackageToProject does not let us save prod deps, so we task
     let npmInstall = this.taskFor('npm-install');
+    setupForgeEnv(this.project.root);
 
     logger.startProgress('Installing electron build tools');
 
