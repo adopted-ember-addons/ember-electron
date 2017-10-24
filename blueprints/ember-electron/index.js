@@ -4,7 +4,7 @@ const { all, denodeify } = require('rsvp');
 
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const efImport = require('electron-forge/dist/api/import').default;
-const { setupForgeEnv } = require('../../lib/utils/yarn-or-npm');
+const { setupForgeEnv, shouldUseYarn } = require('../../lib/utils/yarn-or-npm');
 
 const Logger = require('../../lib/utils/logger');
 
@@ -101,6 +101,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     let packageJsonPath = path.join(this.project.root, 'package.json');
     let forgeConfigPath = './ember-electron/electron-forge-config.js';
+    let isUsingYarn = shouldUseYarn(this.project.root);
 
     // If we had a forge config before running forge import, then it may be
     // customized by the user, so let's not mess with it.
@@ -118,6 +119,11 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
         if (typeof packageJson.config.forge === 'string') {
           return;
+        }
+        
+        // required to force the package manager to use yarn when the project uses yarn
+        if (isUsingYarn) {
+          forgeConfig.electronPackagerConfig.packageManager = 'yarn';
         }
 
         forgeConfig = JSON.stringify(forgeConfig, null, 2);
