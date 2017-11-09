@@ -1,3 +1,11 @@
+// Workaround for https://github.com/felixrieseberg/ember-electron/issues/320,
+// caused by https://github.com/ember-cli/ember-cli/issues/7431
+Object.keys(require.cache).forEach((filename) => {
+  if (filename.indexOf('fs-extra') !== -1) {
+    delete require.cache[filename];
+  }
+});
+
 const fs = require('fs-extra');
 const path = require('path');
 const { all, denodeify } = require('rsvp');
@@ -120,7 +128,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         if (typeof packageJson.config.forge === 'string') {
           return;
         }
-        
+
         // required to force the package manager to use yarn when the project uses yarn
         if (isUsingYarn) {
           forgeConfig.electronPackagerConfig.packageManager = 'yarn';
