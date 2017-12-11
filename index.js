@@ -63,12 +63,14 @@ module.exports = {
     const { env: { EMBER_CLI_ELECTRON } } = process;
 
     if (EMBER_CLI_ELECTRON) {
-      if (type === 'body-footer') {
-        return injectScript('shim-footer.js');
-      }
+      let script = {
+        'head': 'shim-head.js',
+        'test-head': 'shim-test-head.js',
+        'body-footer': 'shim-footer.js',
+      }[type];
 
-      if (type === 'head') {
-        return injectScript('shim-head.js');
+      if (script) {
+        return injectScript(script);
       }
     }
   },

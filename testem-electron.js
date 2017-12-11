@@ -3,7 +3,7 @@ module.exports = {
   'test_page': 'tests/index.html?hidepassed',
   'disable_watching': true,
   'launchers': {
-    'Electron': require('./test-runner'),
+    'Electron': require('./lib/test-support/test-runner'),
   },
   'launch_in_ci': [
     'Electron',

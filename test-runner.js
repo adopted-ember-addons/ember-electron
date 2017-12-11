@@ -1,3 +1,9 @@
+/**
+ * THIS FILE IS DEPRECATED. It has been moved to lib/test-support/ and
+ * modified, but is left here so apps that haven't rerun the blueprint to
+ * update the test-runner.js/test-main.js interactions will still function.
+ **/
+
 //
 // This script does double-duty. It can be included from testem-electron.js
 // to define an Electron test runner like so:
@@ -59,9 +65,7 @@ if (require.main === module) {
     '$1  </script>',
   ].join('\n'));
 
-  // We look for an optional leading '/' in the src attribute because ember cli
-  // <2.9.0 hard-coded the leading '/' instead of using {{rootURL}}
-  htmlContent = htmlContent.replace(/src="\/?testem\.js"/, `src="${  testemJsUrl  }"`);
+  htmlContent = htmlContent.replace(/src="[^"]*testem\.js"/, `src="${  testemJsUrl  }"`);
   let htmlPath = path.join(emberAppDir, 'tests', 'index-electron.html');
   fs.writeFileSync(htmlPath, htmlContent, 'utf8');
 
