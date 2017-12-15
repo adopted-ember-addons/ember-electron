@@ -89,4 +89,17 @@ if (require.main === module) {
       treeKill(pid);
     });
   });
+} else {
+  // We put this here because when this script is invoked as an executable,
+  // testem squashes the output so the warning isn't visible to the user. But
+  // when testem-electron.js requires this script, the output is going to
+  // stdout and is visible to the user.
+  const UI = require('console-ui');
+  const ui = new UI({
+    inputStream: process.stdin,
+    outputStream: process.stdout,
+    errorStream: process.stderr,
+  });
+
+  ui.writeDeprecateLine('This test-runner.js is deprecated. Please read https://github.com/felixrieseberg/ember-electron/blob/master/docs/faq/test-runner-deprecation.md for more information.');
 }

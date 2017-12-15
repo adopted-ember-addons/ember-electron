@@ -159,6 +159,31 @@ describe('end-to-end', function() {
       return expect(ember('electron:test')).to.eventually.be.fulfilled;
     });
   }
+
+  describe('test-runner.js/blueprint update', function() {
+    before(function() {
+      let { name: tmpDir } = tmp.dirSync();
+      process.chdir(tmpDir);
+
+      return ember('new', 'ee-test-app', '--yarn').then(() => {
+        process.chdir('ee-test-app');
+
+        return ember('install', 'ember-electron@2.7.2');
+      }).then(() => {
+        // Now that the old blueprint has been run, use yarn to update the addon
+        // to the current version
+        return run('yarn', ['add', '-D', path.join(packageTmpDir, 'package')]);
+      });
+    });
+
+    after(() => {
+      process.chdir(rootDir);
+    });
+
+    it('can run tests without re-running the blueprint (deprecated)', function() {
+      return expect(ember('electron:test')).to.eventually.be.fulfilled;
+    });
+  });
 });
 
 function listenForPrompts(child) {
