@@ -1,3 +1,9 @@
+/**
+ * THIS FILE IS DEPRECATED. It has been moved to lib/test-support/ and
+ * modified, but is left here so apps that haven't rerun the blueprint to
+ * update the test-runner.js/test-main.js interactions will still function.
+ **/
+
 //
 // This script does double-duty. It can be included from testem-electron.js
 // to define an Electron test runner like so:
@@ -59,9 +65,7 @@ if (require.main === module) {
     '$1  </script>',
   ].join('\n'));
 
-  // We look for an optional leading '/' in the src attribute because ember cli
-  // <2.9.0 hard-coded the leading '/' instead of using {{rootURL}}
-  htmlContent = htmlContent.replace(/src="\/?testem\.js"/, `src="${  testemJsUrl  }"`);
+  htmlContent = htmlContent.replace(/src="[^"]*testem\.js"/, `src="${  testemJsUrl  }"`);
   let htmlPath = path.join(emberAppDir, 'tests', 'index-electron.html');
   fs.writeFileSync(htmlPath, htmlContent, 'utf8');
 
@@ -85,4 +89,17 @@ if (require.main === module) {
       treeKill(pid);
     });
   });
+} else {
+  // We put this here because when this script is invoked as an executable,
+  // testem squashes the output so the warning isn't visible to the user. But
+  // when testem-electron.js requires this script, the output is going to
+  // stdout and is visible to the user.
+  const UI = require('console-ui');
+  const ui = new UI({
+    inputStream: process.stdin,
+    outputStream: process.stdout,
+    errorStream: process.stderr,
+  });
+
+  ui.writeDeprecateLine('This test-runner.js is deprecated. Please read https://github.com/felixrieseberg/ember-electron/blob/master/docs/faq/test-runner-deprecation.md for more information.');
 }
