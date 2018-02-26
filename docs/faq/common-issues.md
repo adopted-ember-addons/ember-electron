@@ -32,12 +32,11 @@ The reason this is necessary has to do with Electron's configuration of WebKit. 
 You should carefully consider if doing this is safe, as it potentially opens up new security holes that vanilla Electron using `file:` URLs does not. The difference is that the `allow_universal_access_from_file_urls` option evaluates the situation on each request, and if the current origin isn't a `file:` URL, it will enforce the same-origin policy. When using `webPreferences` you are disabling the same-origin policy for the entire window, so if the window somehow navigates to an `http:` URL, the same-origin policy will still be disabled. So be sure to consider your circumstances carefully from a security standpoint when doing this, and ensure that if your window needs to display remote or untrusted content, it does so in a sandboxed `WebView`.
 
 
-## I can't open the Developer Tools in the packaged app
+## I can't open the Ember Inspector in the packaged app
 
-This is known and desired behavior of Electron. If you really need the Inspector to be available in the packaged application, you can either open it programmatically or specify a menu item to open it via a shortcut.
+This is known and desired behavior of Electron. The Developer Tools are still accessible programmatically or via a shortcut (see below). However, the packages needed for [DevTron](https://github.com/electron/devtron) and the [Ember Inspector](https://github.com/emberjs/ember-inspector) addons are not currently bundled with production builds.
 
-
-### Open Inspector programmatically
+### Open Developer Tools programmatically
 
 In your ember-electron/main.js file, find the `BrowserWindow` that is being used to create the window of your app. You can open the developer tools programmatically by calling `openDevTools()` on its `webContents`.
 
@@ -45,7 +44,6 @@ In your ember-electron/main.js file, find the `BrowserWindow` that is being used
 const myWindow = new BrowserWindow({});
 myWindow.webContents.openDevTools();
 ```
-
 
 
 ## `ember-welcome-page` does not show in production mode
