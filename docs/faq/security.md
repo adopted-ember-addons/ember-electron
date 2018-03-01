@@ -18,7 +18,8 @@ and we recommend that developers using `ember-electron` use it to specify approp
 As an electron application developer, you should familiarize yourself with
 known risks and their corresponding mitigation techniques.
 Some good resources for getting started are the
-[Electron security tutorial](https://electronjs.org/docs/tutorial/security)
+[Electron security tutorial](https://electronjs.org/docs/tutorial/security),
+[content-security-policy.com](https://content-security-policy.com/),
 and the MDN [Web security landing page](https://developer.mozilla.org/en-US/docs/Web/Security).
 
 ### TL;DR
