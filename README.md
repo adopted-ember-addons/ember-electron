@@ -35,11 +35,11 @@ To see a real world example, check out [Ghost Desktop](https://github.com/trygho
 
 ### FAQ
 
-- [FAQ & Common issues](docs/faq/common-issues.md)
-- [File Structure](docs/faq/structure.md)
+- [Common issues](docs/faq/common-issues.md)
+- [File structure](docs/faq/structure.md)
+- [Security concerns](docs/faq/security.md)
 
 Somethings missing? Contributions to our docs are welcome!
-
 
 
 ## Support
