@@ -12,17 +12,6 @@ addons:
 
 env:
   - CXX=g++-4.8
-# FIXME: Why aren't we using ember-try to test this addon?
-#  global:
-#    - JOBS=1
-#  matrix:
-#    - EMBER_TRY_SCENARIO=ember-lts-2.12
-#    - EMBER_TRY_SCENARIO=ember-lts-2.16
-#    - EMBER_TRY_SCENARIO=ember-lts-2.18
-#    - EMBER_TRY_SCENARIO=ember-release
-#    - EMBER_TRY_SCENARIO=ember-beta
-#    - EMBER_TRY_SCENARIO=ember-canary
-#    - EMBER_TRY_SCENARIO=ember-default
 
 addons:
   apt:
