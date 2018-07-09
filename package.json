@@ -40,8 +40,7 @@
   },
   "scripts": {
     "lint:js": "eslint .",
-    "test": "ember test",
-    "test:all": "ember try:each",
+    "test": "yarn-or-npm run test-node-all && yarn-or-npm run lint",
     "test-fast": "yarn-or-npm run test-node && yarn-or-npm run lint",
     "test-node": "mocha node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
     "test-node-slow": "mocha ./node-tests/acceptance/**/*.js",

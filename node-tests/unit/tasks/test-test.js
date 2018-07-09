@@ -25,7 +25,7 @@ describe('electron:test task', () => {
     expect(subject().testem).to.be.an.instanceof(require('testem'));
   });
 
-  it('sets the file in the testem options', () => {
-    expect(subject().testemOptions({}).file).to.equal('testem-electron.js');
+  it('sets the file in the default testem options', () => {
+    expect(subject().defaultOptions({}).file).to.equal('testem-electron.js');
   });
 });
