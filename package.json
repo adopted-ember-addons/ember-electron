@@ -73,7 +73,7 @@
     "silent-error": "^1.0.1",
     "socket.io": "^1.4.8",
     "symlink-or-copy": "^1.1.8",
-    "testem": "^1.15.0",
+    "testem": "^2.8.2",
     "tmp": "0.0.31",
     "tree-kill": "^1.1.0",
     "tree-sync": "^1.2.2",
