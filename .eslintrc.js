@@ -42,9 +42,9 @@ module.exports = {
   },
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
-    'ember-suave/no-const-outside-module-scope': 'off',
-    'ember-suave/no-direct-property-access': 'off',
-    'ember-suave/require-access-in-comments': 'off',
+    'ember/no-const-outside-module-scope': 'off',
+    'ember/no-direct-property-access': 'off',
+    'ember/require-access-in-comments': 'off',
     'newline-before-return': 'error',
     'no-console': 'off',
     'one-var': 'off',
