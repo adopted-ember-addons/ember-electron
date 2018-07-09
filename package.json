@@ -71,6 +71,7 @@
     "quick-temp": "^0.1.5",
     "rimraf": "^2.6.1",
     "rsvp": "^4.0.1",
+    "semver": "^5.5.0",
     "silent-error": "^1.0.1",
     "socket.io": "^1.4.8",
     "symlink-or-copy": "^1.1.8",
