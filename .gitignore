@@ -3,7 +3,6 @@
 # compiled output
 /dist/
 /tmp/
-/electron-out
 
 # dependencies
 /bower_components/
@@ -23,3 +22,7 @@ browse.VC.db
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
+
+# ember-electron
+/yarn.lock
+/electron-out
