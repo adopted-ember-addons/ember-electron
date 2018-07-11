@@ -17,4 +17,3 @@
 npm-debug.log*
 testem.log
 browse.VC.db
-yarn.lock
