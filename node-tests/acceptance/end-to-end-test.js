@@ -97,7 +97,7 @@ describe('end-to-end', function() {
       return ember('new', 'ee-test-app').then(() => {
         process.chdir('ee-test-app');
 
-        return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
+        return ember('install', `ember-electron@file:${path.join(packageTmpDir, 'ember-electron.tgz')}`);
       });
     });
 
