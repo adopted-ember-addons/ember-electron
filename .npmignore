@@ -15,6 +15,7 @@
 bower.json
 ember-cli-build.js
 testem.js
+yarn.lock
 
 # Since we don't use ember-try these shouldn't exist,
 # but we ignore them anyway
