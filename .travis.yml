@@ -5,9 +5,16 @@ node_js:
   - "10"
 
 sudo: false
+dist: trusty
+
+addons:
+  chrome: stable
 
 env:
-  - CXX=g++-4.8
+  global:
+    - CXX=g++-4.8
+    # See https://git.io/vdao3 for details.
+    - JOBS=1
 
 addons:
   apt:

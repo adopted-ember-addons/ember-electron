@@ -1,4 +1,5 @@
 /* eslint-env node */
+'use strict';
 
 module.exports = function(environment) {
   let ENV = {
@@ -43,7 +44,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    //
+    // here you can enable a production-specific feature
   }
 
   return ENV;

@@ -15,5 +15,12 @@
 /coverage/*
 /libpeerconnection.log
 npm-debug.log*
+yarn-error.log
 testem.log
 browse.VC.db
+
+# We don't use ember-try for testing right now,
+# but there's no harm in ignoring these patterns anyway
+.node_modules.ember-try/
+bower.json.ember-try
+package.json.ember-try
