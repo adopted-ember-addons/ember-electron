@@ -23,7 +23,7 @@ function run(cmd, args, opts = {}) {
 }
 
 describe('end-to-end', function() {
-  this.timeout(10 * 60 * 1000);
+  this.timeout(20 * 60 * 1000);
 
   let oldEnv;
   let rootDir = process.cwd();
@@ -94,6 +94,7 @@ describe('end-to-end', function() {
     before(function() {
       let { name: tmpDir } = tmp.dirSync();
       process.chdir(tmpDir);
+      console.log(`JRQ-DEBUG: About to run ember new`, new Date());
 
       return ember('new', 'ee-test-app').then(() => {
         process.chdir('ee-test-app');
@@ -108,10 +109,11 @@ describe('end-to-end', function() {
         } catch (e) {
           console.warn("JRQ-DEBUG: Caught exception while trying to peek into ember-cli", e);
         }
+        console.log(`JRQ-DEBUG: About to run ember install`, new Date());
 
         return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
       }).then(() => {
-        console.log(`JRQ-DEBUG: ember-install finished!`);
+        console.log(`JRQ-DEBUG: ember-install finished!`, new Date());
 
         return arguments;
       }).catch((e) => {
