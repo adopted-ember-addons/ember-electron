@@ -73,7 +73,6 @@
     "rsvp": "^4.0.1",
     "silent-error": "^1.0.1",
     "symlink-or-copy": "^1.1.8",
-    "testem": "^1.15.0",
     "tmp": "0.0.31",
     "tree-kill": "^1.1.0",
     "tree-sync": "^1.2.2",
