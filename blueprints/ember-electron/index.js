@@ -11,24 +11,38 @@ const path = require('path');
 const { all, denodeify } = require('rsvp');
 
 try {
+  // TEST
+  Object.keys(require.cache).forEach((filename) => {
+    if (filename.indexOf('ember-cli') !== -1) {
+      delete require.cache[filename];
+    }
+  });
+
   const nm = path.join(process.cwd(), 'node_modules');
   console.log(`JRQ-DEBUG: (index.js) node_modules path -->`, nm);
   const ecliFiles = fs.readdirSync(path.join(nm, 'ember-cli'));
   console.log(`JRQ-DEBUG: (index.js) ember-cli files.length -->`, ecliFiles.length);
+  const Module = require('module');
+  console.log(`JRQ-DEBUG: (index.js) module globalPaths -->`, Module.globalPaths);
+  console.log(`JRQ-DEBUG: (index.js) module _nodeModulePaths -->`, Module._nodeModulePaths('.'));
+  //
+  const originalResolveFilename = Module._resolveFilename;
+  Module._resolveFilename = function (request, parent, isMain, ...args) {
+    if (request.indexOf('ember-cli') !== -1) {
+      console.log(`JRQ-DEBUG: _resolveFilename request = ${request}`);
+    }
+    return originalResolveFilename(request, parent, isMain, ...args);
+  };
+  //
   console.log(`JRQ-DEBUG: (index.js) resolve 1 -->`, require.resolve('ember-cli'));
   console.log(`JRQ-DEBUG: (index.js) resolve 2 -->`, require.resolve('ember-cli/lib/models/blueprint'));
-  console.log(`JRQ-DEBUG: (index.js) require blueprint (.js) -->`, require(path.join('.', 'node_modules', 'ember-cli', 'lib', 'models', 'blueprint.js')));
   console.log(`JRQ-DEBUG: (index.js) require blueprint -->`, require('ember-cli/lib/models/blueprint'));
+  console.log(`JRQ-DEBUG: (index.js) require blueprint (.js) -->`, require(path.join(nm, 'ember-cli', 'lib', 'models', 'blueprint.js'))); // FAILS
   console.log(`JRQ-DEBUG: (index.js) finished`);
 } catch (e) {
-  console.log('JRQ-DEBUG: (index.js) caught exception while trying to load blueprint model', e);
+  console.log('JRQ-DEBUG: (index.js) caught exception while trying to load blueprint model (testing)', e);
 }
-// TEST
-Object.keys(require.cache).forEach((filename) => {
-  if (filename.indexOf('ember-cli') !== -1) {
-    delete require.cache[filename];
-  }
-});
+
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const efImport = require('electron-forge/dist/api/import').default;
 const { setupForgeEnv, shouldUseYarn } = require('../../lib/utils/yarn-or-npm');

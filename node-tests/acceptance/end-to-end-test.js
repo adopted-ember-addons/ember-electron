@@ -108,9 +108,11 @@ describe('end-to-end', function() {
         } catch (e) {
           console.warn("JRQ-DEBUG: Caught exception while trying to peek into ember-cli", e);
         }
+
         return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
       }).then(() => {
         console.log(`JRQ-DEBUG: ember-install finished!`);
+
         return arguments;
       }).catch((e) => {
         console.warn(`JRQ-DEBUG: Caught exception during ember new + ember install`, e);
