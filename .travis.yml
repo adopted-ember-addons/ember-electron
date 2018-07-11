@@ -26,7 +26,6 @@ cache:
 
 before_install:
   - yarn config set no-progress
-  - npm install -g npm@4
 
 install:
   - yarn
