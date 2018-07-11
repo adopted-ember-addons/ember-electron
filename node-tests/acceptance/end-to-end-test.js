@@ -4,6 +4,7 @@ const path = require('path');
 const {
   copySync,
   existsSync,
+  readdirSync,  // DEBUG
   readFileSync,
   readJsonSync,
   removeSync,
@@ -22,7 +23,7 @@ function run(cmd, args, opts = {}) {
 }
 
 describe('end-to-end', function() {
-  this.timeout(10 * 60 * 1000);
+  this.timeout(20 * 60 * 1000);
 
   let oldEnv;
   let rootDir = process.cwd();
@@ -89,15 +90,44 @@ describe('end-to-end', function() {
     runTests();
   });
 
-  describe('with npm', function() {
+  describe.only('with npm', function() {
     before(function() {
       let { name: tmpDir } = tmp.dirSync();
       process.chdir(tmpDir);
+      console.log(`JRQ-DEBUG: About to run ember new`, new Date());
 
       return ember('new', 'ee-test-app').then(() => {
         process.chdir('ee-test-app');
+        const nm = readdirSync(path.join(process.cwd(), 'node_modules'));
+        console.log(`JRQ-DEBUG: After 'ember new' and before 'ember install', node_modules does ${nm.indexOf('ember-cli') === -1 ? 'NOT ' : ''}contain ember-cli`);
+        try {
+          const ecliDir = path.join(process.cwd(), 'node_modules', 'ember-cli');
+          const ecli = readdirSync(ecliDir);
+          console.log(`JRQ-DEBUG: node_modules/ember-cli -->`, ecli);
+          console.log(`JRQ-DEBUG: require 1`, require(path.join(ecliDir, 'package.json')).version);
+          console.log(`JRQ-DEBUG: require 2`, require('ember-cli/package.json').version);
+        } catch (e) {
+          console.warn("JRQ-DEBUG: Caught exception while trying to peek into ember-cli", e);
+        }
+        console.log(`JRQ-DEBUG: About to run ember install`, new Date());
 
         return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
+      }).then(() => {
+        console.log(`JRQ-DEBUG: ember-install finished!`, new Date());
+
+        return arguments;
+      }).catch((e) => {
+        console.warn(`JRQ-DEBUG: Caught exception during ember new + ember install`, e);
+        try {
+          const ecliDir = path.join(process.cwd(), 'node_modules', 'ember-cli');
+          const ecli = readdirSync(ecliDir);
+          console.log(`JRQ-DEBUG: node_modules/ember-cli (number of files/dirs) -->`, ecli.length);
+          console.log(`JRQ-DEBUG: package.json.version -->`, require(path.join(ecliDir, 'package.json')).version);
+          console.log(`JRQ-DEBUG: require blueprint -->`, require(path.join(ecliDir, 'lib', 'models', 'blueprint.js')));
+        } catch (e) {
+          console.warn("JRQ-DEBUG: Caught exception while trying to peek into ember-cli", e);
+        }
+        throw e;
       });
     });
 
