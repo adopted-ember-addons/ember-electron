@@ -46,10 +46,7 @@ describe('end-to-end', function() {
       }
     });
 
-    //
-    // Pack up current ember-electron directory so it can be installed in new
-    // ember projects.
-    //
+    // Pack up current ember-electron directory so it can be installed in new ember projects.
     return run('yarn', ['pack', '--filename', path.join(packageTmpDir, 'ember-electron.tgz')]).then(() => {
       process.chdir(packageTmpDir);
 
@@ -59,6 +56,9 @@ describe('end-to-end', function() {
       let packageJson = readJsonSync(path.join('package', 'package.json'));
       packageJson.version = `${packageJson.version}-${new Date().getTime()}`;
       writeJsonSync(path.join('package', 'package.json'), packageJson);
+
+      // Save modified package back into tarball so we can have npm use that directly
+      return run('tar', ['-cf', 'ember-electron-cachebust.tar', 'package']);
     });
   });
 
@@ -75,7 +75,7 @@ describe('end-to-end', function() {
       let { name: tmpDir } = tmp.dirSync();
       process.chdir(tmpDir);
 
-      return ember('new', 'ee-test-app', '--yarn').then(() => {
+      return ember('new', 'ee-test-app', '--yarn', '--skip-git', '--no-welcome').then(() => {
         process.chdir('ee-test-app');
 
         return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
@@ -94,10 +94,16 @@ describe('end-to-end', function() {
       let { name: tmpDir } = tmp.dirSync();
       process.chdir(tmpDir);
 
-      return ember('new', 'ee-test-app').then(() => {
+      return ember('new', 'ee-test-app', '--skip-git', '--no-welcome').then(() => {
         process.chdir('ee-test-app');
+        // FIXME: This ember-cli-dependency-checker stuff shouldn't be necessary
+        const packageJsonFileWithPath = path.join(process.cwd(), 'package.json');
+        const packageJson = readJsonSync(packageJsonFileWithPath);
+        //packageJson.devDependencies['ember-cli-dependency-checker'] = '^2.2.1';
+        packageJson.devDependencies['ember-cli-dependency-checker'] = 'quaertym/ember-cli-dependency-checker#^2.2.1';
+        writeJsonSync(packageJsonFileWithPath, packageJson);
 
-        return ember('install', `ember-electron@file:${path.join(packageTmpDir, 'ember-electron.tgz')}`);
+        return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`);
       });
     });
 

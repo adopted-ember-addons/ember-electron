@@ -29,6 +29,8 @@ cache:
 
 before_install:
   - yarn config set no-progress
+  - if [ $TRAVIS_NODE_VERSION == "6" ]; then npm install -g npm@6; fi
+  - npm --version
 
 install:
   - yarn --frozen-lockfile

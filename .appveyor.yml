@@ -8,11 +8,14 @@ environment:
     - nodejs_version: "10"
 
 cache:
+  - '%APPDATA%\npm-cache -> package.json' # Only load this from cache if package.json is unchanged
   - '%LOCALAPPDATA%\Yarn'
   - '%USERPROFILE%\.electron'
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
+  - cmd: IF "%nodejs_version%"=="6" npm install -g npm@6
+  - npm --version
   - npm install yarn -g
   - yarn --frozen-lockfile
 
