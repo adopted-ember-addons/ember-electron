@@ -96,12 +96,16 @@ describe('end-to-end', function() {
 
       return ember('new', 'ee-test-app', '--skip-git', '--no-welcome').then(() => {
         process.chdir('ee-test-app');
-        // FIXME: This ember-cli-dependency-checker stuff shouldn't be necessary
-        const packageJsonFileWithPath = path.join(process.cwd(), 'package.json');
-        const packageJson = readJsonSync(packageJsonFileWithPath);
-        //packageJson.devDependencies['ember-cli-dependency-checker'] = '^2.2.1';
-        packageJson.devDependencies['ember-cli-dependency-checker'] = 'quaertym/ember-cli-dependency-checker#^2.2.1';
-        writeJsonSync(packageJsonFileWithPath, packageJson);
+        // For some reason, either ember-cli-dependency-checker isn't working with npm
+        // or npm isn't getting the right version because without this env var (or hacking package.json)
+        // we get:
+        //     Missing npm packages:
+        //     Package: ember-electron
+        //       * Specified: file:../../tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+        //       * Installed: file:/tmp/tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+        //
+        //     Run `npm install` to install missing dependencies.
+        process.env.SKIP_DEPENDENCY_CHECKER = true;
 
         return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`);
       });
