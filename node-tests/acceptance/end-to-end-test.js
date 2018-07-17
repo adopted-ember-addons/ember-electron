@@ -46,10 +46,7 @@ describe('end-to-end', function() {
       }
     });
 
-    //
-    // Pack up current ember-electron directory so it can be installed in new
-    // ember projects.
-    //
+    // Pack up current ember-electron directory so it can be installed in new ember projects.
     return run('yarn', ['pack', '--filename', path.join(packageTmpDir, 'ember-electron.tgz')]).then(() => {
       process.chdir(packageTmpDir);
 
@@ -59,6 +56,9 @@ describe('end-to-end', function() {
       let packageJson = readJsonSync(path.join('package', 'package.json'));
       packageJson.version = `${packageJson.version}-${new Date().getTime()}`;
       writeJsonSync(path.join('package', 'package.json'), packageJson);
+
+      // Save modified package back into tarball so we can have npm use that directly
+      return run('tar', ['-cf', 'ember-electron-cachebust.tar', 'package']);
     });
   });
 
@@ -75,7 +75,7 @@ describe('end-to-end', function() {
       let { name: tmpDir } = tmp.dirSync();
       process.chdir(tmpDir);
 
-      return ember('new', 'ee-test-app', '--yarn').then(() => {
+      return ember('new', 'ee-test-app', '--yarn', '--skip-git', '--no-welcome').then(() => {
         process.chdir('ee-test-app');
 
         return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
@@ -94,10 +94,20 @@ describe('end-to-end', function() {
       let { name: tmpDir } = tmp.dirSync();
       process.chdir(tmpDir);
 
-      return ember('new', 'ee-test-app').then(() => {
+      return ember('new', 'ee-test-app', '--skip-git', '--no-welcome').then(() => {
         process.chdir('ee-test-app');
+        // For some reason, either ember-cli-dependency-checker isn't working with npm
+        // or npm isn't getting the right version because without this env var (or hacking package.json)
+        // we get:
+        //     Missing npm packages:
+        //     Package: ember-electron
+        //       * Specified: file:../../tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+        //       * Installed: file:/tmp/tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+        //
+        //     Run `npm install` to install missing dependencies.
+        process.env.SKIP_DEPENDENCY_CHECKER = true;
 
-        return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
+        return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`);
       });
     });
 

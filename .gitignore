@@ -1,20 +1,26 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/electron-out
+/dist/
+/tmp/
+/electron-out/
 
 # dependencies
-/node_modules
-/bower_components
+/bower_components/
+/node_modules/
 
 # misc
 /.sass-cache
 /connect.lock
-/coverage/*
+/coverage/
 /libpeerconnection.log
-npm-debug.log*
-testem.log
+/npm-debug.log*
+/yarn-error.log
+/testem.log
 browse.VC.db
-yarn.lock
+
+# We don't use ember-try for testing right now,
+# but there's no harm in ignoring these patterns anyway
+/.node_modules.ember-try/
+/bower.json.ember-try
+/package.json.ember-try
