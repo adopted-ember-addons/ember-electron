@@ -44,6 +44,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'ember/no-const-outside-module-scope': 'off',
     'ember/no-direct-property-access': 'off',
+    'ember/avoid-leaking-state-in-ember-objects': 'warn', // TODO: Remove after upgrading eslint >= 4.2.0
     'ember/require-access-in-comments': 'off',
     'newline-before-return': 'error',
     'no-console': 'off',
@@ -77,6 +78,7 @@ module.exports = {
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
+        "ember/avoid-leaking-state-in-ember-objects": "off",
       })
     }
   ]
