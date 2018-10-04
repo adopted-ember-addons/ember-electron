@@ -44,15 +44,14 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'ember/no-const-outside-module-scope': 'off',
     'ember/no-direct-property-access': 'off',
-    'ember/avoid-leaking-state-in-ember-objects': 'warn', // TODO: Remove after upgrading eslint >= 4.2.0
     'ember/require-access-in-comments': 'off',
     'newline-before-return': 'error',
     'no-console': 'off',
     'one-var': 'off',
   },
   overrides: [
-    // node files
     {
+      // node files
       files: [
         '.template-lintrc.js',
         'ember-cli-build.js',
@@ -60,6 +59,7 @@ module.exports = {
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
+        'lib/**/*.js',
         'tests/dummy/config/**/*.js'
       ],
       excludedFiles: [
@@ -74,13 +74,46 @@ module.exports = {
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        // add your custom rules and overrides for node files here
-        "ember/avoid-leaking-state-in-ember-objects": "off",
+        'ember/avoid-leaking-state-in-ember-objects': 'off',
+        'node/no-extraneous-require': ['error', {
+          'allowModules': ['electron']
+        }],
+       'no-process-exit': 'warn', // TODO: Examine `lib/models/assembler.js` to see if throwing would be better
+       'node/no-missing-require': ['error', {
+          'allowModules': ['electron']
+       }]
       })
-    }
+    }, {
+      // However, the "shim" resource files will go into code run by a browser
+      files: ['lib/resources/shim-*.js'],
+      env: {
+        browser: true,
+      }
+    }, {
+      // mocha tests
+      files: [
+        'node-tests/**/*.js'
+      ],
+      env: {
+        node: true,
+        mocha: true,
+      }
+    }, {
+      // ember-cli is guaranteed to be present when running blueprints
+      // and when running addon tasks
+      files: [
+        'blueprints/**/*.js',
+        'lib/**/*.js',
+      ],
+      rules: {
+        "node/no-unpublished-require": ["error", {
+          "allowModules": ["ember-cli"]
+        }],
+      }
+    },
   ]
 };

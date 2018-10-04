@@ -49,6 +49,7 @@
     "lint": "eslint ./*.js app lib node-tests"
   },
   "dependencies": {
+    "broccoli-builder": "^0.18.14",
     "broccoli-file-creator": "^1.1.1",
     "broccoli-funnel": "^1.0.1",
     "broccoli-merge-trees": "^2.0.0",
