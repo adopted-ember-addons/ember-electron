@@ -5,6 +5,7 @@
 # compiled output
 /dist/
 /tmp/
+/electron-out/
 
 # dependencies
 /bower_components/
