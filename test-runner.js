@@ -59,6 +59,8 @@ if (require.main === module) {
     '$1<head>',
     '$1  <script>',
     '$1    window.getTestemId = function() {',
+    // FIXME: It should be safe to replace "\?" with "?" below due to context -- need to check though
+    // eslint-disable-next-line no-useless-escape
     '$1      var match = window.location.search.match(/[\?&]testemId=([^\?&]+)/);',
     '$1      return match ? match[1] : null;',
     '$1    }',

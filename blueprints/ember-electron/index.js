@@ -66,10 +66,18 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     logger.startProgress('Installing electron build tools');
 
-    return efImport({
-      updateScripts: false,
-      outDir: 'electron-out',
-    })
+    return npmInstall.run({
+        // FIXME: Something seems to break in Windows with electron v3.0.0
+        // This is a hack to make electron-forge install electron 2.x instead of 'latest' (3.x) into the project
+        // See https://github.com/electron-userland/electron-forge/blob/5.x/src/api/import.js#L179
+        save: true,
+        verbose: false,
+        packages: ['electron@2.0.7'],
+      })
+      .then(() => efImport({
+        updateScripts: false,
+        outDir: 'electron-out',
+      }))
       .then(() => npmInstall.run({
         'save-dev': true,
         verbose: false,
