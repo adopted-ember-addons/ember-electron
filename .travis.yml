@@ -7,9 +7,6 @@ node_js:
 sudo: false
 dist: trusty
 
-addons:
-  chrome: stable
-
 env:
   global:
     - CXX=g++-4.8
@@ -17,6 +14,7 @@ env:
     - JOBS=1
 
 addons:
+  chrome: stable
   apt:
     sources:
       - ubuntu-toolchain-r-test

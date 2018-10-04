@@ -54,6 +54,7 @@ module.exports = {
     // node files
     {
       files: [
+        '.template-lintrc.js',
         'ember-cli-build.js',
         'index.js',
         'testem.js',
