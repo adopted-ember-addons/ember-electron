@@ -43,8 +43,8 @@
     "lint:js": "eslint .",
     "test": "yarn-or-npm run test-node-all && yarn-or-npm run lint",
     "test-fast": "yarn-or-npm run test-node && yarn-or-npm run lint",
-    "test-node": "mocha node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
-    "test-node-slow": "mocha ./node-tests/acceptance/**/*.js",
+    "test-node": "mocha --exit node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
+    "test-node-slow": "mocha --exit ./node-tests/acceptance/**/*.js",
     "test-node-all": "yarn-or-npm run test-node && yarn-or-npm run test-node-slow",
     "lint": "eslint ./*.js app lib node-tests"
   },
