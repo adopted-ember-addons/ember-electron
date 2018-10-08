@@ -1,5 +1,6 @@
 /* eslint-env node */
 module.exports = {
+  browser_start_timeout: 120,   // Shouldn't need 2 minutes to connect but it seems that less isn't always enough for some CI systems
   test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
   launchers: {
