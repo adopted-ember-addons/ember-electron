@@ -1,8 +1,5 @@
 language: node_js
-node_js:
-  - "6"
-  - "8"
-  - "10"
+node_js: "10"
 
 sudo: false
 dist: trusty
@@ -15,6 +12,20 @@ env:
     - CXX=g++-4.8
     # See https://git.io/vdao3 for details.
     - JOBS=1
+
+jobs:
+  include:
+    - stage: test
+      script: npm run test
+    # Define the release stage that runs semantic-release
+    - stage: release
+      node_js: lts/*
+      script: skip
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
 
 addons:
   apt:
@@ -29,8 +40,6 @@ cache:
 
 before_install:
   - yarn config set no-progress
-  - if [ $TRAVIS_NODE_VERSION == "6" ]; then npm install -g npm@6; fi
-  - npm --version
 
 install:
   - yarn --frozen-lockfile
