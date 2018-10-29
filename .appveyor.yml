@@ -3,7 +3,7 @@ platform:
 
 environment:
   matrix:
-    - nodejs_version: "6"
+    - nodejs_version: "8"
 
 cache:
   - '%APPDATA%\npm-cache -> package.json' # Only load this from cache if package.json is unchanged
@@ -12,8 +12,6 @@ cache:
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
-  - cmd: IF "%nodejs_version%"=="6" npm install -g npm@6
-  - npm --version
   - yarn --frozen-lockfile
 
 test_script:
