@@ -8,7 +8,7 @@
     "atom",
     "chromium"
   ],
-  "repository": "https://github.com/felixrieseberg/ember-electron",
+  "repository": "https://github.com/felixrieseberg/ember-electron.git",
   "license": "MIT",
   "author": {
     "name": "Felix Rieseberg",
