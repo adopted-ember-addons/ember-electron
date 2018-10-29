@@ -116,6 +116,7 @@
     "mockery": "^1.4.0",
     "ncp": "^2.0.0",
     "qunit-dom": "^0.6.2",
+    "semantic-release": "^15.10.6",
     "sinon": "^1.17.2",
     "testdouble": "^2.1.2",
     "walk-sync": "^0.3.1"
