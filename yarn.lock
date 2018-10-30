@@ -3204,6 +3204,13 @@ conventional-changelog-angular@^5.0.0:
     compare-func "^1.3.1"
     q "^1.5.1"
 
+conventional-changelog-eslint@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-eslint/-/conventional-changelog-eslint-3.0.0.tgz#cc5376cb29a622c1ade197e155bf054640c05cd3"
+  integrity sha512-Acn20v+13c+o1OAWKvc9sCCl73Nj2vOMyn+G82euiMZwgYNE9CcBkTnw/GKdBi9KiZMK9uy+SCQ/QyAEE+8vZA==
+  dependencies:
+    q "^1.5.1"
+
 conventional-changelog-writer@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/conventional-changelog-writer/-/conventional-changelog-writer-4.0.0.tgz#3ed983c8ef6a3aa51fe44e82c9c75e86f1b5aa42"
