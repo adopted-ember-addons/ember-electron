@@ -16,7 +16,7 @@ module.exports = {
   name: 'ember-electron',
 
   included(app) {
-    this._super.included(app);
+    this._super.included.apply(this, arguments);
 
     if (!process.env.EMBER_CLI_ELECTRON) {
       return;
