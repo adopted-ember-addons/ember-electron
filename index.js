@@ -13,7 +13,7 @@ function injectScript(scriptName) {
 }
 
 module.exports = {
-  name: 'ember-electron',
+  name: require('./package').name,
 
   included(app) {
     this._super.included.apply(this, arguments);
