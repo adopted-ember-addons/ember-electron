@@ -103,5 +103,5 @@ if (require.main === module) {
     errorStream: process.stderr,
   });
 
-  ui.writeDeprecateLine('This test-runner.js is deprecated. Please read https://github.com/felixrieseberg/ember-electron/blob/master/docs/faq/test-runner-deprecation.md for more information.');
+  ui.writeDeprecateLine('This test-runner.js is deprecated. Please read https://github.com/adopted-ember-addons/ember-electron/blob/master/docs/faq/test-runner-deprecation.md for more information.');
 }

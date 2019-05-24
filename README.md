@@ -1,9 +1,9 @@
-<p align="center"><img src="https://github.com/felixrieseberg/ember-electron/raw/gh-pages/assets/logo-github%402x.png" alt="Ember-Electron logo showing an electron orbiting a flame" width="300" height="250"></p>
+<p align="center"><img src="https://github.com/adopted-ember-addons/ember-electron/raw/gh-pages/assets/logo-github%402x.png" alt="Ember-Electron logo showing an electron orbiting a flame" width="300" height="250"></p>
 
 # Ember-Electron
 
-![Latest release on NPM](https://img.shields.io/npm/v/ember-electron.svg) [![Build status](https://ci.appveyor.com/api/projects/status/5rhwhar361uad07v?svg=true)](https://ci.appveyor.com/project/felixrieseberg/ember-electron)
- ![Travis CI Build Status](https://secure.travis-ci.org/felixrieseberg/ember-electron.svg?branch=master) ![Code Climate](https://codeclimate.com/github/felixrieseberg/ember-electron.svg)
+![Latest release on NPM](https://img.shields.io/npm/v/ember-electron.svg) [![Build status](https://ci.appveyor.com/api/projects/status/5rhwhar361uad07v?svg=true)](https://ci.appveyor.com/project/adopted-ember-addons/ember-electron)
+ ![Travis CI Build Status](https://secure.travis-ci.org/adopted-ember-addons/ember-electron.svg?branch=master) ![Code Climate](https://codeclimate.com/github/adopted-ember-addons/ember-electron.svg)
 
 An Ember addon to turn Ember apps into cross-platform desktop applications, taking care of development, tests, compilation, and installer creation.
 
@@ -44,7 +44,7 @@ Somethings missing? Contributions to our docs are welcome!
 
 ## Support
 
-Ember-Electron is a small open source project. Use [GitHub Issues](https://github.com/felixrieseberg/ember-electron/issues) to report bugs and errors within the addon.
+Ember-Electron is a small open source project. Use [GitHub Issues](https://github.com/adopted-ember-addons/ember-electron/issues) to report bugs and errors within the addon.
 
 If you need help *using* the addon with your application, may we recommend the excellent Ember community? You can the [various places to get help here](https://www.emberjs.com/community/). If you have questions regarding Electron, their [Slack and forum](https://electron.atom.io/contact/) will be helpful as well.
 
@@ -65,4 +65,4 @@ Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-n
 * Aidan Nulman ([@anulman](https://github.com/anulman))
 * Florian Pichler ([@pichfl](https://github.com/pichfl))
 * Ben Demboski ([@bendemboski](https://github.com/bendemboski))
-* [...and many other contributors](https://github.com/felixrieseberg/ember-electron/graphs/contributors)
+* [...and many other contributors](https://github.com/adopted-ember-addons/ember-electron/graphs/contributors)

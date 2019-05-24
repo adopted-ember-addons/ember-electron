@@ -8,7 +8,7 @@
     "atom",
     "chromium"
   ],
-  "repository": "https://github.com/felixrieseberg/ember-electron.git",
+  "repository": "https://github.com/adopted-ember-addons/ember-electron.git",
   "license": "MIT",
   "author": {
     "name": "Felix Rieseberg",
@@ -36,7 +36,7 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/felixrieseberg/ember-electron/issues"
+    "url": "https://github.com/adopted-ember-addons/ember-electron/issues"
   },
   "scripts": {
     "lint:js": "eslint .",
