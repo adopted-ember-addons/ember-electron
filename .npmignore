@@ -1,24 +1,35 @@
-/bower_components
+# compiled output
+/dist/
+/tmp/
+
+# dependencies
+/bower_components/
+
+# misc
+/.bowerrc
+/.editorconfig
+/.ember-cli
+/.env*
+/.eslintignore
+/.eslintrc.js
+/.gitignore
+/.template-lintrc.js
+/.travis.yml
+/.watchmanconfig
+/bower.json
 /config/ember-try.js
 /dist
 /electron-out
+/ember-cli-build.js
 /tests
 /tmp
+/testem.js
+/yarn.lock
 **/.gitkeep
-.bowerrc
-.editorconfig
-.ember-cli
-.eslintrc.js
-.gitignore
-.watchmanconfig
-.travis.yml
-bower.json
-ember-cli-build.js
-testem.js
-yarn.lock
 
 # Since we don't use ember-try these shouldn't exist,
 # but we ignore them anyway
-.node_modules.ember-try/
-bower.json.ember-try
-package.json.ember-try
+# ember-try
+/.node_modules.ember-try/
+/bower.json.ember-try
+/package.json.ember-try

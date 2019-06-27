@@ -1,4 +1,4 @@
-// Workaround for https://github.com/felixrieseberg/ember-electron/issues/320,
+// Workaround for https://github.com/adopted-ember-addons/ember-electron/issues/320,
 // caused by https://github.com/ember-cli/ember-cli/issues/7431
 Object.keys(require.cache).forEach((filename) => {
   if (filename.indexOf('fs-extra') !== -1) {
