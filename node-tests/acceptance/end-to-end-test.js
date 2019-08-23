@@ -94,7 +94,7 @@ describe('end-to-end', function() {
       let { name: tmpDir } = tmp.dirSync();
       process.chdir(tmpDir);
 
-      return ember('new', 'ee-test-app', '--skip-git', '--no-welcome').then(() => {
+      return ember('new', 'ee-test-app', '--yarn', 'false', '--skip-git', '--no-welcome').then(() => {
         process.chdir('ee-test-app');
         // For some reason, either ember-cli-dependency-checker isn't working with npm
         // or npm isn't getting the right version because without this env var (or hacking package.json)
@@ -107,7 +107,7 @@ describe('end-to-end', function() {
         //     Run `npm install` to install missing dependencies.
         process.env.SKIP_DEPENDENCY_CHECKER = true;
 
-        return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`);
+        return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`, '--no-yarn');
       });
     });
 
