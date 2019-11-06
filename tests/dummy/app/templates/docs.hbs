@@ -1,0 +1,29 @@
+{{#docs-viewer as |viewer|}}
+  {{#viewer.nav as |nav|}}
+    {{nav.section "Getting Started"}}
+
+    {{nav.section "Guides"}}
+    {{nav.item "Installation" "docs.guides.installation"}}
+    {{nav.item "Usage" "docs.guides.usage"}}
+    {{nav.item "Configuration" "docs.guides.configuration"}}
+    {{nav.item "Packaging" "docs.guides.packaging"}}
+    {{nav.item "Testing" "docs.guides.testing"}}
+    {{nav.item "Upgrade" "docs.guides.upgrade"}}
+    {{nav.item "CI" "docs.guides.ci"}}
+    {{nav.item "Build Pipeline" "docs.guides.build-pipeline"}}
+
+    {{nav.section "FAQ"}}
+    {{nav.item "Common Issues" "docs.faq.common-issues"}}
+    {{nav.item "Security" "docs.faq.security"}}
+    {{nav.item "Structure" "docs.faq.structure"}}
+    {{nav.item "Test Runner Deprecation" "docs.faq.test-runner-deprecation"}}
+  {{/viewer.nav}}
+
+  {{#viewer.main}}
+    <div class="docs-container">
+      <div class="docs-section">
+        {{outlet}}
+      </div>
+    </div>
+  {{/viewer.main}}
+{{/docs-viewer}}
