@@ -2,7 +2,12 @@
   <header class="top">
     <div>
       <a href="" class="logo">
-        <img src="img/logo@2x.png" width="100" height="80">
+        <img
+          alt="Ember Electron Logo"
+          src="img/logo@2x.png"
+          height="80"
+          width="100"
+        >
         <h1>Ember Electron</h1>
       </a>
 
@@ -31,7 +36,7 @@
     </div>
 
     <nav>
-      <a class="btn" href="https://ember-electron.js.org/">Documentation</a>
+      <a class="btn" href="docs">Documentation</a>
       <a class="btn" href="https://github.com/felixrieseberg/ember-electron">GitHub</a>
     </nav>
 
@@ -42,43 +47,73 @@
 
   <section class="page">
     <div class="intro">
-      <p>Extend any Ember.js application with the access and options of a full sized desktop application in minutes. Ember-Electron is powered by <a
-        href="https://github.com/electron-userland/electron-forge" target="_blank">electron-forge</a> and provides all the tooling neccessary to build, test and
-        ship your application. </p>
+      <p>
+        Extend any Ember.js application with the access and options of a full sized desktop application in minutes. Ember-Electron is powered by
+        <a href="https://github.com/electron-userland/electron-forge" rel="noopener" target="_blank">electron-forge</a> and provides all the tooling neccessary
+        to build, test and
+        ship your application.
+      </p>
     </div>
 
     <div>
-      <h2>Getting started</h2>
-      <p>After installing the addon, you will find a new folder <code>ember-electron</code> inside your Ember project root. All code required to run an Electron
-        project will be there. </p>
+      <h2>
+        Getting started
+      </h2>
+
+      <p>
+        After installing the addon, you will find a new folder <code>ember-electron</code> inside your Ember project root. All code required to run an Electron
+        project will be there.
+      </p>
     </div>
 
     <div class="commands">
-      <h3><code>ember electron</code></h3>
-      <p>Run your project in development mode. This works pretty much like ember serve except it runs in Electron. We install the Ember Inspector and Devtron
+      <h3>
+        <code>ember electron</code>
+      </h3>
+
+      <p>
+        Run your project in development mode. This works pretty much like ember serve except it runs in Electron. We install the Ember Inspector and Devtron
         for
-        you, so just use the Developer Tools as you would in your browser. Please note that we do not restart Electron yet when you change code there.</p>
-
-      <h3><code>ember electron:test</code></h3>
-      <p>Test your app in Electron. Supports live reloading using the <code>--server</code> flag.</p>
-
-      <h3><code>ember electron:package</code></h3>
-      <p>Creates binaries or your app using electron-forge and electron-packager in the background. Options can be specified in <code>ember-electron/electron-forge-config.js</code>.
+        you, so just use the Developer Tools as you would in your browser. Please note that we do not restart Electron yet when you change code there.
       </p>
 
-      <h3><code>ember electron:make</code></h3>
-      <p>Creates installers and distribution bundles. For Windows, that means a Squirrel Installer and a Windows Store Package; for macOS, zip/dmg files and a
-        Mac
-        App Store Package, while Linux users enjoy the creation of deb, rpm, and flatpak files. Again, options can be specified in <code>ember-electron/electron-forge-config.js</code>.
+      <h3>
+        <code>ember electron:test</code>
+      </h3>
+
+      <p>
+        Test your app in Electron. Supports live reloading using the <code>--server</code> flag.
       </p>
 
-      <h3><code>ember electron:assemble</code></h3>
-      <p>Assemble Electron application project (useful for debugging builds). For more information, check out the guide <a
-        href="https://github.com/felixrieseberg/ember-electron/blob/master/docs/guides/build-pipeline.md">on the build pipeline</a>.</p>
+      <h3>
+        <code>ember electron:package</code>
+      </h3>
+
+      <p>
+        Creates binaries or your app using electron-forge and electron-packager in the background. Options can be specified in <code>ember-electron/electron-forge-config.js</code>.
+      </p>
+
+      <h3>
+        <code>ember electron:make</code>
+      </h3>
+
+      <p>
+        Creates installers and distribution bundles. For Windows, that means a Squirrel Installer and a Windows Store Package; for macOS, zip/dmg files and a
+        Mac App Store Package, while Linux users enjoy the creation of deb, rpm, and flatpak files. Again, options can be specified in <code>ember-electron/electron-forge-config.js</code>.
+      </p>
+
+      <h3>
+        <code>ember electron:assemble</code>
+      </h3>
+
+      <p>
+        Assemble Electron application project (useful for debugging builds). For more information, check out the guide
+        <a href="docs/guides/build-pipeline">on the build pipeline</a>.
+      </p>
     </div>
 
     <nav>
-      <a class="btn" href="https://ember-electron.js.org/">Documentation</a>
+      <a class="btn" href="docs">Documentation</a>
       <a class="btn" href="https://github.com/felixrieseberg/ember-electron">GitHub</a>
     </nav>
 
@@ -89,7 +124,9 @@
 
   <footer class="end">
     <div>
-      <p>© 2015 – Felix Rieseberg. With help from Aidan Nulman, Ben Demboski, Florian Pichler and many others.</p>
+      <p>
+        © 2015 – Felix Rieseberg. With help from Aidan Nulman, Ben Demboski, Florian Pichler and many others.
+      </p>
     </div>
   </footer>
 </div>

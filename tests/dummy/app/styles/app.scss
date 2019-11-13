@@ -13,8 +13,7 @@
   code {
     display: inline;
     font-family: 'Fira Mono', monospace;
-    font-size: 0.9em;
-    line-height: 1.2;
+    font-size: 18px;
   }
 
   h1,
@@ -31,15 +30,15 @@
   }
 
   h2 {
-    margin: 10rem 0 0;
-    font-size: 3rem;
-    line-height: 4rem;
+    margin: 100px 0 0;
+    font-size: 30px;
+    line-height: 40px;
   }
 
   h3 {
-    margin: 4rem 0 0;
-    font-size: 2rem;
-    line-height: 3rem;
+    margin: 40px 0 0;
+    font-size: 20px;
+    line-height: 30px;
   }
 
   p {
@@ -48,7 +47,7 @@
 
   h2 + *,
   h3 + * {
-    margin-top: 1rem;
+    margin-top: 10px;
   }
 
   h3 code,
@@ -63,20 +62,20 @@
   }
 
   .page p code {
-    padding: 0.3rem 0.5rem;
+    padding: 3px 5px;
     background: #F0F1F3;
     border: 1px solid #CBD5E9;
-    border-radius: 0.3rem;
-    font-size: 1.3rem;
+    border-radius: 3px;
+    font-size: 13px;
     color: #4E669A;
   }
 
   p {
-    max-width: 80rem;
+    max-width: 800px;
   }
 
   nav {
-    margin: 6rem 0 0;
+    margin: 60px 0 0;
   }
 
   a,
@@ -92,20 +91,20 @@
   .page,
   .end {
     position: relative;
-    padding: 2rem 14rem 1vw;
+    padding: 20px 140px 1vw;
   }
 
-  body > * > div,
-  body > * > nav {
+  * > div,
+  * > nav {
     position: relative;
     z-index: 1;
-    max-width: 84rem;
+    max-width: 840px;
     margin-right: auto;
     margin-left: auto;
   }
 
   .top {
-    padding-top: 3rem;
+    padding-top: 30px;
     background: #2A2F3A;
   }
 
@@ -119,12 +118,12 @@
   }
 
   .top h3 {
-    margin-top: 9rem;
+    margin-top: 90px;
     color: #FFF;
-    font-size: 1.3rem;
-    line-height: 2.0rem;
+    font-size: 13px;
+    line-height: 20px;
     text-transform: uppercase;
-    letter-spacing: 0.1rem;
+    letter-spacing: 1px;
   }
 
   .top h3 + * {
@@ -133,8 +132,8 @@
 
   .top code {
     display: block;
-    font-size: 2rem;
-    line-height: 3rem;
+    font-size: 20px;
+    line-height: 30px;
   }
 
   .top strong {
@@ -144,7 +143,7 @@
 
   .top .badge {
     position: absolute;
-    top: 3rem;
+    top: 30px;
     right: 0;
   }
 
@@ -161,7 +160,7 @@
   }
 
   .end {
-    padding: 12rem 14rem 1rem;
+    padding: 120px 140px 10px;
     color: #4E669A;
   }
 
@@ -170,26 +169,26 @@
   .logo {
     position: relative;
     display: block;
-    width: 40rem;
-    min-height: 8rem;
-    margin: 0 0 0 -12rem;
-    padding: 0 0 0 12rem;
+    width: 400px;
+    min-height: 80px;
+    margin: 0 0 0 -120px;
+    padding: 0 0 0 120px;
   }
 
   .logo img {
     position: absolute;
     left: 0;
-    width: 10rem;
-    height: 8rem;
+    width: 100px;
+    height: 80px;
   }
 
   .logo h1 {
-    padding: 3rem 0 0;
+    padding: 30px 0 0;
     color: #FFF;
     font-family: 'Fira Mono', monospace;
-    font-size: 2.5rem;
+    font-size: 25px;
     font-weight: 500;
-    line-height: 3rem;
+    line-height: 30px;
   }
 
   .logo + h2 {
@@ -198,17 +197,17 @@
 
   .btn {
     display: inline-block;
-    padding: 1rem 3rem;
+    padding: 10px 30px;
     background: #FFF;
     box-shadow: 0 2px 15px 0 rgba(42, 46, 58, 0.10), 0 1px 3px 0 rgba(42, 46, 58, 0.10);
     border-radius: 3px;
-    font-size: 1.6rem;
-    line-height: 3rem;
+    font-size: 16px;
+    line-height: 30px;
     text-decoration: none;
   }
 
   .btn + .btn {
-    margin-left: 1rem;
+    margin-left: 10px;
   }
 
   .btn,
@@ -218,9 +217,9 @@
   }
 
   .intro {
-    padding-top: 5rem;
-    font-size: 2rem;
-    line-height: 3rem;
+    padding-top: 50px;
+    font-size: 20px;
+    line-height: 30px;
   }
 
 
@@ -228,9 +227,9 @@
     .top,
     .page,
     .end {
-      padding-top: 2rem;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-top: 20px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
 
     .top,

@@ -17,8 +17,6 @@ An Ember addon to turn Ember apps into cross-platform desktop applications, taki
 
 To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
 
-
-
 ## Documentation
 
 ### Basics
