@@ -87,7 +87,6 @@
     "broccoli-asset-rev": "^3.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "conventional-changelog-eslint": "^3.0.0",
     "electron-compile": "^6.4.3",
     "electron-prebuilt-compile": "^4.0.0",
     "ember-auto-import": "^1.5.2",

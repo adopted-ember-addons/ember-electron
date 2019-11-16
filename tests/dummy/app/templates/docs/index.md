@@ -54,7 +54,7 @@ If you need help *using* the addon with your application, may we recommend the e
 `ember-electron` uses [Semantic Release](https://github.com/semantic-release/semantic-release) to
 automate the whole release process. In order to have a PR merged, please ensure that your PR
 follows the commit guidelines so that our robots can understand your change. This repository uses
-the [`conventional-changelog` rules from the `eslint` repository](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint).
+`semantic-release`'s default [Angular commit message conventions](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).
 
 
 ## Authors
