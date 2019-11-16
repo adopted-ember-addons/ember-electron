@@ -2,42 +2,17 @@
 
 # Ember-Electron
 
-![Latest release on NPM](https://img.shields.io/npm/v/ember-electron.svg) [![Build status](https://ci.appveyor.com/api/projects/status/5rhwhar361uad07v?svg=true)](https://ci.appveyor.com/project/adopted-ember-addons/ember-electron)
- ![Travis CI Build Status](https://secure.travis-ci.org/adopted-ember-addons/ember-electron.svg?branch=master) ![Code Climate](https://codeclimate.com/github/adopted-ember-addons/ember-electron.svg)
+![Latest release on NPM](https://img.shields.io/npm/v/ember-electron.svg) 
+[![Build status](https://ci.appveyor.com/api/projects/status/5rhwhar361uad07v?svg=true)](https://ci.appveyor.com/project/adopted-ember-addons/ember-electron)
+![Travis CI Build Status](https://secure.travis-ci.org/adopted-ember-addons/ember-electron.svg?branch=master) 
+![Code Climate](https://codeclimate.com/github/adopted-ember-addons/ember-electron.svg)
 
 An Ember addon to turn Ember apps into cross-platform desktop applications, taking care of development, tests, compilation, and installer creation.
 
-* `ember electron` - Run app in Electron with live-reload server
-* `ember electron:test` - Test the app using Electron
-* `ember electron:test --server` - Test with Electron in development server mode
-* `ember electron:package` - Create binaries (.app, .exe, etc)
-* `ember electron:make` - Generate platform specific distributables (installers, distribution packages, etc)
-* `ember electron:build` - Build out Ember app with Electron instrumentation (useful for optimizing multi-platform builds)
-* `ember electron:assemble` - Assemble Electron application project (useful for debugging builds)
+Documentation
+------------------------------------------------------------------------------
 
-To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
-
-## Documentation
-
-### Basics
-- [Installation](https://adopted-ember-addons.github.io/ember-electron/docs/guides/installation)
-- [Usage](https://adopted-ember-addons.github.io/ember-electron/docs/guides/usage)
-- [Configuration](https://adopted-ember-addons.github.io/ember-electron/docs/guides/configuration)
-- [Testing](https://adopted-ember-addons.github.io/ember-electron/docs/guides/testing)
-- [Packaging](https://adopted-ember-addons.github.io/ember-electron/docs/guides/packaging)
-
-### Advanced Guides
-- [Upgrading from ember-electron 1.x to 2.x](https://adopted-ember-addons.github.io/ember-electron/docs/guides/upgrade)
-- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](https://adopted-ember-addons.github.io/ember-electron/docs/guides/ci)
-- [Build pipeline](https://adopted-ember-addons.github.io/ember-electron/docs/guides/build-pipeline.md)
-
-### FAQ
-
-- [Common issues](https://adopted-ember-addons.github.io/ember-electron/docs/faq/common-issues)
-- [File structure](https://adopted-ember-addons.github.io/ember-electron/docs/faq/structure)
-- [Security concerns](https://adopted-ember-addons.github.io/ember-electron/docs/faq/security)
-
-Somethings missing? Contributions to our docs are welcome!
+[View Docs](https://adopted-ember-addons.github.io/ember-electron/)
 
 
 ## Support
