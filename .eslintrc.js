@@ -18,7 +18,7 @@ module.exports = {
   env: {
     es6: true,
     qunit: true,
-    node: true,
+    node: true
   },
   globals: {
     // Electron
@@ -26,14 +26,8 @@ module.exports = {
     'processNode': true
   },
   rules: {
-    'ember/no-const-outside-module-scope': 'off',
-    'ember/no-direct-property-access': 'off',
-    'ember/avoid-leaking-state-in-ember-objects': 'warn', // TODO: Remove after upgrading eslint >= 4.2.0
     'ember/no-jquery': 'error',
-    'ember/require-access-in-comments': 'off',
-    'newline-before-return': 'error',
-    'no-console': 'off',
-    'one-var': 'off',
+    'no-console': 'off'
   },
   overrides: [
     // node files
@@ -46,6 +40,7 @@ module.exports = {
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
+        'lib/commands/*.js',
         'tests/dummy/config/**/*.js'
       ],
       excludedFiles: [
@@ -65,6 +60,9 @@ module.exports = {
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
         'ember/avoid-leaking-state-in-ember-objects': 'off',
+        'node/no-unpublished-require': ['error', {
+          'allowModules': ['ember-cli']
+        }]
       })
     }
   ]
