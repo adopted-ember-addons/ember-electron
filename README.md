@@ -20,22 +20,22 @@ To see a real world example, check out [Ghost Desktop](https://github.com/trygho
 ## Documentation
 
 ### Basics
-- [Installation](https://ember-electron.js.org/docs/guides/installation)
-- [Usage](https://ember-electron.js.org/docs/guides/usage)
-- [Configuration](https://ember-electron.js.org/docs/guides/configuration)
-- [Testing](https://ember-electron.js.org/docs/guides/testing)
-- [Packaging](https://ember-electron.js.org/docs/guides/packaging)
+- [Installation](https://adopted-ember-addons.github.io/ember-electron/docs/guides/installation)
+- [Usage](https://adopted-ember-addons.github.io/ember-electron/docs/guides/usage)
+- [Configuration](https://adopted-ember-addons.github.io/ember-electron/docs/guides/configuration)
+- [Testing](https://adopted-ember-addons.github.io/ember-electron/docs/guides/testing)
+- [Packaging](https://adopted-ember-addons.github.io/ember-electron/docs/guides/packaging)
 
 ### Advanced Guides
-- [Upgrading from ember-electron 1.x to 2.x](https://ember-electron.js.org/docs/guides/upgrade)
-- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](https://ember-electron.js.org/docs/guides/ci)
-- [Build pipeline](https://ember-electron.js.org/docs/guides/build-pipeline.md)
+- [Upgrading from ember-electron 1.x to 2.x](https://adopted-ember-addons.github.io/ember-electron/docs/guides/upgrade)
+- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](https://adopted-ember-addons.github.io/ember-electron/docs/guides/ci)
+- [Build pipeline](https://adopted-ember-addons.github.io/ember-electron/docs/guides/build-pipeline.md)
 
 ### FAQ
 
-- [Common issues](https://ember-electron.js.org/docs/faq/common-issues)
-- [File structure](https://ember-electron.js.org/docs/faq/structure)
-- [Security concerns](https://ember-electron.js.org/docs/faq/security)
+- [Common issues](https://adopted-ember-addons.github.io/ember-electron/docs/faq/common-issues)
+- [File structure](https://adopted-ember-addons.github.io/ember-electron/docs/faq/structure)
+- [Security concerns](https://adopted-ember-addons.github.io/ember-electron/docs/faq/security)
 
 Somethings missing? Contributions to our docs are welcome!
 
