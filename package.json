@@ -41,12 +41,11 @@
   "scripts": {
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
-    "test": "yarn-or-npm run test-node-all && yarn-or-npm run lint",
-    "test-fast": "yarn-or-npm run test-node && yarn-or-npm run lint",
+    "test": "yarn-or-npm run test-node-all",
+    "test-fast": "yarn-or-npm run test-node",
     "test-node": "mocha node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
     "test-node-slow": "mocha ./node-tests/acceptance/**/*.js",
-    "test-node-all": "yarn-or-npm run test-node && yarn-or-npm run test-node-slow",
-    "lint": "eslint ./*.js app lib node-tests"
+    "test-node-all": "yarn-or-npm run test-node && yarn-or-npm run test-node-slow"
   },
   "dependencies": {
     "broccoli-file-creator": "^2.1.1",
