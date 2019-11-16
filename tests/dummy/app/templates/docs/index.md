@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/adopted-ember-addons/ember-electron/raw/gh-pages/img/logo-github%402x.png" alt="Ember-Electron logo showing an electron orbiting a flame" width="300" height="250"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/adopted-ember-addons/ember-electron/gh-pages/img/logo-github%402x.png" alt="Ember-Electron logo showing an electron orbiting a flame" width="300" height="250"></p>
 
 # Ember-Electron
 
