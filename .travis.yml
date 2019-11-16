@@ -32,11 +32,27 @@ branches:
     - /^v\d+\.\d+\.\d+/
 
 jobs:
+  fail_fast: true
+  allow_failures:
+    - env: EMBER_TRY_SCENARIO=ember-canary
+
   include:
-    - stage: test
-      script: npm run test
+    # runs linting and fast integration/unit tests
+    - stage: "Basic Tests"
+      script:
+        - yarn lint:hbs
+        - yarn lint:js
+        - yarn test-fast
+
+    # runs slow end-to-end tests, parallelizing yarn and npm cases
+    - stage: "End-to-end Tests"
+      script:
+        - yarn test-slow
+      env: END_TO_END_TESTS=yarn
+    - env: END_TO_END_TESTS=npm
+
     # Define the release stage that runs semantic-release
-    - stage: release
+    - stage: "Release"
       node_js: lts/*
       script: skip
       deploy:
@@ -45,11 +61,10 @@ jobs:
         script:
           - npx semantic-release
 
-
 before_install:
   - yarn config set no-progress
 
 install:
-  - yarn --frozen-lockfile
+  - yarn --frozen-lockfile --non-interactive
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
