@@ -1,15 +1,19 @@
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   plugins: [
-    'ember',
+    'ember'
   ],
   extends: [
     'eslint:recommended',
-    'plugin:ember/recommended',
+    'plugin:ember/recommended'
   ],
   env: {
     es6: true,
@@ -17,34 +21,15 @@ module.exports = {
     node: true,
   },
   globals: {
-    // 'expectAssertion': true,
-    // 'expectDeprecation': true,
-    // 'expectNoDeprecation': true,
-    // 'expectWarning': true,
-    // 'expectNoWarning': true,
-    // 'ignoreAssertion': true,
-    // 'ignoreDeprecation': true,
-
     // Electron
     'requireNode': true,
-    'processNode': true,
-
-    // A safe subset of "browser:true":
-    // 'window': true,
-    // 'document': true,
-    // 'setTimeout': true,
-    // 'clearTimeout': true,
-    // 'setInterval': true,
-    // 'clearInterval': true,
-
-    // 'Symbol': true,
-    // 'WeakMap': true,
+    'processNode': true
   },
   rules: {
-    'comma-dangle': ['error', 'always-multiline'],
     'ember/no-const-outside-module-scope': 'off',
     'ember/no-direct-property-access': 'off',
     'ember/avoid-leaking-state-in-ember-objects': 'warn', // TODO: Remove after upgrading eslint >= 4.2.0
+    'ember/no-jquery': 'error',
     'ember/require-access-in-comments': 'off',
     'newline-before-return': 'error',
     'no-console': 'off',
@@ -61,26 +46,26 @@ module.exports = {
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
-        'tests/dummy/config/**/*.js',
+        'tests/dummy/config/**/*.js'
       ],
       excludedFiles: [
         'addon/**',
         'addon-test-support/**',
         'app/**',
-        'tests/dummy/app/**',
+        'tests/dummy/app/**'
       ],
       parserOptions: {
-        sourceType: 'script',
+        sourceType: 'script'
       },
       env: {
         browser: false,
-        node: true,
+        node: true
       },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
-        "ember/avoid-leaking-state-in-ember-objects": "off",
-      }),
-    },
-  ],
+        'ember/avoid-leaking-state-in-ember-objects': 'off',
+      })
+    }
+  ]
 };

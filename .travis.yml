@@ -1,17 +1,35 @@
 language: node_js
-node_js: "10"
+node_js:
+  # we recommend testing addons with the same minimum supported node version as Ember CLI
+  # so that your addon works for all apps
+  - "10"
 
 sudo: false
 dist: trusty
 
 addons:
   chrome: stable
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - xvfb
+      - g++-4.8
+
+cache:
+  yarn: true
 
 env:
   global:
     - CXX=g++-4.8
     # See https://git.io/vdao3 for details.
     - JOBS=1
+
+branches:
+  only:
+    - master
+    # npm version tags
+    - /^v\d+\.\d+\.\d+/
 
 jobs:
   include:
@@ -27,16 +45,6 @@ jobs:
         script:
           - npx semantic-release
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - xvfb
-      - g++-4.8
-
-cache:
-  yarn: true
 
 before_install:
   - yarn config set no-progress

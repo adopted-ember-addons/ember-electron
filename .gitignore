@@ -17,8 +17,8 @@
 /coverage/
 /libpeerconnection.log
 /npm-debug.log*
-/yarn-error.log
 /testem.log
+/yarn-error.log
 browse.VC.db
 
 # We don't use ember-try for testing right now,
