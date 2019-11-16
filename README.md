@@ -17,27 +17,25 @@ An Ember addon to turn Ember apps into cross-platform desktop applications, taki
 
 To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
 
-
-
 ## Documentation
 
 ### Basics
-- [Installation](docs/guides/installation.md)
-- [Usage](docs/guides/usage.md)
-- [Configuration](docs/guides/configuration.md)
-- [Testing](docs/guides/testing.md)
-- [Packaging](docs/guides/packaging.md)
+- [Installation](https://ember-electron.js.org/docs/guides/installation)
+- [Usage](https://ember-electron.js.org/docs/guides/usage)
+- [Configuration](https://ember-electron.js.org/docs/guides/configuration)
+- [Testing](https://ember-electron.js.org/docs/guides/testing)
+- [Packaging](https://ember-electron.js.org/docs/guides/packaging)
 
 ### Advanced Guides
-- [Upgrading from ember-electron 1.x to 2.x](docs/guides/upgrade.md)
-- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](docs/guides/ci.md)
-- [Build pipeline](docs/guides/build-pipeline.md)
+- [Upgrading from ember-electron 1.x to 2.x](https://ember-electron.js.org/docs/guides/upgrade)
+- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](https://ember-electron.js.org/docs/guides/ci)
+- [Build pipeline](https://ember-electron.js.org/docs/guides/build-pipeline.md)
 
 ### FAQ
 
-- [Common issues](docs/faq/common-issues.md)
-- [File structure](docs/faq/structure.md)
-- [Security concerns](docs/faq/security.md)
+- [Common issues](https://ember-electron.js.org/docs/faq/common-issues)
+- [File structure](https://ember-electron.js.org/docs/faq/structure)
+- [Security concerns](https://ember-electron.js.org/docs/faq/security)
 
 Somethings missing? Contributions to our docs are welcome!
 
