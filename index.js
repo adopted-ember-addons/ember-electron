@@ -38,12 +38,6 @@ module.exports = {
     };
   },
 
-  treeForVendor() {
-    let dirname = __dirname || process.cwd();
-
-    return path.join(dirname, 'app');
-  },
-
   postprocessTree(type, tree) {
     // Check if we're supposed to be assembling as part of the build
     if (type === 'all' && process.env.EMBER_CLI_ELECTRON_ASSEMBLE) {
