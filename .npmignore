@@ -9,9 +9,11 @@
 /.bowerrc
 /.editorconfig
 /.ember-cli
+/.ember-cli.js
 /.env*
 /.eslintignore
 /.eslintrc.js
+/.git/
 /.gitignore
 /.template-lintrc.js
 /.travis.yml
@@ -20,12 +22,13 @@
 /config/ember-try.js
 /dist
 /electron-out
+/CONTRIBUTING.md
 /ember-cli-build.js
-/tests
 /tmp
 /testem.js
+/tests/
 /yarn.lock
-**/.gitkeep
+.gitkeep
 
 # Since we don't use ember-try these shouldn't exist,
 # but we ignore them anyway
