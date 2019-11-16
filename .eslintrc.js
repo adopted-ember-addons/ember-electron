@@ -18,7 +18,7 @@ module.exports = {
   env: {
     es6: true,
     qunit: true,
-    node: true,
+    node: true
   },
   globals: {
     // Electron
@@ -61,7 +61,9 @@ module.exports = {
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
         'ember/avoid-leaking-state-in-ember-objects': 'off',
-        'node/no-unpublished-require': 'off'
+        'node/no-unpublished-require': ['error', {
+          'allowModules': ['ember-cli']
+        }]
       })
     }
   ]
