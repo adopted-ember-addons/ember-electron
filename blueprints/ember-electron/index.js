@@ -11,8 +11,8 @@ const path = require('path');
 const { all, denodeify } = require('rsvp');
 
 const Blueprint = require('ember-cli/lib/models/blueprint');
-const efImport = require('electron-forge/dist/api/import').default;
-const { setupForgeEnv, shouldUseYarn } = require('../../lib/utils/yarn-or-npm');
+const { api } = require('@electron-forge/core');
+const { setupForgeEnv } = require('../../lib/utils/yarn-or-npm');
 
 const Logger = require('../../lib/utils/logger');
 
@@ -59,28 +59,28 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       });
   }
 
-  _installElectronTooling(logger) {
+  async _installElectronTooling(logger) {
     // n.b. addPackageToProject does not let us save prod deps, so we task
     let npmInstall = this.taskFor('npm-install');
     setupForgeEnv(this.project.root);
 
     logger.startProgress('Installing electron build tools');
 
-    return efImport({
-        updateScripts: false,
-        outDir: 'electron-out',
-      })
-      .then(() => npmInstall.run({
-        'save-dev': true,
-        verbose: false,
-        packages: ['devtron@^1.4.0'],
-      }))
-      .then(() => npmInstall.run({
-        save: true,
-        verbose: false,
-        packages: ['electron-protocol-serve@^1.3.0'],
-      }))
-      .then(() => logger.message('Installed electron build tools'));
+    await api.import({
+      shouldUpdateScript: () => false,
+      outDir: 'electron-out',
+    });
+    await npmInstall.run({
+      'save-dev': true,
+      verbose: false,
+      packages: ['devtron@^1.4.0'],
+    });
+    await npmInstall.run({
+      save: true,
+      verbose: false,
+      packages: ['electron-protocol-serve@^1.3.0'],
+    });
+    logger.message('Installed electron build tools');
   }
 
   _createResourcesDirectories(logger) {
@@ -109,7 +109,6 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     let packageJsonPath = path.join(this.project.root, 'package.json');
     let forgeConfigPath = './ember-electron/electron-forge-config.js';
-    let isUsingYarn = shouldUseYarn(this.project.root);
 
     // If we had a forge config before running forge import, then it may be
     // customized by the user, so let's not mess with it.
@@ -127,11 +126,6 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
         if (typeof packageJson.config.forge === 'string') {
           return;
-        }
-
-        // required to force the package manager to use yarn when the project uses yarn
-        if (isUsingYarn) {
-          forgeConfig.electronPackagerConfig.packageManager = 'yarn';
         }
 
         forgeConfig = JSON.stringify(forgeConfig, null, 2);

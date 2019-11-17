@@ -72,7 +72,6 @@ describe('Assembler model', () => {
     return assemble(fixturePath('project-simple')).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        '.compilerc',
         'ember-electron/electron-forge-config.js',
         'ember-electron/main.js',
         'ember/assets/app.css',

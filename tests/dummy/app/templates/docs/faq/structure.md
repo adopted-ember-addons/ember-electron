@@ -4,7 +4,6 @@ The `ember-electron` folder created at the root of your project by `ember-electr
 
 ```
  ember-electron
- ├── .compilerc
  ├── .electron-forge
  ├── main.js
  ├── resources
@@ -18,7 +17,6 @@ The `resources` directories are meant for non-code resources, such as images, js
 ```
  ember-electron
  ├── package.json
- ├── .compilerc
  ├── ember
  │   ├── <ember build output>
  ├── ember-electron
@@ -32,7 +30,6 @@ The `resources` directories are meant for non-code resources, such as images, js
 ```
 
 - `package.json` is copied from the root of your project;
-- `.compilerc` is copied from your ember-electron dir;
 - `ember` contains the built Ember app; and
 - `ember-electron` contains
     - `resources`, assembled as described; and

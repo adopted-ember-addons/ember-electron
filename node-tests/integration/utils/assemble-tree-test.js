@@ -64,7 +64,6 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        '.compilerc',
         'ember-electron/electron-forge-config.js',
         'ember-electron/main.js',
         'ember/assets/app.css',
@@ -82,7 +81,6 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        '.compilerc',
         'ember-electron/electron-forge-config.js',
         'ember-electron/main.js',
         'ember/assets/app.css',
@@ -100,7 +98,6 @@ describe('assembleTree', () => {
     return buildTree(projectPath, { inputNode, platform: 'win32' }).then(({ directory }) => {
       let files = walkSync(directory, { directories: false });
       expect(files).to.deep.equal([
-        '.compilerc',
         'ember-electron/electron-forge-config.js',
         'ember-electron/main.js',
         'ember-electron/resources/platform.txt',

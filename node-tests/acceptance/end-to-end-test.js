@@ -148,7 +148,7 @@ describe('end-to-end', function() {
     it('makes', () => {
       // Only build zip target so we don't fail from missing platform dependencies
       // (e.g. rpmbuild)
-      return ember('electron:make', '--targets', 'zip').then(() => {
+      return ember('electron:make', '--targets', '@electron-forge/maker-zip').then(() => {
         expect(existsSync(path.join('electron-out', 'make'))).to.be.ok;
       });
     });
@@ -173,31 +173,6 @@ describe('end-to-end', function() {
       return expect(ember('electron:test')).to.eventually.be.fulfilled;
     });
   }
-
-  describe('test-runner.js/blueprint update', function() {
-    before(function() {
-      let { name: tmpDir } = tmp.dirSync();
-      process.chdir(tmpDir);
-
-      return ember('new', 'ee-test-app', '--yarn').then(() => {
-        process.chdir('ee-test-app');
-
-        return ember('install', 'ember-electron@2.7.2');
-      }).then(() => {
-        // Now that the old blueprint has been run, use yarn to update the addon
-        // to the current version
-        return run('yarn', ['add', '-D', path.join(packageTmpDir, 'package')]);
-      });
-    });
-
-    after(() => {
-      process.chdir(rootDir);
-    });
-
-    it('can run tests without re-running the blueprint (deprecated)', function() {
-      return expect(ember('electron:test')).to.eventually.be.fulfilled;
-    });
-  });
 });
 
 function listenForPrompts(child) {

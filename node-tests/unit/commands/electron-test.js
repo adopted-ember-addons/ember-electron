@@ -1,15 +1,36 @@
 'use strict';
 
 const mockery = require('mockery');
-const MockElectronForgeStart = require('../../helpers/mocks/ef-start');
 const RSVP = require('rsvp');
 const MockUI = require('console-ui/mock');
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('../../helpers/mocks/project');
 const expect = require('../../helpers/expect');
+const sinon = require('sinon');
+
+class MockHandle {
+  constructor() {
+    this.handles = {};
+    this.exitImmediately = true;
+  }
+
+  trigger(method = '') {
+    if (this.handles[method]) {
+      this.handles[method]();
+    }
+  }
+
+  on(handle, method) {
+    this.handles[handle] = method;
+
+    if (this.exitImmediately && handle === 'exit') {
+      method();
+    }
+  }
+}
 
 describe('electron command', () => {
-  let CommandUnderTest, commandOptions, mockElectronForgeStart, argv;
+  let CommandUnderTest, commandOptions, startStub, argv;
 
   before(() => {
     mockery.enable({
@@ -23,8 +44,8 @@ describe('electron command', () => {
   });
 
   beforeEach(() => {
-    mockElectronForgeStart = new MockElectronForgeStart();
-    mockery.registerMock('electron-forge/dist/api/start', mockElectronForgeStart);
+    startStub = sinon.stub().callsFake(() => new MockHandle());
+    mockery.registerMock('@electron-forge/core', { api: { start: startStub } });
     argv = ['./electron', './project'];
 
     const cmd = require('../../../lib/commands/electron');
@@ -121,7 +142,7 @@ describe('electron command', () => {
     const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(mockElectronForgeStart.calls.length).to.equal(1);
+      expect(startStub).to.have.been.calledOnce;
     });
   });
 
@@ -133,8 +154,8 @@ describe('electron command', () => {
     const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(mockElectronForgeStart.calls.length).to.equal(1);
-      expect(mockElectronForgeStart.calls[0][0].args).to.deep.equal([]);
+      expect(startStub).to.have.been.calledOnce;
+      expect(startStub.firstCall.args[0].args).to.deep.equal([]);
     });
   });
 
@@ -147,8 +168,8 @@ describe('electron command', () => {
     const command = new CommandUnderTest(commandOptions).validateAndRun();
 
     return expect(command).to.be.fulfilled.then(() => {
-      expect(mockElectronForgeStart.calls.length).to.equal(1);
-      expect(mockElectronForgeStart.calls[0][0].args).to.deep.equal(['arg1', '--arg2', '--arg3=value']);
+      expect(startStub).to.have.been.calledOnce;
+      expect(startStub.firstCall.args[0].args).to.deep.equal(['arg1', '--arg2', '--arg3=value']);
     });
   });
 });

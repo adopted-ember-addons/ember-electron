@@ -1,27 +1,25 @@
 module.exports = {
-  'make_targets': {
-    'win32': [
-      'squirrel',
-    ],
-    'darwin': [
-      'zip',
-    ],
-    'linux': [
-      'deb',
-      'rpm',
-    ],
-  },
-  'electronPackagerConfig': {},
-  'electronWinstallerConfig': {
-    'name': '',
-  },
-  'electronInstallerDebian': {},
-  'electronInstallerRedhat': {},
-  'github_repository': {
-    'owner': '',
-    'name': '',
-  },
-  'windowsStoreConfig': {
-    'packageName': '',
-  },
+  "packagerConfig": {},
+  "makers": [
+    {
+      "name": "@electron-forge/maker-squirrel",
+      "config": {
+        "name": "ee_app"
+      }
+    },
+    {
+      "name": "@electron-forge/maker-zip",
+      "platforms": [
+        "darwin"
+      ]
+    },
+    {
+      "name": "@electron-forge/maker-deb",
+      "config": {}
+    },
+    {
+      "name": "@electron-forge/maker-rpm",
+      "config": {}
+    }
+  ]
 };
