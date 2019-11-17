@@ -70,53 +70,57 @@ describe('end-to-end', function() {
     removeSync('electron-out');
   });
 
-  describe('with yarn', function() {
-    before(function() {
-      let { name: tmpDir } = tmp.dirSync();
-      process.chdir(tmpDir);
+  if (!process.env.END_TO_END_TESTS || process.env.END_TO_END_TESTS === 'yarn') {
+    describe('with yarn', function() {
+      before(function() {
+        let { name: tmpDir } = tmp.dirSync();
+        process.chdir(tmpDir);
 
-      return ember('new', 'ee-test-app', '--yarn', '--skip-git', '--no-welcome').then(() => {
-        process.chdir('ee-test-app');
+        return ember('new', 'ee-test-app', '--yarn', '--skip-git', '--no-welcome').then(() => {
+          process.chdir('ee-test-app');
 
-        return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
+          return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
+        });
       });
-    });
 
-    after(() => {
-      process.chdir(rootDir);
-    });
-
-    runTests();
-  });
-
-  describe('with npm', function() {
-    before(function() {
-      let { name: tmpDir } = tmp.dirSync();
-      process.chdir(tmpDir);
-
-      return ember('new', 'ee-test-app', '--yarn', 'false', '--skip-git', '--no-welcome').then(() => {
-        process.chdir('ee-test-app');
-        // For some reason, either ember-cli-dependency-checker isn't working with npm
-        // or npm isn't getting the right version because without this env var (or hacking package.json)
-        // we get:
-        //     Missing npm packages:
-        //     Package: ember-electron
-        //       * Specified: file:../../tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
-        //       * Installed: file:/tmp/tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
-        //
-        //     Run `npm install` to install missing dependencies.
-        process.env.SKIP_DEPENDENCY_CHECKER = true;
-
-        return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`, '--no-yarn');
+      after(() => {
+        process.chdir(rootDir);
       });
-    });
 
-    after(() => {
-      process.chdir(rootDir);
+      runTests();
     });
+  }
 
-    runTests();
-  });
+  if (!process.env.END_TO_END_TESTS || process.env.END_TO_END_TESTS === 'npm') {
+    describe('with npm', function() {
+      before(function() {
+        let { name: tmpDir } = tmp.dirSync();
+        process.chdir(tmpDir);
+
+        return ember('new', 'ee-test-app', '--yarn', 'false', '--skip-git', '--no-welcome').then(() => {
+          process.chdir('ee-test-app');
+          // For some reason, either ember-cli-dependency-checker isn't working with npm
+          // or npm isn't getting the right version because without this env var (or hacking package.json)
+          // we get:
+          //     Missing npm packages:
+          //     Package: ember-electron
+          //       * Specified: file:../../tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+          //       * Installed: file:/tmp/tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+          //
+          //     Run `npm install` to install missing dependencies.
+          process.env.SKIP_DEPENDENCY_CHECKER = true;
+
+          return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`, '--no-yarn');
+        });
+      });
+
+      after(() => {
+        process.chdir(rootDir);
+      });
+
+      runTests();
+    });
+  }
 
   function runTests() {
     it('tests', () => {
