@@ -120,6 +120,9 @@
     "tmp": "^0.1.0",
     "walk-sync": "^2.0.2"
   },
+  "peerDependencies": {
+    "ember-cli": "^3.0.0"
+  },
   "engines": {
     "node": "8.* || >= 10.*"
   },
