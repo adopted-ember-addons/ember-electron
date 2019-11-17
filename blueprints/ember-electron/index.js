@@ -11,7 +11,7 @@ const path = require('path');
 const { all, denodeify } = require('rsvp');
 
 const Blueprint = require('ember-cli/lib/models/blueprint');
-const efImport = require('electron-forge/dist/api/import').default;
+const efImport = require('@electron-forge/core').api.import;
 const { setupForgeEnv, shouldUseYarn } = require('../../lib/utils/yarn-or-npm');
 
 const Logger = require('../../lib/utils/logger');

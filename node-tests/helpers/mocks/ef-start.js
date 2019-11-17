@@ -4,10 +4,12 @@ class MockElectronForgeStart {
   constructor() {
     this.calls = [];
     this.handle = new MockElectronForgeHandle();
-    this.default = this.default.bind(this);
+    this.api = {
+      start: this.start.bind(this)
+    };
   }
 
-  default() {
+  start() {
     this.calls.push(arguments);
 
     return new Promise((resolve) => {

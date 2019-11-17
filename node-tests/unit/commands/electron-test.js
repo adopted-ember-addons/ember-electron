@@ -24,7 +24,7 @@ describe('electron command', () => {
 
   beforeEach(() => {
     mockElectronForgeStart = new MockElectronForgeStart();
-    mockery.registerMock('electron-forge/dist/api/start', mockElectronForgeStart);
+    mockery.registerMock('@electron-forge/core', mockElectronForgeStart);
     argv = ['./electron', './project'];
 
     const cmd = require('../../../lib/commands/electron');

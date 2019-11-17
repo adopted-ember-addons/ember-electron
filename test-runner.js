@@ -37,7 +37,7 @@ if (require.main === module) {
   let url = require('url');
   let fileUrl = require('file-url');
   let treeKill = require('tree-kill');
-  let { start: efStart } = require('electron-forge');
+  let { start: efStart } = require('@electron-forge/core').api;
 
   let [, , buildDir, baseUrl, testPageUrl, id] = process.argv;
   let emberAppDir = path.join(buildDir, 'ember');

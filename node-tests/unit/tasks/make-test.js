@@ -62,7 +62,11 @@ describe('MakeTask', () => {
     forgeMakeFail = false;
 
     mockery.registerMock('./package', MockPackageTask);
-    mockery.registerMock('electron-forge/dist/api/make', { default: mockForgeMake });
+    mockery.registerMock('@electron-forge/core', {
+      api: {
+        make: mockForgeMake
+      }
+    });
 
     const MakeTask = require('../../../lib/tasks/make');
     task = new MakeTask({

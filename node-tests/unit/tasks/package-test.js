@@ -74,7 +74,11 @@ describe('PackageTask', () => {
         process.env.NODE_INSTALLER = useYarn ? 'yarn' : 'npm';
       },
     });
-    mockery.registerMock('electron-forge/dist/api/package', { default: mockForgePackage });
+    mockery.registerMock('@electron-forge/core', {
+      api:{
+        package: mockForgePackage
+      }
+    });
 
     const PackageTask = require('../../../lib/tasks/package');
     task = new PackageTask({
