@@ -1,8 +1,5 @@
-'use strict';
-
-const fs = require('fs-extra');
+const fs = require('fs');
 const path = require('path');
-const assembleTree = require('./lib/utils/assemble-tree');
 
 function injectScript(scriptName) {
   let dirname = __dirname || process.cwd();
@@ -32,24 +29,9 @@ module.exports = {
       'electron': require('./lib/commands/electron'),
       'electron:test': require('./lib/commands/test'),
       'electron:build': require('./lib/commands/build'),
-      'electron:assemble': require('./lib/commands/assemble'),
       'electron:package': require('./lib/commands/package'),
       'electron:make': require('./lib/commands/make'),
     };
-  },
-
-  postprocessTree(type, tree) {
-    // Check if we're supposed to be assembling as part of the build
-    if (type === 'all' && process.env.EMBER_CLI_ELECTRON_ASSEMBLE) {
-      tree = assembleTree({
-        ui: this.ui,
-        project: this.project,
-        platform: process.env.EMBER_CLI_ELECTRON_PLATFORM,
-        inputNode: tree,
-      });
-    }
-
-    return tree;
   },
 
   contentFor(type) {

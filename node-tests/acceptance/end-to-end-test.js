@@ -13,7 +13,7 @@ const {
 const execa = require('execa');
 const tmp = require('tmp');
 
-const expect = require('../helpers/expect');
+const { expect } = chai;
 
 function run(cmd, args, opts = {}) {
   opts.stdio = opts.stdio || 'inherit';
@@ -130,12 +130,6 @@ describe('end-to-end', function() {
     it('builds', () => {
       return ember('electron:build').then(() => {
         expect(existsSync(path.join('electron-out', 'ember'))).to.be.ok;
-      });
-    });
-
-    it('assembles', () => {
-      return ember('electron:assemble').then(() => {
-        expect(existsSync(path.join('electron-out', 'project'))).to.be.ok;
       });
     });
 

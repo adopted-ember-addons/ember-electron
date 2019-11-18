@@ -10,8 +10,10 @@ module('ember-electron end-to-end test', function() {
   });
 
   test('node modules are accessible', function(assert) {
-    let { fill } = requireNode('lodash/array');
-    assert.deepEqual(fill([0, 0, 0], 1), [1, 1, 1]);
+    let sinon = requireNode('sinon');
+    let stub = sinon.stub();
+    stub();
+    assert.ok(stub.calledOnce);
   });
 
   test('local modules are accessible', function(assert) {
