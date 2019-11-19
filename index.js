@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const replace = require('broccoli-string-replace');
 
 function injectScript(scriptName) {
   let dirname = __dirname || process.cwd();
@@ -49,4 +50,17 @@ module.exports = {
       }
     }
   },
+
+  postprocessTree(type, node) {
+    if (type === 'all' && process.env.EMBER_CLI_ELECTRON) {
+      node = replace(node, {
+        files: [ 'tests/index.html' ],
+        pattern: {
+          match: /src="[^"]*testem\.js"/,
+          replacement: 'src="http://testemserver/testem.js"',
+        },
+      });
+    }
+    return node;
+  }
 };

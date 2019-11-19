@@ -1,8 +1,8 @@
 'use strict';
 
+const { electronProjectPath } = require('../../lib/utils/build-paths');
 const path = require('path');
 const {
-  copySync,
   existsSync,
   readFileSync,
   readJsonSync,
@@ -10,10 +10,11 @@ const {
   writeFileSync,
   writeJsonSync,
 } = require('fs-extra');
+const denodeify = require('denodeify');
+const ncp = denodeify(require('ncp'));
 const execa = require('execa');
 const tmp = require('tmp');
-
-const { expect } = chai;
+const { expect } = require('chai');
 
 function run(cmd, args, opts = {}) {
   opts.stdio = opts.stdio || 'inherit';
@@ -129,7 +130,7 @@ describe('end-to-end', function() {
 
     it('builds', () => {
       return ember('electron:build').then(() => {
-        expect(existsSync(path.join('electron-out', 'ember'))).to.be.ok;
+        expect(existsSync(path.join('electron-app', 'ember-dist'))).to.be.ok;
       });
     });
 
@@ -150,19 +151,17 @@ describe('end-to-end', function() {
     it('extra checks pass', () => {
       let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
 
-      // Append our extra test content to the end of test-main.js
-      let testMainPath = path.join('ember-electron', 'test-main.js');
-      let extraContentPath = path.join(fixturePath, 'test-main-extra.js');
+      // Append our extra test content to the end of test-index.js
+      let testIndexPath = path.join('electron-app', 'tests', 'index.js');
+      let extraContentPath = path.join(fixturePath, 'test-index-extra.js');
       let content = [
-        readFileSync(testMainPath),
+        readFileSync(testIndexPath),
         readFileSync(extraContentPath),
       ].join('\n');
-      writeFileSync(path.join('ember-electron', 'test-main.js'), content);
+      writeFileSync(testIndexPath, content);
 
-      // Copy the lib and resources directories over
-      ['lib', 'resources'].forEach((dir) => {
-        copySync(path.join(fixturePath, dir), path.join('ember-electron', dir));
-      });
+      // Copy the source files over
+      ncp(path.join(fixturePath, 'src'), path.join(electronProjectPath, 'src'));
 
       return expect(ember('electron:test')).to.eventually.be.fulfilled;
     });

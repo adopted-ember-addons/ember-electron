@@ -10,6 +10,7 @@ const MakeCommand = require('../../../lib/commands/make');
 const MakeTask = require('../../../lib/tasks/make');
 const { api } = require('@electron-forge/core');
 const rimraf = require('rimraf');
+const path = require('path');
 const sinon = require('sinon');
 
 describe('electron:make command', function() {
@@ -37,10 +38,10 @@ describe('electron:make command', function() {
   it('works', async function() {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
-    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal('electron/ember-dist');
+    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(path.join('electron-app', 'ember-dist'));
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
+      dir: 'electron-app',
       outDir: 'electron-out',
       skipPackage: false
     });
@@ -70,7 +71,7 @@ describe('electron:make command', function() {
     expect(buildTaskStub).to.not.be.called;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
+      dir: 'electron-app',
       outDir: 'electron-out',
       skipPackage: false
     });
@@ -81,7 +82,7 @@ describe('electron:make command', function() {
     expect(buildTaskStub).to.not.be.called;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
+      dir: 'electron-app',
       outDir: 'electron-out',
       skipPackage: true
     });
@@ -92,7 +93,7 @@ describe('electron:make command', function() {
     expect(buildTaskStub).to.not.be.called;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
+      dir: 'electron-app',
       outDir: 'electron-out',
       skipPackage: true
     });
@@ -102,12 +103,12 @@ describe('electron:make command', function() {
     await expect(command.validateAndRun([
       '--platform', 'linux',
       '--arch', 'ia32',
-      '--output-path', '/tmp/foo'
+      '--output-path', 'some-dir'
     ])).to.be.fulfilled;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
-      outDir: '/tmp/foo',
+      dir: 'electron-app',
+      outDir: path.resolve('some-dir'),
       platform: 'linux',
       arch: 'ia32',
       skipPackage: false
@@ -118,7 +119,7 @@ describe('electron:make command', function() {
     await expect(command.validateAndRun([ '--targets', 'zip' ])).to.be.fulfilled;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
+      dir: 'electron-app',
       outDir: 'electron-out',
       skipPackage: false,
       overrideTargets: [ 'zip' ]
@@ -129,7 +130,7 @@ describe('electron:make command', function() {
     await expect(command.validateAndRun([ '--targets', 'zip,dmg,deb' ])).to.be.fulfilled;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
+      dir: 'electron-app',
       outDir: 'electron-out',
       skipPackage: false,
       overrideTargets: [ 'zip', 'dmg', 'deb' ]
@@ -137,7 +138,7 @@ describe('electron:make command', function() {
   });
 
   it('errors if the electron project directory is not present', async function() {
-    rimraf.sync('electron');
+    rimraf.sync('electron-app');
     await expect(command.validateAndRun([])).to.be.rejected;
   });
 });

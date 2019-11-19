@@ -9,6 +9,7 @@ const BuildTask = require('ember-cli/lib/tasks/build');
 const PackageCommand = require('../../../lib/commands/package');
 const PackageTask = require('../../../lib/tasks/package');
 const { api } = require('@electron-forge/core');
+const path = require('path');
 const rimraf = require('rimraf');
 const sinon = require('sinon');
 
@@ -37,10 +38,10 @@ describe('electron:package command', function() {
   it('works', async function() {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
-    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal('electron/ember-dist');
+    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(path.join('electron-app', 'ember-dist'));
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
+      dir: 'electron-app',
       outDir: 'electron-out'
     });
     expect(api.package.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
@@ -68,19 +69,19 @@ describe('electron:package command', function() {
     await expect(command.validateAndRun([
       '--platform', 'linux',
       '--arch', 'ia32',
-      '--output-path', '/tmp/foo'
+      '--output-path', 'some-dir'
     ])).to.be.fulfilled;
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
-      dir: 'electron',
-      outDir: '/tmp/foo',
+      dir: 'electron-app',
+      outDir: path.resolve('some-dir'),
       platform: 'linux',
       arch: 'ia32'
     });
   });
 
   it('errors if the electron project directory is not present', async function() {
-    rimraf.sync('electron');
+    rimraf.sync('electron-app');
     await expect(command.validateAndRun([])).to.be.rejected;
   });
 });

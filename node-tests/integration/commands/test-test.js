@@ -4,18 +4,18 @@ const MockUI = require('console-ui/mock');
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('ember-cli/tests/helpers/mock-project');
 const { expect } = require('chai');
-const EmberBuildCommand = require('ember-cli/lib/commands/build');
-const BuildCommand = require('../../../lib/commands/build');
+const EmberTestCommand = require('ember-cli/lib/commands/test');
+const TestCommand = require('../../../lib/commands/test');
 const path = require('path');
 const sinon = require('sinon');
 
-describe('electron:build command', function() {
+describe('electron:test command', function() {
   let baseRunStub;
   let command;
 
   beforeEach(function() {
-    baseRunStub = sinon.stub(EmberBuildCommand.prototype, 'run').resolves();
-    command = new BuildCommand({
+    baseRunStub = sinon.stub(EmberTestCommand.prototype, 'run').resolves();
+    command = new TestCommand({
       ui: new MockUI(),
       analytics: new MockAnalytics(),
       settings: {},
@@ -24,7 +24,7 @@ describe('electron:build command', function() {
     });
   });
 
-  it('calls the build command with EMBER_CLI_ELECTRON set', async function() {    
+  it('calls the test command with EMBER_CLI_ELECTRON set', async function() {    
     let envVal;
     baseRunStub.resetBehavior();
     baseRunStub.callsFake(() => {
@@ -37,27 +37,20 @@ describe('electron:build command', function() {
     expect(envVal).to.be.ok;
   });
 
-  it('sets the default for outputPath', async function() {
+  it('sets the default for outputPath and configFile', async function() {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
-    expect(baseRunStub.firstCall.args[0].outputPath).to.equal(path.join('electron-app', 'ember-dist'));
+    expect(baseRunStub.firstCall.args[0].outputPath).to.equal(path.join('electron-app', 'ember-test'));
+    expect(baseRunStub.firstCall.args[0].configFile).to.equal('testem-electron.js');
   });
 
   it('it forwards options', async function() {    
     await expect(command.validateAndRun([
-      '--output-path', 'some-dir',
       '--environment', 'testing',
-      '--watch',
-      '--watcher', 'polling',
-      '--suppress-sizes'
+      '-s'
     ])).to.be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
-    expect(baseRunStub.firstCall.args[0]).to.deep.equal({
-      outputPath: path.resolve('some-dir'),
-      environment: 'testing',
-      watch: true,
-      watcher: 'polling',
-      suppressSizes: true
-    });
+    expect(baseRunStub.firstCall.args[0].environment).to.equal('testing');
+    expect(baseRunStub.firstCall.args[0].server).to.be.true;
   });
 });

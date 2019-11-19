@@ -4,7 +4,7 @@ const readFile = denodeify(require('fs').readFile);
 const writeFile = denodeify(require('fs').writeFile);
 const rimraf = denodeify(require('rimraf'));
 const ncp = denodeify(require('ncp'));
-const { emberBuildDir } = require('../lib/utils/build-paths');
+const { emberBuildDir, emberTestBuildDir } = require('../lib/utils/build-paths');
 
 module.exports = {
   devDependencies: [
@@ -27,6 +27,7 @@ module.exports = {
       contents.toString(),
       '# Ember build',
       `${emberBuildDir}/`,
+      `${emberTestBuildDir}/`,
       ''
     ].join('\n'));
   }

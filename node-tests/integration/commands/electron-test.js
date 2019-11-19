@@ -17,7 +17,10 @@ const rimraf = require('rimraf');
 const sinon = require('sinon');
 
 class MockWatcher extends EventEmitter {
-  then = sinon.stub().callsFake((resolve) => resolve())
+  constructor() {
+    super(...arguments);
+    this.then = sinon.stub().callsFake((resolve) => resolve());
+  }
 }
 
 describe('electron command', function() {
@@ -95,7 +98,7 @@ describe('electron command', function() {
   it('passes the correct path to electron-forge', async function() {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(api.start).to.be.calledOnce;
-    expect(api.start.firstCall.args[0].dir).to.equal(path.resolve('electron'));
+    expect(api.start.firstCall.args[0].dir).to.equal(path.resolve('electron-app'));
   })
 
   it('sets the build output path and environment', async function() {
@@ -111,7 +114,7 @@ describe('electron command', function() {
     await expect(command.validateAndRun([
       '--environment', 'testing'
     ])).to.be.fulfilled;
-    expect(outputPath).to.equal('electron/ember-dist');
+    expect(outputPath).to.equal(path.join('electron-app', 'ember-dist'));
     expect(environment).to.equal('testing');
   });
 
@@ -132,7 +135,7 @@ describe('electron command', function() {
   });
 
   it('errors if the electron project directory is not present', async function() {
-    rimraf.sync('electron');
+    rimraf.sync('electron-app');
     await expect(command.validateAndRun([])).to.be.rejected;
   });
 });
