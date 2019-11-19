@@ -13,18 +13,6 @@ function injectScript(scriptName) {
 module.exports = {
   name: require('./package').name,
 
-  included(app) {
-    this._super.included.apply(this, arguments);
-
-    if (!process.env.EMBER_CLI_ELECTRON) {
-      return;
-    }
-
-    if (app.env === 'development') {
-      app.import('vendor/electron/reload.js');
-    }
-  },
-
   includedCommands() {
     return {
       'electron': require('./lib/commands/electron'),

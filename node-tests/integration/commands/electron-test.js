@@ -11,6 +11,7 @@ const { api } = require('@electron-forge/core');
 const { expect } = require('chai');
 const Builder = require('ember-cli/lib/models/builder');
 const Watcher = require('ember-cli/lib/models/watcher');
+const ExpressServer = require('ember-cli/lib/tasks/server/express-server');
 const EventEmitter = require('events');
 const path = require('path');
 const rimraf = require('rimraf');
@@ -37,6 +38,7 @@ describe('electron command', function() {
   let createBuilderStub;
   let cleanupBuilderStub;
   let createWatcherStub;
+  let startServerStub;
 
   let emitExitStub;
 
@@ -55,6 +57,7 @@ describe('electron command', function() {
     sinon.stub(Builder.prototype, 'build').resolves();
     cleanupBuilderStub = sinon.stub(Builder.prototype, 'cleanup').resolves();
     createWatcherStub = sinon.stub(Watcher.prototype, 'constructWatcher').returns(mockBrocWatcher);
+    startServerStub = sinon.stub(ExpressServer.prototype, 'start').resolves();
     sinon.stub(api, 'start').callsFake(() => {
       // make electron process exit right after start promise resolves
       setTimeout(() => {
@@ -89,8 +92,10 @@ describe('electron command', function() {
     expect(createBuilderStub).to.be.calledOnce;
     expect(createWatcherStub).to.be.calledOnce;
     expect(mockBrocWatcher.then).to.be.calledOnce;
+    expect(startServerStub).to.be.calledOnce;
     expect(api.start).to.be.calledOnce;
     expect(api.start.firstCall).be.calledAfter(mockBrocWatcher.then.firstCall);
+    expect(api.start.firstCall).be.calledAfter(startServerStub.firstCall);
     expect(cleanupBuilderStub).be.calledOnce;
     expect(cleanupBuilderStub.firstCall).be.calledAfter(emitExitStub.firstCall);
   });
@@ -116,6 +121,59 @@ describe('electron command', function() {
     ])).to.be.fulfilled;
     expect(outputPath).to.equal(path.join('electron-app', 'ember-dist'));
     expect(environment).to.equal('testing');
+  });
+
+  it('sets up the live reload server with defaults', async function() {
+    // default watcher varies from system to system depending on if watchman is
+    // installed, so we'll set it so it's deterministic in the test
+    await expect(command.validateAndRun([ '--watcher', 'node' ])).to.be.fulfilled;
+    expect(startServerStub).to.be.calledOnce;
+
+    let port = startServerStub.firstCall.args[0].liveReloadPort;
+    expect(port).to.be.ok;
+
+    expect(startServerStub.firstCall.args[0]).to.deep.equal({
+      watcher: 'node',
+      environment: 'development',
+      liveReload: true,
+      liveReloadHost: 'localhost',
+      liveReloadPort: port,
+      liveReloadPrefix: '_lr',
+      port,
+      liveReloadBaseUrl: `http://localhost:${port}/`,
+      liveReloadJsUrl: `http://localhost:${port}/_lr/livereload.js?port=${port}&host=localhost&path=_lr/livereload`
+    });
+  });
+
+  it('sets up the live reload server with custom options', async function() {
+    // default watcher varies from system to system depending on if watchman is
+    // installed, so we'll set it so it's deterministic in the test
+    await expect(command.validateAndRun([
+      '--watcher', 'node',
+      '--live-reload-host', '127.0.0.1',
+      '--live-reload-port', '12345',
+      '--live-reload-prefix', 'lrlrlr'
+    ])).to.be.fulfilled;
+    expect(startServerStub).to.be.calledOnce;
+    expect(startServerStub.firstCall.args[0]).to.deep.equal({
+      watcher: 'node',
+      environment: 'development',
+      liveReload: true,
+      liveReloadHost: '127.0.0.1',
+      liveReloadPort: 12345,
+      liveReloadPrefix: 'lrlrlr',
+      port: 12345,
+      liveReloadBaseUrl: `http://127.0.0.1:12345/`,
+      liveReloadJsUrl: `http://127.0.0.1:12345/lrlrlr/livereload.js?port=12345&host=127.0.0.1&path=lrlrlr/livereload`
+    });
+  });
+
+  it('can disable live reload', async function() {
+    await expect(command.validateAndRun(['--live-reload', 'false' ])).to.be.fulfilled;
+    expect(startServerStub).to.be.calledOnce;
+
+    expect(startServerStub.firstCall.args[0].liveReload).to.not.be.ok;
+    expect(startServerStub.firstCall.args[0].port).to.equal(0);
   });
 
   it('should pass an empty args through if no --- is found', async function() {
