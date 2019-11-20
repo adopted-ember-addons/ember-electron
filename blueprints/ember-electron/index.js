@@ -7,6 +7,8 @@ const denodeify = require('denodeify');
 const fs = require('fs');
 const readFile = denodeify(fs.readFile);
 const writeFile = denodeify(fs.writeFile);
+const SilentError = require('silent-error');
+const { upgradeUrl } = require('../../lib/utils/documentation-urls');
 
 module.exports = class EmberElectronBlueprint extends Blueprint {
   constructor(options) {
@@ -19,7 +21,27 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     return entityName;
   }
 
-  async afterInstall() {
+  beforeInstall() {
+    if (fs.existsSync(electronProjectPath)) {
+      return Promise.reject(
+        new SilentError([
+          `Cannot create electron-forge project at './${electronProjectPath}'`,
+          `because a file or directory already exists there. Please remove/rename`,
+          `it and run the blueprint again: 'ember generate ember-electron'.`
+        ].join(' '))
+      );
+    }
+
+    if (fs.existsSync('ember-electron')) {
+      this.ui.writeLine(chalk.yellow([
+        `\n'ember-electron' directory detected -- this looks like an ember-electron`,
+        `v2 project. Setting up an updated project will not be destructive, but you`,
+        `should read the upgrade documentation at ${upgradeUrl}.\n`
+      ].join(' ')));
+    }
+  }
+
+  async afterInstall() {      
     this.ui.writeLine(chalk.green(`Creating electron-forge project at './${electronProjectPath}'`));
 
     await api.init({
@@ -49,6 +71,6 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     // special-case productName since forge creates it, but a lot of apps don't
     packageJson.productName = this.project.pkg.productName || packageJson.name;
-    await writeFile(packageJsonPath, JSON.stringify(packageJson, { spaces: 2 }));
+    await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
   }
 };
