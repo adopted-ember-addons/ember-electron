@@ -1,7 +1,11 @@
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const { api } = require('@electron-forge/core');
 const chalk = require('chalk');
-const { electronProjectPath } = require('../../lib/utils/build-paths');
+const {
+  electronProjectPath,
+  emberBuildDir,
+  emberTestBuildDir
+} = require('../../lib/utils/build-paths');
 const path = require('path');
 const denodeify = require('denodeify');
 const fs = require('fs');
@@ -47,6 +51,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
   async afterInstall() {
     await this.updateTravisYml();
+    await this.updateEslintIgnore();
     await this.createElectronProject();
   }
 
@@ -100,6 +105,19 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         `config read ${ciUrl}'.\nError:\n${e}`
       ].join(' ')));
     }
+  }
+
+  async updateEslintIgnore() {
+    const toAppend = [
+      '',
+      '# ember-electron',
+      `/${electronProjectPath}/node_modules/`,
+      `/${electronProjectPath}/out/`,
+      `/${electronProjectPath}/${emberBuildDir}/`,
+      `/${electronProjectPath}/${emberTestBuildDir}/`
+    ].join('\n');
+
+    await this.insertIntoFile('.eslintignore', toAppend);
   }
 
   async createElectronProject() {

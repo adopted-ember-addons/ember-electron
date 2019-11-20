@@ -148,6 +148,10 @@ describe('end-to-end', function() {
       });
     });
 
+    it('lints', async function() {
+      await expect(run('./node_modules/.bin/eslint', [ '.' ])).to.be.fulfilled;
+    });
+
     it('extra checks pass', () => {
       let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
 
