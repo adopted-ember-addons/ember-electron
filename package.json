@@ -59,7 +59,8 @@
     "portfinder": "^1.0.25",
     "rimraf": "^3.0.0",
     "silent-error": "^1.1.1",
-    "tree-kill": "^1.1.0"
+    "tree-kill": "^1.1.0",
+    "yawn-yaml": "^1.4.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.1.0",
