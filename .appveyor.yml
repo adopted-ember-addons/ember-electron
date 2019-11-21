@@ -3,12 +3,11 @@ platform:
 
 environment:
   matrix:
-    - nodejs_version: "8"
+    - nodejs_version: "10"
 
 cache:
-  - '%APPDATA%\npm-cache -> package.json' # Only load this from cache if package.json is unchanged
+  - '%APPDATA%\npm-cache -> yarn.lock' # Only load this from cache if yarn.lock is unchanged
   - '%LOCALAPPDATA%\Yarn'
-  - '%USERPROFILE%\.electron'
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
