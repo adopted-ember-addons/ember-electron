@@ -17,3 +17,7 @@ test_script:
   - yarn test
 
 build: off
+
+# we don't do anything different between branch and PR builds, so let's not
+# redundantly run both when a PR is open
+skip_branch_with_pr: true
