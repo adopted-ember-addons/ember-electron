@@ -1,6 +1,6 @@
 /* eslint-env node */
 module.exports = {
-  test_page: 'tests/index.html?hidepassed=1',
+  test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
   launchers: {
     Electron: require('./lib/test-support/test-runner'),
