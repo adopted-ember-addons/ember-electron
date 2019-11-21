@@ -101,7 +101,6 @@
     "mocha": "^6.2.2",
     "qunit-dom": "^0.9.0",
     "sass": "^1.23.3",
-    "semantic-release": "^15.10.6",
     "sinon": "^7.5.0",
     "sinon-chai": "^3.3.0",
     "tmp": "^0.1.0"

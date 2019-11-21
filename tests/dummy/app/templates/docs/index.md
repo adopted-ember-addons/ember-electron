@@ -43,14 +43,6 @@ Ember-Electron is a small open source project. Use [GitHub Issues](https://githu
 If you need help *using* the addon with your application, may we recommend the excellent Ember community? You can the [various places to get help here](https://www.emberjs.com/community/). In particular, the [Ember community Discord](https://discordapp.com/invite/emberjs) has a `#topic-desktop` channel which is a great place to ask questions about `ember-electron`. If you have questions regarding Electron, their [Slack and forum](https://electron.atom.io/contact/) will be helpful as well.
 
 
-## Development
-
-`ember-electron` uses [Semantic Release](https://github.com/semantic-release/semantic-release) to
-automate the whole release process. In order to have a PR merged, please ensure that your PR
-follows the commit guidelines so that our robots can understand your change. This repository uses
-`semantic-release`'s default [Angular commit message conventions](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).
-
-
 ## Authors
 
 Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-nwjs`](https://github.com/brzpegasus/ember-cli-nwjs)) and @joostdevries (author of [`ember-cli-remote-inspector`](https://github.com/joostdevries/ember-cli-remote-inspector)). Our gratitude to both of them for their amazing work.
