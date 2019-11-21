@@ -4,28 +4,18 @@ You can test your application using Electron with the `ember electron:test` comm
 
  * Install [`xvfb`](https://en.wikipedia.org/wiki/Xvfb). It's a virtual framebuffer, implementing the X11 display server protocol - it performs all graphical operations in memory without showing any screen output, which is exactly what we need. A [Jenkins addon is available](https://wiki.jenkins-ci.org/display/JENKINS/Xvfb+Plugin).
  * Create a virtual `xvfb` screen and export an environment variable called `DISPLAY` that points to it. Electron will automatically pick it up.
- * Install a recent C++ compiler (e.g. gcc). This is to enable the CI server to build native modules for Node.js.
- * Finally, ensure that `npm test` actually calls `ember electron:test`. You can configure what command `npm test executes` by changing it in your `package.json`.
+ * Finally, ensure that `npm test` or `yarn test` actually calls `ember electron:test`. You can configure what command `npm test executes` by changing it in your `package.json`.
 
-On Travis, the configuration should look like this:
+When you first install `ember-electron`, the blueprint will update your .travis.yml, but if it fails or you need to do it manually for some reason, your configuration should include the following:
 
 ```yaml
-env:
-  - CXX=g++-4.8
-
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
       - xvfb
-      - g++-4.8
-
-before_install:
-  - "npm config set spin false"
 
 install:
-  - npm install
+  - <npm or yarn install>
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 ```

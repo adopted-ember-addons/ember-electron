@@ -14,7 +14,7 @@ const writeFile = denodeify(fs.writeFile);
 const YAWN = require('yawn-yaml/cjs');
 const SilentError = require('silent-error');
 const {
-  upgradeUrl,
+  upgradingUrl,
   ciUrl
 } = require('../../lib/utils/documentation-urls');
 
@@ -44,7 +44,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       this.ui.writeLine(chalk.yellow([
         `\n'ember-electron' directory detected -- this looks like an ember-electron`,
         `v2 project. Setting up an updated project will not be destructive, but you`,
-        `should read the upgrade documentation at ${upgradeUrl}.\n`
+        `should read the upgrading documentation at ${upgradingUrl}.\n`
       ].join(' ')));
     }
   }

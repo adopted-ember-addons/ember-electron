@@ -14,31 +14,24 @@ An Ember addon to turn Ember apps into cross-platform desktop applications, taki
 * `ember electron:package` - Create binaries (.app, .exe, etc)
 * `ember electron:make` - Generate platform specific distributables (installers, distribution packages, etc)
 * `ember electron:build` - Build out Ember app with Electron instrumentation (useful for optimizing multi-platform builds)
-* `ember electron:assemble` - Assemble Electron application project (useful for debugging builds)
 
 To see a real world example, check out [Ghost Desktop](https://github.com/tryghost/Ghost-Desktop).
-
-
 
 ## Documentation
 
 ### Basics
-- [Installation](docs/guides/installation.md)
-- [Usage](docs/guides/usage.md)
-- [Configuration](docs/guides/configuration.md)
-- [Testing](docs/guides/testing.md)
-- [Packaging](docs/guides/packaging.md)
+- [Installation](docs/guides/installation)
+- [Usage](docs/guides/usage)
+- [Structure](docs/guides/structure)
 
 ### Advanced Guides
-- [Upgrading from ember-electron 1.x to 2.x](docs/guides/upgrade.md)
-- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](docs/guides/ci.md)
-- [Build pipeline](docs/guides/build-pipeline.md)
+- [Upgrading from ember-electron 2.x to 3.x](docs/guides/upgrading)
+- [Development and Debugging](docs/guides/development-and-debugging)
+- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](docs/guides/ci)
 
 ### FAQ
-
-- [Common issues](docs/faq/common-issues.md)
-- [File structure](docs/faq/structure.md)
-- [Security concerns](docs/faq/security.md)
+- [Common issues](docs/faq/common-issues)
+- [Security concerns](docs/faq/security)
 
 Somethings missing? Contributions to our docs are welcome!
 
@@ -47,7 +40,7 @@ Somethings missing? Contributions to our docs are welcome!
 
 Ember-Electron is a small open source project. Use [GitHub Issues](https://github.com/adopted-ember-addons/ember-electron/issues) to report bugs and errors within the addon.
 
-If you need help *using* the addon with your application, may we recommend the excellent Ember community? You can the [various places to get help here](https://www.emberjs.com/community/). If you have questions regarding Electron, their [Slack and forum](https://electron.atom.io/contact/) will be helpful as well.
+If you need help *using* the addon with your application, may we recommend the excellent Ember community? You can the [various places to get help here](https://www.emberjs.com/community/). In particular, the [Ember community Discord](https://discordapp.com/invite/emberjs) has a `#topic-desktop` channel which is a great place to ask questions about `ember-electron`. If you have questions regarding Electron, their [Slack and forum](https://electron.atom.io/contact/) will be helpful as well.
 
 
 ## Development
