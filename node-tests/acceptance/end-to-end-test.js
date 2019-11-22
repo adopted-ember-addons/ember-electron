@@ -10,8 +10,8 @@ const {
   writeFileSync,
   writeJsonSync,
 } = require('fs-extra');
-const denodeify = require('denodeify');
-const ncp = denodeify(require('ncp'));
+const { promisify } = require('util');
+const ncp = promisify(require('ncp'));
 const execa = require('execa');
 const tmp = require('tmp');
 const { expect } = require('chai');

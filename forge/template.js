@@ -1,9 +1,9 @@
-const denodeify = require('denodeify');
+const { promisify } = require('util');
 const path = require('path');
-const readFile = denodeify(require('fs').readFile);
-const writeFile = denodeify(require('fs').writeFile);
-const rimraf = denodeify(require('rimraf'));
-const ncp = denodeify(require('ncp'));
+const readFile = promisify(require('fs').readFile);
+const writeFile = promisify(require('fs').writeFile);
+const rimraf = promisify(require('rimraf'));
+const ncp = promisify(require('ncp'));
 const { emberBuildDir, emberTestBuildDir } = require('../lib/utils/build-paths');
 
 module.exports = {

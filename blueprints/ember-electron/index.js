@@ -7,10 +7,10 @@ const {
   emberTestBuildDir
 } = require('../../lib/utils/build-paths');
 const path = require('path');
-const denodeify = require('denodeify');
+const { promisify } = require('util');
 const fs = require('fs');
-const readFile = denodeify(fs.readFile);
-const writeFile = denodeify(fs.writeFile);
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
 const YAWN = require('yawn-yaml/cjs');
 const SilentError = require('silent-error');
 const {

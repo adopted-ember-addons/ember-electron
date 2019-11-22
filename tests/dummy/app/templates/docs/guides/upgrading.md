@@ -13,7 +13,7 @@ When prompted to overwrite `testem-electron.js`, choose `yes`.
 
 ## Fix electron version
 
-Your `electron-app` project will initially have the most recent release of Electron installed. You were probably running an older version since it was very difficult to run newer than Electron 4.x with `ember-electron` 2.x. So if you don't want to deal with upgrading Electron in the middle of upgrading `ember-electron`, you should change your `electron-app/package.json`'s `electron` version to match the version of `electron-prebuilt-compile` (which would determine the Electron version you were running) that is in your root `package.json`.
+Your `electron-app` project will initially have the most recent release of Electron installed. You were probably running an older version since it was very difficult to run newer than Electron 4.x with `ember-electron` 2.x. So if you don't want to deal with upgrading Electron in the middle of upgrading `ember-electron`, you should change your `electron-app/package.json`'s `electron` version to match the version of `electron-prebuilt-compile` (which would determine the Electron version you were running) that is in your root `package.json`. Don't forget to run `yarn`/`npm install` from `electron-app` afterwards!
 
 The good news is that now upgrading Electron just involves updating the version installed in the `electron-app` package -- no more waiting for `electron-prebuilt-compile` to release an update matching the latest Electron version!
 
