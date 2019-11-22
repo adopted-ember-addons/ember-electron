@@ -40,7 +40,7 @@ Somethings missing? Contributions to our docs are welcome!
 
 Ember-Electron is a small open source project. Use [GitHub Issues](https://github.com/adopted-ember-addons/ember-electron/issues) to report bugs and errors within the addon.
 
-If you need help *using* the addon with your application, may we recommend the excellent Ember community? You can the [various places to get help here](https://www.emberjs.com/community/). In particular, the [Ember community Discord](https://discordapp.com/invite/emberjs) has a `#topic-desktop` channel which is a great place to ask questions about `ember-electron`. If you have questions regarding Electron, their [Slack and forum](https://electron.atom.io/contact/) will be helpful as well.
+If you need help *using* the addon with your application, may we recommend the excellent Ember community? You can check out the [various places to get help here](https://www.emberjs.com/community/). In particular, the [Ember community Discord](https://discordapp.com/invite/emberjs) has a `#topic-desktop` channel which is a great place to ask questions about `ember-electron`. If you have questions regarding Electron, their [Slack and forum](https://electron.atom.io/contact/) will be helpful as well.
 
 
 ## Authors

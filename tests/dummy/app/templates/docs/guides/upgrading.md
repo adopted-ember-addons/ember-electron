@@ -96,7 +96,7 @@ protocolServe({
 
 ### test-main.js
 
-Generally you should not need to migrate `test-main.js` at all. It's default content in 2.x was:
+Generally you should not need to migrate `test-main.js` at all. Its default content in 2.x was:
 
 ```javascript
 /* eslint-env node */
@@ -111,9 +111,9 @@ If you don't have any files in any of the `ember-electron/resources` or `ember-e
 
 `ember-electron` 2.x managed the `resources-*` folders to allow you to specify platform-specific resources. `electron-forge` does not support this functionality, and it was one of the main factors contributing to the complexity and slowness of `ember-electron` 2.x's build pipeline, so it's been removed in 3.x.
 
-So if you only have content in `ember-electron/resources/`, you can just copy the folder into `electron-app`. Note that `src/index.js` is now in a subfolder, unlike `main.js` was in 2.x, so if you are accessing resources from your main process using, e.g., `path.join(__dirname, 'resources')`, you'll have to update it to `path.join(__dirname, '..', 'resources')` (or you could put the `resources` folder in the `src/` directory if you're some kind of monster).
+So if you only have content in ember-electron/resources/, you can copy the folder into electron-app and ignore the other ember-electron/resources-* folders. Note that `src/index.js` is now in a subfolder, unlike `main.js` was in 2.x, so if you are accessing resources from your main process using, e.g., `path.join(__dirname, 'resources')`, you'll have to update it to `path.join(__dirname, '..', 'resources')` (or you could put the `resources` folder in the `src/` directory if you like, although many folks prefer to not mix their code with non-code resources.)
 
-If you do have content in the platform-specific `resources-*` folders, you can between them at runtime, e.g. put your platform-specific resources in `resources/win32`, `resources/darwin`, and `resources-linux` and:
+If you do have content in the platform-specific `resources-*` folders, you can choose between them at runtime, e.g. put your platform-specific resources in `resources/win32`, `resources/darwin`, and `resources-linux` and:
 
 ```javascript
 let resourcePath = path.join('..', 'resources', process.platform, 'thing.json.txt');
