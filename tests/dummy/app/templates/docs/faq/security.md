@@ -43,3 +43,20 @@ and the MDN [Web security landing page](https://developer.mozilla.org/en-US/docs
   e.g. `Refused to load...because it violates the following Content Security Policy directive:...`
 * If there are no problems then you are done.
   Otherwise, you'll need to examine the code in violation and either make it compliant or adjust the policy to allow it.  
+
+## Why do I see "Electron Security Warning (Insecure Resources)" when running tests?
+
+To aid users in keeping their applications secure, Electron warns about any scripts
+or other resources loaded out of `index.html` without encryption (using `http:`
+rather than `https:`). When running tests, the renderer process has to load some
+resources from the local express server to allow it to communicate with testem, which
+manages the test run, and this cannot easily be done over `https:`. The expected list
+of URLs is:
+
+```
+- http://testemserver/testem.js
+- http://testemserver/testem/connection.html
+```
+
+We leave the security warnings enabled when running tests so you can see if it's warning
+about any other insecure content, besides the URLs listed about, loaded during tests.

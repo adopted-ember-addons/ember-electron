@@ -1,18 +1,15 @@
 # Installation & Setup
 
-> :warning: This addon needs at least Node 6.
+> This addon requires at least Node 8 and `ember-cli` 3.4.0
 
-To install the addon, run:
+## Installation
 
 ```sh
 ember install ember-electron
 ```
 
-Or, to install with npm - but please ensure (:warning:) that the blueprint generation runs - it creates necessary files and configuration for this addon to work. Please ensure that you have a populated `ember-electron` folder at the root of your project, and another one (only containing `lib/index.js`) in your `tests` directory.
+This will install `ember-electron` and create and initialize an [electron-forge](https://www.electronforge.io/) project in the `electron-app` directory inside your Ember app. Then you can run `ember electron` to launch your app in Electron.
 
-```sh
-npm install ember-electron
-ember g ember-electron
-```
+## Upgrading
 
-See [FAQ: Structure](../faq/structure.md) for more information on the layout of the `ember-electron` directory.
+See [Guides: Upgrading](./upgrading) for information on how to upgrade from `ember-electron` 2.x.

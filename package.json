@@ -42,51 +42,32 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "test": "yarn test-fast && yarn test-slow",
-    "test-fast": "mocha node-tests/unit/**/*.js ./node-tests/integration/**/*.js",
+    "test-fast": "mocha node-tests/integration/**/*.js",
     "test-slow": "mocha ./node-tests/acceptance/**/*.js"
   },
   "dependencies": {
-    "broccoli-file-creator": "^2.1.1",
-    "broccoli-funnel": "^2.0.2",
-    "broccoli-merge-trees": "^3.0.2",
-    "broccoli-source": "^3.0.0",
+    "@electron-forge/cli": "^6.0.0-beta.45",
     "broccoli-string-replace": "^0.1.2",
-    "capture-exit": "^2.0.0",
     "chalk": "^3.0.0",
-    "console-ui": "^2.2.3",
-    "core-object": "^3.1.0",
-    "electron-forge": "~5.2.4",
+    "debug": "^4.1.1",
     "electron-protocol-serve": "^1.3.0",
     "ember-cli-babel": "^7.11.1",
-    "ember-cli-htmlbars": "^4.0.5",
-    "ember-cli-version-checker": "^3.1.3",
     "ember-inspector": "^3.12.5",
-    "execa": "^3.3.0",
     "file-url": "^3.0.0",
-    "fs-extra": "^8.1.0",
-    "globby": "^10.0.1",
-    "lodash": "^4.15.0",
-    "quick-temp": "^0.1.5",
+    "ncp": "^2.0.0",
+    "portfinder": "^1.0.25",
     "rimraf": "^3.0.0",
-    "rsvp": "^4.0.1",
     "silent-error": "^1.1.1",
-    "symlink-or-copy": "^1.2.0",
-    "tmp": "^0.1.0",
     "tree-kill": "^1.1.0",
-    "tree-sync": "^2.0.0",
-    "yarn-or-npm": "^3.0.1"
+    "yawn-yaml": "^1.4.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.1.0",
     "babel-eslint": "^10.0.3",
-    "babel-plugin-transform-async-to-generator": "^6.22.0",
-    "babel-preset-env": "^1.2.2",
-    "babel-preset-react": "^6.23.0",
     "broccoli-asset-rev": "^3.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "electron-compile": "^6.4.3",
-    "electron-prebuilt-compile": "^4.0.0",
+    "console-ui": "^2.2.3",
     "ember-auto-import": "^1.5.2",
     "ember-cli": "~3.14.0",
     "ember-cli-addon-docs": "^0.6.15",
@@ -97,6 +78,7 @@
     "ember-cli-deploy-git": "^1.3.4",
     "ember-cli-deploy-git-ci": "^1.0.1",
     "ember-cli-eslint": "^5.1.0",
+    "ember-cli-htmlbars": "^4.0.5",
     "ember-cli-inject-live-reload": "^2.0.2",
     "ember-cli-sass": "^10.0.1",
     "ember-cli-sri": "^2.1.1",
@@ -105,7 +87,6 @@
     "ember-disable-prototype-extensions": "^1.1.3",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.1.0",
-    "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^4.5.1",
     "ember-resolver": "^5.3.0",
     "ember-source": "~3.14.1",
@@ -113,17 +94,19 @@
     "ember-try": "^1.2.1",
     "eslint-plugin-ember": "^7.5.0",
     "eslint-plugin-node": "^10.0.0",
+    "execa": "^3.3.0",
+    "fs-extra": "^8.1.0",
     "loader.js": "^4.7.0",
     "mocha": "^6.2.2",
-    "mock-spawn": "^0.2.6",
-    "mockery": "^2.1.0",
-    "ncp": "^2.0.0",
     "qunit-dom": "^0.9.0",
     "sass": "^1.23.3",
-    "semantic-release": "^15.10.6",
     "sinon": "^7.5.0",
-    "testdouble": "^3.12.4",
-    "walk-sync": "^2.0.2"
+    "sinon-chai": "^3.3.0",
+    "tmp": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@electron-forge/core": "*",
+    "ember-cli": "^3.4.0"
   },
   "engines": {
     "node": "8.* || >= 10.*"
@@ -137,9 +120,6 @@
       "ember-cli-sri",
       "ember-engines"
     ]
-  },
-  "config": {
-    "forge": "./ember-electron/electron-forge-config.js"
   },
   "homepage": "https://adopted-ember-addons.github.io/ember-electron"
 }

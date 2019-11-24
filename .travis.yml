@@ -2,7 +2,7 @@ language: node_js
 node_js:
   # we recommend testing addons with the same minimum supported node version as Ember CLI
   # so that your addon works for all apps
-  - "10"
+  - "8"
 
 sudo: false
 dist: trusty
@@ -37,7 +37,7 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
   include:
-    # runs linting and fast integration/unit tests
+    # runs linting and fast tests
     - stage: "Basic Tests"
       script:
         - yarn lint:hbs
@@ -50,16 +50,6 @@ jobs:
         - yarn test-slow
       env: END_TO_END_TESTS=yarn
     - env: END_TO_END_TESTS=npm
-
-    # Define the release stage that runs semantic-release
-    - stage: "Release"
-      node_js: lts/*
-      script: skip
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
 
 before_install:
   - yarn config set no-progress

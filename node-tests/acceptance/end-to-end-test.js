@@ -1,19 +1,27 @@
 'use strict';
 
+const {
+  electronProjectPath,
+  packageOutPath,
+  emberBuildDir,
+  emberTestBuildDir,
+  emberTestBuildPath
+} = require('../../lib/utils/build-paths');
 const path = require('path');
 const {
-  copySync,
   existsSync,
+  readdirSync,
   readFileSync,
   readJsonSync,
   removeSync,
   writeFileSync,
   writeJsonSync,
 } = require('fs-extra');
+const { promisify } = require('util');
+const ncp = promisify(require('ncp'));
 const execa = require('execa');
 const tmp = require('tmp');
-
-const expect = require('../helpers/expect');
+const { expect } = require('chai');
 
 function run(cmd, args, opts = {}) {
   opts.stdio = opts.stdio || 'inherit';
@@ -67,7 +75,7 @@ describe('end-to-end', function() {
   });
 
   afterEach(() => {
-    removeSync('electron-out');
+    removeSync(packageOutPath);
   });
 
   if (!process.env.END_TO_END_TESTS || process.env.END_TO_END_TESTS === 'yarn') {
@@ -123,81 +131,69 @@ describe('end-to-end', function() {
   }
 
   function runTests() {
-    it('tests', () => {
-      return expect(ember('electron:test')).to.eventually.be.fulfilled;
+    before(function() {
+      //
+      // Install fixture
+      //
+      let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
+
+      // Append our extra test content to the end of test-index.js
+      let testIndexPath = path.join('electron-app', 'tests', 'index.js');
+      let extraContentPath = path.join(fixturePath, 'test-index-extra.js');
+      let content = [
+        readFileSync(testIndexPath),
+        readFileSync(extraContentPath),
+      ].join('\n');
+      writeFileSync(testIndexPath, content);
+
+      // Copy the source files over
+      ncp(path.join(fixturePath, 'src'), path.join(electronProjectPath, 'src'));
     });
 
     it('builds', () => {
       return ember('electron:build').then(() => {
-        expect(existsSync(path.join('electron-out', 'ember'))).to.be.ok;
+        expect(existsSync(path.join('electron-app', 'ember-dist'))).to.be.ok;
       });
     });
 
-    it('assembles', () => {
-      return ember('electron:assemble').then(() => {
-        expect(existsSync(path.join('electron-out', 'project'))).to.be.ok;
-      });
+    it('tests', () => {
+      return expect(ember('electron:test')).to.eventually.be.fulfilled;
     });
 
-    it('packages', () => {
-      return ember('electron:package').then(() => {
-        expect(existsSync(path.join('electron-out', `ee-test-app-${process.platform}-${process.arch}`))).to.be.ok;
-      });
+    it('packages', async function() {
+      expect(existsSync(emberTestBuildPath)).to.be.ok;
+      expect(existsSync(path.join(electronProjectPath, 'tests'))).to.be.ok;
+
+      await expect(ember('electron:package')).to.be.fulfilled;
+
+      let packageDir = path.join(packageOutPath, `ee-test-app-${process.platform}-${process.arch}`);
+      expect(existsSync(packageDir)).to.be.ok;
+
+      let appPath;
+      if (process.platform === 'darwin') {
+        appPath = 'ee-test-app.app/Contents/Resources/app/';
+      } else {
+        appPath = 'resources/app';
+      }
+
+      let entries = readdirSync(path.join(packageDir, appPath));
+      expect(entries).to.include(emberBuildDir);
+      expect(entries).not.to.include(emberTestBuildDir);
+      expect(entries).not.to.include('tests');
     });
 
     it('makes', () => {
       // Only build zip target so we don't fail from missing platform dependencies
       // (e.g. rpmbuild)
-      return ember('electron:make', '--targets', 'zip').then(() => {
-        expect(existsSync(path.join('electron-out', 'make'))).to.be.ok;
+      return ember('electron:make', '--targets', '@electron-forge/maker-zip').then(() => {
+        expect(existsSync(path.join(packageOutPath, 'make'))).to.be.ok;
       });
     });
 
-    it('extra checks pass', () => {
-      let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
-
-      // Append our extra test content to the end of test-main.js
-      let testMainPath = path.join('ember-electron', 'test-main.js');
-      let extraContentPath = path.join(fixturePath, 'test-main-extra.js');
-      let content = [
-        readFileSync(testMainPath),
-        readFileSync(extraContentPath),
-      ].join('\n');
-      writeFileSync(path.join('ember-electron', 'test-main.js'), content);
-
-      // Copy the lib and resources directories over
-      ['lib', 'resources'].forEach((dir) => {
-        copySync(path.join(fixturePath, dir), path.join('ember-electron', dir));
-      });
-
-      return expect(ember('electron:test')).to.eventually.be.fulfilled;
+    it('lints after other commands have run', async function() {
+      await expect(run('./node_modules/.bin/eslint', [ '.' ])).to.be.fulfilled;
     });
   }
-
-  describe('test-runner.js/blueprint update', function() {
-    before(function() {
-      let { name: tmpDir } = tmp.dirSync();
-      process.chdir(tmpDir);
-
-      return ember('new', 'ee-test-app', '--yarn').then(() => {
-        process.chdir('ee-test-app');
-
-        return ember('install', 'ember-electron@2.7.2');
-      }).then(() => {
-        // Now that the old blueprint has been run, use yarn to update the addon
-        // to the current version
-        return run('yarn', ['add', '-D', path.join(packageTmpDir, 'package')]);
-      });
-    });
-
-    after(() => {
-      process.chdir(rootDir);
-    });
-
-    it('can run tests without re-running the blueprint (deprecated)', function() {
-      return expect(ember('electron:test')).to.eventually.be.fulfilled;
-    });
-  });
 });
 
 function listenForPrompts(child) {

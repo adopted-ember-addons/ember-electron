@@ -26,8 +26,7 @@ module.exports = {
     'processNode': true
   },
   rules: {
-    'ember/no-jquery': 'error',
-    'no-console': 'off'
+    'ember/no-jquery': 'error'
   },
   overrides: [
     // node files
@@ -60,10 +59,37 @@ module.exports = {
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
         'ember/avoid-leaking-state-in-ember-objects': 'off',
-        'node/no-unpublished-require': ['error', {
-          'allowModules': ['ember-cli']
+      })
+    },
+    // forge template files
+    {
+      files: [
+        'forge/files/**/*.js'
+      ],
+      env: {
+        browser: false,
+        node: true
+      },
+      plugins: ['node'],
+      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
+        'node/no-missing-require': ['error', {
+          'allowModules': [
+            'electron',
+            'ember-electron'
+          ],
         }]
       })
+    },
+    // mocha files
+    {
+      files: [
+        'node-tests/**/*.js'
+      ],
+      env: {
+        browser: false,
+        node: true,
+        mocha: true
+      }
     }
   ]
 };
