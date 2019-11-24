@@ -1,12 +1,7 @@
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const { api } = require('@electron-forge/core');
 const chalk = require('chalk');
-const {
-  electronProjectPath,
-  emberBuildDir,
-  emberTestBuildDir
-} = require('../../lib/utils/build-paths');
-const path = require('path');
+const { electronProjectPath } = require('../../lib/utils/build-paths');
 const { promisify } = require('util');
 const fs = require('fs');
 const readFile = promisify(fs.readFile);
@@ -52,14 +47,15 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   async afterInstall() {
     await this.updateTravisYml();
     await this.updateEslintIgnore();
+    await this.updateEslintRc();
     await this.createElectronProject();
   }
 
   async updateTravisYml() {
     if (!fs.existsSync('.travis.yml')) {
       this.ui.writeLine(chalk.yellow([
-        `\nNo .travis.yml found to update. For info on manually updating your CI'`,
-        `'config read ${ciUrl}'\n`
+        `\nNo .travis.yml found to update. For info on manually updating your CI`,
+        `config read ${ciUrl}\n`
       ].join(' ')));
       return;
     }
@@ -70,6 +66,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       let contents = await readFile('.travis.yml');
       let yawn = new YAWN(contents.toString());
 
+      // Add xvfb to the packages
       let doc = yawn.json;
       doc.addons = doc.addons || {};
       doc.addons.apt = doc.addons.apt || {};
@@ -84,40 +81,70 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       yawn.json = doc;
       doc = yawn.json;
 
+      // add install commands -- install dependencies in electron-app project,
+      // and export display and launch xvfb
       doc.install = doc.install || [];
+      let entry = doc.install.find(entry => entry.includes('yarn ') || entry.includes('npm '));
+      if (entry.includes('yarn')) {
+        doc.install.push('__yarn_install__');
+      } else {
+        doc.install.push('__npm_install__');
+      }
+
       if (!doc.install.find(entry => entry.toLowerCase().includes('xvfb'))) {
-        // also, yawn quotes strings with certain characters in them even though
-        // it isn't necessary, and it makes it harder to read. So we add
-        // placeholders that won't be quoted and replace them in the output
-        // string
         doc.install.push('__export_display__');
         doc.install.push('__xvfb__');
       }
 
+      if (!doc.install.find(entry => entry.toLowerCase().includes('xvfb'))) {
+        doc.install.push('__export_display__');
+        doc.install.push('__xvfb__');
+      }
+
+      // also, yawn quotes strings with certain characters in them even though
+      // it isn't necessary, and it makes it harder to read. So we add
+      // placeholders that won't be quoted and replace them in the output string
       yawn.json = doc;
       let output = yawn.yaml;
+      output = output.replace('__yarn__install__', `cd electron-app && yarn`);
+      output = output.replace('__npm__install__', `cd electron-app && npm install`);
       output = output.replace('__export_display__', `export DISPLAY=':99.0'`);
       output = output.replace('__xvfb__', 'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &');
+
       await writeFile('.travis.yml', output);
     } catch (e) {
       this.ui.writeLine(chalk.red([
         `Failed to update .travis.yml. For info on manually updating your CI`,
-        `config read ${ciUrl}'.\nError:\n${e}`
+        `config read ${ciUrl}.\nError:\n${e}`
       ].join(' ')));
     }
   }
 
+  //
+  // Add the Electron project directory to .eslintignore. Perhaps at some point
+  // we can put together a good pattern for linting the Electron app, but
+  // currently Electron forge has no out-of-box linting, so until there's some
+  // better tooling elsewhere that we can integrate with, ember-electron is
+  // going to say "not my job"
+  //
   async updateEslintIgnore() {
     const toAppend = [
       '',
       '# ember-electron',
-      `/${electronProjectPath}/node_modules/`,
-      `/${electronProjectPath}/out/`,
-      `/${electronProjectPath}/${emberBuildDir}/`,
-      `/${electronProjectPath}/${emberTestBuildDir}/`
+      `/${electronProjectPath}/`,
     ].join('\n');
 
     await this.insertIntoFile('.eslintignore', toAppend);
+  }
+
+  //
+  // Add testem-electron.js to the list of files in the rule that includes
+  // testem.js
+  //
+  async updateEslintRc() {
+    const after = /['"`]testem\.js['"`],/;
+    const content = '\n        \'testem-electron.js\',';
+    await this.insertIntoFile('.eslintrc.js', content, { after });
   }
 
   async createElectronProject() {
@@ -128,28 +155,5 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       interactive: true,
       template: 'ember-electron/forge/template'
     });
-
-    this.ui.writeLine(chalk.green(`Updating './${electronProjectPath}/package.json'`));
-
-    const keysToCopy = [
-      'name',
-      'version',
-      'description',
-      'author',
-      'license'
-    ];
-
-    let packageJsonPath = path.join(electronProjectPath, 'package.json');
-    let packageJson = JSON.parse(await readFile(packageJsonPath));
-
-    for (let key of keysToCopy) {
-      if (Object.keys(this.project.pkg).includes(key)) {
-        packageJson[key] = this.project.pkg[key];
-      }
-    }
-
-    // special-case productName since forge creates it, but a lot of apps don't
-    packageJson.productName = this.project.pkg.productName || packageJson.name;
-    await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
   }
 };

@@ -42,7 +42,7 @@ describe('electron:make command', function() {
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: 'electron-out',
+      outDir: 'electron-app/out',
       skipPackage: false
     });
     expect(api.make.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
@@ -72,7 +72,7 @@ describe('electron:make command', function() {
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: 'electron-out',
+      outDir: 'electron-app/out',
       skipPackage: false
     });
   });
@@ -83,7 +83,7 @@ describe('electron:make command', function() {
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: 'electron-out',
+      outDir: 'electron-app/out',
       skipPackage: true
     });
   });
@@ -94,7 +94,7 @@ describe('electron:make command', function() {
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: 'electron-out',
+      outDir: 'electron-app/out',
       skipPackage: true
     });
   });
@@ -120,7 +120,7 @@ describe('electron:make command', function() {
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: 'electron-out',
+      outDir: 'electron-app/out',
       skipPackage: false,
       overrideTargets: [ 'zip' ]
     });
@@ -131,7 +131,7 @@ describe('electron:make command', function() {
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: 'electron-out',
+      outDir: 'electron-app/out',
       skipPackage: false,
       overrideTargets: [ 'zip', 'dmg', 'deb' ]
     });

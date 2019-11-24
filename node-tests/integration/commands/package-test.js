@@ -42,7 +42,7 @@ describe('electron:package command', function() {
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: 'electron-out'
+      outDir: 'electron-app/out'
     });
     expect(api.package.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
   });

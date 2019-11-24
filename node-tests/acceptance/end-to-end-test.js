@@ -1,9 +1,16 @@
 'use strict';
 
-const { electronProjectPath } = require('../../lib/utils/build-paths');
+const {
+  electronProjectPath,
+  packageOutPath,
+  emberBuildDir,
+  emberTestBuildDir,
+  emberTestBuildPath
+} = require('../../lib/utils/build-paths');
 const path = require('path');
 const {
   existsSync,
+  readdirSync,
   readFileSync,
   readJsonSync,
   removeSync,
@@ -68,7 +75,7 @@ describe('end-to-end', function() {
   });
 
   afterEach(() => {
-    removeSync('electron-out');
+    removeSync(packageOutPath);
   });
 
   if (!process.env.END_TO_END_TESTS || process.env.END_TO_END_TESTS === 'yarn') {
@@ -124,35 +131,10 @@ describe('end-to-end', function() {
   }
 
   function runTests() {
-    it('tests', () => {
-      return expect(ember('electron:test')).to.eventually.be.fulfilled;
-    });
-
-    it('builds', () => {
-      return ember('electron:build').then(() => {
-        expect(existsSync(path.join('electron-app', 'ember-dist'))).to.be.ok;
-      });
-    });
-
-    it('packages', () => {
-      return ember('electron:package').then(() => {
-        expect(existsSync(path.join('electron-out', `ee-test-app-${process.platform}-${process.arch}`))).to.be.ok;
-      });
-    });
-
-    it('makes', () => {
-      // Only build zip target so we don't fail from missing platform dependencies
-      // (e.g. rpmbuild)
-      return ember('electron:make', '--targets', '@electron-forge/maker-zip').then(() => {
-        expect(existsSync(path.join('electron-out', 'make'))).to.be.ok;
-      });
-    });
-
-    it('lints', async function() {
-      await expect(run('./node_modules/.bin/eslint', [ '.' ])).to.be.fulfilled;
-    });
-
-    it('extra checks pass', () => {
+    before(function() {
+      //
+      // Install fixture
+      //
       let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
 
       // Append our extra test content to the end of test-index.js
@@ -166,8 +148,50 @@ describe('end-to-end', function() {
 
       // Copy the source files over
       ncp(path.join(fixturePath, 'src'), path.join(electronProjectPath, 'src'));
+    });
 
+    it('builds', () => {
+      return ember('electron:build').then(() => {
+        expect(existsSync(path.join('electron-app', 'ember-dist'))).to.be.ok;
+      });
+    });
+
+    it('tests', () => {
       return expect(ember('electron:test')).to.eventually.be.fulfilled;
+    });
+
+    it('packages', async function() {
+      expect(existsSync(emberTestBuildPath)).to.be.ok;
+      expect(existsSync(path.join(electronProjectPath, 'tests'))).to.be.ok;
+
+      await expect(ember('electron:package')).to.be.fulfilled;
+
+      let packageDir = path.join(packageOutPath, `ee-test-app-${process.platform}-${process.arch}`);
+      expect(existsSync(packageDir)).to.be.ok;
+
+      let appPath;
+      if (process.platform === 'darwin') {
+        appPath = 'ee-test-app.app/Contents/Resources/app/';
+      } else {
+        appPath = 'resources/app';
+      }
+
+      let entries = readdirSync(path.join(packageDir, appPath));
+      expect(entries).to.include(emberBuildDir);
+      expect(entries).not.to.include(emberTestBuildDir);
+      expect(entries).not.to.include('tests');
+    });
+
+    it('makes', () => {
+      // Only build zip target so we don't fail from missing platform dependencies
+      // (e.g. rpmbuild)
+      return ember('electron:make', '--targets', '@electron-forge/maker-zip').then(() => {
+        expect(existsSync(path.join(packageOutPath, 'make'))).to.be.ok;
+      });
+    });
+
+    it('lints after other commands have run', async function() {
+      await expect(run('./node_modules/.bin/eslint', [ '.' ])).to.be.fulfilled;
     });
   }
 });
