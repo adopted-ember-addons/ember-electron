@@ -40,6 +40,7 @@
     "test": "tests"
   },
   "scripts": {
+    "after:release": "ember deploy production",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "test": "yarn test-fast && yarn test-slow",
