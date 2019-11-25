@@ -3,21 +3,21 @@
   "version": "2.10.0",
   "description": "An addon for building Desktop apps with Ember and Electron.",
   "keywords": [
-    "ember-addon",
-    "electron",
     "atom",
-    "chromium"
+    "chromium",
+    "electron",
+    "ember-addon"
   ],
+  "homepage": "https://adopted-ember-addons.github.io/ember-electron",
+  "bugs": {
+    "url": "https://github.com/adopted-ember-addons/ember-electron/issues"
+  },
   "repository": "https://github.com/adopted-ember-addons/ember-electron.git",
   "license": "MIT",
   "author": {
     "name": "Felix Rieseberg",
     "email": "felix@felixrieseberg.com",
     "url": "http://www.felixrieseberg.com"
-  },
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
   },
   "contributors": [
     {
@@ -35,8 +35,9 @@
       "url": "https://github.com/bendemboski"
     }
   ],
-  "bugs": {
-    "url": "https://github.com/adopted-ember-addons/ember-electron/issues"
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
   },
   "scripts": {
     "lint:hbs": "ember-template-lint .",
@@ -99,6 +100,8 @@
     "loader.js": "^4.7.0",
     "mocha": "^6.2.2",
     "qunit-dom": "^0.9.0",
+    "release-it": "^12.2.1",
+    "release-it-lerna-changelog": "^1.0.3",
     "sass": "^1.23.3",
     "sinon": "^7.5.0",
     "sinon-chai": "^3.3.0",
@@ -111,6 +114,9 @@
   "engines": {
     "node": "8.* || >= 10.*"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "ember-addon": {
     "defaultBlueprint": "ember-electron",
     "versionCompatibility": {
@@ -121,5 +127,17 @@
       "ember-engines"
     ]
   },
-  "homepage": "https://adopted-ember-addons.github.io/ember-electron"
+  "release-it": {
+    "plugins": {
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md"
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true
+    }
+  }
 }
