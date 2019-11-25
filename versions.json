@@ -9,12 +9,18 @@
     "path": "",
     "name": "Latest",
     "sha": "8859aadeeabf05dcdffc9c63202e59d2d435ae0f",
-    "tag": null
+    "tag": "v2.10.2"
   },
   "v3.0.0-beta.0": {
     "path": "versions/v3.0.0-beta.0",
     "name": "v3.0.0-beta.0",
     "sha": "59923103e3977fd555353225669c1179b0088000",
     "tag": "v3.0.0-beta.0"
+  },
+  "v2.10.2": {
+    "path": "versions/v2.10.2",
+    "name": "v2.10.2",
+    "sha": "8859aadeeabf05dcdffc9c63202e59d2d435ae0f",
+    "tag": "v2.10.2"
   }
 }
