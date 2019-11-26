@@ -4,3 +4,15 @@ fileUrl('foo.html');
 // Make sure local libraries are loadable
 const helper = require('../src/helper');
 helper();
+
+const { app, BrowserWindow } = require('electron');
+
+app.once('browser-window-created', (event, win) => {
+  win.webContents.on('did-finish-load', () => {
+    let extensions = BrowserWindow.getDevToolsExtensions();
+    if (!extensions.hasOwnProperty('devtron') || !extensions.hasOwnProperty('Ember Inspector')) {
+      console.error('devtron and/or ember-inspector not installed', Object.keys(extensions)); // eslint-disable-line no-console
+      app.exit(-1);
+    }
+  });
+});
