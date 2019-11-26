@@ -20,18 +20,18 @@ To see a real world example, check out [Ghost Desktop](https://github.com/trygho
 ## Documentation
 
 ### Basics
-- [Installation](docs/guides/installation)
-- [Usage](docs/guides/usage)
-- [Structure](docs/guides/structure)
+- [Installation](guides/installation)
+- [Usage](guides/usage)
+- [Structure](guides/structure)
 
 ### Advanced Guides
-- [Upgrading from ember-electron 2.x to 3.x](docs/guides/upgrading)
-- [Development and Debugging](docs/guides/development-and-debugging)
-- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](docs/guides/ci)
+- [Upgrading from ember-electron 2.x to 3.x](guides/upgrading)
+- [Development and Debugging](guides/development-and-debugging)
+- [Testing on CI (Travis, AppVeyor, CircleCI, etc)](guides/ci)
 
 ### FAQ
-- [Common issues](docs/faq/common-issues)
-- [Security concerns](docs/faq/security)
+- [Common issues](faq/common-issues)
+- [Security concerns](faq/security)
 
 Somethings missing? Contributions to our docs are welcome!
 
