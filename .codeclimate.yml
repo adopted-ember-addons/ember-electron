@@ -1,0 +1,20 @@
+version: "2"
+checks:
+  argument-count:
+    config:
+      threshold: 10
+  method-count:
+    config:
+      threshold: 25
+  method-lines:
+    config:
+      threshold: 30
+exclude_patterns:
+  - ".eslintrc.js"
+  - ".template-lintrc.js"
+  - "dist/"
+  - "**/node_modules/"
+  - "**/node-tests/"
+  - "**/test/"
+  - "**/tests/"
+  - "**/vendor/"
