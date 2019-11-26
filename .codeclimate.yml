@@ -8,7 +8,7 @@ checks:
       threshold: 25
   method-lines:
     config:
-      threshold: 30
+      threshold: 50
 exclude_patterns:
   - ".eslintrc.js"
   - ".template-lintrc.js"
