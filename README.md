@@ -5,6 +5,7 @@
 ![Latest release on NPM](https://img.shields.io/npm/v/ember-electron.svg) 
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/5rhwhar361uad07v?svg=true)](https://ci.appveyor.com/project/rwwagner90/ember-electron)
 ![Travis CI Build Status](https://secure.travis-ci.org/adopted-ember-addons/ember-electron.svg?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1fd0e70c952841eb488b/maintainability)](https://codeclimate.com/github/adopted-ember-addons/ember-electron/maintainability)
 
 An Ember addon to turn Ember apps into cross-platform desktop applications, taking care of development, tests, compilation, and installer creation.
 
