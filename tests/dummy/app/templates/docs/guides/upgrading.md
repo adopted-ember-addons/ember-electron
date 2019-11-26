@@ -123,4 +123,4 @@ If you need to exclude files for other platforms from your packaged build, you c
 
 ### code/files/etc
 
-Anything else that was in the `ember-electron` in 2.x should be "just files" -- `.js` files `require`d from the main process or `requireNode`d from the Ember app, or other files accessed via the filesystem APIs. So these can be migrated into `electron-app` however seems best, updating the references to their paths in other source files as needed.
+Anything else that was in the `ember-electron` folder in 2.x should be "just files" -- `.js` files `require`d from the main process or `requireNode`d from the Ember app, or other files accessed via the filesystem APIs. So these can be migrated into `electron-app` however seems best, updating the references to their paths in other source files as needed.
