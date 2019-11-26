@@ -54,7 +54,8 @@ async function updatePackageJson(dir) {
 
 module.exports = {
   devDependencies: [
-    'devtron'
+    'devtron',
+    'ember-inspector'
   ],
   dependencies: [
     'electron-protocol-serve'

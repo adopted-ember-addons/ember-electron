@@ -30,34 +30,28 @@ function installExtensions() {
     let path = window.requireNode('path');
     let fs = window.requireNode('fs');
 
-    let eiLocation = window.requireNode.resolve('ember-inspector');
-    let location = path.join(eiLocation, 'dist', 'chrome');
+    let location = path.dirname(window.requireNode.resolve('ember-inspector/dist/chrome/devtools.js'));
+    if (!location) {
+      console.warn('Unable to locate ember-inspector', err);
+      return;
+    }
 
-    fs.lstat(location, function(err, results) {
-      if (err) {
-        console.warn('Error loading Ember Inspector', err);
+    let { BrowserWindow } = window.requireNode('electron').remote;
+    let added = BrowserWindow.getDevToolsExtensions
+      && BrowserWindow.getDevToolsExtensions().hasOwnProperty('Ember Inspector');
+
+    if (!added) {
+      try {
+        BrowserWindow.addDevToolsExtension(location);
+      } catch(err) {
+        console.warn('Error enabling Ember Inspector', err)
         return;
       }
-
-      if (results && results.isDirectory && results.isDirectory()) {
-        let { BrowserWindow } = window.requireNode('electron').remote;
-        let added = BrowserWindow.getDevToolsExtensions
-          && BrowserWindow.getDevToolsExtensions().hasOwnProperty('Ember Inspector');
-
-        if (!added) {
-          try {
-            BrowserWindow.addDevToolsExtension(location);
-          } catch(err) {
-            console.warn('Error enabling Ember Inspector', err)
-            return;
-          }
-        }
-      }
-    });
+    }
   }
 
   installDevtron();
   installEmberInspector();
 }
 
-document.addEventListener('DOMContentLoaded', installExtension);
+document.addEventListener('DOMContentLoaded', installExtensions);
