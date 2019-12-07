@@ -8,6 +8,7 @@ const { expect } = require('chai');
 const BuildTask = require('ember-cli/lib/tasks/build');
 const PackageCommand = require('../../../lib/commands/package');
 const PackageTask = require('../../../lib/tasks/package');
+const DependencyChecker = require('ember-cli-dependency-checker/lib/dependency-checker');
 const { api } = require('@electron-forge/core');
 const path = require('path');
 const rimraf = require('rimraf');
@@ -57,6 +58,12 @@ describe('electron:package command', function() {
 
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(envVal).to.be.ok;
+  });
+
+  it('runs the dependency checker', async function() {
+    sinon.spy(DependencyChecker.prototype, 'checkDependencies');
+    await expect(command.validateAndRun([])).to.be.fulfilled;
+    expect(DependencyChecker.prototype.checkDependencies).to.be.calledOnce;
   });
 
   it('builds for the correct environment', async function() {

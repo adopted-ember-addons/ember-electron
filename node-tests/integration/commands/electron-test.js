@@ -1,6 +1,7 @@
 'use strict';
 
 const ElectronCommand = require('../../../lib/commands/electron');
+const DependencyChecker = require('ember-cli-dependency-checker/lib/dependency-checker');
 const mockElectronProject = require('../../helpers/mock-electron-project');
 const MockUI = require('console-ui/mock');
 const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
@@ -98,6 +99,12 @@ describe('electron command', function() {
     expect(api.start.firstCall).be.calledAfter(startServerStub.firstCall);
     expect(cleanupBuilderStub).be.calledOnce;
     expect(cleanupBuilderStub.firstCall).be.calledAfter(emitExitStub.firstCall);
+  });
+
+  it('runs the dependency checker', async function() {
+    sinon.spy(DependencyChecker.prototype, 'checkDependencies');
+    await expect(command.validateAndRun([])).to.be.fulfilled;
+    expect(DependencyChecker.prototype.checkDependencies).to.be.calledOnce;
   });
 
   it('passes the correct path to electron-forge', async function() {
