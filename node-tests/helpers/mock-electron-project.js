@@ -1,5 +1,6 @@
 const tmp = require('tmp');
-const { existsSync, mkdirSync } = require('fs');
+const { existsSync, mkdirSync, writeFileSync } = require('fs');
+const path = require('path');
 const { electronProjectPath } = require('../../lib/utils/build-paths');
 
 module.exports = function() {
@@ -18,6 +19,10 @@ module.exports = function() {
     // testing error behavior or something
     if (!existsSync(electronProjectPath)) {
       mkdirSync(electronProjectPath);
+    }
+    let packageJsonPath = path.join(electronProjectPath, 'package.json');
+    if (!existsSync(packageJsonPath)) {
+      writeFileSync(packageJsonPath, '{}');
     }
   });
 }
