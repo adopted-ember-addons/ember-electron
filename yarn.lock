@@ -791,22 +791,7 @@
     ora "^4.0.3"
     pretty-ms "^5.0.0"
 
-"@electron-forge/cli@^6.0.0-beta.45":
-  version "6.0.0-beta.46"
-  resolved "https://registry.yarnpkg.com/@electron-forge/cli/-/cli-6.0.0-beta.46.tgz#4191a1ca9ea8fc4b189c2cf0217e0af0ade00dc1"
-  integrity sha512-0gCc/73ZlvzSwoJWHz6dqT5ZwbAQ/8I0sB6r0R9NndZdmiQvA/FTyPiOWdjk5DB1VxM4szmwJGiAlf6Ae38vxQ==
-  dependencies:
-    "@electron-forge/async-ora" "6.0.0-beta.46"
-    "@electron-forge/core" "6.0.0-beta.46"
-    "@electron/get" "^1.6.0"
-    colors "^1.4.0"
-    commander "^4.0.1"
-    debug "^4.1.0"
-    fs-extra "^8.1.0"
-    inquirer "^7.0.0"
-    semver "^6.3.0"
-
-"@electron-forge/core@6.0.0-beta.46":
+"@electron-forge/core@^6.0.0-beta.45":
   version "6.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@electron-forge/core/-/core-6.0.0-beta.46.tgz#5a10963f7b234587d1a602d7beaa80286b8d0839"
   integrity sha512-x4XeJGU7XQrUdJVv5Rg4MaWFeSwkS6GDatA/HgbZ7BUHvkDzqR02qSmAOgOMkneE4V/HMB56/wY2D+IxUKbUUw==
@@ -4596,11 +4581,6 @@ commander@^2.11.0, commander@^2.15.1, commander@^2.20.0, commander@^2.6.0, comma
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
-
-commander@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-4.0.1.tgz#b67622721785993182e807f4883633e6401ba53c"
-  integrity sha512-IPF4ouhCP+qdlcmCedhxX4xiGBPyigb8v5NeUp+0LyhwLgxMqyp3S0vl7TAPfS/hiP7FC3caI/PB9lTmP8r1NA==
 
 comment-regex@^1.0.0:
   version "1.0.1"
@@ -8683,7 +8663,7 @@ inline-source-map-comment@^1.0.5:
     sum-up "^1.0.1"
     xtend "^4.0.0"
 
-inquirer@7.0.0, inquirer@^7.0.0:
+inquirer@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-7.0.0.tgz#9e2b032dde77da1db5db804758b8fea3a970519a"
   integrity sha512-rSdC7zelHdRQFkWnhsMu2+2SO41mpv2oF2zy4tMhmiLWkcKbOAs87fWAJhVXttKVwhdZvymvnuM95EyEXg2/tQ==
