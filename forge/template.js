@@ -1,3 +1,4 @@
+const { BaseTemplate } = require('@electron-forge/template-base');
 const { promisify } = require('util');
 const path = require('path');
 const readFile = promisify(require('fs').readFile);
@@ -52,22 +53,37 @@ async function updatePackageJson(dir) {
   await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
 }
 
-module.exports = {
-  devDependencies: [
-    'devtron',
-    'ember-inspector'
-  ],
-  dependencies: [
-    'electron-protocol-serve'
-  ],
+class EmberElectronTemplates extends BaseTemplate {
+  constructor() {
+    super(...arguments);
+    this.templateDir = path.join(__dirname, 'files');
+  }
+
+  get devDependencies() {
+    return [
+      'devtron',
+      'ember-inspector'
+    ];
+  }
+  get dependencies() {
+    return [
+      'electron-protocol-serve'
+    ];
+  }
+
   async initializeTemplate(dir) {
+    await super.initializeTemplate(...arguments);
+
     // delete source directory with default files
     await rimraf(path.join(dir, 'src'));
 
     // copy our initial content
-    await ncp(path.join(__dirname, 'files'), dir);
+    await ncp(this.templateDir, dir);
 
     await updateGitIgnore(dir);
     await updatePackageJson(dir);
   }
-};
+
+}
+
+module.exports = new EmberElectronTemplates();
