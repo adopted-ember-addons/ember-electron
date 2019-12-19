@@ -1,0 +1,38 @@
+---
+  language: node_js
+  node_js:
+    - "8"
+
+  sudo: false
+  dist: trusty
+
+  addons:
+    chrome: stable
+    apt:
+      packages:
+        - xvfb
+
+  cache:
+    directories:
+      - $HOME/.npm
+
+  env:
+    global:
+      # See https://git.io/vdao3 for details.
+      - JOBS=1
+
+  branches:
+    only:
+      - master
+
+  install:
+    - npm install
+    - echo "installed"
+    - cd electron-app && npm install
+    - export DISPLAY=':99.0'
+    - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+  script:
+    - npm run lint:hbs
+    - npm run lint:js
+    - npm test
