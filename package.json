@@ -145,5 +145,5 @@
   "config": {
     "forge": "./ember-electron/electron-forge-config.js"
   },
-  "homepage": "https://adopted-ember-addons.github.io/ember-electron"
+  "homepage": "https://ember-electron.js.org"
 }
