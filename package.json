@@ -8,7 +8,7 @@
     "electron",
     "ember-addon"
   ],
-  "homepage": "https://ember-electron.js.org/ember-electron",
+  "homepage": "https://ember-electron.js.org",
   "bugs": {
     "url": "https://github.com/adopted-ember-addons/ember-electron/issues"
   },
