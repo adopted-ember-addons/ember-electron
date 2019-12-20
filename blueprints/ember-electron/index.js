@@ -83,17 +83,20 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
       // add install commands -- install dependencies in electron-app project,
       // and export display and launch xvfb
+      let hasInstallSection = Boolean(doc.install);
       doc.install = doc.install || [];
-      let entry = doc.install.find(entry => entry.includes('yarn ') || entry.includes('npm '));
-      if (entry.includes('yarn')) {
+      let usesYarn = Boolean(doc.install.find(entry => entry.includes('yarn ')));
+
+      if (usesYarn) {
         doc.install.push('__yarn_install__');
       } else {
+        if (!hasInstallSection) {
+          // If no install section is specified, travis defaults to running
+          // `npm install`, so if we're adding an install section, we need to
+          // explicitly add that since it will no longer be run by default.
+          doc.install.push('__npm_install_root__');
+        }
         doc.install.push('__npm_install__');
-      }
-
-      if (!doc.install.find(entry => entry.toLowerCase().includes('xvfb'))) {
-        doc.install.push('__export_display__');
-        doc.install.push('__xvfb__');
       }
 
       if (!doc.install.find(entry => entry.toLowerCase().includes('xvfb'))) {
@@ -106,8 +109,9 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       // placeholders that won't be quoted and replace them in the output string
       yawn.json = doc;
       let output = yawn.yaml;
-      output = output.replace('__yarn__install__', `cd electron-app && yarn`);
-      output = output.replace('__npm__install__', `cd electron-app && npm install`);
+      output = output.replace('__yarn_install__', `cd electron-app && yarn install --non-interactive`);
+      output = output.replace('__npm_install_root__', `npm install`);
+      output = output.replace('__npm_install__', `cd electron-app && npm install`);
       output = output.replace('__export_display__', `export DISPLAY=':99.0'`);
       output = output.replace('__xvfb__', 'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &');
 

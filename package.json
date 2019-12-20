@@ -43,7 +43,7 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "test": "yarn test-fast && yarn test-slow",
-    "test-fast": "mocha node-tests/integration/**/*.js",
+    "test-fast": "mocha node-tests/integration/**/*.js node-tests/unit/**/*.js",
     "test-slow": "mocha node-tests/acceptance/**/*.js"
   },
   "dependencies": {
