@@ -1,3 +1,23 @@
+## v3.0.0-beta.1 (2019-12-22)
+
+#### :rocket: Enhancement
+* [#437](https://github.com/adopted-ember-addons/ember-electron/pull/437) Update to electron-forge beta 47 ([@bendemboski](https://github.com/bendemboski))
+* [#433](https://github.com/adopted-ember-addons/ember-electron/pull/433) feat: check dependencies in Electron project ([@bendemboski](https://github.com/bendemboski))
+
+#### :bug: Bug Fix
+* [#434](https://github.com/adopted-ember-addons/ember-electron/pull/434) fix: update .travis.yml correctly from the blueprint ([@bendemboski](https://github.com/bendemboski))
+* [#438](https://github.com/adopted-ember-addons/ember-electron/pull/438) fix: update docs root URL ([@bendemboski](https://github.com/bendemboski))
+* [#432](https://github.com/adopted-ember-addons/ember-electron/pull/432) fix: use a single version of electron-forge ([@bendemboski](https://github.com/bendemboski))
+* [#424](https://github.com/adopted-ember-addons/ember-electron/pull/424) fix: install devtron and ember-inspector ([@bendemboski](https://github.com/bendemboski))
+
+#### :memo: Documentation
+* [#436](https://github.com/adopted-ember-addons/ember-electron/pull/436) Update docs URL ([@bendemboski](https://github.com/bendemboski))
+* [#421](https://github.com/adopted-ember-addons/ember-electron/pull/421) Docs after release ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v3.0.0-beta.0 (2019-11-25)
 
 #### :boom: Breaking Change
