@@ -12,7 +12,7 @@ An Ember addon to turn Ember apps into cross-platform desktop applications, taki
 Documentation
 ------------------------------------------------------------------------------
 
-[View Docs](https://ember-electron.js.org/ember-electron/)
+[View Docs](https://ember-electron.js.org/docs/)
 
 
 ## Support
