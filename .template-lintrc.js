@@ -1,5 +1,8 @@
 'use strict';
 
 module.exports = {
-  extends: 'recommended'
+  extends: 'recommended',
+  rules: {
+    'require-valid-alt-text': false
+  }
 };
