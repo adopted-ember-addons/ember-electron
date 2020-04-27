@@ -112,7 +112,7 @@
     "ember-cli-dependency-checker": "^3.1.0"
   },
   "engines": {
-    "node": "8.* || >= 10.*"
+    "node": "10.* || >= 12"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
