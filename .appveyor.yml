@@ -3,7 +3,7 @@ platform:
 
 environment:
   matrix:
-    - nodejs_version: "8"
+    - nodejs_version: "10"
 
 cache:
   - '%APPDATA%\npm-cache -> yarn.lock' # Only load this from cache if yarn.lock is unchanged
