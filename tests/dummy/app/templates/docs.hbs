@@ -1,5 +1,5 @@
-{{#docs-viewer as |viewer|}}
-  {{#viewer.nav as |nav|}}
+<DocsViewer as |viewer|>
+  <viewer.nav as |nav|>
     {{nav.section "Getting Started"}}
 
     {{nav.section "Guides"}}
@@ -13,13 +13,13 @@
     {{nav.section "FAQ"}}
     {{nav.item "Common Issues" "docs.faq.common-issues"}}
     {{nav.item "Security" "docs.faq.security"}}
-  {{/viewer.nav}}
+  </viewer.nav>
 
-  {{#viewer.main}}
+  <viewer.main>
     <div class="docs-container">
       <div class="docs-section">
         {{outlet}}
       </div>
     </div>
-  {{/viewer.main}}
-{{/docs-viewer}}
+  </viewer.main>
+</DocsViewer>

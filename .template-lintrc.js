@@ -1,5 +1,8 @@
 'use strict';
 
 module.exports = {
-  extends: 'recommended'
+  extends: 'octane',
+  rules: {
+    'require-valid-alt-text': false
+  }
 };
