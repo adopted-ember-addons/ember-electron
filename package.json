@@ -43,6 +43,7 @@
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
+    "release": "release-it",
     "test": "npm-run-all lint:* test:electron",
     "test:electron": "yarn test-fast && yarn test-slow",
     "test:ember": "ember test",
