@@ -21,7 +21,9 @@ const sinon = require('sinon');
 class MockWatcher extends EventEmitter {
   constructor() {
     super(...arguments);
-    this.then = sinon.stub().callsFake((resolve) => resolve());
+    this.currentBuild = {
+      then: sinon.stub().callsFake((resolve) => resolve())
+    };
   }
 }
 
@@ -57,7 +59,7 @@ describe('electron command', function() {
     });
     sinon.stub(Builder.prototype, 'build').resolves();
     cleanupBuilderStub = sinon.stub(Builder.prototype, 'cleanup').resolves();
-    createWatcherStub = sinon.stub(Watcher.prototype, 'constructWatcher').returns(mockBrocWatcher);
+    createWatcherStub = sinon.stub(Watcher.prototype, 'constructBroccoliWatcher').returns(mockBrocWatcher);
     startServerStub = sinon.stub(ExpressServer.prototype, 'start').resolves();
     sinon.stub(api, 'start').callsFake(() => {
       // make electron process exit right after start promise resolves
