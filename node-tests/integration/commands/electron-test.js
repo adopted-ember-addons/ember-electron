@@ -94,10 +94,10 @@ describe('electron command', function() {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(createBuilderStub).to.be.calledOnce;
     expect(createWatcherStub).to.be.calledOnce;
-    expect(mockBrocWatcher.then).to.be.calledOnce;
+    expect(mockBrocWatcher.currentBuild.then).to.be.calledOnce;
     expect(startServerStub).to.be.calledOnce;
     expect(api.start).to.be.calledOnce;
-    expect(api.start.firstCall).be.calledAfter(mockBrocWatcher.then.firstCall);
+    expect(api.start.firstCall).be.calledAfter(mockBrocWatcher.currentBuild.then.firstCall);
     expect(api.start.firstCall).be.calledAfter(startServerStub.firstCall);
     expect(cleanupBuilderStub).be.calledOnce;
     expect(cleanupBuilderStub.firstCall).be.calledAfter(emitExitStub.firstCall);
