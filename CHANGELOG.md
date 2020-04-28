@@ -1,3 +1,15 @@
+## v3.0.0-beta.2 (2020-04-28)
+
+#### :boom: Breaking Change
+* [#446](https://github.com/adopted-ember-addons/ember-electron/pull/446) Drop node 8 support ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :memo: Documentation
+* [#439](https://github.com/adopted-ember-addons/ember-electron/pull/439) Fix Docs URL ([@devotox](https://github.com/devotox))
+
+#### Committers: 2
+- Devonte ([@devotox](https://github.com/devotox))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v3.0.0-beta.1 (2019-12-22)
 
 #### :rocket: Enhancement
