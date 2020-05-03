@@ -2,8 +2,12 @@ function installExtensions() {
   try {
     window.requireNode('fs');
   } catch (e) {
-    console.warn('ember-electron is unable to require node modules, possibly because nodeIntegration is not enabled.');
-    console.warn('This prevents the installation of the Ember Inspector and Devtron extensions. Error:');
+    console.warn(
+      'ember-electron is unable to require node modules, possibly because nodeIntegration is not enabled.'
+    );
+    console.warn(
+      'This prevents the installation of the Ember Inspector and Devtron extensions. Error:'
+    );
     console.warn(e);
     return;
   }
@@ -18,7 +22,7 @@ function installExtensions() {
       if (devtron) {
         devtron.install();
       }
-    } catch(e) {
+    } catch (e) {
       console.error('Error installing devtron', e);
     }
   }
@@ -27,27 +31,14 @@ function installExtensions() {
    * Install Ember-Inspector in the current window.
    */
   function installEmberInspector() {
-    let path = window.requireNode('path');
-    let fs = window.requireNode('fs');
+    const { default: installExtension, EMBER_INSPECTOR } = window.requireNode('electron-devtools-installer');
+    let { app } = window.requireNode('electron').remote;
 
-    let location = path.dirname(window.requireNode.resolve('ember-inspector/dist/chrome/devtools.js'));
-    if (!location) {
-      console.warn('Unable to locate ember-inspector', err);
-      return;
-    }
-
-    let { BrowserWindow } = window.requireNode('electron').remote;
-    let added = BrowserWindow.getDevToolsExtensions
-      && BrowserWindow.getDevToolsExtensions().hasOwnProperty('Ember Inspector');
-
-    if (!added) {
-      try {
-        BrowserWindow.addDevToolsExtension(location);
-      } catch(err) {
-        console.warn('Error enabling Ember Inspector', err)
-        return;
-      }
-    }
+    app.whenReady().then(() => {
+      installExtension(EMBER_INSPECTOR)
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log('An error occurred: ', err));
+    });
   }
 
   installDevtron();
