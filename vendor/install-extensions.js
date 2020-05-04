@@ -27,22 +27,7 @@ function installExtensions() {
     }
   }
 
-  /**
-   * Install Ember-Inspector in the current window.
-   */
-  function installEmberInspector() {
-    const { default: installExtension, EMBER_INSPECTOR } = window.requireNode('electron-devtools-installer');
-    let { app } = window.requireNode('electron').remote;
-
-    app.whenReady().then(() => {
-      installExtension(EMBER_INSPECTOR)
-        .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log('An error occurred: ', err));
-    });
-  }
-
   installDevtron();
-  installEmberInspector();
 }
 
 document.addEventListener('DOMContentLoaded', installExtensions);
