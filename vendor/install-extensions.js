@@ -6,7 +6,7 @@ function installExtensions() {
       'ember-electron is unable to require node modules, possibly because nodeIntegration is not enabled.'
     );
     console.warn(
-      'This prevents the installation of the Ember Inspector and Devtron extensions. Error:'
+      'This prevents the installation of the Devtron extension. Error:'
     );
     console.warn(e);
     return;

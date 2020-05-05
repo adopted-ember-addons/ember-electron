@@ -46,7 +46,6 @@ app.on('window-all-closed', () => {
 app.on('ready', () => {
   if (isDev) {
     installExtension(EMBER_INSPECTOR)
-      .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log('An error occurred: ', err));
   }
 
