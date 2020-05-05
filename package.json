@@ -56,6 +56,8 @@
     "broccoli-string-replace": "^0.1.2",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
+    "electron-devtools-installer": "^3.0.0",
+    "electron-is-dev": "^1.2.0",
     "electron-protocol-serve": "^1.4.0",
     "ember-cli-babel": "^7.19.0",
     "file-url": "^3.0.0",
