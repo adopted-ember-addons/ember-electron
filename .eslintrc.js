@@ -78,6 +78,7 @@ module.exports = {
           'allowModules': [
             'electron',
             'electron-devtools-installer',
+            'electron-is-dev',
             'ember-electron'
           ],
         }]
