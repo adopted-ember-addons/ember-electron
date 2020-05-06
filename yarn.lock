@@ -7537,10 +7537,10 @@ ember-inflector@^3.0.1:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-inspector@^3.13.2:
-  version "3.13.2"
-  resolved "https://registry.yarnpkg.com/ember-inspector/-/ember-inspector-3.13.2.tgz#75d0e470ff20f76b4dc2e72351de7666a353d3a0"
-  integrity sha512-Xi1YjbEBM2arLkGNdmqJiIaMEwDeKMXlNG1g5rzmLg8VuYzMTc3usAu8gCIMJQ6HFb5M3wvv38fdXOhfDzGhJA==
+ember-inspector@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ember-inspector/-/ember-inspector-4.0.0.tgz#af483a9576ba7b3badbc5418ce7203ce1f967e24"
+  integrity sha512-OZzgM469aYE2IsH+n4y6fQLxQ21yDsTZuKPkJmVBUK46OYIJ10EnVNscH9RWH7tdeBDtt2YrnYJQIyRfA+980g==
 
 ember-keyboard@^4.0.0:
   version "4.0.0"
