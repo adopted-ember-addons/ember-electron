@@ -76,6 +76,7 @@ module.exports = {
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         'node/no-missing-require': ['error', {
           'allowModules': [
+            'devtron',
             'electron',
             'electron-devtools-installer',
             'electron-is-dev',
