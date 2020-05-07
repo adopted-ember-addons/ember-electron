@@ -30,7 +30,7 @@ $ ember electron --environment=production --- --some-flags --that-my-app --handl
 
 ## Ember Inspector and Devtron
 
-`ember electron` installs the Electron Inspector and Devtron directly into Electron, so they should be available if you open the dev tools. Note that if you're in a browser window without `nodeIntegration` enabled, they will not be installed.
+`ember electron` installs the Ember Inspector and Devtron directly into Electron, so they should be available if you open the dev tools.
 
 ## Developing main process code
 

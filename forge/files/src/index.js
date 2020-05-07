@@ -45,6 +45,7 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   if (isDev) {
+    require('devtron').install();
     installExtension(EMBER_INSPECTOR)
       .catch((err) => console.log('An error occurred: ', err));
   }

@@ -28,6 +28,7 @@ When installing `ember-electron` 2.x, a number of entries were added to your `pa
 * `devtron`
 * `electron-forge`
 * `electron-prebuilt-compile`
+* `ember-inspector`
 
 `dependencies`:
 * `electron-compile`

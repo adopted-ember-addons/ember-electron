@@ -23,16 +23,6 @@ module.exports = {
     };
   },
 
-  included(app) {
-    this._super.included.apply(this, arguments);
-
-    if (process.env.EMBER_CLI_ELECTRON) {
-      if ([ 'development', 'test' ].includes(app.env)) {
-        app.import('vendor/install-extensions.js');
-      }
-    }
-  },
-
   contentFor(type) {
     const { env: { EMBER_CLI_ELECTRON } } = process;
 
