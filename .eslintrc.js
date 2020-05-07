@@ -77,6 +77,8 @@ module.exports = {
         'node/no-missing-require': ['error', {
           'allowModules': [
             'electron',
+            'electron-devtools-installer',
+            'electron-is-dev',
             'ember-electron'
           ],
         }]

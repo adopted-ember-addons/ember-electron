@@ -61,12 +61,13 @@ class EmberElectronTemplates extends BaseTemplate {
 
   get devDependencies() {
     return [
-      'devtron',
-      'ember-inspector'
+      'devtron'
     ];
   }
   get dependencies() {
     return [
+      'electron-devtools-installer',
+      'electron-is-dev',
       'electron-protocol-serve'
     ];
   }

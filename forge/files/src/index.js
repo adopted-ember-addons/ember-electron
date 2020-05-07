@@ -2,6 +2,8 @@
 const { app, BrowserWindow, protocol } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
+const isDev = require('electron-is-dev');
+const { default: installExtension, EMBER_INSPECTOR } = require('electron-devtools-installer');
 
 let mainWindow = null;
 
@@ -42,6 +44,11 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
+  if (isDev) {
+    installExtension(EMBER_INSPECTOR)
+      .catch((err) => console.log('An error occurred: ', err));
+  }
+
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
