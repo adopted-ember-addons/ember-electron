@@ -28,10 +28,6 @@ or
 $ ember electron --environment=production --- --some-flags --that-my-app --handles-as="process.argv"
 ```
 
-## Ember Inspector and Devtron
-
-`ember electron` installs the Electron Inspector and Devtron directly into Electron, so they should be available if you open the dev tools. Note that if you're in a browser window without `nodeIntegration` enabled, they will not be installed.
-
 ## Developing main process code
 
 `ember-electron` does not restart your Electron app when main process code changes, so after making a code change you need to quit and re-launch your application. If you just run `ember electron` each time and you aren't changing any Ember code, you'll have to unnecessarily wait through the Ember build process that `ember electron` automatically runs. To avoid this, you can
