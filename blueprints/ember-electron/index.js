@@ -7,9 +7,9 @@ const fs = require('fs');
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const YAWN = require('yawn-yaml/cjs');
-const SilentError = require('silent-error');
 const {
   upgradingUrl,
+  routingAndAssetLoadingUrl,
   ciUrl
 } = require('../../lib/utils/documentation-urls');
 
@@ -24,17 +24,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     return entityName;
   }
 
-  beforeInstall() {
-    if (fs.existsSync(electronProjectPath)) {
-      return Promise.reject(
-        new SilentError([
-          `Cannot create electron-forge project at './${electronProjectPath}'`,
-          `because a file or directory already exists there. Please remove/rename`,
-          `it and run the blueprint again: 'ember generate ember-electron'.`
-        ].join(' '))
-      );
-    }
-
+  async afterInstall() {
     if (fs.existsSync('ember-electron')) {
       this.ui.writeLine(chalk.yellow([
         `\n'ember-electron' directory detected -- this looks like an ember-electron`,
@@ -42,13 +32,54 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         `should read the upgrading documentation at ${upgradingUrl}.\n`
       ].join(' ')));
     }
-  }
 
-  async afterInstall() {
+    await this.updateEnvironmentConfig();
     await this.updateTravisYml();
     await this.updateEslintIgnore();
     await this.updateEslintRc();
-    await this.createElectronProject();
+
+    if (!fs.existsSync(electronProjectPath)) {
+      await this.createElectronProject();
+    } else {
+      this.ui.writeLine(chalk.yellow([
+        `An electron-forge project already exists at './${electronProjectPath}'.`,
+        `If you're running the blueprint manually as part of an ember-electron`,
+        `upgrade, make sure to check for upgrade instructions relevant to your`,
+        `version upgrade at ${upgradingUrl}.\n`
+      ].join(' ')));
+    }
+  }
+
+  async updateEnvironmentConfig() {
+    this.ui.writeLine(chalk.green('Updating config/environment.js'));
+
+    let contents = (await readFile('config/environment.js')).toString();
+
+    const rootURLRegex = /(\srootURL\s*:)/;
+    if (rootURLRegex.test(contents)) {
+      contents = contents.replace(rootURLRegex, `$1 process.env.EMBER_CLI_ELECTRON ? '' :`);
+    } else {
+      this.ui.writeLine(chalk.yellow([
+        `\nUnable to update rootURL setting to`,
+        `\`process.env.EMBER_CLI_ELECTRON ? '' : <previous value>\`,`,
+        `which is needed for your Ember app to load assets under Electron.`,
+        `See ${routingAndAssetLoadingUrl} for more information.`
+      ].join(' ')));
+    }
+
+    const locationTypeRegex = /(\slocationType\s*:)/;
+    if (locationTypeRegex.test(contents)) {
+      contents = contents.replace(locationTypeRegex, `$1 process.env.EMBER_CLI_ELECTRON ? 'hash' :`);
+    } else {
+      this.ui.writeLine(chalk.yellow([
+        `\nUnable to update locationType setting to`,
+        `\`process.env.EMBER_CLI_ELECTRON ? 'hash' : <previous value>\`,`,
+        `which is needed for your Ember app's routing to work under Electron.`,
+        `See ${routingAndAssetLoadingUrl} for more information.`
+      ].join(' ')));
+    }
+
+    await writeFile('config/environment.js', contents);
   }
 
   async updateTravisYml() {

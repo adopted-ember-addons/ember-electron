@@ -56,7 +56,6 @@
     "broccoli-string-replace": "^0.1.2",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
-    "electron-protocol-serve": "^1.4.0",
     "ember-cli-babel": "^7.19.0",
     "ncp": "^2.0.0",
     "portfinder": "^1.0.25",

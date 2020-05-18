@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
 const { default: installExtension, EMBER_INSPECTOR } = require('electron-devtools-installer');
+const { pathToFileURL } = require('url');
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
-const setupServeProtocol = require('./setup-serve-protocol');
+const handleFileUrls = require('./handle-file-urls');
 
 const emberAppDir = path.resolve(__dirname, '..', 'ember-dist');
-const emberAppURL = 'serve://dist';
+const emberAppURL = pathToFileURL(path.join(emberAppDir, 'index.html')).toString();
 
 let mainWindow = null;
-
-setupServeProtocol(emberAppDir);
 
 // Uncomment the lines below to enable Electron's crash reporter
 // For more information, see http://electron.atom.io/docs/api/crash-reporter/
@@ -32,14 +31,16 @@ app.on('ready', async () => {
     try {
       require('devtron').install();
     } catch (err) {
-      console.log('Failed to install Devtrom: ', err);
+      console.log('Failed to install Devtron: ', err);
     }
     try {
       await installExtension(EMBER_INSPECTOR);
     } catch (err) {
-      console.log('Failed to install Ember Inspector: ', err)
+      console.log('Failed to install Ember Inspector: ', err);
     }
   }
+
+  await handleFileUrls(emberAppDir);
 
   mainWindow = new BrowserWindow({
     width: 800,
