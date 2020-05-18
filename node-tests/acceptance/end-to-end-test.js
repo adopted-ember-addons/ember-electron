@@ -152,7 +152,7 @@ describe('end-to-end', function() {
       //
       let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
 
-      // Append our extra test content to the end of test-index.js
+      // Append our extra test content to the end of test/index.js
       let testIndexPath = path.join('electron-app', 'tests', 'index.js');
       let extraContentPath = path.join(fixturePath, 'test-index-extra.js');
       let content = [

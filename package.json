@@ -58,7 +58,6 @@
     "debug": "^4.1.1",
     "electron-protocol-serve": "^1.4.0",
     "ember-cli-babel": "^7.19.0",
-    "file-url": "^3.0.0",
     "ncp": "^2.0.0",
     "portfinder": "^1.0.25",
     "rimraf": "^3.0.2",

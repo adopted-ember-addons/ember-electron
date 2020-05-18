@@ -1,32 +1,16 @@
 /* eslint-disable no-console */
-const { app, BrowserWindow, protocol } = require('electron');
-const { dirname, join, resolve } = require('path');
-const protocolServe = require('electron-protocol-serve');
-const isDev = require('electron-is-dev');
 const { default: installExtension, EMBER_INSPECTOR } = require('electron-devtools-installer');
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
+const isDev = require('electron-is-dev');
+const setupServeProtocol = require('./setup-serve-protocol');
+
+const emberAppDir = path.resolve(__dirname, '..', 'ember-dist');
+const emberAppURL = 'serve://dist';
 
 let mainWindow = null;
 
-// Registering a protocol & schema to serve our Ember application
-if (typeof protocol.registerSchemesAsPrivileged === 'function') {
-  // Available in Electron >= 5
-  protocol.registerSchemesAsPrivileged([{
-    scheme: 'serve',
-    privileges: {
-      secure: true,
-      standard: true
-    }
-  }]);
-}
-else {
-  // For compatibility with Electron < 5
-  protocol.registerStandardSchemes(['serve'], { secure: true });
-}
-protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'ember-dist'),
-  app,
-  protocol,
-});
+setupServeProtocol(emberAppDir);
 
 // Uncomment the lines below to enable Electron's crash reporter
 // For more information, see http://electron.atom.io/docs/api/crash-reporter/
@@ -43,11 +27,18 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('ready', () => {
+app.on('ready', async () => {
   if (isDev) {
-    require('devtron').install();
-    installExtension(EMBER_INSPECTOR)
-      .catch((err) => console.log('An error occurred: ', err));
+    try {
+      require('devtron').install();
+    } catch (err) {
+      console.log('Failed to install Devtrom: ', err);
+    }
+    try {
+      await installExtension(EMBER_INSPECTOR);
+    } catch (err) {
+      console.log('Failed to install Ember Inspector: ', err)
+    }
   }
 
   mainWindow = new BrowserWindow({
@@ -58,15 +49,13 @@ app.on('ready', () => {
   // If you want to open up dev tools programmatically, call
   // mainWindow.openDevTools();
 
-  const emberAppLocation = 'serve://dist';
-
-  // Load the ember application using our custom protocol/scheme
-  mainWindow.loadURL(emberAppLocation);
+  // Load the ember application
+  mainWindow.loadURL(emberAppURL);
 
   // If a loading operation goes wrong, we'll send Electron back to
   // Ember App entry point
   mainWindow.webContents.on('did-fail-load', () => {
-    mainWindow.loadURL(emberAppLocation);
+    mainWindow.loadURL(emberAppURL);
   });
 
   mainWindow.webContents.on('crashed', () => {

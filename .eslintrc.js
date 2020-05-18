@@ -63,10 +63,29 @@ module.exports = {
         'ember/avoid-leaking-state-in-ember-objects': 'off',
       })
     },
-    // forge template files
+    // test runner
     {
       files: [
-        'forge/files/**/*.js'
+        'lib/test-runner.js'
+      ],
+      env: {
+        browser: false,
+        node: true
+      },
+      plugins: ['node'],
+      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
+        'node/no-missing-require': ['error', {
+          'allowModules': [
+            'ember-electron'
+          ],
+        }]
+      })
+    },
+    // Electon runtime files
+    {
+      files: [
+        'forge/files/**/*.js',
+        'lib/test-support/**/*.js'
       ],
       env: {
         browser: false,
