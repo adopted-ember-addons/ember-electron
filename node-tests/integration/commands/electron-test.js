@@ -71,9 +71,16 @@ describe('electron command', function() {
       }, 1);
       return Promise.resolve(mockProcess);
     });
+
+    let ui = new MockUI();
+    // Disable progress UI, since it pollutes test output and can leak an
+    // interval timer, causing the mocha process to not exit when tests are
+    // complete
+    sinon.stub(ui, 'startProgress');
+    sinon.stub(ui, 'stopProgress');
     
     command = new ElectronCommand({
-      ui: new MockUI(),
+      ui,
       analytics: new MockAnalytics(),
       settings: {},
       project: new MockProject(),
