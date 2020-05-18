@@ -44,9 +44,20 @@ module.exports = {
       node = replace(node, {
         files: [ 'tests/index.html' ],
         pattern: {
-          match: /src="[^"]*testem\.js"/,
-          replacement: 'src="http://testemserver/testem.js"',
-        },
+          match: /(src|href)="([^"]+)"/g,
+          replacement(match, attr, value) {
+            if (value.endsWith('testem.js')) {
+              // Replace testem script source so our test main process code can
+              // recognize and redirect requests to the testem server
+              value = 'http://testemserver/testem.js';
+            } else if (!value.includes(':/')) {
+              // Since we're loading from the filesystem, asset URLs in
+              // tests/index.html need to be prepended with '../'
+              value = `../${value}`;
+            }
+            return `${attr}="${value}"`;
+          }
+        }
       });
     }
     return node;

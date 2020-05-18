@@ -10,6 +10,7 @@ Router.map(function() {
   docsRoute(this, function() {
     this.route('faq', function() {
       this.route('common-issues');
+      this.route('routing-and-asset-loading');
       this.route('security');
     });
 

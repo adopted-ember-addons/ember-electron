@@ -68,7 +68,6 @@ class EmberElectronTemplates extends BaseTemplate {
     return [
       'electron-devtools-installer',
       'electron-is-dev',
-      'electron-protocol-serve'
     ];
   }
 

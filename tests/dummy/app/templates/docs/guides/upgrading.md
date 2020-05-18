@@ -75,25 +75,7 @@ Either way, you will need to update the configuration since the format has chang
 
 ### main.js
 
-The equivalent of `ember-electron/main.js` is `electron-app/src/index.js`, so you'll want to put the contents of your `main.js` there (note that `src/index.js` is specified by the `main` entry in `electron-app/package.json`, so you can name it whatever/put it wherever you want as long as you update the `main` entry accordingy). Because the Electron project structure differs a little from `ember-electron` 2.x's, you'll need to replace anywhere you reference the path to the Ember application directory (`../ember`) with the new path (`../ember-dist`). For example, `ember-electron` 2.x's default `main.js` contains:
-
-```javascript
-protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'ember'),
-  app,
-  protocol,
-});
-```
-
-while `ember-electron` 3.x's contains:
-
-```
-protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'ember-dist'),
-  app,
-  protocol,
-});
-```
+The equivalent of `ember-electron/main.js` is `electron-app/src/index.js`, so you'll want to put the contents of your `main.js` there (note that `src/index.js` is specified by the `main` entry in `electron-app/package.json`, so you can name it whatever/put it wherever you want as long as you update the `main` entry accordingly). Because the Electron project structure differs a little from `ember-electron` 2.x's, you'll need to replace anywhere you reference the path to the Ember application directory (`../ember`) with the new path (`../ember-dist`).
 
 ### test-main.js
 
@@ -125,3 +107,98 @@ If you need to exclude files for other platforms from your packaged build, you c
 ### code/files/etc
 
 Anything else that was in the `ember-electron` in 2.x should be "just files" -- `.js` files `require`d from the main process or `requireNode`d from the Ember app, or other files accessed via the filesystem APIs. So these can be migrated into `electron-app` however seems best, updating the references to their paths in other source files as needed.
+
+### electron-protocol-serve
+
+Since 2.x, we have removed `electron-protocol-serve` from the default blueprint in favor of loading the Ember app using `file:` URLs. The instructions above should get you set up to run properly, but if you app has any references/assumptions around the URL used to load the Ember app, you'll need to update them. If you added `webSecurity: false` to work around issues caused by `electron-protocol-serve` (as described [here](/versions/v2.10.2/docs/faq/common-issues#what-is-electron-protocol-serve-and-why-do-i-need-this-)) you should be able to remove it now.
+
+Another effect of switching from `serve:` URLs to `file:` URLs is that you may need to migrate data stored in browser storage such as `localStorage` or `IndexedDB` or your users could experience data loss. If a user has been running a version of your application that uses `serve:` URLs, then the browser will have any such data associated with the `serve://dist` domain, and the browser's security measures to prevent one site from accessing another site's will prevent your app, which accessed via a `file:` URL, from accessing the previously-created data.
+
+Unfortunately, Electron doesn't currently provide any mechanisms to address this, so if your application has stored any such data on users' systems, and it's critical that it remain intact when the user updates to a version of the application that uses `file:` URLs, you'll have to migrate it. Here's an example of how you might do it for `localStorage`:
+
+```javascript
+// src/index.js
+const { protocol, BrowserWindow } = require('electron');
+const { promises: { writeFile } } = require('fs');
+const { fileSync } = require('tmp');
+
+function needsMigration() {
+  // You'll want some way of determining if the migration has already happened,
+  // the when the app starts it doesn't always re-copy the data from the
+  // `serve://dist`-scoped, overwriting any changes the user has since made to
+  // the `file:`-scoped data. For example, you might use `electron-store` to
+  // keep track of whether you've run the migration or not.  
+}
+
+if (needsMigration()) {
+  // Register the `serve:` scheme as privileged, like `electron-protocol-serve`
+  // does. This enables access to browser storage from pages loaded via the
+  // `serve:` protocol. This needs to be done before the app's `ready` event.
+  protocol.registerSchemesAsPrivileged([
+    {
+      scheme: 'serve',
+      privileges: {
+        secure: true,
+        standard: true
+      }
+    }
+  ]);
+
+  app.on('ready', async () => {
+    // Set up a protocol handler to return empty HTML from any request to
+    // `serve:` URLs, so we can load `serve://dist` in a browser window and use
+    // it to access localStorage
+    protocol.registerStringProtocol('serve', (request, callback) => {
+      callback({ mimeType: 'text/html', data: '<html></html>' });
+    });
+
+    // Navigate to our empty page in a hidden browser window
+    let window = new BrowserWindow({ show: false });
+    try {
+      await window.loadURL('serve://dist');
+
+      // Get a JSON-stringified version of this origin's entire localStorage
+      let localStorageJson = await window.webContents.executeJavaScript('JSON.stringify(window.localStorage)');
+
+      // Create an empty HTML file in a temporary location that we can load via a
+      // `file:` URL so we can write our values to the `file:`-scoped localStorage.
+      // We don't do this with a protocol handler because we don't want to mess
+      // with how `file:` URLs are handled, as it could cause problems when we
+      // actually load Ember app over a `file:` URL.
+      let tempFile = fileSync();
+      await writeFile(tempFile.name, '<html></html>');
+      await window.loadFile(tempFile.name);
+
+      // Iterate over the values and set them in file:'s localStorage
+      for (let [ key, value ] of Object.entries(JSON.parse(localStorageJson))) {
+        await window.webContents.executeJavaScript(`window.localStorage.setItem('${key}', '${value}')`);
+      }
+    } finally {
+      window.destroy();
+    }
+  });
+}
+```
+
+This would be somewhat more complicated for storages with more structure/data formats like `IndexedDB`, but this should serve as a template for how the data could be migrated.
+
+# Upgrading from 3.0.0-beta.2
+
+Between `3.0.0-beta.2` and `3.0.0-beta.3` we removed `electron-protocol-serve` from the default blueprint as explained [here](#electron-protocol-serve). The best way to upgrade from a `3.0.0` beta version before `3.0.0-beta.3` is to:
+
+1. Start with a clean working tree (no uncommitted changes)
+2. Update `ember-electron` to the latest version
+3. Rerun the blueprint (`ember g ember-electron`) overwriting all files when prompted
+4. Look at the git diff and re-introduce any changes/customizations you previously made to the affected files
+5. `cd electron-app && yarn remove electron-protocol-serve` since `electron-protocol-serve` is no longer used
+
+The changes you should end up with are:
+
+* Modifications to the `rootURL` and `locationType` settings in `config/environment.js`
+* A new `electron-app/src/handle-file-urls.js` file
+* Changes to `electron-app/src/index.js` and `electron-app/tests/index.js` to switch from `electron-protocol-serve` to `file:` URLs
+* Removal of `electron-protocol-serve` from `electron-app/package.json`
+
+If your application uses any browser storage like `localStorage` or `IndexedDB`, you may need to migrate the data so it's accessible from `file:` URLs -- make sure to read the [this](#electron-protocol-serve) section for more info.
+
+You can read more about the removal of `electron-protocol-serve` and loading from `file:` URLs [here](../faq/routing-and-asset-loading).

@@ -3,7 +3,8 @@ const { expect } = require('chai');
 const tmp = require('tmp');
 const {
   readFileSync,
-  copyFileSync
+  copyFileSync,
+  mkdirSync
 } = require('fs');
 const path = require('path');
 
@@ -25,16 +26,54 @@ describe('blueprint', function() {
     process.chdir(rootDir);
   });
 
-  function normalizeYaml(content) {
-    let lines = content.split('\n');
-    // filter out empty lines because we don't care about empty-line differences
-    lines = lines.filter((line) => line.trim());
-    // remove \r's in case we're on windows and they were added
-    lines = lines.map((line) => line.replace('\r', ''));
-    return lines.join('\n');
-  }
+  describe('update config/environment.js', function() {
+    let oldEnv;
+    beforeEach(function() {
+      oldEnv = process.env;
+      process.env = {};
+    });
 
-  describe('update travis.yml', async function() {
+    afterEach(function() {
+      process.env = oldEnv;
+    })
+
+    async function getEnv() {
+      let environmentJsFixture = path.join(__dirname, '..', 'fixtures', 'config-environment', 'environment.js');
+      let environmentJs = path.join(process.cwd(), 'config', 'environment.js');
+
+      mkdirSync('config');
+      copyFileSync(environmentJsFixture, environmentJs);
+
+      await blueprint.updateEnvironmentConfig();
+
+      let factory = require(environmentJs);
+      return factory();
+    }
+
+    it('non-electron build', async function() {
+      let ENV = await getEnv();
+      expect(ENV.rootURL).to.equal('/');
+      expect(ENV.locationType).to.equal('auto');
+    });
+
+    it('electron build', async function() {
+      process.env.EMBER_CLI_ELECTRON = '1';
+      let ENV = await getEnv();
+      expect(ENV.rootURL).to.equal('');
+      expect(ENV.locationType).to.equal('hash');
+    })
+  });
+
+  describe('update travis.yml', function() {
+    function normalizeYaml(content) {
+      let lines = content.split('\n');
+      // filter out empty lines because we don't care about empty-line differences
+      lines = lines.filter((line) => line.trim());
+      // remove \r's in case we're on windows and they were added
+      lines = lines.map((line) => line.replace('\r', ''));
+      return lines.join('\n');
+    }
+
     async function runTest(fixtureName) {
       let fixtureDir = path.join(__dirname, '..', 'fixtures', 'travis-yml', fixtureName);
       

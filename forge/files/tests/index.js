@@ -1,27 +1,26 @@
 const { default: installExtension, EMBER_INSPECTOR } = require('electron-devtools-installer');
 const path = require('path');
 const { app } = require('electron');
-const setupServeProtocol = require('../src/setup-serve-protocol');
+const handleFileUrls = require('../src/handle-file-urls');
 const { setupTestem, openTestWindow } = require('ember-electron/lib/test-support');
 
 const emberAppDir = path.resolve(__dirname, '..', 'ember-test');
-
-setupServeProtocol(emberAppDir);
 
 app.on('ready', async function onReady() {
   try {
     require('devtron').install();
   } catch (err) {
-    console.log('Failed to install Devtrom: ', err);
+    console.log('Failed to install Devtron: ', err);
   }
   try {
     await installExtension(EMBER_INSPECTOR);
   } catch (err) {
-    console.log('Failed to install Ember Inspector: ', err)
+    console.log('Failed to install Ember Inspector: ', err);
   }
 
+  await handleFileUrls(emberAppDir);
   setupTestem();
-  openTestWindow();
+  openTestWindow(emberAppDir);
 });
 
 app.on('window-all-closed', function onWindowAllClosed() {

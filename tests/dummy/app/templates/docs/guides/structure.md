@@ -28,6 +28,7 @@ When you first install `ember-electron`, the blueprint creates an `electron-forg
      ├── package.json
      ├── node_modules
      ├── src
+     │   │── handle-file-urls.js
      │   └── index.js
      ├── tests
      │   └── index.js

@@ -6744,11 +6744,6 @@ electron-packager@^14.0.6:
     semver "^6.0.0"
     yargs-parser "^16.0.0"
 
-electron-protocol-serve@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/electron-protocol-serve/-/electron-protocol-serve-1.4.0.tgz#c2dc986094b8138ae8f292995ce592090295745e"
-  integrity sha512-RZqtCQDuEES2sHjHux/Lauo8GQ2wBKqPgN4vBXQDq7NOlDQ+2cGXN57AH7riHSPhEsQ/XG73WWJAbedQgKqbEQ==
-
 electron-rebuild@^1.8.6:
   version "1.8.6"
   resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-1.8.6.tgz#4454ef5517c0588aef9bca0d923ff5633000b949"
