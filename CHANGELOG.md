@@ -1,3 +1,13 @@
+## v3.0.0-beta.3 (2020-05-22)
+
+#### :rocket: Enhancement
+* [#465](https://github.com/adopted-ember-addons/ember-electron/pull/465) Install devtron from the main process ([@rwwagner90](https://github.com/rwwagner90))
+* [#458](https://github.com/adopted-ember-addons/ember-electron/pull/458) Install inspector via electron-devtools-installer ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v3.0.0-beta.2 (2020-04-28)
 
 #### :boom: Breaking Change
