@@ -199,7 +199,16 @@ describe('end-to-end', function() {
 
     it('makes', () => {
       // Only build zip target so we don't fail from missing platform dependencies
-      // (e.g. rpmbuild)
+      // (e.g. rpmbuild). The default template specifies only darwin for the zip
+      // target, so we delete the targets setting so it's enabled for all targets
+      // the zip maker supports, which is all of them.
+      let packageJsonPath = path.join('electron-app', 'package.json');
+      let packageJson = readJsonSync(packageJsonPath);
+      let makers = packageJson.config.forge.makers;
+      let zipMaker = makers.find(m => m.name === '@electron-forge/maker-zip');
+      delete zipMaker.platforms;
+      writeJsonSync(packageJsonPath, packageJson)
+
       return ember('electron:make', '--targets', '@electron-forge/maker-zip').then(() => {
         expect(existsSync(path.join(packageOutPath, 'make'))).to.be.ok;
       });
