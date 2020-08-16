@@ -23,6 +23,14 @@ module.exports = {
     };
   },
 
+  included(app) {
+    this._super.included.apply(this, arguments);
+
+    app.import('vendor/wrap-require.js', {
+      type: 'vendor',
+    });
+  },
+
   contentFor(type) {
     const { env: { EMBER_CLI_ELECTRON } } = process;
 
