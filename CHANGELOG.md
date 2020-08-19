@@ -1,5 +1,8 @@
 ## v3.0.0-beta.3 (2020-05-22)
 
+#### :boom: Breaking Change
+* [#476](https://github.com/adopted-ember-addons/ember-electron/pull/476) Switch from electron-protocol-serve to file: URLs ([@bendemboski](https://github.com/bendemboski))
+
 #### :rocket: Enhancement
 * [#465](https://github.com/adopted-ember-addons/ember-electron/pull/465) Install devtron from the main process ([@rwwagner90](https://github.com/rwwagner90))
 * [#458](https://github.com/adopted-ember-addons/ember-electron/pull/458) Install inspector via electron-devtools-installer ([@rwwagner90](https://github.com/rwwagner90))
