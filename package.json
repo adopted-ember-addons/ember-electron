@@ -52,7 +52,7 @@
     "test-slow": "mocha node-tests/acceptance/**/*.js"
   },
   "dependencies": {
-    "@electron-forge/core": "6.0.0-beta.52",
+    "@electron-forge/core": "6.0.0-beta.53",
     "broccoli-string-replace": "^0.1.2",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
