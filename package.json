@@ -76,7 +76,7 @@
     "console-ui": "^3.1.1",
     "ember-auto-import": "^1.5.3",
     "ember-cli": "~3.18.0",
-    "ember-cli-addon-docs": "^0.8.0",
+    "ember-cli-addon-docs": "^0.9.0",
     "ember-cli-addon-docs-yuidoc": "^0.2.4",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-deploy": "^1.0.2",
