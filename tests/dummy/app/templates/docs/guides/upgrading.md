@@ -110,11 +110,18 @@ Anything else that was in the `ember-electron` in 2.x should be "just files" -- 
 
 ### electron-protocol-serve
 
-Since 2.x, we have removed `electron-protocol-serve` from the default blueprint in favor of loading the Ember app using `file:` URLs. The instructions above should get you set up to run properly, but if you app has any references/assumptions around the URL used to load the Ember app, you'll need to update them. If you added `webSecurity: false` to work around issues caused by `electron-protocol-serve` (as described [here](/versions/v2.10.2/docs/faq/common-issues#what-is-electron-protocol-serve-and-why-do-i-need-this-)) you should be able to remove it now.
+Since 2.x, we have removed `electron-protocol-serve` from the default blueprint in favor of loading the Ember app using `file:` URLs. 
+The instructions above should get you set up to run properly, but if your app has any references/assumptions around the URL used to load the Ember app, you'll need to update them. 
+If you added `webSecurity: false` to work around issues caused by `electron-protocol-serve` (as described [here](/versions/v2.10.2/docs/faq/common-issues#what-is-electron-protocol-serve-and-why-do-i-need-this-)) you should be able to remove it now.
 
-Another effect of switching from `serve:` URLs to `file:` URLs is that you may need to migrate data stored in browser storage such as `localStorage` or `IndexedDB` or your users could experience data loss. If a user has been running a version of your application that uses `serve:` URLs, then the browser will have any such data associated with the `serve://dist` domain, and the browser's security measures to prevent one site from accessing another site's will prevent your app, which accessed via a `file:` URL, from accessing the previously-created data.
+Another effect of switching from `serve:` URLs to `file:` URLs is that you may need to migrate data stored in browser storage such as `localStorage` or `IndexedDB` or your users could experience data loss. 
+If a user has been running a version of your application that uses `serve:` URLs, then the browser will have any such data associated with the `serve://dist` domain, and the browser's security measures to prevent one site from accessing another site's will prevent your app, which accessed via a `file:` URL, from accessing the previously-created data.
 
-Unfortunately, Electron doesn't currently provide any mechanisms to address this, so if your application has stored any such data on users' systems, and it's critical that it remain intact when the user updates to a version of the application that uses `file:` URLs, you'll have to migrate it. Here's an example of how you might do it for `localStorage`:
+Unfortunately, Electron doesn't currently provide any mechanisms to address this, so if your application has stored any 
+such data on users' systems, and it's critical that it remain intact when the user updates to a version of the application 
+that uses `file:` URLs, you'll have to migrate it. The following are examples of how you might migrate data for `localStorage` or `IndexedDB`.
+
+#### localStorage migration
 
 ```javascript
 // src/index.js
@@ -180,7 +187,132 @@ if (needsMigration()) {
 }
 ```
 
-This would be somewhat more complicated for storages with more structure/data formats like `IndexedDB`, but this should serve as a template for how the data could be migrated.
+#### IndexedDB migration
+
+For migrating `IndexedDB` data, we are going to use the `indexeddb-export-import` package to assist us.
+
+```javascript
+// src/index.js
+const { protocol, BrowserWindow } = require('electron');
+const { promises: { writeFile } } = require('fs');
+const { fileSync } = require('tmp');
+const IDBExportImport = require('indexeddb-export-import');
+
+function needsMigration() {
+  // You'll want some way of determining if the migration has already happened,
+  // the when the app starts it doesn't always re-copy the data from the
+  // `serve://dist`-scoped, overwriting any changes the user has since made to
+  // the `file:`-scoped data. For example, you might use `electron-store` to
+  // keep track of whether you've run the migration or not.  
+}
+
+if (needsMigration()) {
+  // Register the `serve:` scheme as privileged, like `electron-protocol-serve`
+  // does. This enables access to browser storage from pages loaded via the
+  // `serve:` protocol. This needs to be done before the app's `ready` event.
+  protocol.registerSchemesAsPrivileged([
+    {
+      scheme: 'serve',
+      privileges: {
+        secure: true,
+        standard: true
+      }
+    }
+  ]);
+
+  app.on('ready', async () => {
+    // Set up a protocol handler to return empty HTML from any request to
+    // `serve:` URLs, so we can load `serve://dist` in a browser window and use
+    // it to access localStorage
+    protocol.registerStringProtocol('serve', (request, callback) => {
+      callback({ mimeType: 'text/html', data: '<html></html>' });
+    });
+
+    // Navigate to our empty page in a hidden browser window
+    let window = new BrowserWindow({ show: false });
+    try {
+      await window.loadURL('serve://dist');
+  
+      // Export the existing IndexedDB data to a JSON string
+      const jsonString = await window.webContents.executeJavaScript(
+        `
+        ${IDBExportImport.exportToJsonString.toString()}
+  
+        function getJsonForIndexedDb() {
+          const DBOpenRequest = window.indexedDB.open('orbit', 1);
+  
+          return new Promise((resolve, reject) => {
+            DBOpenRequest.onsuccess = () => {
+              const idbDatabase = DBOpenRequest.result;
+              exportToJsonString(idbDatabase, (err, jsonString) => {
+                if (err) {
+                  idbDatabase.close();
+                  reject(err);
+                } else {
+                  idbDatabase.close();
+                  resolve(jsonString);
+                }
+              });
+            };
+          });
+        }
+  
+        getJsonForIndexedDb();
+        `
+      );
+  
+      // Create an empty HTML file in a temporary location that we can load via a
+      // `file:` URL so we can write our values to the `file:`-scoped localStorage.
+      // We don't do this with a protocol handler because we don't want to mess
+      // with how `file:` URLs are handled, as it could cause problems when we
+      // actually load Ember app over a `file:` URL.
+      let tempFile = fileSync();
+      await writeFile(tempFile.name, '<html></html>');
+      await window.loadFile(tempFile.name);
+  
+      if (jsonString) {
+        // Import the JSON backup into the new IndexedDB database
+        await window.webContents.executeJavaScript(
+          `
+          ${IDBExportImport.importFromJsonString.toString()}
+          ${IDBExportImport.clearDatabase.toString()}
+          function restoreJsonForIndexedDb() {
+            const DBOpenRequest = window.indexedDB.open('orbit', 1);
+            return new Promise((resolve, reject) => {
+              DBOpenRequest.onsuccess = () => {
+                const idbDatabase = DBOpenRequest.result;
+                clearDatabase(idbDatabase, (err) => {
+                  if (!err) {
+                    // cleared data successfully
+                    importFromJsonString(
+                      idbDatabase,
+                      '${jsonString}',
+                      (err) => {
+                        if (!err) {
+                          idbDatabase.close();
+                          resolve();
+                        } else {
+                          reject(err);
+                        }
+                      }
+                    );
+                  } else {
+                    reject(err);
+                  }
+                });
+              };
+            });
+          }
+          restoreJsonForIndexedDb();
+        `
+        );
+      }
+    } finally {
+      window.destroy();
+    }
+  });
+}
+```
 
 # Upgrading from 3.0.0-beta.2
 
