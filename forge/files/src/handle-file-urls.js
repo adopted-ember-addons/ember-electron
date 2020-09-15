@@ -1,4 +1,3 @@
-const { protocol } = require('electron');
 const { fileURLToPath } = require('url');
 const path = require('path');
 const fs = require('fs');
@@ -15,15 +14,29 @@ const access = promisify(fs.access);
 // interpreted as being relative to the root of the Ember app. If so, we return
 // that path, and if not we leave them as-is, as their absolute path.
 //
+async function getAssetPath(emberAppDir, url) {
+  let urlPath = fileURLToPath(url);
+  // Get the root of the path -- should be '/' on MacOS or something like
+  // 'C:\' on Windows
+  let { root } = path.parse(urlPath);
+  // Get the relative path from the root to the full path
+  let relPath = path.relative(root, urlPath);
+  // Join the relative path with the Ember app directory
+  let appPath = path.join(emberAppDir, relPath);
+  try {
+    await access(appPath);
+    return appPath;
+  } catch (e) {
+    return urlPath;
+  }
+}
+
 module.exports = function handleFileURLs(emberAppDir) {
+  const { protocol } = require('electron');
+
   protocol.interceptFileProtocol('file', async ({ url }, callback) => {
-    let urlPath = fileURLToPath(url);
-    let appPath = path.join(emberAppDir, urlPath);
-    try {
-      await access(appPath);
-      callback(appPath);
-    } catch (e) {
-      callback(urlPath);
-    }
+    callback(await getAssetPath(emberAppDir, url));
   });
 };
+
+module.exports.getAssetPath = getAssetPath;
