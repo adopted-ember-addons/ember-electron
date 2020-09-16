@@ -1,3 +1,18 @@
+## v3.0.0-beta.4 (2020-09-16)
+
+#### :bug: Bug Fix
+* [#589](https://github.com/adopted-ember-addons/ember-electron/pull/589) Fix handle-file-urls on Windows ([@bendemboski](https://github.com/bendemboski))
+
+#### :memo: Documentation
+* [#576](https://github.com/adopted-ember-addons/ember-electron/pull/576) Add IndexedDB migration instructions ([@rwwagner90](https://github.com/rwwagner90))
+* [#490](https://github.com/adopted-ember-addons/ember-electron/pull/490) Correct the link to felixs github ([@spruce](https://github.com/spruce))
+
+#### Committers: 4
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Felix Fichte ([@spruce](https://github.com/spruce))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v3.0.0-beta.3 (2020-05-22)
 
 #### :boom: Breaking Change
