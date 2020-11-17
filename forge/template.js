@@ -7,7 +7,8 @@ const rimraf = promisify(require('rimraf'));
 const ncp = promisify(require('ncp'));
 const {
   emberBuildDir,
-  emberTestBuildDir
+  emberTestBuildDir,
+  packageOutDir
 } = require('../lib/utils/build-paths');
 
 async function updateGitIgnore(dir) {
@@ -19,6 +20,14 @@ async function updateGitIgnore(dir) {
     '# Ember build',
     `${emberBuildDir}/`,
     `${emberTestBuildDir}/`,
+    // `electron-packager` will automatically ignore the output directory, but
+    // if someone were to build once without specifying a custom output path,
+    // and then build with a custom output path, during the second build,
+    // `electron-packager` would only ignore the custom output path, and not the
+    // contents of `packageDir`, so it would package up all that previously
+    // built content in the second packaged application.
+    '# package/make output directory',
+    `${packageOutDir}/`,
     ''
   ].join('\n'));
 }
