@@ -29,7 +29,7 @@ If you need help *using* the addon with your application, may we recommend the e
 
 Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-nwjs`](https://github.com/brzpegasus/ember-cli-nwjs)) and @joostdevries (author of [`ember-cli-remote-inspector`](https://github.com/joostdevries/ember-cli-remote-inspector)). Our gratitude to both of them for their amazing work.
 
-* Felix Rieseberg ([@felixrieseberg](https://github.com/felixriesberg))
+* Felix Rieseberg ([@felixrieseberg](https://github.com/felixrieseberg))
 * Aidan Nulman ([@anulman](https://github.com/anulman))
 * Florian Pichler ([@pichfl](https://github.com/pichfl))
 * Ben Demboski ([@bendemboski](https://github.com/bendemboski))
