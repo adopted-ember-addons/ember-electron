@@ -8,6 +8,20 @@ Ember defines its own global `require` function for requiring transpiled Ember m
 
 `ember-electron` attempts to patch this up by implementing a `require()` function that tries both Ember's and Node.js's `require()` functions, but it's not perfect, so we recommend you use `requireNode()` when requiring Node.js modules.
 
+Note that in order to be able to require node modules you'll need to enable node integration in `electron-app/src/index.js`:
+
+```javascript
+mainWindow = new BrowserWindow({
+  width: 800,
+  height: 600,
+  webPreferences: {
+    nodeIntegration: true,
+  },
+});
+```
+
+See the [BrowserWindow documentation](https://www.electronjs.org/docs/api/browser-window) for more info, and Electron's [security tutorial](https://www.electronjs.org/docs/tutorial/security) to understand the important security considerations when enabling node integration.
+
 ## Command-line arguments
 
 If your Electron app accepts command-line arguments that the main process handles via `process.argv`, then when running `ember electron` you need to precede them with `---`. This allows the `ember electron` to distinguish between its own arguments and arguments it should pass through when launching Electron:
