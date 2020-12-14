@@ -1,0 +1,45 @@
+name: CI Build
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: volta-cli/action@v1
+        with:
+          node-version: 10.x
+      - run: yarn install --frozen-lockfile
+
+      - name: 'Lint'
+        run: |
+          yarn lint:hbs
+          yarn lint:js
+      - name: 'Basic Tests'
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: yarn test-fast
+
+      # runs slow end-to-end tests, parallelizing yarn and npm cases
+      - name: 'End-to-end Tests: Yarn'
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: yarn test-slow
+        env:
+          END_TO_END_TESTS: 'yarn' 
+
+      - name: 'End-to-end Tests: npm'
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: yarn test-slow
+        env:
+          END_TO_END_TESTS: 'npm'  
