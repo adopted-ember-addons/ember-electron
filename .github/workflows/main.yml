@@ -34,12 +34,12 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: yarn test-slow
-          env:
-            END_TO_END_TESTS: 'yarn'
+        env:
+          END_TO_END_TESTS: 'yarn' 
 
       - name: 'End-to-end Tests: npm'
         uses: GabrielBB/xvfb-action@v1
         with:
           run: yarn test-slow
-          env:
-            END_TO_END_TESTS: 'npm'
+        env:
+          END_TO_END_TESTS: 'npm'  
