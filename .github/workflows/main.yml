@@ -20,22 +20,26 @@ jobs:
           node-version: 10.x
       - run: yarn install --frozen-lockfile
 
-      - name: "Lint"
+      - name: 'Lint'
         run: |
-            yarn lint:hbs
-            yarn lint:js
-      - name: "Basic Tests"
+          yarn lint:hbs
+          yarn lint:js
+      - name: 'Basic Tests'
         uses: GabrielBB/xvfb-action@v1
         with:
           run: yarn test-fast
 
       # runs slow end-to-end tests, parallelizing yarn and npm cases
-      - name:  "End-to-end Tests: Yarn"
+      - name: 'End-to-end Tests: Yarn'
         uses: GabrielBB/xvfb-action@v1
         with:
-          run : END_TO_END_TESTS=yarn yarn test-slow
+          run: yarn test-slow
+          env:
+            END_TO_END_TESTS: 'yarn'
 
-      - name:  "End-to-end Tests: npm"
+      - name: 'End-to-end Tests: npm'
         uses: GabrielBB/xvfb-action@v1
         with:
-          run : END_TO_END_TESTS=npm yarn test-slow
+          run: yarn test-slow
+          env:
+            END_TO_END_TESTS: 'npm'
