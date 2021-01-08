@@ -59,9 +59,12 @@ app.on('ready', async () => {
     mainWindow.loadURL(emberAppURL);
   });
 
-  mainWindow.webContents.on('crashed', () => {
-    console.log('Your Ember app (or other code) in the main window has crashed.');
-    console.log('This is a serious issue that needs to be handled and/or debugged.');
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    if (details.reason === 'killed' || details.reason === 'clean-exit') {
+      return;
+    }
+    console.log('Your main window process has exited unexpectedly -- see https://www.electronjs.org/docs/api/web-contents#event-render-process-gone');
+    console.log('Reason: ' + details.reason);
   });
 
   mainWindow.on('unresponsive', () => {
