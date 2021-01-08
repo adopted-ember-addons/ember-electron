@@ -63,9 +63,7 @@ app.on('ready', async () => {
     if (details.reason === 'killed' || details.reason === 'clean-exit') {
       return;
     }
-    console.log('Your Ember app (or other code) in the main window has crashed.');
-    console.log('This is a serious issue that needs to be handled and/or debugged.');
-    console.log('Reason: ' + details.reason);
+    console.log('Your main window process has exited unexpectedly -- see https://www.electronjs.org/docs/api/web-contents#event-render-process-gone');
   });
 
   mainWindow.on('unresponsive', () => {
