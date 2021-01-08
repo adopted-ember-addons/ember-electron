@@ -45,6 +45,10 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+      // Details about what this is https://github.com/electron/electron/blob/master/docs/tutorial/context-isolation.md
+      contextIsolation: false,
+    },
   });
 
   // If you want to open up dev tools programmatically, call
