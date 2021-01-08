@@ -64,6 +64,7 @@ app.on('ready', async () => {
       return;
     }
     console.log('Your main window process has exited unexpectedly -- see https://www.electronjs.org/docs/api/web-contents#event-render-process-gone');
+    console.log('Reason: ' + details.reason);
   });
 
   mainWindow.on('unresponsive', () => {
