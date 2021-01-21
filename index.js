@@ -7,7 +7,7 @@ function injectScript(scriptName) {
   let filePath = path.join(dirname, 'lib', 'resources', scriptName);
   let fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
 
-  return `<script>\n${fileContent}</script>`;
+  return `<script nonce="ember-electron-${scriptName}">\n${fileContent}</script>`;
 }
 
 module.exports = {
