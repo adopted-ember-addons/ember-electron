@@ -15,7 +15,7 @@ const {
   readJsonSync,
   removeSync,
   writeFileSync,
-  writeJsonSync,
+  writeJsonSync
 } = require('fs-extra');
 const { promisify } = require('util');
 const ncp = promisify(require('ncp'));
@@ -29,7 +29,7 @@ function run(cmd, args, opts = {}) {
   return execa(cmd, args, opts);
 }
 
-describe('end-to-end', function() {
+describe('end-to-end', function () {
   this.timeout(10 * 60 * 1000);
 
   let oldEnv;
@@ -38,9 +38,11 @@ describe('end-to-end', function() {
   let { name: packageTmpDir } = tmp.dirSync();
 
   function ember(...args) {
-    return listenForPrompts(run(emberPath, args, {
-      stdio: ['pipe', 'pipe', process.stderr],
-    }));
+    return listenForPrompts(
+      run(emberPath, args, {
+        stdio: ['pipe', 'pipe', process.stderr]
+      })
+    );
   }
 
   before(() => {
@@ -55,19 +57,25 @@ describe('end-to-end', function() {
     });
 
     // Pack up current ember-electron directory so it can be installed in new ember projects.
-    return run('yarn', ['pack', '--filename', path.join(packageTmpDir, 'ember-electron.tgz')]).then(() => {
-      process.chdir(packageTmpDir);
+    return run('yarn', [
+      'pack',
+      '--filename',
+      path.join(packageTmpDir, 'ember-electron.tgz')
+    ])
+      .then(() => {
+        process.chdir(packageTmpDir);
 
-      return run('tar', ['-xzf', 'ember-electron.tgz']);
-    }).then(() => {
-      // Prevent yarn caching from screwing us
-      let packageJson = readJsonSync(path.join('package', 'package.json'));
-      packageJson.version = `${packageJson.version}-${new Date().getTime()}`;
-      writeJsonSync(path.join('package', 'package.json'), packageJson);
+        return run('tar', ['-xzf', 'ember-electron.tgz']);
+      })
+      .then(() => {
+        // Prevent yarn caching from screwing us
+        let packageJson = readJsonSync(path.join('package', 'package.json'));
+        packageJson.version = `${packageJson.version}-${new Date().getTime()}`;
+        writeJsonSync(path.join('package', 'package.json'), packageJson);
 
-      // Save modified package back into tarball so we can have npm use that directly
-      return run('tar', ['-cf', 'ember-electron-cachebust.tar', 'package']);
-    });
+        // Save modified package back into tarball so we can have npm use that directly
+        return run('tar', ['-cf', 'ember-electron-cachebust.tar', 'package']);
+      });
   });
 
   after(() => {
@@ -78,16 +86,28 @@ describe('end-to-end', function() {
     removeSync(packageOutPath);
   });
 
-  if (!process.env.END_TO_END_TESTS || process.env.END_TO_END_TESTS === 'yarn') {
-    describe('with yarn', function() {
-      before(function() {
+  if (
+    !process.env.END_TO_END_TESTS ||
+    process.env.END_TO_END_TESTS === 'yarn'
+  ) {
+    describe('with yarn', function () {
+      before(function () {
         let { name: tmpDir } = tmp.dirSync();
         process.chdir(tmpDir);
 
-        return ember('new', 'ee-test-app', '--yarn', '--skip-git', '--no-welcome').then(() => {
+        return ember(
+          'new',
+          'ee-test-app',
+          '--yarn',
+          '--skip-git',
+          '--no-welcome'
+        ).then(() => {
           process.chdir('ee-test-app');
 
-          return ember('install', `ember-electron@${path.join(packageTmpDir, 'package')}`);
+          return ember(
+            'install',
+            `ember-electron@${path.join(packageTmpDir, 'package')}`
+          );
         });
       });
 
@@ -97,22 +117,31 @@ describe('end-to-end', function() {
 
       runTests();
 
-      it('the blueprint updated .travis.yml', function() {
+      it('the blueprint updated .travis.yml', function () {
         let travisYml = readFileSync('.travis.yml').toString();
         expect(travisYml).to.include('cd electron-app && yarn');
         expect(travisYml).to.include(`export DISPLAY=':99.0'`);
-        expect(travisYml).to.include('Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &');
+        expect(travisYml).to.include(
+          'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &'
+        );
       });
     });
   }
 
   if (!process.env.END_TO_END_TESTS || process.env.END_TO_END_TESTS === 'npm') {
-    describe('with npm', function() {
-      before(function() {
+    describe('with npm', function () {
+      before(function () {
         let { name: tmpDir } = tmp.dirSync();
         process.chdir(tmpDir);
 
-        return ember('new', 'ee-test-app', '--yarn', 'false', '--skip-git', '--no-welcome').then(() => {
+        return ember(
+          'new',
+          'ee-test-app',
+          '--yarn',
+          'false',
+          '--skip-git',
+          '--no-welcome'
+        ).then(() => {
           process.chdir('ee-test-app');
           // For some reason, either ember-cli-dependency-checker isn't working with npm
           // or npm isn't getting the right version because without this env var (or hacking package.json)
@@ -125,7 +154,14 @@ describe('end-to-end', function() {
           //     Run `npm install` to install missing dependencies.
           process.env.SKIP_DEPENDENCY_CHECKER = true;
 
-          return ember('install', `ember-electron@${path.join(packageTmpDir, 'ember-electron-cachebust.tar')}`, '--no-yarn');
+          return ember(
+            'install',
+            `ember-electron@${path.join(
+              packageTmpDir,
+              'ember-electron-cachebust.tar'
+            )}`,
+            '--no-yarn'
+          );
         });
       });
 
@@ -135,18 +171,20 @@ describe('end-to-end', function() {
 
       runTests();
 
-      it('the blueprint updated .travis.yml', function() {
+      it('the blueprint updated .travis.yml', function () {
         let travisYml = readFileSync('.travis.yml').toString();
         expect(travisYml).to.include('npm install');
         expect(travisYml).to.include('cd electron-app && npm install');
         expect(travisYml).to.include(`export DISPLAY=':99.0'`);
-        expect(travisYml).to.include('Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &');
+        expect(travisYml).to.include(
+          'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &'
+        );
       });
     });
   }
 
   function runTests() {
-    before(function() {
+    before(function () {
       //
       // Install fixture
       //
@@ -157,7 +195,7 @@ describe('end-to-end', function() {
       let extraContentPath = path.join(fixturePath, 'test-index-extra.js');
       let content = [
         readFileSync(testIndexPath),
-        readFileSync(extraContentPath),
+        readFileSync(extraContentPath)
       ].join('\n');
       writeFileSync(testIndexPath, content);
 
@@ -175,13 +213,16 @@ describe('end-to-end', function() {
       return expect(ember('electron:test')).to.eventually.be.fulfilled;
     });
 
-    it('packages', async function() {
+    it('packages', async function () {
       expect(existsSync(emberTestBuildPath)).to.be.ok;
       expect(existsSync(path.join(electronProjectPath, 'tests'))).to.be.ok;
 
       await expect(ember('electron:package')).to.be.fulfilled;
 
-      let packageDir = path.join(packageOutPath, `ee-test-app-${process.platform}-${process.arch}`);
+      let packageDir = path.join(
+        packageOutPath,
+        `ee-test-app-${process.platform}-${process.arch}`
+      );
       expect(existsSync(packageDir)).to.be.ok;
 
       let appPath;
@@ -205,17 +246,21 @@ describe('end-to-end', function() {
       let packageJsonPath = path.join('electron-app', 'package.json');
       let packageJson = readJsonSync(packageJsonPath);
       let makers = packageJson.config.forge.makers;
-      let zipMaker = makers.find(m => m.name === '@electron-forge/maker-zip');
+      let zipMaker = makers.find((m) => m.name === '@electron-forge/maker-zip');
       delete zipMaker.platforms;
-      writeJsonSync(packageJsonPath, packageJson)
+      writeJsonSync(packageJsonPath, packageJson);
 
-      return ember('electron:make', '--targets', '@electron-forge/maker-zip').then(() => {
+      return ember(
+        'electron:make',
+        '--targets',
+        '@electron-forge/maker-zip'
+      ).then(() => {
         expect(existsSync(path.join(packageOutPath, 'make'))).to.be.ok;
       });
     });
 
-    it('lints after other commands have run', async function() {
-      await expect(run('./node_modules/.bin/eslint', [ '.' ])).to.be.fulfilled;
+    it('lints after other commands have run', async function () {
+      await expect(run('./node_modules/.bin/eslint', ['.'])).to.be.fulfilled;
     });
   }
 });

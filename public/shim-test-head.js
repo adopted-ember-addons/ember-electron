@@ -5,7 +5,7 @@
 //
 // The testemId query param is added to the test URL by test-runner.js.
 //
-window.getTestemId = function() {
+window.getTestemId = function () {
   let match = window.location.search.match(/[?&]testemId=([^?&]+)/);
   return match ? match[1] : null;
 };

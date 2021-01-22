@@ -26,11 +26,15 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
   async afterInstall() {
     if (fs.existsSync('ember-electron')) {
-      this.ui.writeLine(chalk.yellow([
-        `\n'ember-electron' directory detected -- this looks like an ember-electron`,
-        `v2 project. Setting up an updated project will not be destructive, but you`,
-        `should read the upgrading documentation at ${upgradingUrl}.\n`
-      ].join(' ')));
+      this.ui.writeLine(
+        chalk.yellow(
+          [
+            `\n'ember-electron' directory detected -- this looks like an ember-electron`,
+            `v2 project. Setting up an updated project will not be destructive, but you`,
+            `should read the upgrading documentation at ${upgradingUrl}.\n`
+          ].join(' ')
+        )
+      );
     }
 
     await this.updateEnvironmentConfig();
@@ -41,12 +45,16 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     if (!fs.existsSync(electronProjectPath)) {
       await this.createElectronProject();
     } else {
-      this.ui.writeLine(chalk.yellow([
-        `An electron-forge project already exists at './${electronProjectPath}'.`,
-        `If you're running the blueprint manually as part of an ember-electron`,
-        `upgrade, make sure to check for upgrade instructions relevant to your`,
-        `version upgrade at ${upgradingUrl}.\n`
-      ].join(' ')));
+      this.ui.writeLine(
+        chalk.yellow(
+          [
+            `An electron-forge project already exists at './${electronProjectPath}'.`,
+            `If you're running the blueprint manually as part of an ember-electron`,
+            `upgrade, make sure to check for upgrade instructions relevant to your`,
+            `version upgrade at ${upgradingUrl}.\n`
+          ].join(' ')
+        )
+      );
     }
   }
 
@@ -57,26 +65,40 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
     const rootURLRegex = /(\srootURL\s*:)/;
     if (rootURLRegex.test(contents)) {
-      contents = contents.replace(rootURLRegex, `$1 process.env.EMBER_CLI_ELECTRON ? '' :`);
+      contents = contents.replace(
+        rootURLRegex,
+        `$1 process.env.EMBER_CLI_ELECTRON ? '' :`
+      );
     } else {
-      this.ui.writeLine(chalk.yellow([
-        `\nUnable to update rootURL setting to`,
-        `\`process.env.EMBER_CLI_ELECTRON ? '' : <previous value>\`,`,
-        `which is needed for your Ember app to load assets under Electron.`,
-        `See ${routingAndAssetLoadingUrl} for more information.`
-      ].join(' ')));
+      this.ui.writeLine(
+        chalk.yellow(
+          [
+            `\nUnable to update rootURL setting to`,
+            `\`process.env.EMBER_CLI_ELECTRON ? '' : <previous value>\`,`,
+            `which is needed for your Ember app to load assets under Electron.`,
+            `See ${routingAndAssetLoadingUrl} for more information.`
+          ].join(' ')
+        )
+      );
     }
 
     const locationTypeRegex = /(\slocationType\s*:)/;
     if (locationTypeRegex.test(contents)) {
-      contents = contents.replace(locationTypeRegex, `$1 process.env.EMBER_CLI_ELECTRON ? 'hash' :`);
+      contents = contents.replace(
+        locationTypeRegex,
+        `$1 process.env.EMBER_CLI_ELECTRON ? 'hash' :`
+      );
     } else {
-      this.ui.writeLine(chalk.yellow([
-        `\nUnable to update locationType setting to`,
-        `\`process.env.EMBER_CLI_ELECTRON ? 'hash' : <previous value>\`,`,
-        `which is needed for your Ember app's routing to work under Electron.`,
-        `See ${routingAndAssetLoadingUrl} for more information.`
-      ].join(' ')));
+      this.ui.writeLine(
+        chalk.yellow(
+          [
+            `\nUnable to update locationType setting to`,
+            `\`process.env.EMBER_CLI_ELECTRON ? 'hash' : <previous value>\`,`,
+            `which is needed for your Ember app's routing to work under Electron.`,
+            `See ${routingAndAssetLoadingUrl} for more information.`
+          ].join(' ')
+        )
+      );
     }
 
     await writeFile('config/environment.js', contents);
@@ -84,10 +106,14 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
   async updateTravisYml() {
     if (!fs.existsSync('.travis.yml')) {
-      this.ui.writeLine(chalk.yellow([
-        `\nNo .travis.yml found to update. For info on manually updating your CI`,
-        `config read ${ciUrl}\n`
-      ].join(' ')));
+      this.ui.writeLine(
+        chalk.yellow(
+          [
+            `\nNo .travis.yml found to update. For info on manually updating your CI`,
+            `config read ${ciUrl}\n`
+          ].join(' ')
+        )
+      );
       return;
     }
 
@@ -116,7 +142,9 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       // and export display and launch xvfb
       let hasInstallSection = Boolean(doc.install);
       doc.install = doc.install || [];
-      let usesYarn = Boolean(doc.install.find(entry => entry.includes('yarn ')));
+      let usesYarn = Boolean(
+        doc.install.find((entry) => entry.includes('yarn '))
+      );
 
       if (usesYarn) {
         doc.install.push('__yarn_install__');
@@ -130,7 +158,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         doc.install.push('__npm_install__');
       }
 
-      if (!doc.install.find(entry => entry.toLowerCase().includes('xvfb'))) {
+      if (!doc.install.find((entry) => entry.toLowerCase().includes('xvfb'))) {
         doc.install.push('__export_display__');
         doc.install.push('__xvfb__');
       }
@@ -140,18 +168,31 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       // placeholders that won't be quoted and replace them in the output string
       yawn.json = doc;
       let output = yawn.yaml;
-      output = output.replace('__yarn_install__', `cd electron-app && yarn install --non-interactive`);
+      output = output.replace(
+        '__yarn_install__',
+        `cd electron-app && yarn install --non-interactive`
+      );
       output = output.replace('__npm_install_root__', `npm install`);
-      output = output.replace('__npm_install__', `cd electron-app && npm install`);
+      output = output.replace(
+        '__npm_install__',
+        `cd electron-app && npm install`
+      );
       output = output.replace('__export_display__', `export DISPLAY=':99.0'`);
-      output = output.replace('__xvfb__', 'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &');
+      output = output.replace(
+        '__xvfb__',
+        'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &'
+      );
 
       await writeFile('.travis.yml', output);
     } catch (e) {
-      this.ui.writeLine(chalk.red([
-        `Failed to update .travis.yml. For info on manually updating your CI`,
-        `config read ${ciUrl}.\nError:\n${e}`
-      ].join(' ')));
+      this.ui.writeLine(
+        chalk.red(
+          [
+            `Failed to update .travis.yml. For info on manually updating your CI`,
+            `config read ${ciUrl}.\nError:\n${e}`
+          ].join(' ')
+        )
+      );
     }
   }
 
@@ -163,11 +204,9 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   // going to say "not my job"
   //
   async updateEslintIgnore() {
-    const toAppend = [
-      '',
-      '# ember-electron',
-      `/${electronProjectPath}/`,
-    ].join('\n');
+    const toAppend = ['', '# ember-electron', `/${electronProjectPath}/`].join(
+      '\n'
+    );
 
     await this.insertIntoFile('.eslintignore', toAppend);
   }
@@ -178,12 +217,16 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   //
   async updateEslintRc() {
     const after = /['"`]testem\.js['"`],/;
-    const content = '\n        \'testem-electron.js\',';
+    const content = "\n        'testem-electron.js',";
     await this.insertIntoFile('.eslintrc.js', content, { after });
   }
 
   async createElectronProject() {
-    this.ui.writeLine(chalk.green(`Creating electron-forge project at './${electronProjectPath}'`));
+    this.ui.writeLine(
+      chalk.green(
+        `Creating electron-forge project at './${electronProjectPath}'`
+      )
+    );
 
     await api.init({
       dir: electronProjectPath,

@@ -9,11 +9,11 @@ module.exports = {
 
   includedCommands() {
     return {
-      'electron': require('./lib/commands/electron'),
+      electron: require('./lib/commands/electron'),
       'electron:test': require('./lib/commands/test'),
       'electron:build': require('./lib/commands/build'),
       'electron:package': require('./lib/commands/package'),
-      'electron:make': require('./lib/commands/make'),
+      'electron:make': require('./lib/commands/make')
     };
   },
 
@@ -21,18 +21,20 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     app.import('vendor/wrap-require.js', {
-      type: 'vendor',
+      type: 'vendor'
     });
   },
 
   contentFor(type) {
-    const { env: { EMBER_CLI_ELECTRON } } = process;
+    const {
+      env: { EMBER_CLI_ELECTRON }
+    } = process;
 
     if (EMBER_CLI_ELECTRON) {
       let script = {
-        'head': 'shim-head.js',
+        head: 'shim-head.js',
         'test-head': 'shim-test-head.js',
-        'body-footer': 'shim-footer.js',
+        'body-footer': 'shim-footer.js'
       }[type];
 
       if (script) {
@@ -44,7 +46,7 @@ module.exports = {
   postprocessTree(type, node) {
     if (type === 'all' && process.env.EMBER_CLI_ELECTRON) {
       node = replace(node, {
-        files: [ 'tests/index.html' ],
+        files: ['tests/index.html'],
         pattern: {
           match: /(src|href)="([^"]+)"/g,
           replacement(match, attr, value) {

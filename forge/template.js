@@ -15,21 +15,24 @@ async function updateGitIgnore(dir) {
   // add our ember build directories to .gitignore
   let gitIgnorePath = path.join(dir, '.gitignore');
   let contents = await readFile(gitIgnorePath);
-  await writeFile(gitIgnorePath, [
-    contents.toString(),
-    '# Ember build',
-    `${emberBuildDir}/`,
-    `${emberTestBuildDir}/`,
-    // `electron-packager` will automatically ignore the output directory, but
-    // if someone were to build once without specifying a custom output path,
-    // and then build with a custom output path, during the second build,
-    // `electron-packager` would only ignore the custom output path, and not the
-    // contents of `packageDir`, so it would package up all that previously
-    // built content in the second packaged application.
-    '# package/make output directory',
-    `${packageOutDir}/`,
-    ''
-  ].join('\n'));
+  await writeFile(
+    gitIgnorePath,
+    [
+      contents.toString(),
+      '# Ember build',
+      `${emberBuildDir}/`,
+      `${emberTestBuildDir}/`,
+      // `electron-packager` will automatically ignore the output directory, but
+      // if someone were to build once without specifying a custom output path,
+      // and then build with a custom output path, during the second build,
+      // `electron-packager` would only ignore the custom output path, and not the
+      // contents of `packageDir`, so it would package up all that previously
+      // built content in the second packaged application.
+      '# package/make output directory',
+      `${packageOutDir}/`,
+      ''
+    ].join('\n')
+  );
 }
 
 async function updatePackageJson(dir) {
@@ -43,14 +46,10 @@ async function updatePackageJson(dir) {
   ].map((dir) => `/${dir}(/|$)`); // these are regexes, not globs
 
   // copy some fields from the Ember project's package.json
-  let parentPackageJson = JSON.parse(await readFile(path.join(dir, '../package.json')));
-  const keysToCopy = [
-    'name',
-    'version',
-    'description',
-    'author',
-    'license'
-  ];
+  let parentPackageJson = JSON.parse(
+    await readFile(path.join(dir, '../package.json'))
+  );
+  const keysToCopy = ['name', 'version', 'description', 'author', 'license'];
   for (let key of keysToCopy) {
     if (Object.keys(parentPackageJson).includes(key)) {
       packageJson[key] = parentPackageJson[key];
@@ -69,15 +68,10 @@ class EmberElectronTemplates extends BaseTemplate {
   }
 
   get devDependencies() {
-    return [
-      'devtron'
-    ];
+    return ['devtron'];
   }
   get dependencies() {
-    return [
-      'electron-devtools-installer',
-      'electron-is-dev',
-    ];
+    return ['electron-devtools-installer', 'electron-is-dev'];
   }
 
   async initializeTemplate(dir) {
@@ -92,7 +86,6 @@ class EmberElectronTemplates extends BaseTemplate {
     await updateGitIgnore(dir);
     await updatePackageJson(dir);
   }
-
 }
 
 module.exports = new EmberElectronTemplates();

@@ -14,13 +14,13 @@ const rimraf = require('rimraf');
 const path = require('path');
 const sinon = require('sinon');
 
-describe('electron:make command', function() {
+describe('electron:make command', function () {
   mockElectronProject();
 
   let buildTaskStub;
   let command;
 
-  beforeEach(function() {
+  beforeEach(function () {
     buildTaskStub = sinon.stub(BuildTask.prototype, 'run').resolves();
     sinon.stub(api, 'make').resolves();
 
@@ -30,16 +30,18 @@ describe('electron:make command', function() {
       settings: {},
       project: new MockProject(),
       tasks: {
-        'Build': BuildTask,
-        'ElectronMake': MakeTask
-      },
+        Build: BuildTask,
+        ElectronMake: MakeTask
+      }
     });
   });
 
-  it('works', async function() {
+  it('works', async function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
-    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(path.join('electron-app', 'ember-dist'));
+    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(
+      path.join('electron-app', 'ember-dist')
+    );
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
@@ -49,7 +51,7 @@ describe('electron:make command', function() {
     expect(api.make.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
   });
 
-  it('builds with EMBER_CLI_ELECTRON set', async function() {    
+  it('builds with EMBER_CLI_ELECTRON set', async function () {
     let envVal;
     buildTaskStub.resetBehavior();
     buildTaskStub.callsFake(() => {
@@ -61,20 +63,21 @@ describe('electron:make command', function() {
     expect(envVal).to.be.ok;
   });
 
-  it('runs the dependency checker', async function() {
+  it('runs the dependency checker', async function () {
     sinon.spy(DependencyChecker.prototype, 'checkDependencies');
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(DependencyChecker.prototype.checkDependencies).to.be.calledOnce;
   });
 
-  it('builds for the correct environment', async function() {
-    await expect(command.validateAndRun([ '--environment', 'testing' ])).to.be.fulfilled;
+  it('builds for the correct environment', async function () {
+    await expect(command.validateAndRun(['--environment', 'testing'])).to.be
+      .fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
     expect(buildTaskStub.firstCall.args[0].environment).to.equal('testing');
   });
 
-  it('can skip building', async function() {
-    await expect(command.validateAndRun([ '--skip-build' ])).to.be.fulfilled;
+  it('can skip building', async function () {
+    await expect(command.validateAndRun(['--skip-build'])).to.be.fulfilled;
     expect(buildTaskStub).to.not.be.called;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
@@ -84,8 +87,8 @@ describe('electron:make command', function() {
     });
   });
 
-  it('can skip packaging (which also skips building)', async function() {
-    await expect(command.validateAndRun([ '--skip-package' ])).to.be.fulfilled;
+  it('can skip packaging (which also skips building)', async function () {
+    await expect(command.validateAndRun(['--skip-package'])).to.be.fulfilled;
     expect(buildTaskStub).to.not.be.called;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
@@ -95,8 +98,8 @@ describe('electron:make command', function() {
     });
   });
 
-  it('can skip building and packaging explicitly', async function() {
-    await expect(command.validateAndRun([ '--skip-package' ])).to.be.fulfilled;
+  it('can skip building and packaging explicitly', async function () {
+    await expect(command.validateAndRun(['--skip-package'])).to.be.fulfilled;
     expect(buildTaskStub).to.not.be.called;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
@@ -106,12 +109,17 @@ describe('electron:make command', function() {
     });
   });
 
-  it('can set the platform, arch, and output path', async function() {
-    await expect(command.validateAndRun([
-      '--platform', 'linux',
-      '--arch', 'ia32',
-      '--output-path', 'some-dir'
-    ])).to.be.fulfilled;
+  it('can set the platform, arch, and output path', async function () {
+    await expect(
+      command.validateAndRun([
+        '--platform',
+        'linux',
+        '--arch',
+        'ia32',
+        '--output-path',
+        'some-dir'
+      ])
+    ).to.be.fulfilled;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
@@ -122,29 +130,30 @@ describe('electron:make command', function() {
     });
   });
 
-  it('can set one override target', async function() {
-    await expect(command.validateAndRun([ '--targets', 'zip' ])).to.be.fulfilled;
+  it('can set one override target', async function () {
+    await expect(command.validateAndRun(['--targets', 'zip'])).to.be.fulfilled;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
       skipPackage: false,
-      overrideTargets: [ 'zip' ]
+      overrideTargets: ['zip']
     });
   });
 
-  it('can set multiple override targets', async function() {
-    await expect(command.validateAndRun([ '--targets', 'zip,dmg,deb' ])).to.be.fulfilled;
+  it('can set multiple override targets', async function () {
+    await expect(command.validateAndRun(['--targets', 'zip,dmg,deb'])).to.be
+      .fulfilled;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
       skipPackage: false,
-      overrideTargets: [ 'zip', 'dmg', 'deb' ]
+      overrideTargets: ['zip', 'dmg', 'deb']
     });
   });
 
-  it('errors if the electron project directory is not present', async function() {
+  it('errors if the electron project directory is not present', async function () {
     rimraf.sync('electron-app');
     await expect(command.validateAndRun([])).to.be.rejected;
   });

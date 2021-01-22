@@ -3,18 +3,18 @@ const { existsSync, mkdirSync, writeFileSync } = require('fs');
 const path = require('path');
 const { electronProjectPath } = require('../../lib/utils/build-paths');
 
-module.exports = function() {
+module.exports = function () {
   let cwd;
-  before(function() {
+  before(function () {
     cwd = process.cwd();
-    process.chdir(tmp.dirSync().name);    
+    process.chdir(tmp.dirSync().name);
   });
 
-  after(function() {
+  after(function () {
     process.chdir(cwd);
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     // do this in beforeEach() so individual tests can delete it if they are
     // testing error behavior or something
     if (!existsSync(electronProjectPath)) {
@@ -25,4 +25,4 @@ module.exports = function() {
       writeFileSync(packageJsonPath, '{}');
     }
   });
-}
+};

@@ -1,11 +1,13 @@
 const { expect } = require('chai');
 const { getAssetPath } = require('../../forge/files/src/handle-file-urls');
 const tmp = require('tmp');
-const { promises: { mkdir, writeFile } } = require('fs');
+const {
+  promises: { mkdir, writeFile }
+} = require('fs');
 const path = require('path');
 const { pathToFileURL } = require('url');
 
-describe('handle-file-urls', function() {
+describe('handle-file-urls', function () {
   let emberAppDir;
 
   let indexHtmlPath;
@@ -14,8 +16,8 @@ describe('handle-file-urls', function() {
   let imagePath;
 
   let externalFilePath;
-  
-  beforeEach(async function() {
+
+  beforeEach(async function () {
     emberAppDir = tmp.dirSync().name;
     let assetsDir = path.join(emberAppDir, 'assets');
     await mkdir(assetsDir);
@@ -50,20 +52,30 @@ describe('handle-file-urls', function() {
     await writeFile(externalFilePath, 'external');
   });
 
-  it('handles absolute paths in the Ember app dir', async function() {
-    await expect(getAssetPath(emberAppDir, pathToFileURL(indexHtmlPath))).to.eventually.equal(indexHtmlPath);
-    await expect(getAssetPath(emberAppDir, pathToFileURL(vendorJsPath))).to.eventually.equal(vendorJsPath);
+  it('handles absolute paths in the Ember app dir', async function () {
+    await expect(
+      getAssetPath(emberAppDir, pathToFileURL(indexHtmlPath))
+    ).to.eventually.equal(indexHtmlPath);
+    await expect(
+      getAssetPath(emberAppDir, pathToFileURL(vendorJsPath))
+    ).to.eventually.equal(vendorJsPath);
   });
 
-  it('handles relative paths in the Ember app dir', async function() {
+  it('handles relative paths in the Ember app dir', async function () {
     let rootImageRelPath = `/${path.relative(emberAppDir, rootImagePath)}`;
     let imageRelPath = `/${path.relative(emberAppDir, imagePath)}`;
 
-    await expect(getAssetPath(emberAppDir, pathToFileURL(rootImageRelPath))).to.eventually.equal(rootImagePath);
-    await expect(getAssetPath(emberAppDir, pathToFileURL(imageRelPath))).to.eventually.equal(imagePath);
+    await expect(
+      getAssetPath(emberAppDir, pathToFileURL(rootImageRelPath))
+    ).to.eventually.equal(rootImagePath);
+    await expect(
+      getAssetPath(emberAppDir, pathToFileURL(imageRelPath))
+    ).to.eventually.equal(imagePath);
   });
 
-  it('handles files outside the Ember app dir', async function() {
-    await expect(getAssetPath(emberAppDir, pathToFileURL(externalFilePath))).to.eventually.equal(externalFilePath);
+  it('handles files outside the Ember app dir', async function () {
+    await expect(
+      getAssetPath(emberAppDir, pathToFileURL(externalFilePath))
+    ).to.eventually.equal(externalFilePath);
   });
 });
