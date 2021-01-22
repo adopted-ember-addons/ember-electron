@@ -1,3 +1,31 @@
+Version 9 of Highlight.js has reached EOL and is no longer supported.
+Please upgrade or ask whatever dependency you are using to upgrade.
+https://github.com/highlightjs/highlight.js/issues/2877
+
+## v3.0.0-beta.5 (2021-01-22)
+
+#### :rocket: Enhancement
+* [#685](https://github.com/adopted-ember-addons/ember-electron/pull/685) fix: replace deprecated 'crashed' event ([@knownasilya](https://github.com/knownasilya))
+* [#676](https://github.com/adopted-ember-addons/ember-electron/pull/676) Set `contextIsolation` to false for tests ([@rwwagner90](https://github.com/rwwagner90))
+* [#638](https://github.com/adopted-ember-addons/ember-electron/pull/638) Fix making/building with a custom output path ([@bendemboski](https://github.com/bendemboski))
+
+#### :memo: Documentation
+* [#668](https://github.com/adopted-ember-addons/ember-electron/pull/668) Mention `nodeIntegration` in the documentation ([@bendemboski](https://github.com/bendemboski))
+* [#646](https://github.com/adopted-ember-addons/ember-electron/pull/646) fix: typo in link to github profile page of author ([@jl-cs](https://github.com/jl-cs))
+
+#### :house: Internal
+* [#699](https://github.com/adopted-ember-addons/ember-electron/pull/699) Remove Mac from tests ([@rwwagner90](https://github.com/rwwagner90))
+* [#697](https://github.com/adopted-ember-addons/ember-electron/pull/697) Run Windows and MacOS tests with GH Actions ([@rwwagner90](https://github.com/rwwagner90))
+* [#695](https://github.com/adopted-ember-addons/ember-electron/pull/695) Move inline scripts to public folder, document CSP setup ([@rwwagner90](https://github.com/rwwagner90))
+* [#671](https://github.com/adopted-ember-addons/ember-electron/pull/671) Convert to GitHub actions ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 5
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Ilya Radchenko ([@knownasilya](https://github.com/knownasilya))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+- [@jl-cs](https://github.com/jl-cs)
+
 ## v3.0.0-beta.4 (2020-09-16)
 
 #### :bug: Bug Fix
