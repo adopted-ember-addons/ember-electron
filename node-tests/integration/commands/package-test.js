@@ -31,8 +31,8 @@ describe('electron:package command', function () {
       project: new MockProject(),
       tasks: {
         Build: BuildTask,
-        ElectronPackage: PackageTask
-      }
+        ElectronPackage: PackageTask,
+      },
     });
   });
 
@@ -45,7 +45,7 @@ describe('electron:package command', function () {
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: path.join('electron-app', 'out')
+      outDir: path.join('electron-app', 'out'),
     });
     expect(api.package.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
   });
@@ -83,7 +83,7 @@ describe('electron:package command', function () {
         '--arch',
         'ia32',
         '--output-path',
-        'some-dir'
+        'some-dir',
       ])
     ).to.be.fulfilled;
     expect(api.package).to.be.calledOnce;
@@ -91,7 +91,7 @@ describe('electron:package command', function () {
       dir: 'electron-app',
       outDir: path.resolve('some-dir'),
       platform: 'linux',
-      arch: 'ia32'
+      arch: 'ia32',
     });
   });
 

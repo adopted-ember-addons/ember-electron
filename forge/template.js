@@ -8,7 +8,7 @@ const ncp = promisify(require('ncp'));
 const {
   emberBuildDir,
   emberTestBuildDir,
-  packageOutDir
+  packageOutDir,
 } = require('../lib/utils/build-paths');
 
 async function updateGitIgnore(dir) {
@@ -30,7 +30,7 @@ async function updateGitIgnore(dir) {
       // built content in the second packaged application.
       '# package/make output directory',
       `${packageOutDir}/`,
-      ''
+      '',
     ].join('\n')
   );
 }
@@ -42,7 +42,7 @@ async function updatePackageJson(dir) {
   let packageJson = JSON.parse(await readFile(packageJsonPath));
   packageJson.config.forge.packagerConfig.ignore = [
     emberTestBuildDir,
-    'tests'
+    'tests',
   ].map((dir) => `/${dir}(/|$)`); // these are regexes, not globs
 
   // copy some fields from the Ember project's package.json

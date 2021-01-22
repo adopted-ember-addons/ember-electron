@@ -23,8 +23,8 @@ describe('checkDependencies()', function () {
       path.join(electronProjectPath, 'package.json'),
       JSON.stringify({
         dependencies: {
-          'fake-package': '^1.0.0'
-        }
+          'fake-package': '^1.0.0',
+        },
       })
     );
     nodeModulesPath = path.join(electronProjectPath, 'node_modules');
@@ -41,7 +41,7 @@ describe('checkDependencies()', function () {
       path.join(nodeModulesPath, 'fake-package', 'package.json'),
       JSON.stringify({
         name: 'fake-package',
-        version: '1.0.2'
+        version: '1.0.2',
       })
     );
     await expect(checkDependencies(project)).to.be.fulfilled;

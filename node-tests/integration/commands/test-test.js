@@ -24,7 +24,7 @@ describe('electron:test command', function () {
       analytics: new MockAnalytics(),
       settings: {},
       project: new MockProject(),
-      tasks: {}
+      tasks: {},
     });
   });
 

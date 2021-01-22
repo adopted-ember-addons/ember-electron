@@ -5,7 +5,7 @@ const {
   packageOutPath,
   emberBuildDir,
   emberTestBuildDir,
-  emberTestBuildPath
+  emberTestBuildPath,
 } = require('../../lib/utils/build-paths');
 const path = require('path');
 const {
@@ -15,7 +15,7 @@ const {
   readJsonSync,
   removeSync,
   writeFileSync,
-  writeJsonSync
+  writeJsonSync,
 } = require('fs-extra');
 const { promisify } = require('util');
 const ncp = promisify(require('ncp'));
@@ -40,7 +40,7 @@ describe('end-to-end', function () {
   function ember(...args) {
     return listenForPrompts(
       run(emberPath, args, {
-        stdio: ['pipe', 'pipe', process.stderr]
+        stdio: ['pipe', 'pipe', process.stderr],
       })
     );
   }
@@ -60,7 +60,7 @@ describe('end-to-end', function () {
     return run('yarn', [
       'pack',
       '--filename',
-      path.join(packageTmpDir, 'ember-electron.tgz')
+      path.join(packageTmpDir, 'ember-electron.tgz'),
     ])
       .then(() => {
         process.chdir(packageTmpDir);
@@ -195,7 +195,7 @@ describe('end-to-end', function () {
       let extraContentPath = path.join(fixturePath, 'test-index-extra.js');
       let content = [
         readFileSync(testIndexPath),
-        readFileSync(extraContentPath)
+        readFileSync(extraContentPath),
       ].join('\n');
       writeFileSync(testIndexPath, content);
 

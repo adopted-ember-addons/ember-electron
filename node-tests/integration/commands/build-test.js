@@ -24,7 +24,7 @@ describe('electron:build command', function () {
       analytics: new MockAnalytics(),
       settings: {},
       project: new MockProject(),
-      tasks: {}
+      tasks: {},
     });
   });
 
@@ -65,7 +65,7 @@ describe('electron:build command', function () {
         '--watch',
         '--watcher',
         'polling',
-        '--suppress-sizes'
+        '--suppress-sizes',
       ])
     ).to.be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
@@ -74,7 +74,7 @@ describe('electron:build command', function () {
       environment: 'testing',
       watch: true,
       watcher: 'polling',
-      suppressSizes: true
+      suppressSizes: true,
     });
   });
 });

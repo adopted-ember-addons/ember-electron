@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { getAssetPath } = require('../../forge/files/src/handle-file-urls');
 const tmp = require('tmp');
 const {
-  promises: { mkdir, writeFile }
+  promises: { mkdir, writeFile },
 } = require('fs');
 const path = require('path');
 const { pathToFileURL } = require('url');

@@ -31,8 +31,8 @@ describe('electron:make command', function () {
       project: new MockProject(),
       tasks: {
         Build: BuildTask,
-        ElectronMake: MakeTask
-      }
+        ElectronMake: MakeTask,
+      },
     });
   });
 
@@ -46,7 +46,7 @@ describe('electron:make command', function () {
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
-      skipPackage: false
+      skipPackage: false,
     });
     expect(api.make.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
   });
@@ -83,7 +83,7 @@ describe('electron:make command', function () {
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
-      skipPackage: false
+      skipPackage: false,
     });
   });
 
@@ -94,7 +94,7 @@ describe('electron:make command', function () {
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
-      skipPackage: true
+      skipPackage: true,
     });
   });
 
@@ -105,7 +105,7 @@ describe('electron:make command', function () {
     expect(api.make.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
-      skipPackage: true
+      skipPackage: true,
     });
   });
 
@@ -117,7 +117,7 @@ describe('electron:make command', function () {
         '--arch',
         'ia32',
         '--output-path',
-        'some-dir'
+        'some-dir',
       ])
     ).to.be.fulfilled;
     expect(api.make).to.be.calledOnce;
@@ -126,7 +126,7 @@ describe('electron:make command', function () {
       outDir: path.resolve('some-dir'),
       platform: 'linux',
       arch: 'ia32',
-      skipPackage: false
+      skipPackage: false,
     });
   });
 
@@ -137,7 +137,7 @@ describe('electron:make command', function () {
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
       skipPackage: false,
-      overrideTargets: ['zip']
+      overrideTargets: ['zip'],
     });
   });
 
@@ -149,7 +149,7 @@ describe('electron:make command', function () {
       dir: 'electron-app',
       outDir: path.join('electron-app', 'out'),
       skipPackage: false,
-      overrideTargets: ['zip', 'dmg', 'deb']
+      overrideTargets: ['zip', 'dmg', 'deb'],
     });
   });
 

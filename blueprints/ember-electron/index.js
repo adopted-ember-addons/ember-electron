@@ -10,7 +10,7 @@ const YAWN = require('yawn-yaml/cjs');
 const {
   upgradingUrl,
   routingAndAssetLoadingUrl,
-  ciUrl
+  ciUrl,
 } = require('../../lib/utils/documentation-urls');
 
 module.exports = class EmberElectronBlueprint extends Blueprint {
@@ -31,7 +31,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
           [
             `\n'ember-electron' directory detected -- this looks like an ember-electron`,
             `v2 project. Setting up an updated project will not be destructive, but you`,
-            `should read the upgrading documentation at ${upgradingUrl}.\n`
+            `should read the upgrading documentation at ${upgradingUrl}.\n`,
           ].join(' ')
         )
       );
@@ -51,7 +51,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
             `An electron-forge project already exists at './${electronProjectPath}'.`,
             `If you're running the blueprint manually as part of an ember-electron`,
             `upgrade, make sure to check for upgrade instructions relevant to your`,
-            `version upgrade at ${upgradingUrl}.\n`
+            `version upgrade at ${upgradingUrl}.\n`,
           ].join(' ')
         )
       );
@@ -76,7 +76,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
             `\nUnable to update rootURL setting to`,
             `\`process.env.EMBER_CLI_ELECTRON ? '' : <previous value>\`,`,
             `which is needed for your Ember app to load assets under Electron.`,
-            `See ${routingAndAssetLoadingUrl} for more information.`
+            `See ${routingAndAssetLoadingUrl} for more information.`,
           ].join(' ')
         )
       );
@@ -95,7 +95,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
             `\nUnable to update locationType setting to`,
             `\`process.env.EMBER_CLI_ELECTRON ? 'hash' : <previous value>\`,`,
             `which is needed for your Ember app's routing to work under Electron.`,
-            `See ${routingAndAssetLoadingUrl} for more information.`
+            `See ${routingAndAssetLoadingUrl} for more information.`,
           ].join(' ')
         )
       );
@@ -110,7 +110,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         chalk.yellow(
           [
             `\nNo .travis.yml found to update. For info on manually updating your CI`,
-            `config read ${ciUrl}\n`
+            `config read ${ciUrl}\n`,
           ].join(' ')
         )
       );
@@ -189,7 +189,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         chalk.red(
           [
             `Failed to update .travis.yml. For info on manually updating your CI`,
-            `config read ${ciUrl}.\nError:\n${e}`
+            `config read ${ciUrl}.\nError:\n${e}`,
           ].join(' ')
         )
       );
@@ -231,7 +231,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     await api.init({
       dir: electronProjectPath,
       interactive: true,
-      template: 'ember-electron/forge/template'
+      template: 'ember-electron/forge/template',
     });
   }
 };

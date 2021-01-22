@@ -22,7 +22,7 @@ class MockWatcher extends EventEmitter {
   constructor() {
     super(...arguments);
     this.currentBuild = {
-      then: sinon.stub().callsFake((resolve) => resolve())
+      then: sinon.stub().callsFake((resolve) => resolve()),
     };
   }
 }
@@ -88,7 +88,7 @@ describe('electron command', function () {
       analytics: new MockAnalytics(),
       settings: {},
       project: new MockProject(),
-      tasks: {}
+      tasks: {},
     });
 
     // This needs to be initialized when we create Builder instances or it
@@ -164,7 +164,7 @@ describe('electron command', function () {
       liveReloadPrefix: '_lr',
       port,
       liveReloadBaseUrl: `http://localhost:${port}/`,
-      liveReloadJsUrl: `http://localhost:${port}/_lr/livereload.js?port=${port}&host=localhost&path=_lr/livereload`
+      liveReloadJsUrl: `http://localhost:${port}/_lr/livereload.js?port=${port}&host=localhost&path=_lr/livereload`,
     });
   });
 
@@ -180,7 +180,7 @@ describe('electron command', function () {
         '--live-reload-port',
         '12345',
         '--live-reload-prefix',
-        'lrlrlr'
+        'lrlrlr',
       ])
     ).to.be.fulfilled;
     expect(startServerStub).to.be.calledOnce;
@@ -193,7 +193,7 @@ describe('electron command', function () {
       liveReloadPrefix: 'lrlrlr',
       port: 12345,
       liveReloadBaseUrl: `http://127.0.0.1:12345/`,
-      liveReloadJsUrl: `http://127.0.0.1:12345/lrlrlr/livereload.js?port=12345&host=127.0.0.1&path=lrlrlr/livereload`
+      liveReloadJsUrl: `http://127.0.0.1:12345/lrlrlr/livereload.js?port=12345&host=127.0.0.1&path=lrlrlr/livereload`,
     });
   });
 
@@ -222,7 +222,7 @@ describe('electron command', function () {
       '---',
       'arg1',
       '--arg2',
-      '--arg3=value'
+      '--arg3=value',
     ];
 
     await expect(command.validateAndRun([])).to.be.fulfilled;
@@ -230,7 +230,7 @@ describe('electron command', function () {
     expect(api.start.firstCall.args[0].args).to.deep.equal([
       'arg1',
       '--arg2',
-      '--arg3=value'
+      '--arg3=value',
     ]);
   });
 

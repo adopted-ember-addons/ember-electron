@@ -13,7 +13,7 @@ module.exports = {
       'electron:test': require('./lib/commands/test'),
       'electron:build': require('./lib/commands/build'),
       'electron:package': require('./lib/commands/package'),
-      'electron:make': require('./lib/commands/make')
+      'electron:make': require('./lib/commands/make'),
     };
   },
 
@@ -21,20 +21,20 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     app.import('vendor/wrap-require.js', {
-      type: 'vendor'
+      type: 'vendor',
     });
   },
 
   contentFor(type) {
     const {
-      env: { EMBER_CLI_ELECTRON }
+      env: { EMBER_CLI_ELECTRON },
     } = process;
 
     if (EMBER_CLI_ELECTRON) {
       let script = {
         head: 'shim-head.js',
         'test-head': 'shim-test-head.js',
-        'body-footer': 'shim-footer.js'
+        'body-footer': 'shim-footer.js',
       }[type];
 
       if (script) {
@@ -60,10 +60,10 @@ module.exports = {
               value = `../${value}`;
             }
             return `${attr}="${value}"`;
-          }
-        }
+          },
+        },
       });
     }
     return node;
-  }
+  },
 };

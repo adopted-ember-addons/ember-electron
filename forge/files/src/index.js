@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const {
   default: installExtension,
-  EMBER_INSPECTOR
+  EMBER_INSPECTOR,
 } = require('electron-devtools-installer');
 const { pathToFileURL } = require('url');
 const { app, BrowserWindow } = require('electron');
@@ -49,7 +49,7 @@ app.on('ready', async () => {
 
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
   });
 
   // If you want to open up dev tools programmatically, call

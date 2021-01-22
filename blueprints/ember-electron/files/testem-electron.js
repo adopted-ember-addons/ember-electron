@@ -4,12 +4,8 @@ module.exports = {
   launchers: {
     Electron: require('ember-electron/lib/test-runner'),
   },
-  launch_in_ci: [
-    'Electron',
-  ],
-  launch_in_dev: [
-    'Electron',
-  ],
+  launch_in_ci: ['Electron'],
+  launch_in_dev: ['Electron'],
   browser_args: {
     Electron: {
       // Note: Some these Chrome options may not be supported in Electron
@@ -22,8 +18,8 @@ module.exports = {
         '--disable-software-rasterizer',
         '--mute-audio',
         '--remote-debugging-port=0',
-        '--window-size=1440,900'
-      ].filter(Boolean)
-    }
-  }
+        '--window-size=1440,900',
+      ].filter(Boolean),
+    },
+  },
 };
