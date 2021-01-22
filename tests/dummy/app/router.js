@@ -17,6 +17,7 @@ Router.map(function() {
     this.route('guides', function() {
       this.route('ci');
       this.route('common-issues');
+      this.route('csp');
       this.route('development-and-debugging');
       this.route('installation');
       this.route('security');

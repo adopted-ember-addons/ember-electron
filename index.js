@@ -1,13 +1,7 @@
-const fs = require('fs');
-const path = require('path');
 const replace = require('broccoli-string-replace');
 
 function injectScript(scriptName) {
-  let dirname = __dirname || process.cwd();
-  let filePath = path.join(dirname, 'lib', 'resources', scriptName);
-  let fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
-
-  return `<script>\n${fileContent}</script>`;
+  return `<script src="/ember-electron/${scriptName}"></script>`;
 }
 
 module.exports = {
