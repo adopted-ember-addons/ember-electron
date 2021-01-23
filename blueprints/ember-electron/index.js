@@ -12,19 +12,6 @@ const {
   routingAndAssetLoadingUrl,
   ciUrl,
 } = require('../../lib/utils/documentation-urls');
-const findWorkspaceRoot = require('find-yarn-workspace-root');
-
-function usesYarn() {
-  if (fs.existsSync('./yarn.lock')) {
-    return true;
-  }
-
-  if (findWorkspaceRoot('./')) {
-    return true;
-  }
-
-  return false;
-}
 
 module.exports = class EmberElectronBlueprint extends Blueprint {
   constructor(options) {
@@ -155,16 +142,22 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       // and export display and launch xvfb
       let hasInstallSection = Boolean(doc.install);
       doc.install = doc.install || [];
+      let usesYarn = Boolean(
+        doc.script.find((entry) => entry.includes('yarn '))
+      );
 
-      if (usesYarn()) {
+      if (!hasInstallSection) {
+        // If no install section is specified, travis defaults to running
+        // `npm install`, so if we're adding an install section, we need to
+        // explicitly add that since it will no longer be run by default.
+        usesYarn
+          ? doc.install.push('__yarn_install_root__')
+          : doc.install.push('__npm_install_root__');
+      }
+
+      if (usesYarn) {
         doc.install.push('__yarn_install__');
       } else {
-        if (!hasInstallSection) {
-          // If no install section is specified, travis defaults to running
-          // `npm install`, so if we're adding an install section, we need to
-          // explicitly add that since it will no longer be run by default.
-          doc.install.push('__npm_install_root__');
-        }
         doc.install.push('__npm_install__');
       }
 
@@ -178,6 +171,10 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       // placeholders that won't be quoted and replace them in the output string
       yawn.json = doc;
       let output = yawn.yaml;
+      output = output.replace(
+        '__yarn_install_root__',
+        `yarn install --non-interactive`
+      );
       output = output.replace(
         '__yarn_install__',
         `cd electron-app && yarn install --non-interactive`

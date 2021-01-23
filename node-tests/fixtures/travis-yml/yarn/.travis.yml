@@ -1,34 +1,28 @@
 ---
-  language: node_js
-  node_js:
-    - "8"
+language: node_js
+node_js:
+  - "10"
 
-  sudo: false
-  dist: trusty
+dist: xenial
 
-  addons:
-    chrome: stable
+addons:
+  chrome: stable
 
-  cache:
-    yarn: true
+cache:
+  yarn: true
 
-  env:
-    global:
-      # See https://git.io/vdao3 for details.
-      - JOBS=1
+env:
+  global:
+    # See https://git.io/vdao3 for details.
+    - JOBS=1
 
-  branches:
-    only:
-      - master
+branches:
+  only:
+    - master
 
-  before_install:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
-    - export PATH=$HOME/.yarn/bin:$PATH
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
 
-  install:
-    - yarn install --non-interactive
-
-  script:
-    - yarn lint:hbs
-    - yarn lint:js
-    - yarn test
+script:
+  - yarn test
