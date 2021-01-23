@@ -12,6 +12,19 @@ const {
   routingAndAssetLoadingUrl,
   ciUrl,
 } = require('../../lib/utils/documentation-urls');
+const findWorkspaceRoot = require('find-yarn-workspace-root');
+
+function usesYarn() {
+  if (fs.existsSync('./yarn.lock')) {
+    return true;
+  }
+
+  if (findWorkspaceRoot('./')) {
+    return true;
+  }
+
+  return false;
+}
 
 module.exports = class EmberElectronBlueprint extends Blueprint {
   constructor(options) {
@@ -142,11 +155,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       // and export display and launch xvfb
       let hasInstallSection = Boolean(doc.install);
       doc.install = doc.install || [];
-      let usesYarn = Boolean(
-        doc.install.find((entry) => entry.includes('yarn '))
-      );
 
-      if (usesYarn) {
+      if (usesYarn()) {
         doc.install.push('__yarn_install__');
       } else {
         if (!hasInstallSection) {
