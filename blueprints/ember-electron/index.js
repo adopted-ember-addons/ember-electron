@@ -6,6 +6,8 @@ const { promisify } = require('util');
 const fs = require('fs');
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
+const path = require('path');
+const execa = require('execa');
 const YAWN = require('yawn-yaml/cjs');
 const {
   upgradingUrl,
@@ -69,6 +71,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
         )
       );
     }
+
+    await this.fixLint();
   }
 
   async updateEnvironmentConfig() {
@@ -251,5 +255,19 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       interactive: true,
       template: 'ember-electron/forge/template',
     });
+  }
+
+  //
+  // Our blueprint-generated content will violate prettier's end-of-line
+  // validation on Windows, so until
+  // https://github.com/ember-cli/ember-cli/issues/9429 is addressed, we'll run
+  // `eslint --fix` ourselves
+  //
+  async fixLint() {
+    try {
+      await execa(path.join('node_modules', '.bin', 'eslint'), ['--fix', '.']);
+    } catch (e) {
+      return;
+    }
   }
 };
