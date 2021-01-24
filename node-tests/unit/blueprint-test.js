@@ -1,7 +1,7 @@
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const { expect } = require('chai');
 const tmp = require('tmp');
-const { readFileSync, copyFileSync, mkdirSync } = require('fs');
+const { readFileSync, writeFileSync, copyFileSync, mkdirSync } = require('fs');
 const path = require('path');
 
 describe('blueprint', function () {
@@ -96,6 +96,7 @@ describe('blueprint', function () {
     }
 
     it('works with yarn', async function () {
+      writeFileSync('yarn.lock', '');
       await runTest('yarn');
     });
 

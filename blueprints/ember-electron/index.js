@@ -12,6 +12,19 @@ const {
   routingAndAssetLoadingUrl,
   ciUrl,
 } = require('../../lib/utils/documentation-urls');
+const findWorkspaceRoot = require('find-yarn-workspace-root');
+
+function isYarnProject() {
+  if (fs.existsSync('yarn.lock')) {
+    return true;
+  }
+
+  if (findWorkspaceRoot(process.cwd())) {
+    return true;
+  }
+
+  return false;
+}
 
 module.exports = class EmberElectronBlueprint extends Blueprint {
   constructor(options) {
@@ -142,9 +155,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
       // and export display and launch xvfb
       let hasInstallSection = Boolean(doc.install);
       doc.install = doc.install || [];
-      let usesYarn = Boolean(
-        doc.script.find((entry) => entry.includes('yarn '))
-      );
+      let usesYarn = isYarnProject();
 
       if (!hasInstallSection) {
         // If no install section is specified, travis defaults to running
