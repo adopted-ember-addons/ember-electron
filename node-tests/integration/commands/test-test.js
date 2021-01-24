@@ -11,13 +11,13 @@ const DependencyChecker = require('ember-cli-dependency-checker/lib/dependency-c
 const path = require('path');
 const sinon = require('sinon');
 
-describe('electron:test command', function() {
+describe('electron:test command', function () {
   mockElectronProject();
 
   let baseRunStub;
   let command;
 
-  beforeEach(function() {
+  beforeEach(function () {
     baseRunStub = sinon.stub(EmberTestCommand.prototype, 'run').resolves();
     command = new TestCommand({
       ui: new MockUI(),
@@ -28,7 +28,7 @@ describe('electron:test command', function() {
     });
   });
 
-  it('calls the test command with EMBER_CLI_ELECTRON set', async function() {    
+  it('calls the test command with EMBER_CLI_ELECTRON set', async function () {
     let envVal;
     baseRunStub.resetBehavior();
     baseRunStub.callsFake(() => {
@@ -41,24 +41,26 @@ describe('electron:test command', function() {
     expect(envVal).to.be.ok;
   });
 
-  it('runs the dependency checker', async function() {
+  it('runs the dependency checker', async function () {
     sinon.spy(DependencyChecker.prototype, 'checkDependencies');
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(DependencyChecker.prototype.checkDependencies).to.be.calledOnce;
   });
 
-  it('sets the default for outputPath and configFile', async function() {
+  it('sets the default for outputPath and configFile', async function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
-    expect(baseRunStub.firstCall.args[0].outputPath).to.equal(path.join('electron-app', 'ember-test'));
-    expect(baseRunStub.firstCall.args[0].configFile).to.equal('testem-electron.js');
+    expect(baseRunStub.firstCall.args[0].outputPath).to.equal(
+      path.join('electron-app', 'ember-test')
+    );
+    expect(baseRunStub.firstCall.args[0].configFile).to.equal(
+      'testem-electron.js'
+    );
   });
 
-  it('it forwards options', async function() {    
-    await expect(command.validateAndRun([
-      '--environment', 'testing',
-      '-s'
-    ])).to.be.fulfilled;
+  it('it forwards options', async function () {
+    await expect(command.validateAndRun(['--environment', 'testing', '-s'])).to
+      .be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
     expect(baseRunStub.firstCall.args[0].environment).to.equal('testing');
     expect(baseRunStub.firstCall.args[0].server).to.be.true;

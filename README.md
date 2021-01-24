@@ -12,7 +12,7 @@ An Ember addon to turn Ember apps into cross-platform desktop applications, taki
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.12 or above
+* Ember.js v3.16 or above
 * Ember CLI v2.13 or above
 * Node.js v10 or above
 

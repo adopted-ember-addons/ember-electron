@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
-const { default: installExtension, EMBER_INSPECTOR } = require('electron-devtools-installer');
+const {
+  default: installExtension,
+  EMBER_INSPECTOR,
+} = require('electron-devtools-installer');
 const { pathToFileURL } = require('url');
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
@@ -7,7 +10,9 @@ const isDev = require('electron-is-dev');
 const handleFileUrls = require('./handle-file-urls');
 
 const emberAppDir = path.resolve(__dirname, '..', 'ember-dist');
-const emberAppURL = pathToFileURL(path.join(emberAppDir, 'index.html')).toString();
+const emberAppURL = pathToFileURL(
+  path.join(emberAppDir, 'index.html')
+).toString();
 
 let mainWindow = null;
 
@@ -63,12 +68,16 @@ app.on('ready', async () => {
     if (details.reason === 'killed' || details.reason === 'clean-exit') {
       return;
     }
-    console.log('Your main window process has exited unexpectedly -- see https://www.electronjs.org/docs/api/web-contents#event-render-process-gone');
+    console.log(
+      'Your main window process has exited unexpectedly -- see https://www.electronjs.org/docs/api/web-contents#event-render-process-gone'
+    );
     console.log('Reason: ' + details.reason);
   });
 
   mainWindow.on('unresponsive', () => {
-    console.log('Your Ember app (or other code) has made the window unresponsive.');
+    console.log(
+      'Your Ember app (or other code) has made the window unresponsive.'
+    );
   });
 
   mainWindow.on('responsive', () => {
@@ -97,6 +106,8 @@ app.on('ready', async () => {
 // not safe to resume normal operation after 'uncaughtException'.
 process.on('uncaughtException', (err) => {
   console.log('An exception in the main thread was not handled.');
-  console.log('This is a serious issue that needs to be handled and/or debugged.');
+  console.log(
+    'This is a serious issue that needs to be handled and/or debugged.'
+  );
   console.log(`Exception: ${err}`);
 });

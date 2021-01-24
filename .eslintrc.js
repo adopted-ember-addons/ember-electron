@@ -7,34 +7,35 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
-      legacyDecorators: true
-    }
+      legacyDecorators: true,
+    },
   },
-  plugins: [
-    'ember'
-  ],
+  plugins: ['ember'],
   extends: [
     'eslint:recommended',
-    'plugin:ember/recommended'
+    'plugin:ember/recommended',
+    'plugin:prettier/recommended',
   ],
   env: {
+    browser: true,
     es6: true,
     qunit: true,
-    node: true
+    node: true,
   },
   globals: {
     // Electron
-    'requireNode': true,
-    'processNode': true
+    requireNode: true,
+    processNode: true,
   },
   rules: {
-    'ember/no-jquery': 'error'
+    'ember/no-jquery': 'error',
   },
   overrides: [
     // node files
     {
       files: [
         '.eslintrc.js',
+        '.prettierrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
         'index.js',
@@ -42,78 +43,77 @@ module.exports = {
         'blueprints/*/index.js',
         'config/**/*.js',
         'lib/commands/*.js',
-        'tests/dummy/config/**/*.js'
+        'tests/dummy/config/**/*.js',
       ],
       excludedFiles: [
         'addon/**',
         'addon-test-support/**',
         'app/**',
-        'tests/dummy/app/**'
+        'tests/dummy/app/**',
       ],
       parserOptions: {
-        sourceType: 'script'
+        sourceType: 'script',
       },
-      env: {
-        browser: false,
-        node: true
-      },
-      plugins: ['node'],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        // add your custom rules and overrides for node files here
-        'ember/avoid-leaking-state-in-ember-objects': 'off',
-      })
-    },
-    // test runner
-    {
-      files: [
-        'lib/test-runner.js'
-      ],
-      env: {
-        browser: false,
-        node: true
-      },
-      plugins: ['node'],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        'node/no-missing-require': ['error', {
-          'allowModules': [
-            'ember-electron'
-          ],
-        }]
-      })
-    },
-    // Electon runtime files
-    {
-      files: [
-        'forge/files/**/*.js',
-        'lib/test-support/**/*.js'
-      ],
-      env: {
-        browser: false,
-        node: true
-      },
-      plugins: ['node'],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        'node/no-missing-require': ['error', {
-          'allowModules': [
-            'devtron',
-            'electron',
-            'electron-devtools-installer',
-            'electron-is-dev',
-            'ember-electron'
-          ],
-        }]
-      })
-    },
-    // mocha files
-    {
-      files: [
-        'node-tests/**/*.js'
-      ],
       env: {
         browser: false,
         node: true,
-        mocha: true
-      }
-    }
-  ]
+      },
+      plugins: ['node'],
+      extends: ['plugin:node/recommended'],
+      rules: {
+        'ember/avoid-leaking-state-in-ember-objects': 'off',
+      },
+    },
+    // test runner
+    {
+      files: ['lib/test-runner.js'],
+      env: {
+        browser: false,
+        node: true,
+      },
+      plugins: ['node'],
+      extends: ['plugin:node/recommended'],
+      rules: {
+        'node/no-missing-require': [
+          'error',
+          {
+            allowModules: ['ember-electron'],
+          },
+        ],
+      },
+    },
+    // Electon runtime files
+    {
+      files: ['forge/files/**/*.js', 'lib/test-support/**/*.js'],
+      env: {
+        browser: false,
+        node: true,
+      },
+      plugins: ['node'],
+      extends: ['plugin:node/recommended'],
+      rules: {
+        'node/no-missing-require': [
+          'error',
+          {
+            allowModules: [
+              'devtron',
+              'electron',
+              'electron-devtools-installer',
+              'electron-is-dev',
+              'ember-electron',
+            ],
+          },
+        ],
+      },
+    },
+    // mocha files
+    {
+      files: ['node-tests/**/*.js'],
+      env: {
+        browser: false,
+        node: true,
+        mocha: true,
+      },
+    },
+  ],
 };

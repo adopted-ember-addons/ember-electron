@@ -14,13 +14,13 @@ const path = require('path');
 const rimraf = require('rimraf');
 const sinon = require('sinon');
 
-describe('electron:package command', function() {
+describe('electron:package command', function () {
   mockElectronProject();
 
   let buildTaskStub;
   let command;
 
-  beforeEach(function() {
+  beforeEach(function () {
     buildTaskStub = sinon.stub(BuildTask.prototype, 'run').resolves();
     sinon.stub(api, 'package').resolves();
 
@@ -30,25 +30,27 @@ describe('electron:package command', function() {
       settings: {},
       project: new MockProject(),
       tasks: {
-        'Build': BuildTask,
-        'ElectronPackage': PackageTask
+        Build: BuildTask,
+        ElectronPackage: PackageTask,
       },
     });
   });
 
-  it('works', async function() {
+  it('works', async function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
-    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(path.join('electron-app', 'ember-dist'));
+    expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(
+      path.join('electron-app', 'ember-dist')
+    );
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
-      outDir: path.join('electron-app', 'out')
+      outDir: path.join('electron-app', 'out'),
     });
     expect(api.package.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
   });
-  
-  it('builds with EMBER_CLI_ELECTRON set', async function() {    
+
+  it('builds with EMBER_CLI_ELECTRON set', async function () {
     let envVal;
     buildTaskStub.resetBehavior();
     buildTaskStub.callsFake(() => {
@@ -60,34 +62,40 @@ describe('electron:package command', function() {
     expect(envVal).to.be.ok;
   });
 
-  it('runs the dependency checker', async function() {
+  it('runs the dependency checker', async function () {
     sinon.spy(DependencyChecker.prototype, 'checkDependencies');
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(DependencyChecker.prototype.checkDependencies).to.be.calledOnce;
   });
 
-  it('builds for the correct environment', async function() {
-    await expect(command.validateAndRun([ '--environment', 'testing' ])).to.be.fulfilled;
+  it('builds for the correct environment', async function () {
+    await expect(command.validateAndRun(['--environment', 'testing'])).to.be
+      .fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
     expect(buildTaskStub.firstCall.args[0].environment).to.equal('testing');
   });
 
-  it('sets the platform, argch, and output path', async function() {
-    await expect(command.validateAndRun([
-      '--platform', 'linux',
-      '--arch', 'ia32',
-      '--output-path', 'some-dir'
-    ])).to.be.fulfilled;
+  it('sets the platform, argch, and output path', async function () {
+    await expect(
+      command.validateAndRun([
+        '--platform',
+        'linux',
+        '--arch',
+        'ia32',
+        '--output-path',
+        'some-dir',
+      ])
+    ).to.be.fulfilled;
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
       dir: 'electron-app',
       outDir: path.resolve('some-dir'),
       platform: 'linux',
-      arch: 'ia32'
+      arch: 'ia32',
     });
   });
 
-  it('errors if the electron project directory is not present', async function() {
+  it('errors if the electron project directory is not present', async function () {
     rimraf.sync('electron-app');
     await expect(command.validateAndRun([])).to.be.rejected;
   });
