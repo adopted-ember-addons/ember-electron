@@ -2,6 +2,28 @@ Version 9 of Highlight.js has reached EOL and is no longer supported.
 Please upgrade or ask whatever dependency you are using to upgrade.
 https://github.com/highlightjs/highlight.js/issues/2877
 
+Version 9 of Highlight.js has reached EOL and is no longer supported.
+Please upgrade or ask whatever dependency you are using to upgrade.
+https://github.com/highlightjs/highlight.js/issues/2877
+
+## v3.0.0-beta.6 (2021-01-25)
+
+#### :rocket: Enhancement
+* [#701](https://github.com/adopted-ember-addons/ember-electron/pull/701) Make embroider-compatible ([@bendemboski](https://github.com/bendemboski))
+
+#### :memo: Documentation
+* [#700](https://github.com/adopted-ember-addons/ember-electron/pull/700) Change `vendor.js` to `app.js` in documentation ([@bendemboski](https://github.com/bendemboski))
+
+#### :house: Internal
+* [#704](https://github.com/adopted-ember-addons/ember-electron/pull/704) Build on MacOS in CI ([@bendemboski](https://github.com/bendemboski))
+* [#702](https://github.com/adopted-ember-addons/ember-electron/pull/702) Parallelize end-to-end tests ([@bendemboski](https://github.com/bendemboski))
+* [#698](https://github.com/adopted-ember-addons/ember-electron/pull/698) Update Ember to 3.24 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 3
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v3.0.0-beta.5 (2021-01-22)
 
 #### :rocket: Enhancement
