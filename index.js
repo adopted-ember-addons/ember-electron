@@ -1,5 +1,3 @@
-const replace = require('broccoli-string-replace');
-
 function injectScript(scriptName) {
   return `<script src="/ember-electron/${scriptName}"></script>`;
 }
@@ -31,39 +29,30 @@ module.exports = {
     } = process;
 
     if (EMBER_CLI_ELECTRON) {
-      let script = {
-        head: 'shim-head.js',
-        'test-head': 'shim-test-head.js',
-        'body-footer': 'shim-footer.js',
-      }[type];
-
-      if (script) {
-        return injectScript(script);
+      switch (type) {
+        case 'head':
+          return injectScript('shim-head.js');
+        case 'test-head':
+          // shim-test-head.js does some testem setup, and we need to set the
+          // base to `..` so the base URL of assets loaded from
+          // `tests/index.html` will be the same as the base URL of assets
+          // loaded from `index.html`, and the assets will load correctly (see
+          // https://ember-electron.js.org/versions/v3.0.0-beta.5/docs/faq/routing-and-asset-loading)
+          return [injectScript('shim-test-head.js'), '<base href="..">'].join(
+            '\n'
+          );
+        case 'test-body':
+          // testem.js needs to load over HTTP because of how testem works. We
+          // have main process code to intercept `http://testemserver` requests
+          // and redirect them to the actual testem server URL. We don't have a
+          // good embroider-safe way of rewriting the script tag that already
+          // exists in `tests/index.html`, so we just leave it there harmlessly
+          // no-op'ing, and add another script tag that will load testem.js via
+          // `http://testemserver`.
+          return '<script src="http://testemserver/testem.js"></script>';
+        case 'body-footer':
+          return injectScript('shim-footer.js');
       }
     }
-  },
-
-  postprocessTree(type, node) {
-    if (type === 'all' && process.env.EMBER_CLI_ELECTRON) {
-      node = replace(node, {
-        files: ['tests/index.html'],
-        pattern: {
-          match: /(src|href)="([^"]+)"/g,
-          replacement(match, attr, value) {
-            if (value.endsWith('testem.js')) {
-              // Replace testem script source so our test main process code can
-              // recognize and redirect requests to the testem server
-              value = 'http://testemserver/testem.js';
-            } else if (!value.includes(':/')) {
-              // Since we're loading from the filesystem, asset URLs in
-              // tests/index.html need to be prepended with '../'
-              value = `../${value}`;
-            }
-            return `${attr}="${value}"`;
-          },
-        },
-      });
-    }
-    return node;
   },
 };

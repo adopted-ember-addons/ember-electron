@@ -40,7 +40,7 @@ For `app.js` and other scripts and CSS loaded out of `index.html`, we have a nic
 rootURL: process.env.EMBER_CLI_ELECTRON ? '' : '/',
 ```
 
-There is an additional wrinkle when running tests. Since Ember puts the `index.html` used for tests at `tests/index.html`, it actually needs assets paths that look like `../assets/app.js`. However, `ember-cli` ([clean-base-url](https://github.com/ember-cli/clean-base-url) actually) forces a non-empty `rootURL` to start with `/`, so `ember-electron` uses the broccoli pipeline to modify these URLs in `tests/index.html` to start with `../`.
+There is an additional wrinkle when running tests. Since Ember puts the `index.html` used for tests at `tests/index.html`, it actually needs assets paths that look like `../assets/app.js`. However, `ember-cli` ([clean-base-url](https://github.com/ember-cli/clean-base-url) actually) forces a non-empty `rootURL` to start with `/`, so `ember-electron` injects a `<base src="..">` element into `tests/index.html` to fix asset loading.
 
 ### Other assets (images, fonts, etc.)
 
