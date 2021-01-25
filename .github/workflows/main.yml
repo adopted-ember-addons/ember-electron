@@ -26,7 +26,7 @@ jobs:
           yarn lint:js    
 
   test:
-    name: Tests (${{ matrix.os }})
+    name: Basic tests (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -40,21 +40,27 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - name: 'Basic Tests'
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: yarn test-fast
+        run: yarn test-fast
 
-      # runs slow end-to-end tests, parallelizing yarn and npm cases
-      - name: 'End-to-end Tests: Yarn'
+  # runs slow end-to-end tests, parallelizing yarn and npm cases
+  test-end-to-end:
+    name: End-to-end tests (${{ matrix.os }}/${{ matrix.package-manager }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        package-manager: ['npm', 'yarn']
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: volta-cli/action@v1
+        with:
+          node-version: 10.x
+      - run: yarn install --frozen-lockfile
+
+      - name: 'End-to-end Tests (${{ matrix.package-manager }})'
         uses: GabrielBB/xvfb-action@v1
         with:
           run: yarn test-slow
         env:
-          END_TO_END_TESTS: 'yarn' 
-
-      - name: 'End-to-end Tests: npm'
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: yarn test-slow
-        env:
-          END_TO_END_TESTS: 'npm'  
+          END_TO_END_TESTS: '${{ matrix.package-manager }}'
