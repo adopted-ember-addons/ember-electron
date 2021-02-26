@@ -7127,9 +7127,9 @@ ember-cli-htmlbars@^4.2.2, ember-cli-htmlbars@^4.2.3:
     walk-sync "^2.0.2"
 
 ember-cli-htmlbars@^5.2.0, ember-cli-htmlbars@^5.3.1:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-5.4.0.tgz#1eabd0a2a6b9e8877c2e79d3ab3a0627fde90ddc"
-  integrity sha512-AOThrNG+G6SejHvvfYja72PgpQ5lKJHVEhXyFpuwUPGGeXxqTDzpfh/UYnok/esVBIuM/eJW6qpTHMuZQcPNQg==
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-5.5.0.tgz#edb6b4720f3373e00285bdee8f61afcc0e09f6ce"
+  integrity sha512-KxSdp0B3xCdtqIL2WgfGWPJsLBN36qf52Ga4OK1mpvFJke0lx6tAWsTW2ahdrVu730sF+Fs3HgzCdRJdGy4T+g==
   dependencies:
     "@ember/edition-utils" "^1.2.0"
     babel-plugin-htmlbars-inline-precompile "^4.4.1"
@@ -7146,6 +7146,9 @@ ember-cli-htmlbars@^5.2.0, ember-cli-htmlbars@^5.3.1:
     silent-error "^1.1.1"
     strip-bom "^4.0.0"
     walk-sync "^2.2.0"
+  optionalDependencies:
+    release-it "^14.2.1"
+    release-it-lerna-changelog "^3.1.0"
 
 ember-cli-inject-live-reload@^2.0.2:
   version "2.0.2"
@@ -14194,7 +14197,7 @@ regjsparser@^0.6.4:
   dependencies:
     jsesc "~0.5.0"
 
-release-it-lerna-changelog@^3.0.0:
+release-it-lerna-changelog@^3.0.0, release-it-lerna-changelog@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/release-it-lerna-changelog/-/release-it-lerna-changelog-3.1.0.tgz#cbcc877b40712e93a99a8b9a14e9e48290a82b9f"
   integrity sha512-VehiRVpIB37XfggFcwMwDZ3ncXmD4npgM2tGGTfa3CN8MFCCJPPIRvaqHySDC/YV8mN7oLZeGSI/exrKXeybmA==
@@ -14206,7 +14209,7 @@ release-it-lerna-changelog@^3.0.0:
     validate-peer-dependencies "^1.0.0"
     which "^2.0.2"
 
-release-it@^14.0.1:
+release-it@^14.0.1, release-it@^14.2.1:
   version "14.4.1"
   resolved "https://registry.yarnpkg.com/release-it/-/release-it-14.4.1.tgz#7b7dac839e22521853e81aa67d833c40a4094c43"
   integrity sha512-fNvl2hIiTA3wKOQMu/cS07acuvibaTlvLUJmhuHarPsYJZpwX+nugb0a4PG20vlpuU5jKfnhkP8uPmvKXtRfuw==
