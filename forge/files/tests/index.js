@@ -19,7 +19,9 @@ app.on('ready', async function onReady() {
     console.log('Failed to install Devtron: ', err);
   }
   try {
-    await installExtension(EMBER_INSPECTOR);
+    await installExtension(EMBER_INSPECTOR, {
+      loadExtensionOptions: { allowFileAccess: true },
+    });
   } catch (err) {
     console.log('Failed to install Ember Inspector: ', err);
   }
