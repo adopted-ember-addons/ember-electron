@@ -6,6 +6,31 @@ Version 9 of Highlight.js has reached EOL and is no longer supported.
 Please upgrade or ask whatever dependency you are using to upgrade.
 https://github.com/highlightjs/highlight.js/issues/2877
 
+Version 9 of Highlight.js has reached EOL and is no longer supported.
+Please upgrade or ask whatever dependency you are using to upgrade.
+https://github.com/highlightjs/highlight.js/issues/2877
+
+## v3.0.0 (2021-03-13)
+
+#### :rocket: Enhancement
+* [#747](https://github.com/adopted-ember-addons/ember-electron/pull/747) pass allowFileAccess option to electron-devtools-installer ([@evoactivity](https://github.com/evoactivity))
+
+#### :bug: Bug Fix
+* [#751](https://github.com/adopted-ember-addons/ember-electron/pull/751) Use process.execPath is the test runner ([@bendemboski](https://github.com/bendemboski))
+* [#739](https://github.com/adopted-ember-addons/ember-electron/pull/739) Enable remote module in tests ([@bendemboski](https://github.com/bendemboski))
+
+#### :memo: Documentation
+* [#705](https://github.com/adopted-ember-addons/ember-electron/pull/705) Update CSP instructions ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :house: Internal
+* [#706](https://github.com/adopted-ember-addons/ember-electron/pull/706) Increase yarn timeout in CI ([@bendemboski](https://github.com/bendemboski))
+
+#### Committers: 4
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v3.0.0-beta.6 (2021-01-25)
 
 #### :rocket: Enhancement
