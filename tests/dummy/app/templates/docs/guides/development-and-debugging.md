@@ -20,7 +20,22 @@ mainWindow = new BrowserWindow({
 });
 ```
 
-See the [BrowserWindow documentation](https://www.electronjs.org/docs/api/browser-window) for more info, and Electron's [security tutorial](https://www.electronjs.org/docs/tutorial/security) to understand the important security considerations when enabling node integration.
+Starting with Electron 12, [context isolation](https://www.electronjs.org/docs/tutorial/context-isolation) is enabled by default, which prevents requiring `electron` itself from your Ember app even with `nodeIntegraton` enabled. The quick, but less secure, way of addressing this is to disabled context isolation:
+
+```javascript
+mainWindow = new BrowserWindow({
+  width: 800,
+  height: 600,
+  webPreferences: {
+    nodeIntegration: true,
+    contextIsolation: false,
+  },
+});
+```
+
+But you should read the [context isolation documentation](https://www.electronjs.org/docs/tutorial/context-isolation) for information on a more secure mechanism to grant your Ember app access to the Electron APIs it needs.
+
+See the [BrowserWindow documentation](https://www.electronjs.org/docs/api/browser-window) for more info, and Electron's [security tutorial](https://www.electronjs.org/docs/tutorial/security) to understand the important security considerations when enabling node integration and disabling context isolation.
 
 ## Command-line arguments
 
