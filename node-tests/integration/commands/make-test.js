@@ -8,6 +8,7 @@ const { expect } = require('chai');
 const BuildTask = require('ember-cli/lib/tasks/build');
 const MakeCommand = require('../../../lib/commands/make');
 const MakeTask = require('../../../lib/tasks/make');
+const PublishTask = require('../../../lib/tasks/publish');
 const DependencyChecker = require('ember-cli-dependency-checker/lib/dependency-checker');
 const { api } = require('../../../lib/utils/forge-core');
 const rimraf = require('rimraf');
@@ -18,11 +19,14 @@ describe('electron:make command', function () {
   mockElectronProject();
 
   let buildTaskStub;
+  let publishTaskStub;
   let command;
 
   beforeEach(function () {
     buildTaskStub = sinon.stub(BuildTask.prototype, 'run').resolves();
+    publishTaskStub = sinon.stub(PublishTask.prototype, 'run').resolves();
     sinon.stub(api, 'make').resolves();
+    sinon.stub(api, 'publish').resolves();
 
     command = new MakeCommand({
       ui: new MockUI(),
@@ -32,6 +36,7 @@ describe('electron:make command', function () {
       tasks: {
         Build: BuildTask,
         ElectronMake: MakeTask,
+        ElectronPublish: PublishTask,
       },
     });
   });
@@ -156,5 +161,31 @@ describe('electron:make command', function () {
   it('errors if the electron project directory is not present', async function () {
     rimraf.sync('electron-app');
     await expect(command.validateAndRun([])).to.be.rejected;
+  });
+
+  it('can publish', async function () {
+    await expect(command.validateAndRun(['---publish'])).to.be.fulfilled;
+    expect(publishTaskStub).to.be.calledOnce;
+  });
+
+  it('can publish and set one override publish-target', async function () {
+    await expect(
+      command.validateAndRun(['---publish', '--publish-targets=foo'])
+    ).to.be.fulfilled;
+    expect(publishTaskStub).to.be.calledOnce;
+    expect(publishTaskStub.firstCall.args[0].publishTargets).to.deep.equal([
+      'foo',
+    ]);
+  });
+
+  it('can publish and set multiple override publish-targets', async function () {
+    await expect(
+      command.validateAndRun(['---publish', '--publish-targets=foo,bar'])
+    ).to.be.fulfilled;
+    expect(publishTaskStub).to.be.calledOnce;
+    expect(publishTaskStub.firstCall.args[0].publishTargets).to.deep.equal([
+      'foo',
+      'bar',
+    ]);
   });
 });
