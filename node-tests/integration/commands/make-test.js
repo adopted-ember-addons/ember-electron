@@ -8,6 +8,7 @@ const { expect } = require('chai');
 const BuildTask = require('ember-cli/lib/tasks/build');
 const MakeCommand = require('../../../lib/commands/make');
 const MakeTask = require('../../../lib/tasks/make');
+const PublishTask = require('../../../lib/tasks/publish');
 const DependencyChecker = require('ember-cli-dependency-checker/lib/dependency-checker');
 const { api } = require('../../../lib/utils/forge-core');
 const rimraf = require('rimraf');
@@ -23,6 +24,7 @@ describe('electron:make command', function () {
   beforeEach(function () {
     buildTaskStub = sinon.stub(BuildTask.prototype, 'run').resolves();
     sinon.stub(api, 'make').resolves();
+    sinon.stub(api, 'publish').resolves();
 
     command = new MakeCommand({
       ui: new MockUI(),
@@ -32,6 +34,7 @@ describe('electron:make command', function () {
       tasks: {
         Build: BuildTask,
         ElectronMake: MakeTask,
+        ElectronPublish: PublishTask,
       },
     });
   });
@@ -156,5 +159,38 @@ describe('electron:make command', function () {
   it('errors if the electron project directory is not present', async function () {
     rimraf.sync('electron-app');
     await expect(command.validateAndRun([])).to.be.rejected;
+  });
+
+  it('can publish', async function () {
+    let makeResults = { foo: 'bar' };
+    api.make.resetBehavior();
+    api.make.resolves(makeResults);
+
+    await expect(command.validateAndRun(['---publish'])).to.be.fulfilled;
+
+    expect(api.publish).to.be.calledOnce;
+    expect(api.publish.firstCall.args[0].dir).to.equal('electron-app');
+    expect(api.publish.firstCall.args[0].makeResults).to.equal(makeResults);
+    expect(api.publish.firstCall.args[0].publishTargets).to.be.undefined;
+  });
+
+  it('can publish and set one override publish-target', async function () {
+    await expect(
+      command.validateAndRun(['---publish', '--publish-targets=foo'])
+    ).to.be.fulfilled;
+
+    expect(api.publish).to.be.calledOnce;
+    expect(api.publish.firstCall.args[0].publishTargets).to.deep.equal(['foo']);
+  });
+
+  it('can publish and set multiple override publish-targets', async function () {
+    await expect(
+      command.validateAndRun(['---publish', '--publish-targets=foo,bar'])
+    ).to.be.fulfilled;
+    expect(api.publish).to.be.calledOnce;
+    expect(api.publish.firstCall.args[0].publishTargets).to.deep.equal([
+      'foo',
+      'bar',
+    ]);
   });
 });
