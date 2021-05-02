@@ -19,12 +19,10 @@ describe('electron:make command', function () {
   mockElectronProject();
 
   let buildTaskStub;
-  let publishTaskStub;
   let command;
 
   beforeEach(function () {
     buildTaskStub = sinon.stub(BuildTask.prototype, 'run').resolves();
-    publishTaskStub = sinon.stub(PublishTask.prototype, 'run').resolves();
     sinon.stub(api, 'make').resolves();
     sinon.stub(api, 'publish').resolves();
 
@@ -164,26 +162,33 @@ describe('electron:make command', function () {
   });
 
   it('can publish', async function () {
+    let makeResults = { foo: 'bar' };
+    api.make.resetBehavior();
+    api.make.resolves(makeResults);
+
     await expect(command.validateAndRun(['---publish'])).to.be.fulfilled;
-    expect(publishTaskStub).to.be.calledOnce;
+
+    expect(api.publish).to.be.calledOnce;
+    expect(api.publish.firstCall.args[0].dir).to.equal('electron-app');
+    expect(api.publish.firstCall.args[0].makeResults).to.equal(makeResults);
+    expect(api.publish.firstCall.args[0].publishTargets).to.be.undefined;
   });
 
   it('can publish and set one override publish-target', async function () {
     await expect(
       command.validateAndRun(['---publish', '--publish-targets=foo'])
     ).to.be.fulfilled;
-    expect(publishTaskStub).to.be.calledOnce;
-    expect(publishTaskStub.firstCall.args[0].publishTargets).to.deep.equal([
-      'foo',
-    ]);
+
+    expect(api.publish).to.be.calledOnce;
+    expect(api.publish.firstCall.args[0].publishTargets).to.deep.equal(['foo']);
   });
 
   it('can publish and set multiple override publish-targets', async function () {
     await expect(
       command.validateAndRun(['---publish', '--publish-targets=foo,bar'])
     ).to.be.fulfilled;
-    expect(publishTaskStub).to.be.calledOnce;
-    expect(publishTaskStub.firstCall.args[0].publishTargets).to.deep.equal([
+    expect(api.publish).to.be.calledOnce;
+    expect(api.publish.firstCall.args[0].publishTargets).to.deep.equal([
       'foo',
       'bar',
     ]);
