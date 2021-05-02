@@ -10,6 +10,23 @@ Version 9 of Highlight.js has reached EOL and is no longer supported.
 Please upgrade or ask whatever dependency you are using to upgrade.
 https://github.com/highlightjs/highlight.js/issues/2877
 
+Version 9 of Highlight.js has reached EOL and is no longer supported.
+Please upgrade or ask whatever dependency you are using to upgrade.
+https://github.com/highlightjs/highlight.js/issues/2877
+
+## v3.1.0 (2021-05-02)
+
+#### :rocket: Enhancement
+* [#811](https://github.com/adopted-ember-addons/ember-electron/pull/811) feat: expose forge publish api ([@basz](https://github.com/basz))
+
+#### :memo: Documentation
+* [#769](https://github.com/adopted-ember-addons/ember-electron/pull/769) Include info on context isolation in documentation ([@bendemboski](https://github.com/bendemboski))
+
+#### Committers: 3
+- Bas Kamer ([@basz](https://github.com/basz))
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v3.0.0 (2021-03-13)
 
 #### :rocket: Enhancement
