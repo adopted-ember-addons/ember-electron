@@ -55,6 +55,8 @@ ember electron:make
 
 This is a thin wrapper around [electron-forge make](https://www.electronforge.io/cli#make). It will build out the installers specified by the `makers` array in your forge config and place them in `electron-app/out`. Various command-line arguments can customize the platform you are building for, the make targets to build, and allow you to reuse already-built content to speed things up, e.g., in CI -- run `ember help electron:make` to see them all.
 
+The make command also supports a `--publish` argument that will use `electron-forge`'s [publish command](https://www.electronforge.io/cli#publish) to publish your installers to configured publish targets.
+
 ### Packaging
 
 To package your application into a platform specific executable format, run
