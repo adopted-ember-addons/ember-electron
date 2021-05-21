@@ -64,3 +64,11 @@ jobs:
           run: yarn test-slow
         env:
           END_TO_END_TESTS: '${{ matrix.package-manager }}'
+          
+  automerge:
+    needs: [lint, test, test-end-to-end]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v2.0.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}          
