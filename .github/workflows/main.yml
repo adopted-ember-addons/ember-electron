@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
         with:
-          node-version: 10.x
+          node-version: 12.x
       - run: yarn install --frozen-lockfile --network-timeout 100000
 
       - name: 'Lint'
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
         with:
-          node-version: 10.x
+          node-version: 12.x
       - run: yarn install --frozen-lockfile --network-timeout 100000
 
       - name: 'Basic Tests'
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
         with:
-          node-version: 10.x
+          node-version: 12.x
       - run: yarn install --frozen-lockfile --network-timeout 100000
 
       - name: 'End-to-end Tests (${{ matrix.package-manager }})'
