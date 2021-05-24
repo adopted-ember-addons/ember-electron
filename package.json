@@ -79,7 +79,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "console-ui": "^3.1.1",
-    "ember-auto-import": "^1.10.1",
+    "ember-auto-import": "^2.0.0",
     "ember-cli": "~3.24.0",
     "ember-cli-addon-docs": "^1.0.0",
     "ember-cli-addon-docs-yuidoc": "^1.0.0",
