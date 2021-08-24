@@ -1701,9 +1701,9 @@
     ember-cli-babel "^7.4.0"
 
 "@ember/test-helpers@^2.1.4":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-2.4.1.tgz#4ec8605ab1243b2cd8028b63f2bf4c0ea51eb779"
-  integrity sha512-CojE+K6agL8MGnoL1c6SWvBW9LOmBiBtms1m5LqHsYZQXmZXbvT2taf1ouOkT3nFh9tLEhKea8DopitD062TEA==
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-2.4.2.tgz#e5be97e316dc502d7da933461135fbcb9254726e"
+  integrity sha512-++k/dXZ0IeOQLSm0Yu5QuCRe9UoptuckMhaXHY37VLb1varLHRuP8908kigVNt9c5waiocaK4jPjDBkKYRLlfA==
   dependencies:
     "@ember/test-waiters" "^3.0.0"
     broccoli-debug "^0.6.5"
