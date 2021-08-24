@@ -1,5 +1,5 @@
 function injectScript(scriptName) {
-  return `<script src="/ember-electron/${scriptName}"></script>`;
+  return `<script src="ember-electron/${scriptName}"></script>`;
 }
 
 module.exports = {
