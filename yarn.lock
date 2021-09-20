@@ -1870,7 +1870,7 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.2.tgz#30aa825f11d438671d585bd44e7fd564535fc210"
   integrity sha512-82cpyJyKRoQoRi+14ibCeGPu0CwypgtBAdBhq1WfvagpCZNKqwXbKwXllYSMG91DhmG4jt9gN8eP6lGOtozuaw==
 
-"@glimmer/component@^1.0.3":
+"@glimmer/component@^1.0.3", "@glimmer/component@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@glimmer/component/-/component-1.0.4.tgz#1c85a5181615a6647f6acfaaed68e28ad7e9626e"
   integrity sha512-sS4N8wtcKfYdUJ6O3m8nbTut6NjErdz94Ap8VB1ekcg4WSD+7sI7Nmv6kt2rdPoe363nUdjUbRBzHNWhLzraBw==
@@ -7236,13 +7236,15 @@ ember-cli-addon-docs-yuidoc@^1.0.0:
     yuidocjs "^0.10.2"
 
 ember-cli-addon-docs@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-4.0.0.tgz#2501f346652643518d65722e75717de092b9d08b"
-  integrity sha512-Qi9MCdppbarZXEuRVBNC9SOtW6OGaE2no/zduRWL284np7w3aYd/Z83dsE3ABs5epONhkBgsMRymM8nDNtLqCQ==
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-4.0.2.tgz#57310ae589a0f00e6ef95b753e0c2f69e2671462"
+  integrity sha512-XIhs6bK6xXNSURD4psXkUVhE/JrAv38ILtBLw7WZb21bTnvzrPrbK+sLBt9P/5CCno15fxQJ4f8xZ1F0uzAMZw==
   dependencies:
     "@csstools/postcss-sass" "^4.0.0"
     "@ember/render-modifiers" "github:cibernox/ember-render-modifiers#e3574ed03409ef7a048d7716b8bea361ed6cd6e2"
+    "@glimmer/component" "^1.0.4"
     "@glimmer/syntax" "^0.80.0"
+    "@glimmer/tracking" "^1.0.4"
     broccoli-bridge "^1.0.0"
     broccoli-caching-writer "^3.0.3"
     broccoli-debug "^0.6.5"
