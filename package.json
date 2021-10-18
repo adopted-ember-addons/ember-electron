@@ -117,7 +117,7 @@
     "qunit": "^2.13.0",
     "qunit-dom": "^2.0.0",
     "release-it": "^14.0.1",
-    "release-it-lerna-changelog": "^3.0.0",
+    "release-it-lerna-changelog": "^4.0.0",
     "sass": "^1.26.5",
     "sinon": "^11.1.1",
     "sinon-chai": "^3.5.0",
