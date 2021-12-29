@@ -5767,10 +5767,10 @@ ci-info@^2.0.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
   integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
 
-ci-info@^3.1.1, ci-info@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.2.0.tgz#2876cb948a498797b5236f0095bc057d0dca38b6"
-  integrity sha512-dVqRX7fLUm8J6FgHJ418XuIgDLZDkYcDFTeL6TA2gt5WlIZUQrrH6EZrNClwT/H0FateUsZkGIOPRrLbP+PR9A==
+ci-info@^3.1.1, ci-info@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.3.0.tgz#b4ed1fb6818dea4803a55c623041f9165d2066b2"
+  integrity sha512-riT/3vI5YpVH6/qomlDnJow6TBee2PBKSEpx3O32EGPYbWGIRsIlGRms3Sm74wYE1JMo8RnO04Hb12+v1J5ICw==
 
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   version "1.0.4"
@@ -6564,10 +6564,10 @@ data-urls@^3.0.1:
     whatwg-mimetype "^3.0.0"
     whatwg-url "^10.0.0"
 
-date-fns@^2.25.0:
-  version "2.25.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.25.0.tgz#8c5c8f1d958be3809a9a03f4b742eba894fc5680"
-  integrity sha512-ovYRFnTrbGPD4nqaEqescPEv1mNwvt+UTqI3Ay9SzNtey9NZnYu6E2qCcBBgJ6/2VF1zGGygpyTDITqpQQ5e+w==
+date-fns@^2.27.0:
+  version "2.28.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.28.0.tgz#9570d656f5fc13143e50c975a3b6bbeb46cd08b2"
+  integrity sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==
 
 date-time@^2.1.0:
   version "2.1.0"
@@ -8122,14 +8122,14 @@ ember-svg-jar@^2.2.3:
     path-posix "^1.0.0"
 
 ember-template-lint@^3.2.0:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-3.13.0.tgz#6c5c3d26d02985db3b40fc985f63868ec55eab84"
-  integrity sha512-hT0iatx39qWbxn/ReXsWnIMXa5pWBE/fLrEmzfDmqLjTrWbYE6op1BE1Kbuq0Js96baD3+Nnp+cTbaTYiZPWug==
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-3.15.0.tgz#ba2f9454e8a134d276451dd2c3819130177d69a3"
+  integrity sha512-FhCZek0e7selesdQ2Ezh0vR0AD/k2/83R9uuSMgC1z1NnVM1BgQrELOfxb4TzlGE106NKuJaRpQkMlVTvOv5ZA==
   dependencies:
     "@ember-template-lint/todo-utils" "^10.0.0"
     chalk "^4.1.2"
-    ci-info "^3.2.0"
-    date-fns "^2.25.0"
+    ci-info "^3.3.0"
+    date-fns "^2.27.0"
     ember-template-recast "^5.0.3"
     find-up "^5.0.0"
     fuse.js "^6.4.6"
