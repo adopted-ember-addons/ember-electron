@@ -65,47 +65,4 @@ describe('blueprint', function () {
       expect(ENV.locationType).to.equal('hash');
     });
   });
-
-  describe('update travis.yml', function () {
-    function normalizeYaml(content) {
-      let lines = content.split('\n');
-      // filter out empty lines because we don't care about empty-line differences
-      lines = lines.filter((line) => line.trim());
-      // remove \r's in case we're on windows and they were added
-      lines = lines.map((line) => line.replace('\r', ''));
-      return lines.join('\n');
-    }
-
-    async function runTest(fixtureName) {
-      let fixtureDir = path.join(
-        __dirname,
-        '..',
-        'fixtures',
-        'travis-yml',
-        fixtureName
-      );
-
-      copyFileSync(path.join(fixtureDir, '.travis.yml'), '.travis.yml');
-      await blueprint.updateTravisYml();
-      let expected = readFileSync('.travis.yml').toString();
-      let actual = readFileSync(
-        path.join(fixtureDir, 'expected.yml')
-      ).toString();
-
-      expect(normalizeYaml(actual)).to.equal(normalizeYaml(expected));
-    }
-
-    it('works with yarn', async function () {
-      writeFileSync('yarn.lock', '');
-      await runTest('yarn');
-    });
-
-    it('works with npm', async function () {
-      await runTest('npm');
-    });
-
-    it('works with npm with custom install section', async function () {
-      await runTest('npm-custom-install');
-    });
-  });
 });

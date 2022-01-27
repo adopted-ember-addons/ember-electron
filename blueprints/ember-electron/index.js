@@ -53,7 +53,6 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     }
 
     await this.updateEnvironmentConfig();
-    await this.updateTravisYml();
     await this.updateEslintIgnore();
     await this.updateEslintRc();
 
@@ -119,103 +118,6 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     }
 
     await writeFile('config/environment.js', contents);
-  }
-
-  async updateTravisYml() {
-    if (!fs.existsSync('.travis.yml')) {
-      this.ui.writeLine(
-        chalk.yellow(
-          [
-            `\nNo .travis.yml found to update. For info on manually updating your CI`,
-            `config read ${ciUrl}\n`,
-          ].join(' ')
-        )
-      );
-      return;
-    }
-
-    this.ui.writeLine(chalk.green('Updating .travis.yml'));
-
-    try {
-      let contents = await readFile('.travis.yml');
-      let yawn = new YAWN(contents.toString());
-
-      // Add xvfb to the packages
-      let doc = yawn.json;
-      doc.addons = doc.addons || {};
-      doc.addons.apt = doc.addons.apt || {};
-      doc.addons.apt.packages = doc.addons.apt.packages || [];
-      if (!doc.addons.apt.packages.includes('xvfb')) {
-        doc.addons.apt.packages.push('xvfb');
-      }
-
-      // yawn doesn't do well with modifying multiple parts of the document at
-      // once, so let's push the first change so it can resolve it against its AST
-      // and then read the data back and perform the second operation.
-      yawn.json = doc;
-      doc = yawn.json;
-
-      // add install commands -- install dependencies in electron-app project,
-      // and export display and launch xvfb
-      let hasInstallSection = Boolean(doc.install);
-      doc.install = doc.install || [];
-      let usesYarn = isYarnProject();
-
-      if (!hasInstallSection) {
-        // If no install section is specified, travis defaults to running
-        // `npm install`, so if we're adding an install section, we need to
-        // explicitly add that since it will no longer be run by default.
-        usesYarn
-          ? doc.install.push('__yarn_install_root__')
-          : doc.install.push('__npm_install_root__');
-      }
-
-      if (usesYarn) {
-        doc.install.push('__yarn_install__');
-      } else {
-        doc.install.push('__npm_install__');
-      }
-
-      if (!doc.install.find((entry) => entry.toLowerCase().includes('xvfb'))) {
-        doc.install.push('__export_display__');
-        doc.install.push('__xvfb__');
-      }
-
-      // also, yawn quotes strings with certain characters in them even though
-      // it isn't necessary, and it makes it harder to read. So we add
-      // placeholders that won't be quoted and replace them in the output string
-      yawn.json = doc;
-      let output = yawn.yaml;
-      output = output.replace(
-        '__yarn_install_root__',
-        `yarn install --non-interactive`
-      );
-      output = output.replace(
-        '__yarn_install__',
-        `cd electron-app && yarn install --non-interactive`
-      );
-      output = output.replace('__npm_install_root__', `npm install`);
-      output = output.replace(
-        '__npm_install__',
-        `cd electron-app && npm install`
-      );
-      output = output.replace('__export_display__', `export DISPLAY=':99.0'`);
-      output = output.replace(
-        '__xvfb__',
-        'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &'
-      );
-
-      await writeFile('.travis.yml', output);
-    } catch (e) {
-      this.ui.writeLine(
-        chalk.red(
-          [
-            `Failed to update .travis.yml. For info on manually updating your CI`,
-            `config read ${ciUrl}.\nError:\n${e}`,
-          ].join(' ')
-        )
-      );
-    }
   }
 
   //
