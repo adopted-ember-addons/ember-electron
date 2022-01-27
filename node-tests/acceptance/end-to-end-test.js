@@ -116,15 +116,6 @@ describe('end-to-end', function () {
       });
 
       runTests();
-
-      it('the blueprint updated .travis.yml', function () {
-        let travisYml = readFileSync('.travis.yml').toString();
-        expect(travisYml).to.include('cd electron-app && yarn');
-        expect(travisYml).to.include(`export DISPLAY=':99.0'`);
-        expect(travisYml).to.include(
-          'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &'
-        );
-      });
     });
   }
 
@@ -170,16 +161,6 @@ describe('end-to-end', function () {
       });
 
       runTests();
-
-      it('the blueprint updated .travis.yml', function () {
-        let travisYml = readFileSync('.travis.yml').toString();
-        expect(travisYml).to.include('npm install');
-        expect(travisYml).to.include('cd electron-app && npm install');
-        expect(travisYml).to.include(`export DISPLAY=':99.0'`);
-        expect(travisYml).to.include(
-          'Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &'
-        );
-      });
     });
   }
 

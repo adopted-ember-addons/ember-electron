@@ -7413,7 +7413,7 @@ ember-cli-addon-docs@^4.0.0:
     ember-fetch "^8.1.1"
     ember-get-config "^0.5.0"
     ember-keyboard "^7.0.0-beta.0"
-    ember-modal-dialog "github:yapplabs/ember-modal-dialog#76b74f1c4b791fed5b084836c3b1c8c54836ac71"
+    ember-modal-dialog yapplabs/ember-modal-dialog#76b74f1c4b791fed5b084836c3b1c8c54836ac71
     ember-responsive "^4.0.2"
     ember-router-generator "^2.0.0"
     ember-router-scroll "^4.1.2"
@@ -8115,7 +8115,6 @@ ember-load-initializers@^2.1.2:
 
 "ember-modal-dialog@github:yapplabs/ember-modal-dialog#76b74f1c4b791fed5b084836c3b1c8c54836ac71":
   version "4.0.0-alpha.1"
-  uid "76b74f1c4b791fed5b084836c3b1c8c54836ac71"
   resolved "https://codeload.github.com/yapplabs/ember-modal-dialog/tar.gz/76b74f1c4b791fed5b084836c3b1c8c54836ac71"
   dependencies:
     "@embroider/macros" "^0.43.5"
@@ -11300,7 +11299,7 @@ js-yaml@4.1.0:
   dependencies:
     argparse "^2.0.1"
 
-js-yaml@^3.13.1, js-yaml@^3.14.0, js-yaml@^3.2.5, js-yaml@^3.2.7, js-yaml@^3.4.2:
+js-yaml@^3.13.1, js-yaml@^3.14.0, js-yaml@^3.2.5, js-yaml@^3.2.7:
   version "3.14.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.1.tgz#dae812fdb3825fa306609a8717383c50c36a0537"
   integrity sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
@@ -11998,7 +11997,7 @@ lodash.uniqby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#d99c07a669e9e6d24e1362dfe266c67616af1302"
   integrity sha1-2ZwHpmnp5tJOE2Lf4mbGdhavEwI=
 
-lodash@4.17.21, lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4:
+lodash@4.17.21, lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -17899,11 +17898,6 @@ yam@^1.0.0:
     fs-extra "^4.0.2"
     lodash.merge "^4.6.0"
 
-yaml-js@^0.1.3:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/yaml-js/-/yaml-js-0.1.5.tgz#a01369010b3558d8aaed2394615dfd0780fd8fac"
-  integrity sha1-oBNpAQs1WNiq7SOUYV39B4D9j6w=
-
 yaml@1.10.2, yaml@^1.10.0:
   version "1.10.2"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.2.tgz#2301c5ffbf12b467de8da2333a459e29e7920e4b"
@@ -17970,15 +17964,6 @@ yauzl@^2.10.0:
   dependencies:
     buffer-crc32 "~0.2.3"
     fd-slicer "~1.1.0"
-
-yawn-yaml@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/yawn-yaml/-/yawn-yaml-1.5.0.tgz#95fba7544d5375fce3dc84514f12218ed0d2ebcb"
-  integrity sha512-sH2zX9K1QiWhWh9U19pye660qlzrEAd5c4ebw/6lqz17LZw7xYi7nqXlBoVLVtc2FZFXDKiJIsvVcKGYbLVyFQ==
-  dependencies:
-    js-yaml "^3.4.2"
-    lodash "^4.17.11"
-    yaml-js "^0.1.3"
 
 yeast@0.1.2:
   version "0.1.2"
