@@ -8,25 +8,10 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const path = require('path');
 const execa = require('execa');
-const YAWN = require('yawn-yaml/cjs');
 const {
   upgradingUrl,
   routingAndAssetLoadingUrl,
-  ciUrl,
 } = require('../../lib/utils/documentation-urls');
-const findWorkspaceRoot = require('find-yarn-workspace-root');
-
-function isYarnProject() {
-  if (fs.existsSync('yarn.lock')) {
-    return true;
-  }
-
-  if (findWorkspaceRoot(process.cwd())) {
-    return true;
-  }
-
-  return false;
-}
 
 module.exports = class EmberElectronBlueprint extends Blueprint {
   constructor(options) {

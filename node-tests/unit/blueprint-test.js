@@ -1,7 +1,7 @@
 const Blueprint = require('ember-cli/lib/models/blueprint');
 const { expect } = require('chai');
 const tmp = require('tmp');
-const { readFileSync, writeFileSync, copyFileSync, mkdirSync } = require('fs');
+const { copyFileSync, mkdirSync } = require('fs');
 const path = require('path');
 
 describe('blueprint', function () {
