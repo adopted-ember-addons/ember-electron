@@ -101,14 +101,18 @@ describe('end-to-end', function () {
           '--yarn',
           '--skip-git',
           '--no-welcome'
-        ).then(() => {
-          process.chdir('ee-test-app');
+        )
+          .then(() => {
+            process.chdir('ee-test-app');
 
-          return ember(
-            'install',
-            `ember-electron@${path.join(packageTmpDir, 'package')}`
-          );
-        });
+            return ember(
+              'install',
+              `ember-electron@${path.join(packageTmpDir, 'package')}`
+            );
+          })
+          .then(() => {
+            return ember('g', 'ember-electron');
+          });
       });
 
       after(() => {
@@ -132,28 +136,32 @@ describe('end-to-end', function () {
           'false',
           '--skip-git',
           '--no-welcome'
-        ).then(() => {
-          process.chdir('ee-test-app');
-          // For some reason, either ember-cli-dependency-checker isn't working with npm
-          // or npm isn't getting the right version because without this env var (or hacking package.json)
-          // we get:
-          //     Missing npm packages:
-          //     Package: ember-electron
-          //       * Specified: file:../../tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
-          //       * Installed: file:/tmp/tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
-          //
-          //     Run `npm install` to install missing dependencies.
-          process.env.SKIP_DEPENDENCY_CHECKER = true;
+        )
+          .then(() => {
+            process.chdir('ee-test-app');
+            // For some reason, either ember-cli-dependency-checker isn't working with npm
+            // or npm isn't getting the right version because without this env var (or hacking package.json)
+            // we get:
+            //     Missing npm packages:
+            //     Package: ember-electron
+            //       * Specified: file:../../tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+            //       * Installed: file:/tmp/tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
+            //
+            //     Run `npm install` to install missing dependencies.
+            process.env.SKIP_DEPENDENCY_CHECKER = true;
 
-          return ember(
-            'install',
-            `ember-electron@${path.join(
-              packageTmpDir,
-              'ember-electron-cachebust.tar'
-            )}`,
-            '--no-yarn'
-          );
-        });
+            return ember(
+              'install',
+              `ember-electron@${path.join(
+                packageTmpDir,
+                'ember-electron-cachebust.tar'
+              )}`,
+              '--no-yarn'
+            );
+          })
+          .then(() => {
+            return ember('g', 'ember-electron');
+          });
       });
 
       after(() => {

@@ -7,6 +7,7 @@ While upgrading from 2.x to 3.x should not be very time-consuming in most cases,
 ```sh
 yarn-or-npm remove ember-electron
 ember install ember-electron
+ember g ember-electron
 ```
 
 When prompted to overwrite `testem-electron.js`, choose `yes`.

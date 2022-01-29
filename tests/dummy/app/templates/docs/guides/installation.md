@@ -6,7 +6,10 @@
 
 ```sh
 ember install ember-electron
+ember g ember-electron
 ```
+
+(manually running the blueprint is currently necessary because of [this issue](https://github.com/ember-cli/ember-cli/issues/7431) in `ember-cli`)
 
 This will install `ember-electron` and create and initialize an [electron-forge](https://www.electronforge.io/) project in the `electron-app` directory inside your Ember app. Then you can run `ember electron` to launch your app in Electron.
 
