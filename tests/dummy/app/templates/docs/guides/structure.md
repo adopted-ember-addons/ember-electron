@@ -64,3 +64,26 @@ Generally speaking:
 * `my-app/electron-app/package.json#dependencies`:
 ** packages `require`ed by the main process at runtime
 ** packages `requireNode`ed by the Ember app (with `nodeIntegration: true`) at runtime
+
+### Customizing the location of the Electron app
+
+The `electron-app` folder name does not have a configuration option exposed, and so is not officially customizable.
+
+However, it's still possible to override it within your Ember app using a tool like [patch-package](https://www.npmjs.com/package/patch-package). For example, creating a patch like this in `patches/ember-electron+3.1.0.patch`...
+
+```patch
+diff --git a/node_modules/ember-electron/lib/utils/build-paths.js b/node_modules/ember-electron/lib/utils/build-paths.js
+index 84cfe86..3db9e14 100644
+--- a/node_modules/ember-electron/lib/utils/build-paths.js
++++ b/node_modules/ember-electron/lib/utils/build-paths.js
+@@ -1,6 +1,6 @@
+ const path = require('path');
+
+-const electronProjectPath = 'electron-app';
++const electronProjectPath = 'electron';
+
+ const emberBuildDir = 'ember-dist';
+ const emberBuildPath = path.join(electronProjectPath, emberBuildDir);
+```
+
+...will place the Electron app inside a folder called `electron` instead of `electron-app`.
