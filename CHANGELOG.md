@@ -14,6 +14,29 @@ Version 9 of Highlight.js has reached EOL and is no longer supported.
 Please upgrade or ask whatever dependency you are using to upgrade.
 https://github.com/highlightjs/highlight.js/issues/2877
 
+
+## v3.1.1 (2022-04-24)
+
+#### :rocket: Enhancement
+* [#1044](https://github.com/adopted-ember-addons/ember-electron/pull/1044) Update peer deps to allow ember-cli 4 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :bug: Bug Fix
+* [#1052](https://github.com/adopted-ember-addons/ember-electron/pull/1052) Run blueprint manually ([@bendemboski](https://github.com/bendemboski))
+
+#### :memo: Documentation
+* [#815](https://github.com/adopted-ember-addons/ember-electron/pull/815) Document the new publish functionality ([@bendemboski](https://github.com/bendemboski))
+
+#### :house: Internal
+* [#1135](https://github.com/adopted-ember-addons/ember-electron/pull/1135) ember-cli 4.3.0 ([@rwwagner90](https://github.com/rwwagner90))
+* [#1045](https://github.com/adopted-ember-addons/ember-electron/pull/1045) ember-cli 4.1 ([@rwwagner90](https://github.com/rwwagner90))
+* [#1048](https://github.com/adopted-ember-addons/ember-electron/pull/1048) Fix build failure from chalk dependency caching ([@bendemboski](https://github.com/bendemboski))
+* [#838](https://github.com/adopted-ember-addons/ember-electron/pull/838) Use node 12 for testing ([@rwwagner90](https://github.com/rwwagner90))
+* [#833](https://github.com/adopted-ember-addons/ember-electron/pull/833) Add dependabot automerge ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v3.1.0 (2021-05-02)
 
 #### :rocket: Enhancement
