@@ -90,7 +90,7 @@
     "ember-cli-deploy-git-ci": "^1.0.1",
     "ember-cli-htmlbars": "^6.0.1",
     "ember-cli-inject-live-reload": "^2.1.0",
-    "ember-cli-sass": "^10.0.1",
+    "ember-cli-sass": "^11.0.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
     "ember-data": "^4.0.0",
