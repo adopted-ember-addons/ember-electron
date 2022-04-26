@@ -7040,10 +7040,10 @@ ember-cli-preprocess-registry@^3.3.0:
     debug "^3.0.1"
     process-relative-require "^1.0.0"
 
-ember-cli-sass@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-sass/-/ember-cli-sass-10.0.1.tgz#afa91eb7dfe3890be0390639d66976512e7d8edc"
-  integrity sha512-dWVoX03O2Mot1dEB1AN3ofC8DDZb6iU4Kfkbr3WYi9S9bGVHrpR/ngsR7tuVBuTugTyG53FPtLLqYdqx7XjXdA==
+ember-cli-sass@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-sass/-/ember-cli-sass-11.0.0.tgz#79cb09dd0771c24b1367f15e8cddea2cfadb78d1"
+  integrity sha512-Ff3EJB2xeRbd28iaRT7xzyADvbOH9ewDjbRHyDC06rbLXFs6sKLldg7f8QCUdOla59krDUC9/G6/av96jISkPg==
   dependencies:
     broccoli-funnel "^2.0.1"
     broccoli-merge-trees "^3.0.1"
