@@ -6711,7 +6711,7 @@ ember-auto-import@^1.11.3, ember-auto-import@^1.2.19:
     walk-sync "^0.3.3"
     webpack "^4.43.0"
 
-ember-auto-import@^2.2.0, ember-auto-import@^2.2.4, ember-auto-import@^2.4.1:
+ember-auto-import@^2.2.4, ember-auto-import@^2.4.0, ember-auto-import@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-2.4.1.tgz#25e1c21d403eed116b21972ccc5336b49a7ca46b"
   integrity sha512-lyCl2hzIb6Dlcmfm3gI3lAtaOk/nzR2kM4GDJRRu19YJhhSkpiIMSDVjw8ShxmnYiI005R1eOcP3C/GgRRW5mA==
@@ -7158,6 +7158,14 @@ ember-cli-test-loader@^3.0.0:
   integrity sha512-wfFRBrfO9gaKScYcdQxTfklx9yp1lWK6zv1rZRpkas9z2SHyJojF7NOQRWQgSB3ypm7vfpiF8VsFFVVr7VBzAQ==
   dependencies:
     ember-cli-babel "^7.13.2"
+
+ember-cli-typescript-blueprint-polyfill@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-typescript-blueprint-polyfill/-/ember-cli-typescript-blueprint-polyfill-0.1.0.tgz#5917646a996b452a3a6b3f306ab2a27e93ea2cc2"
+  integrity sha512-g0weUTOnHmPGqVZzkQTl3Nbk9fzEdFkEXydCs5mT1qBjXh8eQ6VlmjjGD5/998UXKuA0pLSCVVMbSp/linLzGA==
+  dependencies:
+    chalk "^4.0.0"
+    remove-types "^1.0.0"
 
 ember-cli-typescript@3.0.0:
   version "3.0.0"
@@ -7635,10 +7643,10 @@ ember-source-channel-url@^3.0.0:
   dependencies:
     node-fetch "^2.6.0"
 
-ember-source@~4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-4.3.0.tgz#f89bb2e223bebe1d22f6f16130d4b46be60e1d4f"
-  integrity sha512-WyAWRM1oOXBbj0mTeoIngzGDF41XGrlpJO6nQrcFwff6GN6ERRyeIyIhjU2yLRXWYIC3y6IrzRQUjS1PqqxZVw==
+ember-source@~4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-4.4.0.tgz#c2fbabcda11a00c8cbc890ef1ba5a565c2ceeebe"
+  integrity sha512-o4jJko/2IRfGsyfje51nNYMQj+OusJph4CIGF+Yk9pmvoS0TbzKHKWlnFiIygTcnUiMHkG18FL9Z0LSd/Kgl5w==
   dependencies:
     "@babel/helper-module-imports" "^7.16.7"
     "@babel/plugin-transform-block-scoping" "^7.16.0"
@@ -7652,16 +7660,17 @@ ember-source@~4.3.0:
     broccoli-funnel "^3.0.8"
     broccoli-merge-trees "^4.2.0"
     chalk "^4.0.0"
-    ember-auto-import "^2.2.0"
-    ember-cli-babel "^7.23.0"
+    ember-auto-import "^2.4.0"
+    ember-cli-babel "^7.26.11"
     ember-cli-get-component-path-option "^1.0.0"
     ember-cli-is-package-missing "^1.0.0"
     ember-cli-normalize-entity-name "^1.0.0"
     ember-cli-path-utils "^1.0.0"
     ember-cli-string-utils "^1.1.0"
+    ember-cli-typescript-blueprint-polyfill "^0.1.0"
     ember-cli-version-checker "^5.1.2"
     ember-router-generator "^2.0.0"
-    inflection "^1.13.1"
+    inflection "^1.13.2"
     resolve "^1.22.0"
     semver "^7.3.4"
     silent-error "^1.1.1"
@@ -10077,10 +10086,10 @@ infer-owner@^1.0.3, infer-owner@^1.0.4:
   resolved "https://registry.yarnpkg.com/infer-owner/-/infer-owner-1.0.4.tgz#c4cefcaa8e51051c2a40ba2ce8a3d27295af9467"
   integrity sha512-IClj+Xz94+d7irH5qRyfJonOdfTzuDaifE6ZPWfx0N0+/ATZCbuTPq2prFl526urkQd90WyUKIh1DfBQ2hMz9A==
 
-inflection@^1.13.1, inflection@~1.13.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/inflection/-/inflection-1.13.1.tgz#c5cadd80888a90cf84c2e96e340d7edc85d5f0cb"
-  integrity sha512-dldYtl2WlN0QDkIDtg8+xFwOS2Tbmp12t1cHa5/YClU6ZQjTFm7B66UcVbh9NQB+HvT5BAd2t5+yKsBkw5pcqA==
+inflection@^1.13.1, inflection@^1.13.2, inflection@~1.13.1:
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/inflection/-/inflection-1.13.2.tgz#15e8c797c6c3dadf31aa658f8df8a4ea024798b0"
+  integrity sha512-cmZlljCRTBFouT8UzMzrGcVEvkv6D/wBdcdKG7J1QH5cXjtU75Dm+P27v9EKu/Y43UYyCJd1WC4zLebRrC8NBw==
 
 inflight@^1.0.4:
   version "1.0.6"
