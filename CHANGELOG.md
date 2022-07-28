@@ -15,6 +15,19 @@ Please upgrade or ask whatever dependency you are using to upgrade.
 https://github.com/highlightjs/highlight.js/issues/2877
 
 
+
+## v4.0.0 (2022-07-28)
+
+#### :boom: Breaking Change
+* [#1208](https://github.com/adopted-ember-addons/ember-electron/pull/1208) Require node >= 14.17.5 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :memo: Documentation
+* [#1082](https://github.com/adopted-ember-addons/ember-electron/pull/1082) Document using patch-package to override electronProjectPath ([@DuBistKomisch](https://github.com/DuBistKomisch))
+
+#### Committers: 2
+- Jake Barnes ([@DuBistKomisch](https://github.com/DuBistKomisch))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v3.1.1 (2022-04-24)
 
 #### :rocket: Enhancement
