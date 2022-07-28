@@ -8,7 +8,6 @@ on:
     tags:
       - v*
     
-    
 jobs:
   lint:
     name: Lint
@@ -16,8 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
-        with:
-          node-version: 12.x
       - run: yarn install --frozen-lockfile --network-timeout 100000
 
       - name: 'Lint'
@@ -35,8 +32,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
-        with:
-          node-version: 12.x
       - run: yarn install --frozen-lockfile --network-timeout 100000
 
       - name: 'Basic Tests'
@@ -54,8 +49,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
-        with:
-          node-version: 12.x
       - run: yarn install --frozen-lockfile --network-timeout 100000
 
       - name: 'End-to-end Tests (${{ matrix.package-manager }})'

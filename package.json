@@ -131,7 +131,7 @@
     "ember-cli-dependency-checker": ">= 3.1.0"
   },
   "engines": {
-    "node": "12.* || 14.* || >= 16"
+    "node": ">= 14.17.5 || >= 16"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -163,7 +163,7 @@
     }
   },
   "volta": {
-    "node": "12.22.1",
-    "yarn": "1.22.10"
+    "node": "14.20.0",
+    "yarn": "1.22.19"
   }
 }
