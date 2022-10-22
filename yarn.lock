@@ -7211,7 +7211,7 @@ ember-cli-preprocess-registry@^3.3.0:
     debug "^3.0.1"
     process-relative-require "^1.0.0"
 
-ember-cli-sass@^11.0.0:
+ember-cli-sass@^11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/ember-cli-sass/-/ember-cli-sass-11.0.1.tgz#dc565764213a76973a83c0db9583cb79ba187dc5"
   integrity sha512-RMlFPMK4kaB+67seF/IIoY3EC4rRd+L58q+lyElrxB3FcQTgph/qmGwtqf9Up7m3SDbPiA7cccCOSmgReMgCXA==
@@ -14735,7 +14735,7 @@ sane@^5.0.1:
     minimist "^1.1.1"
     walker "~1.0.5"
 
-sass@^1.26.5, sass@^1.49.7:
+sass@^1.49.7, sass@^1.55.0:
   version "1.55.0"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.55.0.tgz#0c4d3c293cfe8f8a2e8d3b666e1cf1bff8065d1c"
   integrity sha512-Pk+PMy7OGLs9WaxZGJMn7S96dvlyVBwwtToX895WmCpAOr5YiJYEUJfiJidMuKb613z2xNWcXCHEuOvjZbqC6A==
@@ -14998,7 +14998,7 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-sinon-chai@^3.5.0:
+sinon-chai@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/sinon-chai/-/sinon-chai-3.7.0.tgz#cfb7dec1c50990ed18c153f1840721cf13139783"
   integrity sha512-mf5NURdUaSdnatJx3uhoBOrY9dtL19fiOtAdT1Azxg3+lNJFiuN0uzaU3xX1LeAfL17kHQhTAJgpsfhbMJMY2g==
