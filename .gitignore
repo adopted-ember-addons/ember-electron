@@ -23,6 +23,7 @@ browse.VC.db
 
 # We don't use ember-try for testing right now,
 # but there's no harm in ignoring these patterns anyway
+# ember-try
 /.node_modules.ember-try/
 /bower.json.ember-try
 /npm-shrinkwrap.json.ember-try
