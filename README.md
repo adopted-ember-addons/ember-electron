@@ -1,6 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/adopted-ember-addons/ember-electron/gh-pages/img/logo-github%402x.png" alt="Ember-Electron logo showing an electron orbiting a flame" width="300" height="250"></p>
 
-# Ember-Electron
+# ember-electron
 
 ![Latest release on NPM](https://img.shields.io/npm/v/ember-electron.svg) 
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/5rhwhar361uad07v?svg=true)](https://ci.appveyor.com/project/rwwagner90/ember-electron)
@@ -9,15 +9,13 @@
 
 An Ember addon to turn Ember apps into cross-platform desktop applications, taking care of development, tests, compilation, and installer creation.
 
-Compatibility
-------------------------------------------------------------------------------
+## Compatibility
 
-* Ember.js v3.24 or above
-* Ember CLI v3.24 or above
-* Node.js v14.17.5 or above
+* Ember.js v3.28 or above
+* Ember CLI v3.28 or above
+* Node.js v14 or above
 
-Documentation
-------------------------------------------------------------------------------
+## Documentation
 
 [View Docs](https://ember-electron.js.org)
 
@@ -38,3 +36,7 @@ Ember-Electron builds on prior work done by @brzpegasus (author of [`ember-cli-n
 * Florian Pichler ([@pichfl](https://github.com/pichfl))
 * Ben Demboski ([@bendemboski](https://github.com/bendemboski))
 * [...and many other contributors](https://github.com/adopted-ember-addons/ember-electron/graphs/contributors)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
