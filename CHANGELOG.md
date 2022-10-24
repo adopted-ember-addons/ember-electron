@@ -16,6 +16,15 @@ https://github.com/highlightjs/highlight.js/issues/2877
 
 
 
+
+## v4.1.0 (2022-10-24)
+
+#### :house: Internal
+* [#1263](https://github.com/adopted-ember-addons/ember-electron/pull/1263) Ember 4.8 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v4.0.0 (2022-07-28)
 
 #### :boom: Breaking Change
