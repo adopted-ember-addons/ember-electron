@@ -25,6 +25,7 @@ When you first install `ember-electron`, the blueprint creates an `electron-forg
  ├── public
  ├── etc.
  └── electron-app
+     ├── forge.config.js
      ├── package.json
      ├── node_modules
      ├── src

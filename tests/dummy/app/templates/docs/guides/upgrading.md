@@ -54,25 +54,9 @@ You will now have an `electron-app` folder with default vanilla content side-by-
 
 ### electron-forge-config.js
 
-By default `electron-forge` puts the configuration inline in `package.json`, but still supports the external configuration. So you can either migrate the content of your `electron-forge-config.js` into `package.json`:
+`electron-forge` looks for the configuration in `electron-app/forge.config.js`, so you'll want to move your `electron-forge-config.js` from `ember-electron` to `electron-app/forge.config.js`.
 
-```
-"config": {
-  "forge": {
-    "config goes": "here"
-  }
-}
-```
-
-or move your `electron-forge-config.js` from `ember-electron` to `electron-app` and then replace the `config` key in `electron-app/package.json` with
-
-```
-"config": {
-  "forge": "./electron-forge-config.js"
-}
-```
-
-Either way, you will need to update the configuration since the format has changed somewhat since the version of `electron-forge` that `ember-electron` 2.x used. Comparing your old configuration with the vanilla generated configuration in `electron-app/package.json` should help, and `electron-forge`'s [configuration documentation](https://www.electronforge.io/configuration) will help you through the process. Note also that the version of `electron-packager` uses changed from v11 to v14, and various maker packages were also updated, so there may be other configuration changes needed to be able to package/make with `ember-electron` 3.x.
+You will then need to update the configuration since the format has changed somewhat since the version of `electron-forge` that `ember-electron` 2.x used. Comparing your old configuration with the vanilla generated configuration in `electron-app/forge.config.js` should help, and `electron-forge`'s [configuration documentation](https://www.electronforge.io/configuration) will help you through the process. Note also that the version of `electron-packager` uses changed from v11 to the latest, and various maker packages were also updated, so there may be other configuration changes needed to be able to package/make with `ember-electron` 3.x.
 
 ### main.js
 
