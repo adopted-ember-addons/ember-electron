@@ -30,18 +30,18 @@ to run in live-reload mode. It supports many of the same parameters as `ember te
 
 ### Configuration
 
-The process of packaging an application for distribution involves quite a bit of configuration. `ember-electron`'s installation blueprint will set you up with some defaults to get you started, but you will likely want to customize the configuration at some point. In `electron-app/package.json` you'll see
+The process of packaging an application for distribution involves quite a bit of configuration. `ember-electron`'s installation blueprint will set you up with some defaults to get you started, but you will likely want to customize the configuration at some point. In `electron-app/forge.config.js` you'll see
 
-```
-"config": {
-  "forge": {
-    "packagerConfig": {},
-    "makers": [
-      ...
-    ]
-  }
-}
-```
+```js
+module.exports = {
+  packagerConfig: {
+    // ...
+  },
+  rebuildConfig: {},
+  makers: [
+    // ...
+  ],
+};
 
 This configuration is read directly by `electron-forge`, so you should use its [documentation](https://www.electronforge.io/configuration) as reference.
 

@@ -36,14 +36,8 @@ async function updateGitIgnore(dir) {
 }
 
 async function updatePackageJson(dir) {
-  // add our test and test build directories and the test directory to
-  // electron-packager's ignores
   let packageJsonPath = path.join(dir, 'package.json');
   let packageJson = JSON.parse(await readFile(packageJsonPath));
-  packageJson.config.forge.packagerConfig.ignore = [
-    emberTestBuildDir,
-    'tests',
-  ].map((dir) => `/${dir}(/|$)`); // these are regexes, not globs
 
   // copy some fields from the Ember project's package.json
   let parentPackageJson = JSON.parse(
@@ -75,16 +69,28 @@ class EmberElectronTemplates extends BaseTemplate {
   }
 
   async initializeTemplate(dir) {
-    await super.initializeTemplate(...arguments);
+    let tasks = await super.initializeTemplate(...arguments);
+    return [
+      ...tasks,
+      {
+        title: 'Replacing source directory',
+        task: async () => {
+          // delete source directory with default files
+          await rimraf(path.join(dir, 'src'));
 
-    // delete source directory with default files
-    await rimraf(path.join(dir, 'src'));
-
-    // copy our initial content
-    await ncp(this.templateDir, dir);
-
-    await updateGitIgnore(dir);
-    await updatePackageJson(dir);
+          // copy our initial content
+          await ncp(this.templateDir, dir);
+        },
+      },
+      {
+        title: 'Updating .gitignore',
+        task: async () => await updateGitIgnore(dir),
+      },
+      {
+        title: 'Updating package.json',
+        task: async () => await updatePackageJson(dir),
+      },
+    ];
   }
 }
 
