@@ -5392,10 +5392,10 @@ chromium-pickle-js@^0.2.0:
   resolved "https://registry.yarnpkg.com/chromium-pickle-js/-/chromium-pickle-js-0.2.0.tgz#04a106672c18b085ab774d983dfa3ea138f22205"
   integrity sha512-1R5Fho+jBq0DDydt+/vHWj5KJNJCKdARKOCwZUen84I5BreWoLqRLANH1U87eJy1tiASPtMnGqJJq0ZsLoRPOw==
 
-ci-info@^3.2.0, ci-info@^3.3.2, ci-info@^3.4.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.5.0.tgz#bfac2a29263de4c829d806b1ab478e35091e171f"
-  integrity sha512-yH4RezKOGlOhxkmhbeNuC4eYZKAUsEaGtBuBzDDP1eFUKiccDWzBABxBfOx31IDwDIXMTxWuwAxUGModvkbuVw==
+ci-info@^3.2.0, ci-info@^3.3.2, ci-info@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.7.0.tgz#6d01b3696c59915b6ce057e4aa4adfc2fa25f5ef"
+  integrity sha512-2CpRNYmImPx+RXKLq6jko/L07phmS9I02TyqkcNU20GCF/GgaWvc58hPtjxDX8lPpkdwc9sNh72V9k00S7ezog==
 
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   version "1.0.4"
@@ -7717,14 +7717,14 @@ ember-template-imports@^3.1.1, ember-template-imports@^3.4.0:
     validate-peer-dependencies "^1.1.0"
 
 ember-template-lint@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-5.0.1.tgz#6b736e9ba824b6f01f125970e7072c28a5c11c09"
-  integrity sha512-LnFemz8BzdNcvtGlYMKPbimlt9KZYR4zGpKiUkDYHNaNkrG0jG99vYiLVRNhadqOTkc5kGWm3YswJ0hkgQMZKg==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-5.0.2.tgz#38cf23010b3e48b7506c23c7f528fa5d0a209fd8"
+  integrity sha512-DeI8wE5g+IENp/iJc02ZJDiB8+jgPWuWY5SEdo0EUu5YFFoC36VAaFoP4MaHh18B20lgM6Wer7TFmnN2bX2V8A==
   dependencies:
     "@lint-todo/utils" "^13.0.3"
     aria-query "^5.0.2"
     chalk "^5.1.2"
-    ci-info "^3.4.0"
+    ci-info "^3.7.0"
     date-fns "^2.29.2"
     ember-template-imports "^3.4.0"
     ember-template-recast "^6.1.3"
