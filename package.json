@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@electron-forge/core": "6.0.4",
-    "chalk": "^4.1.2",
+    "chalk": "^5.1.2",
     "debug": "^4.1.1",
     "ember-cli-babel": "^7.26.11",
     "execa": "^5.0.0",
