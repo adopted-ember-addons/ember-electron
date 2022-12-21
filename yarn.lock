@@ -7594,9 +7594,9 @@ ember-qunit@^6.0.0:
     validate-peer-dependencies "^2.1.0"
 
 ember-resolver@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/ember-resolver/-/ember-resolver-9.0.0.tgz#8438d94f26a127b76f38bccc8ac01eecc92d8b38"
-  integrity sha512-oC8HzL6XyfnLFZfyMgc1gDif5s1IOKLCGesvRO57tZoA92QzXW8eD8WNVMT9reoJPKRhymTFlWnwBmq7iQE3wg==
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/ember-resolver/-/ember-resolver-9.0.1.tgz#a4d0e958abdb3b40ef18b120e542765963a5a9be"
+  integrity sha512-vFdaxDuwp0xptxa4uhJE8mNLQf6/8Mz+mBohsF4721hz03ieW+zdSSR04fCetFVCLxtNhGmmrIZrClDcA5dB9w==
   dependencies:
     ember-cli-babel "^7.26.11"
 
