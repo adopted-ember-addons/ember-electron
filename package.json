@@ -63,7 +63,7 @@
     "find-yarn-workspace-root": "^2.0.0",
     "ncp": "^2.0.0",
     "portfinder": "^1.0.25",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.0.4",
     "silent-error": "^1.1.1",
     "tree-kill": "^1.2.2"
   },
