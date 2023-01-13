@@ -100,7 +100,7 @@
     "ember-page-title": "^7.0.0",
     "ember-qunit": "^6.0.0",
     "ember-resolver": "^9.0.0",
-    "ember-source": "~4.9.0",
+    "ember-source": "~4.10.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^5.0.0",
     "ember-try": "^2.0.0",
