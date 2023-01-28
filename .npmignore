@@ -23,7 +23,6 @@
 /.travis.yml
 /.watchmanconfig
 /bower.json
-/config/ember-try.js
 /dist
 /CONTRIBUTING.md
 /ember-cli-build.js
