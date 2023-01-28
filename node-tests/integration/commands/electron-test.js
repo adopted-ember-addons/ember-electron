@@ -34,36 +34,36 @@ describe('electron command', function () {
 
   let command;
 
-  let mockBrocBuilder;
   let mockBrocWatcher;
   let mockProcess;
 
-  let createBuilderStub;
   let cleanupBuilderStub;
   let createWatcherStub;
   let startServerStub;
+
+  let buildOutputPath;
+  let buildEnvironment;
 
   let emitExitStub;
 
   beforeEach(function () {
     processArgv = Array.from(process.argv);
 
-    mockBrocBuilder = {};
     mockBrocWatcher = new MockWatcher();
     mockProcess = new MockProcess();
 
     emitExitStub = sinon.stub();
 
-    createBuilderStub = sinon
-      .stub(Builder.prototype, 'setupBroccoliBuilder')
-      .callsFake(function () {
-        this.builder = mockBrocBuilder;
-      });
     sinon.stub(Builder.prototype, 'build').resolves();
     cleanupBuilderStub = sinon.stub(Builder.prototype, 'cleanup').resolves();
     createWatcherStub = sinon
       .stub(Watcher.prototype, 'constructBroccoliWatcher')
-      .returns(mockBrocWatcher);
+      .callsFake(function () {
+        // pull values off of builder
+        buildOutputPath = this.builder.outputPath;
+        buildEnvironment = this.builder.environment;
+        return Promise.resolve(mockBrocWatcher);
+      });
     startServerStub = sinon.stub(ExpressServer.prototype, 'start').resolves();
     sinon.stub(api, 'start').callsFake(() => {
       // make electron process exit right after start promise resolves
@@ -103,7 +103,6 @@ describe('electron command', function () {
 
   it('works', async function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
-    expect(createBuilderStub).to.be.calledOnce;
     expect(createWatcherStub).to.be.calledOnce;
     expect(mockBrocWatcher.currentBuild.then).to.be.calledOnce;
     expect(startServerStub).to.be.calledOnce;
@@ -131,19 +130,10 @@ describe('electron command', function () {
   });
 
   it('sets the build output path and environment', async function () {
-    let outputPath;
-    let environment;
-    createBuilderStub.resetBehavior();
-    createBuilderStub.callsFake(function () {
-      // pull values off of builder
-      outputPath = this.outputPath;
-      environment = this.environment;
-    });
-
     await expect(command.validateAndRun(['--environment', 'testing'])).to.be
       .fulfilled;
-    expect(outputPath).to.equal(path.join('electron-app', 'ember-dist'));
-    expect(environment).to.equal('testing');
+    expect(buildOutputPath).to.equal(path.join('electron-app', 'ember-dist'));
+    expect(buildEnvironment).to.equal('testing');
   });
 
   it('sets up the live reload server with defaults', async function () {
