@@ -52,8 +52,7 @@ module.exports = {
         browser: false,
         node: true,
       },
-      plugins: ['node'],
-      extends: ['plugin:node/recommended'],
+      extends: ['plugin:n/recommended'],
       rules: {
         'ember/avoid-leaking-state-in-ember-objects': 'off',
       },
@@ -65,10 +64,9 @@ module.exports = {
         browser: false,
         node: true,
       },
-      plugins: ['node'],
-      extends: ['plugin:node/recommended'],
+      extends: ['plugin:n/recommended'],
       rules: {
-        'node/no-missing-require': [
+        'n/no-missing-require': [
           'error',
           {
             allowModules: ['ember-electron'],
@@ -83,10 +81,9 @@ module.exports = {
         browser: false,
         node: true,
       },
-      plugins: ['node'],
-      extends: ['plugin:node/recommended'],
+      extends: ['plugin:n/recommended'],
       rules: {
-        'node/no-missing-require': [
+        'n/no-missing-require': [
           'error',
           {
             allowModules: [
