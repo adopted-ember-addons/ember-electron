@@ -17,6 +17,18 @@ https://github.com/highlightjs/highlight.js/issues/2877
 
 
 
+
+## v4.2.0 (2023-02-01)
+
+#### :rocket: Enhancement
+* [#1279](https://github.com/adopted-ember-addons/ember-electron/pull/1279) electron-forge 6 ([@bendemboski](https://github.com/bendemboski))
+
+#### :bug: Bug Fix
+* [#1372](https://github.com/adopted-ember-addons/ember-electron/pull/1372) Ember 4.10 ([@bendemboski](https://github.com/bendemboski))
+
+#### Committers: 1
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+
 ## v4.1.0 (2022-10-24)
 
 #### :house: Internal
