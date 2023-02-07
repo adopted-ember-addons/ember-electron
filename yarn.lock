@@ -1037,12 +1037,12 @@
   resolved "https://registry.yarnpkg.com/@csstools/sass-import-resolve/-/sass-import-resolve-1.0.0.tgz#32c3cdb2f7af3cd8f0dca357b592e7271f3831b5"
   integrity sha512-pH4KCsbtBLLe7eqUrw8brcuFO8IZlN36JjdKlOublibVdAIPHCzEnpBWOVUXK5sCf+DpBi8ZtuWtjF0srybdeA==
 
-"@electron-forge/core-utils@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/core-utils/-/core-utils-6.0.4.tgz#dae0a47d9ffb93ee02de05720617d39b65666731"
-  integrity sha512-nOCjmm8Qr/bYkVNfEiXSk/LKjtv6iBrKcyhKIanNM3n7MJRuTH0ksvuajFBqg+V+EHplMb7y6acDvI+TTRDUxg==
+"@electron-forge/core-utils@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/core-utils/-/core-utils-6.0.5.tgz#a14eb4993093c7be98e5f07f55135b5fd3b0a48e"
+  integrity sha512-KCxTQOGRGITUwdxMu63xFn4SkuBE6Fvn188MjZHyztAHimiKBWdNGBrBHgjR2WyYTziT8y6JXcAntAW5d+jYHQ==
   dependencies:
-    "@electron-forge/shared-types" "^6.0.4"
+    "@electron-forge/shared-types" "6.0.5"
     "@electron/rebuild" "^3.2.10"
     "@malept/cross-spawn-promise" "^2.0.0"
     chalk "^4.0.0"
@@ -1053,19 +1053,19 @@
     semver "^7.2.1"
     yarn-or-npm "^3.0.1"
 
-"@electron-forge/core@6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/core/-/core-6.0.4.tgz#a6b32b7e4d88d35b2f1e052b2d5cd83c617bb63b"
-  integrity sha512-l3OiXB/9ebtZZtcQAbofaTmivQUqUVv8TKoxQ8GJbH48Eyk//mphbo7hDC5kb5Tyd0UedMOM9MxJrYjnd6jRnA==
+"@electron-forge/core@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/core/-/core-6.0.5.tgz#38e8ee4e1f5bbf22934b02b3d202e19dcb2b055f"
+  integrity sha512-lMtm3x2ZFEBOU7/JTIo2oI5dXm2hKqpdc4opHA7iOxja5YYDDvnqKt+tACJSCdnCOxYLS+0OSoaz/DJ8SNyStw==
   dependencies:
-    "@electron-forge/core-utils" "^6.0.4"
-    "@electron-forge/maker-base" "^6.0.4"
-    "@electron-forge/plugin-base" "^6.0.4"
-    "@electron-forge/publisher-base" "^6.0.4"
-    "@electron-forge/shared-types" "^6.0.4"
-    "@electron-forge/template-base" "^6.0.4"
-    "@electron-forge/template-webpack" "^6.0.4"
-    "@electron-forge/template-webpack-typescript" "^6.0.4"
+    "@electron-forge/core-utils" "6.0.5"
+    "@electron-forge/maker-base" "6.0.5"
+    "@electron-forge/plugin-base" "6.0.5"
+    "@electron-forge/publisher-base" "6.0.5"
+    "@electron-forge/shared-types" "6.0.5"
+    "@electron-forge/template-base" "6.0.5"
+    "@electron-forge/template-webpack" "6.0.5"
+    "@electron-forge/template-webpack-typescript" "6.0.5"
     "@electron/get" "^2.0.0"
     "@electron/rebuild" "^3.2.10"
     "@malept/cross-spawn-promise" "^2.0.0"
@@ -1091,65 +1091,65 @@
     username "^5.1.0"
     yarn-or-npm "^3.0.1"
 
-"@electron-forge/maker-base@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/maker-base/-/maker-base-6.0.4.tgz#7de68dd11d2a670b552860aea01767870bb44f92"
-  integrity sha512-qJJ2oPFlyt6u/H67WLfZL0JclSpFj4VwxPfwxqNL/HcwXULJcOeat7oqJLY9UKBE4U2j+++xbA3LSoPAErroIg==
+"@electron-forge/maker-base@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/maker-base/-/maker-base-6.0.5.tgz#09dc0f458ca1d15ce93be9210ea44e01dca911cb"
+  integrity sha512-m3xS/Gd2XlYUjXO4o8bxZEcwN9AulMDjuIzq68FRH5VB1vuESJKtVZjSa331IjaA+0aRXbSCa108FLy8g5Qlaw==
   dependencies:
-    "@electron-forge/shared-types" "^6.0.4"
+    "@electron-forge/shared-types" "6.0.5"
     fs-extra "^10.0.0"
     which "^2.0.2"
 
-"@electron-forge/plugin-base@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/plugin-base/-/plugin-base-6.0.4.tgz#a3b62e006632dab66d35f845ca61e09745ccbb82"
-  integrity sha512-iILzbFzmUIGggsTNL9PO1ma6e4OuuhKunNnOkpkoyg6jIaz8Oh1WSHhOALMztlBn2FhreabZnBRy7JsvHVDXlg==
+"@electron-forge/plugin-base@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/plugin-base/-/plugin-base-6.0.5.tgz#8a73d19d6ae81640f858d351ac701462fe6c72a8"
+  integrity sha512-Q2ywNq6Qzb9K1W59qzbJvI+NZaDPrHz7iq9W8UfyHoEDYLJsD368PzHtNaQFJx+ofZNgsSpukXoL9mGvN1lVbA==
   dependencies:
-    "@electron-forge/shared-types" "^6.0.4"
+    "@electron-forge/shared-types" "6.0.5"
 
-"@electron-forge/publisher-base@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/publisher-base/-/publisher-base-6.0.4.tgz#dd5db7ec04f8c5a6a70afa548950381052673806"
-  integrity sha512-0C86jnOSTo0z/W58zRx6BijuR4lscB0F6yXaBCFA5xaJ8+fVIsgz29kmVlLrp+YFRgatDCljvk+1+qVRM/Mfpg==
+"@electron-forge/publisher-base@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/publisher-base/-/publisher-base-6.0.5.tgz#b857a8ac2022d13ed4ab0ef93466fe5d22be9513"
+  integrity sha512-gwOaMC3RKPO1mq3dqP9ko8kJptO41XU+I+pM66W/wvCNIQzisFCqrsx3d8A9RWsMJug0I1xNsYdBt99j1/2haA==
   dependencies:
-    "@electron-forge/shared-types" "^6.0.4"
+    "@electron-forge/shared-types" "6.0.5"
 
-"@electron-forge/shared-types@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/shared-types/-/shared-types-6.0.4.tgz#f8cdcf453459caa156d513582054b8e81057584f"
-  integrity sha512-lILLKcGZqfJYVI1x6RssVh37E934rCOaSdBQ9I7LypdfI2NWL+5PLLoUqvXbok1V28m3/O5JrXdigwEIZdhjzQ==
+"@electron-forge/shared-types@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/shared-types/-/shared-types-6.0.5.tgz#8b265687fad188799384f88fba821f8f0eac689e"
+  integrity sha512-FrJI11afw/Cxk0JwgWyKg9aPoHOdmMi4JHTY6pnmi95MjarQ1d0SIqKJUzX7q2lXPUAxqPKA2Wmykg6F2CThlg==
   dependencies:
     "@electron/rebuild" "^3.2.10"
     electron-packager "^17.1.1"
     listr2 "^5.0.3"
 
-"@electron-forge/template-base@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/template-base/-/template-base-6.0.4.tgz#9d42af1fe77cf6d1ee8e43109d3eefabd1caf95e"
-  integrity sha512-23/b0n+ls0+c2+OG1XrHROk6i3PseONLJY3tcR42uFaP/yGZL8nJfgXE2qTKBwUyFQ0tCgUAD3a4vYkMPLKrwg==
+"@electron-forge/template-base@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/template-base/-/template-base-6.0.5.tgz#cd4cf11b7d15adc30a7fccb2ec198c1fe88c4d82"
+  integrity sha512-/3nOKPltnL8nVdZS2EpnKx1VMBqgLjW8TLRt8vtc+WdHtCVJBiU1Pt0JxTYDM3Raq/CclWGqVFb1svqorAon7Q==
   dependencies:
-    "@electron-forge/shared-types" "^6.0.4"
+    "@electron-forge/shared-types" "6.0.5"
     "@malept/cross-spawn-promise" "^2.0.0"
     debug "^4.3.1"
     fs-extra "^10.0.0"
     username "^5.1.0"
 
-"@electron-forge/template-webpack-typescript@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/template-webpack-typescript/-/template-webpack-typescript-6.0.4.tgz#8dea2d6deb6be9b73203fc93c49d88dfe86f2c1f"
-  integrity sha512-Z9fJ0JfZw9w5OVZgy0qVGapGMQqfaLyQSHzEfm2HQdGGJrHkeXJkMn8Yd1E8h5EPMb3jF5tHRw3VopelzcPQxQ==
+"@electron-forge/template-webpack-typescript@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/template-webpack-typescript/-/template-webpack-typescript-6.0.5.tgz#e933b564930f4782ec5ffde1886135947a669bb5"
+  integrity sha512-YjKVszYRT4S3Sw3AOEpJokU7KPpmr0HWuO14+WHMO0FhQ1gaTMfPoz6QRHg0F1Ulz73mm6b3MLb9ID5igZv7Mw==
   dependencies:
-    "@electron-forge/shared-types" "^6.0.4"
-    "@electron-forge/template-base" "^6.0.4"
+    "@electron-forge/shared-types" "6.0.5"
+    "@electron-forge/template-base" "6.0.5"
     fs-extra "^10.0.0"
 
-"@electron-forge/template-webpack@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@electron-forge/template-webpack/-/template-webpack-6.0.4.tgz#17bfd20d93be8238a6ee62cc1cf5c4484906dbde"
-  integrity sha512-mrzNzkhsLfD20y/vfTYVBFSkptmgSEwqn4zh4vnzP9tzAJ4eMbvhfVtkK/XQfm8ZspPjs+RZSzRrRNo+e0iEaw==
+"@electron-forge/template-webpack@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@electron-forge/template-webpack/-/template-webpack-6.0.5.tgz#1d420b6cbdf3533701230d02974ca42c297ab518"
+  integrity sha512-fDINYYCJ3D8rMYgS5tTHhgC8d73pRpQKtyBCQFC9KkfdNMYJr9MPZeep5pYQqrOMjSgBpgaYSBL9Unsa5I1F2g==
   dependencies:
-    "@electron-forge/shared-types" "^6.0.4"
-    "@electron-forge/template-base" "^6.0.4"
+    "@electron-forge/shared-types" "6.0.5"
+    "@electron-forge/template-base" "6.0.5"
     fs-extra "^10.0.0"
 
 "@electron/asar@^3.2.1":
