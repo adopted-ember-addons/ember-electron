@@ -7759,9 +7759,9 @@ ember-template-imports@^3.4.1:
     validate-peer-dependencies "^1.1.0"
 
 ember-template-lint@^5.3.1:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-5.5.0.tgz#b1603fe378480bd069ef8401d9dd9eff4c09009e"
-  integrity sha512-mKmJy+pnQhkMif/tMCdAxrPgR7h5BDE+qZrb0xPDuOl9kzNRC0gcTjx0xrXMj78BCdO3mi/JEkwI9kzMPWS3gg==
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-5.5.1.tgz#6a37b2770b1febc567a092013fd8927c5e305d72"
+  integrity sha512-EQgHRBWhSV46REzjaIp7B99tswBpY0IeKh2VNQT+AocL4oEQ9Bt0nqtNhtePA1ZX6xq5S8gBGIfAPN/FzIXkPQ==
   dependencies:
     "@lint-todo/utils" "^13.0.3"
     aria-query "^5.0.2"
