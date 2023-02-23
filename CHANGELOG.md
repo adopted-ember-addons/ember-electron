@@ -18,6 +18,15 @@ https://github.com/highlightjs/highlight.js/issues/2877
 
 
 
+
+## v4.2.1 (2023-02-23)
+
+#### :bug: Bug Fix
+* [#1391](https://github.com/adopted-ember-addons/ember-electron/pull/1391) Un-pin electron forge ([@bendemboski](https://github.com/bendemboski))
+
+#### Committers: 1
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+
 ## v4.2.0 (2023-02-01)
 
 #### :rocket: Enhancement
