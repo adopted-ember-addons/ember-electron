@@ -12162,9 +12162,9 @@ minimist@>=1.2.5, minimist@^1.1.1, minimist@^1.2.0, minimist@^1.2.5, minimist@^1
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
 
 minimist@^0.2.1:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.2.2.tgz#2592640f29a3e60863175b95b48c9e51f5050afe"
-  integrity sha512-g92kDfAOAszDRtHNagjZPPI/9lfOFaRBL/Ud6Z0RKZua/x+49awTydZLh5Gkhb80Xy5hmcvZNLGzscW5n5yd0g==
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.2.4.tgz#0085d5501e29033748a2f2a4da0180142697a475"
+  integrity sha512-Pkrrm8NjyQ8yVt8Am9M+yUt74zE3iokhzbG1bFVNjLB92vwM71hf40RkEsryg98BujhVOncKm/C1xROxZ030LQ==
 
 minipass-collect@^1.0.2:
   version "1.0.2"
