@@ -8142,9 +8142,9 @@ eslint-formatter-kakoune@^1.0.0:
   integrity sha512-Uk/TVLt6Nf6Xoz7C1iYuZjOSdJxe5aaauGRke8JhKeJwD66Y61/pY2FjtLP04Ooq9PwV34bzrkKkU2UZ5FtDRA==
 
 eslint-plugin-ember@^11.4.3:
-  version "11.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-11.6.0.tgz#839c9b556fe33d2a016670741807efabb9feb2e4"
-  integrity sha512-M/M63t/Y5yr/yuWUbtUZ/tE5B5A8/+6LOR6fJlXpLZR4XMtN3KueYsuEIDGP6AInmq5tjDPmBXX0wV+FkjQmvA==
+  version "11.7.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-11.7.1.tgz#fc1a999021f9e591eb4b1d8c0cdf0dba1aa1c928"
+  integrity sha512-+IxjcPMFbXF+q8xrlXIgsFxDR9hggNPCOT6QDGmjaKhRgyJ4uQCqVAU0/XVmV7dKVcnFWH9ImZ9eroH3oHwRKg==
   dependencies:
     "@ember-data/rfc395-data" "^0.0.4"
     "@glimmer/syntax" "^0.84.2"
