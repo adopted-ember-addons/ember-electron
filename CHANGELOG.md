@@ -19,6 +19,15 @@ https://github.com/highlightjs/highlight.js/issues/2877
 
 
 
+
+## v4.2.2 (2023-06-15)
+
+#### :bug: Bug Fix
+* [#1508](https://github.com/adopted-ember-addons/ember-electron/pull/1508) Use absolute path ([@basz](https://github.com/basz))
+
+#### Committers: 1
+- Bas Kamer ([@basz](https://github.com/basz))
+
 ## v4.2.1 (2023-02-23)
 
 #### :bug: Bug Fix
