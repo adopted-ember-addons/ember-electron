@@ -121,7 +121,7 @@ describe('electron command', function () {
     expect(DependencyChecker.prototype.checkDependencies).to.be.calledOnce;
   });
 
-  it('passes the correct path to electron-forge', async function () {
+  it('passes the correct (resolved) path to electron-forge', async function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(api.start).to.be.calledOnce;
     expect(api.start.firstCall.args[0].dir).to.equal(

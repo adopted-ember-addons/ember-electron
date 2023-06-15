@@ -44,7 +44,7 @@ describe('electron:package command', function () {
     );
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
-      dir: 'electron-app',
+      dir: path.resolve('electron-app'),
       outDir: path.join('electron-app', 'out'),
     });
     expect(api.package.firstCall).to.be.calledAfter(buildTaskStub.firstCall);
@@ -88,7 +88,7 @@ describe('electron:package command', function () {
     ).to.be.fulfilled;
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
-      dir: 'electron-app',
+      dir: path.resolve('electron-app'),
       outDir: path.resolve('some-dir'),
       platform: 'linux',
       arch: 'ia32',
