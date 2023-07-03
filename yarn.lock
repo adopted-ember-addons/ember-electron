@@ -7799,14 +7799,15 @@ ember-source-channel-url@^3.0.0:
     node-fetch "^2.6.0"
 
 ember-source@~4.12.1:
-  version "4.12.2"
-  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-4.12.2.tgz#4bc2b5be4b837956f845b0abbdaef40d3783388b"
-  integrity sha512-IfNa4v23fV6a0lLP5Q+3JEAekf8eTifwEXpFzjrAqNM1V3/+3fwHr0uEpI3G6IFGRlaU1xmuhcVkjGoOa5ZP0g==
+  version "4.12.3"
+  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-4.12.3.tgz#6c401f6a856bb2f7f2871f56d46e7496f97e936a"
+  integrity sha512-UuFpMWf931pEWBPuujkaMYhsoPvFyZc+tMYjlUn7um20uL+hWs+k2n/TxMVuxydSzJLnxrXz81nTwbYIlgRWdw==
   dependencies:
     "@babel/helper-module-imports" "^7.16.7"
     "@babel/plugin-transform-block-scoping" "^7.20.5"
     "@ember/edition-utils" "^1.2.0"
     "@glimmer/vm-babel-plugins" "0.84.2"
+    "@simple-dom/interface" "^1.4.0"
     babel-plugin-debug-macros "^0.3.4"
     babel-plugin-filter-imports "^4.0.0"
     broccoli-concat "^4.2.5"
