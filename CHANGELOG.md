@@ -20,6 +20,15 @@ https://github.com/highlightjs/highlight.js/issues/2877
 
 
 
+
+## v5.0.0 (2023-07-14)
+
+#### :boom: Breaking Change
+* [#1537](https://github.com/adopted-ember-addons/ember-electron/pull/1537) Drop support for Ember < 4.4 and node < 16 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v4.2.2 (2023-06-15)
 
 #### :bug: Bug Fix
