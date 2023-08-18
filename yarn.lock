@@ -1321,63 +1321,63 @@
     minimatch "^3.0.4"
     plist "^3.0.4"
 
-"@ember-data/adapter@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/adapter/-/adapter-5.1.1.tgz#ccda33f9f1225b531f58a10c0b5b8ba5198c0d99"
-  integrity sha512-qg5fBa00PkB/GjCjoPUBt4R+1MD8/892qKf/BG4ORYXRsPEAyiZeGiB9ZyA3q76do676OqKfZJdSE/l6rkcGgw==
+"@ember-data/adapter@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/adapter/-/adapter-5.2.0.tgz#f6447562c0998189c6847abbc1423cccf23338cc"
+  integrity sha512-mu0AyQYsFTlXACJdRqMyHkCobdLKapqNgS1Rdl5vG5nJK1JwKHN8JV2SrDRDD3ZCsnwkq53hOS+3BZEAsDNtWA==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@embroider/macros" "^1.12.0"
     ember-cli-babel "^7.26.11"
     ember-cli-test-info "^1.0.0"
 
-"@ember-data/debug@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/debug/-/debug-5.1.1.tgz#aa91f04345cdf41563879b3053b7cdafb3b425f1"
-  integrity sha512-p0MTaw5pIjY+FV15iKhU4Ftj/BZaTv/xMZDIcr9XnstKtif9tSemiUeCxbuxoPYTbhyK/tq1kdoeV+bSwcn4RA==
+"@ember-data/debug@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/debug/-/debug-5.2.0.tgz#8f534e9da3b6edceb95e3bdcec72bd8ca9d0ad31"
+  integrity sha512-YAO82gANeJ+WfCgexzGDw4Gyd17c7RG3Qbajusq1Lhqj7ffQHwv+uqTG/pHMX0Ps3t4A7YUabBwc0Kk63o+DGg==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@ember/edition-utils" "^1.2.0"
     "@embroider/macros" "^1.12.0"
     ember-auto-import "2.6.1"
     ember-cli-babel "^7.26.11"
     webpack "^5.82.1"
 
-"@ember-data/graph@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/graph/-/graph-5.1.1.tgz#f8da7ca52460d3262b00fe93d55ad9f17b6c7142"
-  integrity sha512-BNWeQF/q800DBRFls+7G4ohBbkEGCM5cjSpdVZeF3knSgKoiiZw8t4y9o7vd9yjWPiIt7zY7DeFKo80NOzE8SA==
+"@ember-data/graph@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/graph/-/graph-5.2.0.tgz#30fb2218eb7a9ebc710955fc8807c4a2c41fc68f"
+  integrity sha512-+txTmGKlQl09zqLX7dtPcfpNnVDO0693nKbHX6TV76KgXFJR/osQv711ECLJpAFgNJ1dcAIdnoaVwQ/0f4SzlQ==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@ember/edition-utils" "^1.2.0"
     "@embroider/macros" "^1.12.0"
     ember-cli-babel "^7.26.11"
 
-"@ember-data/json-api@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/json-api/-/json-api-5.1.1.tgz#a140270e45dd018c559157e194776f7188677644"
-  integrity sha512-HzPEAQHUG5UV6Y2KjWw0BrG6syO47WCZO0rxp1cr2fCAt9u3oQfmK/DaE0QNEtDv61TlktIEr3VbyJ7o/+sszA==
+"@ember-data/json-api@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/json-api/-/json-api-5.2.0.tgz#cb7a505fc629a04b46d118c2e71f4fa49ba093ba"
+  integrity sha512-pvUlF9peHOlGEO8yKp81lTuiKPzU6z7+VuiE51sfWwSU0nZaA4LNU1Dpys8jeUMjXJffa/hjHAKYx8Dwlbi/2A==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@ember/edition-utils" "^1.2.0"
     "@embroider/macros" "^1.12.0"
     ember-cli-babel "^7.26.11"
 
-"@ember-data/legacy-compat@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/legacy-compat/-/legacy-compat-5.1.1.tgz#fcb8dd63c50c930d2db68da554737f861321a73e"
-  integrity sha512-n4xDWAtt3ZHfe7d44l3sYO3HWZpuXquYNnRWdTUaHb30JzcO72Zr9H/WbZoxn//yO8QnSsYr2+8MbYWR5cGh9g==
+"@ember-data/legacy-compat@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/legacy-compat/-/legacy-compat-5.2.0.tgz#04c5aeca8b4f6a3e505c2c0e207e27e1700cefbf"
+  integrity sha512-qWcdS2aGn89+TmF5QZcvFsl2wpL/hnNLuT7IrPpdqPrCJRusBxzUp1xyuk6MyauOmRQDVbyrvvX3wI+0vp6zhg==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@embroider/macros" "^1.12.0"
     ember-cli-babel "^7.26.11"
 
-"@ember-data/model@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/model/-/model-5.1.1.tgz#d5b72b743dc1c83bd86b5a3f32a124675969dc98"
-  integrity sha512-WPDivbGjR9q5q3wwzV4EOJBKOOiL/TGBSnpVrHTTjw8TqEJPo33rG+bSJ+2mUZEwoGahmoFp0J/s6I+Sy2M8dw==
+"@ember-data/model@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/model/-/model-5.2.0.tgz#bb8a34144a3536d6027f985aa0a790b551d5afd6"
+  integrity sha512-DoNGg4EyzHt9D/kTCMQSHOWD9oNlta6Ehivqu/S2Zileq5EEs3ZSYsALtVHYpAJUv0mx3pl0VYGBucj1/AMIog==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@ember/edition-utils" "^1.2.0"
     "@embroider/macros" "^1.12.0"
     ember-cached-decorator-polyfill "^1.0.1"
@@ -1386,10 +1386,10 @@
     ember-cli-test-info "^1.0.0"
     inflection "~2.0.1"
 
-"@ember-data/private-build-infra@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/private-build-infra/-/private-build-infra-5.1.1.tgz#74f6bc17f4eacd4a93daa973039e5def330122fe"
-  integrity sha512-MNcGtJG24MvF09XK09SshnuuoAMYfPgDGgeUPAClQqK+9IDV7X9SRHBYgOmHk9NwVGdFhw8dsxnU65aaGdLr1w==
+"@ember-data/private-build-infra@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/private-build-infra/-/private-build-infra-5.2.0.tgz#a723f47fa95c88c93a476ba2f00a119e11b1926e"
+  integrity sha512-CW738Wrr41T1FTISdtzi7HeC0KFzeMyE+FXeJEcK3JL3oPWk7qpFFMz1KcKQoWHTvXWLGf4HPDNH6aWCCcxqxg==
   dependencies:
     "@babel/core" "^7.22.5"
     "@babel/plugin-transform-block-scoping" "^7.22.5"
@@ -1416,12 +1416,12 @@
     semver "^7.5.3"
     silent-error "^1.1.1"
 
-"@ember-data/request@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/request/-/request-5.1.1.tgz#b735b2c4e75b6f29fd3abe2fd08d89fe1bedf562"
-  integrity sha512-6bS2nMr+JsqbvG2rgv61m2moy+D3c6Ki+5xpj10z4Na8vEdkwlq3CEpAxaW8Wvo+reXh+Rh4DMcFsOENSAvn/A==
+"@ember-data/request@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/request/-/request-5.2.0.tgz#93fd0c34949a75dcca6fabbc8edbf16361b0a885"
+  integrity sha512-aShqsSReptUa9DY2PCxO1z9RO4fm+mX6cO0v7TTyewvBadJHYYFSSIdPvhTFXGh4iuXgEM1Btr7XP9Xo5prqDA==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@ember/test-waiters" "^3.0.2"
     "@embroider/macros" "^1.12.0"
     ember-cli-babel "^7.26.11"
@@ -1431,30 +1431,30 @@
   resolved "https://registry.yarnpkg.com/@ember-data/rfc395-data/-/rfc395-data-0.0.4.tgz#ecb86efdf5d7733a76ff14ea651a1b0ed1f8a843"
   integrity sha512-tGRdvgC9/QMQSuSuJV45xoyhI0Pzjm7A9o/MVVA3HakXIImJbbzx/k/6dO9CUEQXIyS2y0fW6C1XaYOG7rY0FQ==
 
-"@ember-data/serializer@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/serializer/-/serializer-5.1.1.tgz#152adb3b5b4a138d7fc10c025506d4a768e3bdd9"
-  integrity sha512-VYMQ8ntNybsXxfRf4XBwYXjcVxZGcmdbkqxY3cwyPDRKOMD02o9MBh3G/e/Yqhb70ctwbIz/2MvMTDoObdl79g==
+"@ember-data/serializer@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/serializer/-/serializer-5.2.0.tgz#9fcfcc791c5aad3bc98b349b5a073340a69e472c"
+  integrity sha512-KkV2s5e0BVPNZpejbIdDxkro+OAZNVEe4yiUgOizxBh8hCR17Gvd8p7AkPqP+2pV9vADFTm0CXP4h9BFSNMCmA==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@embroider/macros" "^1.12.0"
     ember-cli-babel "^7.26.11"
     ember-cli-test-info "^1.0.0"
 
-"@ember-data/store@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/store/-/store-5.1.1.tgz#d47b580b2b53da9d301f59900b2f6ef54b3ef379"
-  integrity sha512-wlW0CcbaLaK7Q4SjxE+omMSz8OBMVqEbzeYmG5xrzpb9iANWvh3psHfz3dOl2nWxaP18p74r+zUEruxazqdf1Q==
+"@ember-data/store@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/store/-/store-5.2.0.tgz#a5a97a7923224a8e02ef346b5920d3f3987703da"
+  integrity sha512-tLLoaEmSnyqAmKCBEtwswDH22BMHjg1anAJ8PfpPVQ/Npd6IKiVmvGea6nL6lOcN31HzTO9G/6YRFOzEG9r5SQ==
   dependencies:
-    "@ember-data/private-build-infra" "5.1.1"
+    "@ember-data/private-build-infra" "5.2.0"
     "@embroider/macros" "^1.12.0"
     ember-cached-decorator-polyfill "^1.0.1"
     ember-cli-babel "^7.26.11"
 
-"@ember-data/tracking@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ember-data/tracking/-/tracking-5.1.1.tgz#845200b027b13ed1566ab204cd9d5fcc3341cecb"
-  integrity sha512-X7UAVXe8n4+gD5LHwrrp/lKkNiqDhq6R9B41t4umoxqS1RCQ1vtG42CjzWb7dVb+ojYWfeiO3+WJywGdDupaIw==
+"@ember-data/tracking@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ember-data/tracking/-/tracking-5.2.0.tgz#f91b26c466beee9a37443093bebcc911341ef59a"
+  integrity sha512-pe6o340TtAzV7CaerJ2wzYOS2zovbohusizhdXFfRI8QmyiB5w51LYmyXfuPtt4hNQ1miBtNaCZTvRvwjATP2w==
   dependencies:
     ember-cli-babel "^7.26.11"
 
@@ -7922,21 +7922,21 @@ ember-concurrency@^2.0.0:
     ember-destroyable-polyfill "^2.0.2"
 
 ember-data@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-5.1.1.tgz#485a717e96cb220095799540bfbdec735687059a"
-  integrity sha512-NiwG/1Mp3CbuCTOaSQuivZLr2TMSVBValcjB8ycA+BIdak2lEpseRev5x6FqZYKHaGRa/0hyz2H5ZV83VDyUiw==
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-5.2.0.tgz#4f7d422d90fe3d3f337b22d427e993e38954e8e8"
+  integrity sha512-s32QJkq+3/FrNgCQTuNb92FTy++QW3MNLZl+f6/bsq8vO6lUzGQORk/hP0va+b5ftwpAOh8fhSibvrWQp4hTEw==
   dependencies:
-    "@ember-data/adapter" "5.1.1"
-    "@ember-data/debug" "5.1.1"
-    "@ember-data/graph" "5.1.1"
-    "@ember-data/json-api" "5.1.1"
-    "@ember-data/legacy-compat" "5.1.1"
-    "@ember-data/model" "5.1.1"
-    "@ember-data/private-build-infra" "5.1.1"
-    "@ember-data/request" "5.1.1"
-    "@ember-data/serializer" "5.1.1"
-    "@ember-data/store" "5.1.1"
-    "@ember-data/tracking" "5.1.1"
+    "@ember-data/adapter" "5.2.0"
+    "@ember-data/debug" "5.2.0"
+    "@ember-data/graph" "5.2.0"
+    "@ember-data/json-api" "5.2.0"
+    "@ember-data/legacy-compat" "5.2.0"
+    "@ember-data/model" "5.2.0"
+    "@ember-data/private-build-infra" "5.2.0"
+    "@ember-data/request" "5.2.0"
+    "@ember-data/serializer" "5.2.0"
+    "@ember-data/store" "5.2.0"
+    "@ember-data/tracking" "5.2.0"
     "@ember/edition-utils" "^1.2.0"
     "@embroider/macros" "^1.12.0"
     "@glimmer/env" "^0.1.7"
