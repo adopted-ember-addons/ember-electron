@@ -64,5 +64,11 @@
     "name": "v5.0.0",
     "sha": "a1f9f354ae788411849a6c801c0a10754a1a548b",
     "tag": "v5.0.0"
+  },
+  "update-docs": {
+    "path": "versions/update-docs",
+    "name": "update-docs",
+    "sha": "df61938eeb72b6e852e7f52734a8736ea5aee27e",
+    "tag": null
   }
 }
