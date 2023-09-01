@@ -9,4 +9,8 @@ module.exports = class extends AddonDocsConfig {
   getRootURL() {
     return '';
   }
+
+  getPrimaryBranch() {
+    return 'main'
+  }
 };
