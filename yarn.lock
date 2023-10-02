@@ -105,7 +105,7 @@
     lru-cache "^5.1.1"
     semver "^6.3.1"
 
-"@babel/helper-create-class-features-plugin@^7.18.6", "@babel/helper-create-class-features-plugin@^7.21.0", "@babel/helper-create-class-features-plugin@^7.22.10", "@babel/helper-create-class-features-plugin@^7.22.15", "@babel/helper-create-class-features-plugin@^7.22.5", "@babel/helper-create-class-features-plugin@^7.5.5":
+"@babel/helper-create-class-features-plugin@^7.18.6", "@babel/helper-create-class-features-plugin@^7.21.0", "@babel/helper-create-class-features-plugin@^7.22.10", "@babel/helper-create-class-features-plugin@^7.22.11", "@babel/helper-create-class-features-plugin@^7.22.15", "@babel/helper-create-class-features-plugin@^7.22.5", "@babel/helper-create-class-features-plugin@^7.5.5":
   version "7.22.15"
   resolved "https://registry.yarnpkg.com/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.22.15.tgz#97a61b385e57fe458496fad19f8e63b63c867de4"
   integrity sha512-jKkwA59IXcvSaiK2UN45kKwSC9o+KuoXsBDvHvU/7BecYIp8GQ2UwrVvFgJASUT+hBnwJx6MhvMCuMzwZZ7jlg==
@@ -581,12 +581,12 @@
     "@babel/helper-create-class-features-plugin" "^7.22.5"
     "@babel/helper-plugin-utils" "^7.22.5"
 
-"@babel/plugin-transform-class-static-block@^7.22.5":
-  version "7.22.5"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-class-static-block/-/plugin-transform-class-static-block-7.22.5.tgz#3e40c46f048403472d6f4183116d5e46b1bff5ba"
-  integrity sha512-SPToJ5eYZLxlnp1UzdARpOGeC2GbHvr9d/UV0EukuVx8atktg194oe+C5BqQ8jRTkgLRVOPYeXRSBg1IlMoVRA==
+"@babel/plugin-transform-class-static-block@^7.22.11", "@babel/plugin-transform-class-static-block@^7.22.5":
+  version "7.22.11"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-class-static-block/-/plugin-transform-class-static-block-7.22.11.tgz#dc8cc6e498f55692ac6b4b89e56d87cec766c974"
+  integrity sha512-GMM8gGmqI7guS/llMFk1bJDkKfn3v3C4KHK9Yg1ey5qcHcOlKb0QvcMrgzvxo+T03/4szNh5lghY+fEC98Kq9g==
   dependencies:
-    "@babel/helper-create-class-features-plugin" "^7.22.5"
+    "@babel/helper-create-class-features-plugin" "^7.22.11"
     "@babel/helper-plugin-utils" "^7.22.5"
     "@babel/plugin-syntax-class-static-block" "^7.14.5"
 
@@ -7037,15 +7037,16 @@ ember-cli-babel@^7.1.3, ember-cli-babel@^7.10.0, ember-cli-babel@^7.13.0, ember-
     semver "^5.5.0"
 
 ember-cli-babel@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-8.0.0.tgz#c8a5d8acb6ed68cdfd43494f7884d4f945f5c10c"
-  integrity sha512-nf8BFgm6jy+B5tKeovHtcErfTZwzItsB6pJfTJGGR6tg74KLWtLFB5u/zB9S6c8ww1QacMltsffFz2iedCDBPw==
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-8.1.0.tgz#c279b23d63a31e14659671a801b5b2b5a0217e1c"
+  integrity sha512-zudhce/GzEm2JFVjBKdsJvhnFTPZ3blYG8jK2YnrkmJp65TCMMkOM9LiKLlG9ANtiAMsljEl89YXWdsHY/xR4g==
   dependencies:
     "@babel/helper-compilation-targets" "^7.20.7"
     "@babel/plugin-proposal-class-properties" "^7.16.5"
     "@babel/plugin-proposal-decorators" "^7.20.13"
     "@babel/plugin-proposal-private-methods" "^7.16.5"
     "@babel/plugin-proposal-private-property-in-object" "^7.20.5"
+    "@babel/plugin-transform-class-static-block" "^7.22.11"
     "@babel/plugin-transform-modules-amd" "^7.20.11"
     "@babel/plugin-transform-runtime" "^7.13.9"
     "@babel/plugin-transform-typescript" "^7.20.13"
