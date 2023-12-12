@@ -1555,10 +1555,10 @@
     mkdirp "^1.0.4"
     silent-error "^1.1.1"
 
-"@ember/render-modifiers@^2.0.0":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@ember/render-modifiers/-/render-modifiers-2.0.4.tgz#0ac7af647cb736076dbfcd54ca71e090cd329d71"
-  integrity sha512-Zh/fo5VUmVzYHkHVvzWVjJ1RjFUxA2jH0zCp2+DQa80Bf3DUXauiEByxU22UkN4LFT55DBFttC0xCQSJG3WTsg==
+"@ember/render-modifiers@^2.0.0", "@ember/render-modifiers@^2.0.5":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@ember/render-modifiers/-/render-modifiers-2.1.0.tgz#f4fff95a8b5cfbe947ec46644732d511711c5bf9"
+  integrity sha512-LruhfoDv2itpk0fA0IC76Sxjcnq/7BC6txpQo40hOko8Dn6OxwQfxkPIbZGV0Cz7df+iX+VJrcYzNIvlc3w2EQ==
   dependencies:
     "@embroider/macros" "^1.0.0"
     ember-cli-babel "^7.26.11"
@@ -6908,9 +6908,9 @@ ember-cli-addon-docs-yuidoc@^1.0.0:
     yuidocjs "^0.10.2"
 
 ember-cli-addon-docs@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-6.0.1.tgz#5f91c8e912b7f07dc6772371a3975fcb3e60e8fe"
-  integrity sha512-LgsvAqn9xqKy49GeB5dC6FWLBYJ55YuO8p4dTuCzgID35QtgwdNQ2+4vQvxwbtdqjGo4s9MxLSw3H7GeHAcAEA==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-6.0.2.tgz#d57f2a77cf41e2cf4e97945ca190ed8baa2eb05c"
+  integrity sha512-pHcrMttJV5pH6QKvHUhoCLxraxJFVvyVRwXuU09yXcmrNI5jSaqnOCyif2wa/ibTQvejt/kwsAn1yHB4bZVs4w==
   dependencies:
     "@csstools/postcss-sass" "^5.0.0"
     "@ember/render-modifiers" "^2.0.0"
@@ -6949,6 +6949,7 @@ ember-cli-addon-docs@^6.0.1:
     ember-router-scroll "^4.1.2"
     ember-set-helper "^2.0.1"
     ember-svg-jar "^2.4.4"
+    ember-tether "^3.0.0"
     ember-truth-helpers "^3.0.0"
     esm "^3.2.25"
     execa "5.1.1"
@@ -7922,6 +7923,17 @@ ember-template-recast@^6.1.4:
     slash "^3.0.0"
     tmp "^0.2.1"
     workerpool "^6.4.0"
+
+ember-tether@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ember-tether/-/ember-tether-3.0.0.tgz#a308c494a357a0d3d4133f15e44a66f9891061a0"
+  integrity sha512-2hrwbxGUuMtX4wnBJ2fYH0nx1utBM5r+g4zd7uvaqlPS3oTmTt96BKB7Xwq4R6jj6Vyxs9E48Fjv+pEAKEObnw==
+  dependencies:
+    "@ember/render-modifiers" "^2.0.5"
+    ember-auto-import "^2.6.3"
+    ember-cli-babel "^7.26.11"
+    ember-cli-htmlbars "^6.2.0"
+    tether "^2.0.0"
 
 ember-truth-helpers@^3.0.0:
   version "3.1.1"
@@ -15830,6 +15842,11 @@ testem@^3.10.1:
     styled_string "0.0.1"
     tap-parser "^7.0.0"
     tmp "0.0.33"
+
+tether@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tether/-/tether-2.0.0.tgz#8ccb03992e71e2e913e6b1d4feb6be8cb49a4f79"
+  integrity sha512-iAkyBhwILpLIvkwzO5w5WUBtpYwxvzLRTO+sbzF3Uy7X4zznsy73v2b4sOQHXE3CQHeSNtB/YMU2Nn9tocbeBQ==
 
 text-table@^0.2.0:
   version "0.2.0"
