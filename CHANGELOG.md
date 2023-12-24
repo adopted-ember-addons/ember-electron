@@ -21,6 +21,22 @@ https://github.com/highlightjs/highlight.js/issues/2877
 
 
 
+
+## v6.0.0 (2023-12-24)
+
+#### :boom: Breaking Change
+* [#1624](https://github.com/adopted-ember-addons/ember-electron/pull/1624) Update linting and prettier setups, drop node 16 support ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :bug: Bug Fix
+* [#1612](https://github.com/adopted-ember-addons/ember-electron/pull/1612) Switch to protocol.handle() ([@bendemboski](https://github.com/bendemboski))
+
+#### :house: Internal
+* [#1625](https://github.com/adopted-ember-addons/ember-electron/pull/1625) Bump addon docs ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 2
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v5.0.0 (2023-07-14)
 
 #### :boom: Breaking Change
