@@ -39,7 +39,7 @@ describe('blueprint', function () {
         '..',
         'fixtures',
         'config-environment',
-        'environment.js'
+        'environment.js',
       );
       let environmentJs = path.join(process.cwd(), 'config', 'environment.js');
 

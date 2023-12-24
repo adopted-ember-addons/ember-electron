@@ -11,7 +11,7 @@ const handleFileUrls = require('./handle-file-urls');
 
 const emberAppDir = path.resolve(__dirname, '..', 'ember-dist');
 const emberAppURL = pathToFileURL(
-  path.join(emberAppDir, 'index.html')
+  path.join(emberAppDir, 'index.html'),
 ).toString();
 
 let mainWindow = null;
@@ -71,14 +71,14 @@ app.on('ready', async () => {
       return;
     }
     console.log(
-      'Your main window process has exited unexpectedly -- see https://www.electronjs.org/docs/api/web-contents#event-render-process-gone'
+      'Your main window process has exited unexpectedly -- see https://www.electronjs.org/docs/api/web-contents#event-render-process-gone',
     );
     console.log('Reason: ' + details.reason);
   });
 
   mainWindow.on('unresponsive', () => {
     console.log(
-      'Your Ember app (or other code) has made the window unresponsive.'
+      'Your Ember app (or other code) has made the window unresponsive.',
     );
   });
 
@@ -109,7 +109,7 @@ app.on('ready', async () => {
 process.on('uncaughtException', (err) => {
   console.log('An exception in the main thread was not handled.');
   console.log(
-    'This is a serious issue that needs to be handled and/or debugged.'
+    'This is a serious issue that needs to be handled and/or debugged.',
   );
   console.log(`Exception: ${err}`);
 });

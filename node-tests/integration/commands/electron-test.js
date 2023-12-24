@@ -108,7 +108,7 @@ describe('electron command', function () {
     expect(startServerStub).to.be.calledOnce;
     expect(api.start).to.be.calledOnce;
     expect(api.start.firstCall).be.calledAfter(
-      mockBrocWatcher.currentBuild.then.firstCall
+      mockBrocWatcher.currentBuild.then.firstCall,
     );
     expect(api.start.firstCall).be.calledAfter(startServerStub.firstCall);
     expect(cleanupBuilderStub).be.calledOnce;
@@ -125,7 +125,7 @@ describe('electron command', function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(api.start).to.be.calledOnce;
     expect(api.start.firstCall.args[0].dir).to.equal(
-      path.resolve('electron-app')
+      path.resolve('electron-app'),
     );
   });
 
@@ -171,7 +171,7 @@ describe('electron command', function () {
         '12345',
         '--live-reload-prefix',
         'lrlrlr',
-      ])
+      ]),
     ).to.be.fulfilled;
     expect(startServerStub).to.be.calledOnce;
     expect(startServerStub.firstCall.args[0]).to.deep.equal({

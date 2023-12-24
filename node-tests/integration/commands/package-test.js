@@ -40,7 +40,7 @@ describe('electron:package command', function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
     expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(
-      path.join('electron-app', 'ember-dist')
+      path.join('electron-app', 'ember-dist'),
     );
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({
@@ -84,7 +84,7 @@ describe('electron:package command', function () {
         'ia32',
         '--output-path',
         'some-dir',
-      ])
+      ]),
     ).to.be.fulfilled;
     expect(api.package).to.be.calledOnce;
     expect(api.package.firstCall.args[0]).to.deep.equal({

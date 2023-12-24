@@ -54,10 +54,10 @@ describe('handle-file-urls', function () {
 
   it('handles absolute paths in the Ember app dir', async function () {
     await expect(
-      getAssetPath(emberAppDir, pathToFileURL(indexHtmlPath))
+      getAssetPath(emberAppDir, pathToFileURL(indexHtmlPath)),
     ).to.eventually.equal(indexHtmlPath);
     await expect(
-      getAssetPath(emberAppDir, pathToFileURL(vendorJsPath))
+      getAssetPath(emberAppDir, pathToFileURL(vendorJsPath)),
     ).to.eventually.equal(vendorJsPath);
   });
 
@@ -66,16 +66,16 @@ describe('handle-file-urls', function () {
     let imageRelPath = `/${path.relative(emberAppDir, imagePath)}`;
 
     await expect(
-      getAssetPath(emberAppDir, pathToFileURL(rootImageRelPath))
+      getAssetPath(emberAppDir, pathToFileURL(rootImageRelPath)),
     ).to.eventually.equal(rootImagePath);
     await expect(
-      getAssetPath(emberAppDir, pathToFileURL(imageRelPath))
+      getAssetPath(emberAppDir, pathToFileURL(imageRelPath)),
     ).to.eventually.equal(imagePath);
   });
 
   it('handles files outside the Ember app dir', async function () {
     await expect(
-      getAssetPath(emberAppDir, pathToFileURL(externalFilePath))
+      getAssetPath(emberAppDir, pathToFileURL(externalFilePath)),
     ).to.eventually.equal(externalFilePath);
   });
 });

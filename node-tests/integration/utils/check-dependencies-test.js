@@ -25,7 +25,7 @@ describe('checkDependencies()', function () {
         dependencies: {
           'fake-package': '^1.0.0',
         },
-      })
+      }),
     );
     nodeModulesPath = path.join(electronProjectPath, 'node_modules');
     fs.mkdirSync(nodeModulesPath);
@@ -42,7 +42,7 @@ describe('checkDependencies()', function () {
       JSON.stringify({
         name: 'fake-package',
         version: '1.0.2',
-      })
+      }),
     );
     await expect(checkDependencies(project)).to.be.fulfilled;
   });
