@@ -1,20 +1,26 @@
 <DocsViewer as |viewer|>
   <viewer.nav as |nav|>
-    {{nav.section "Getting Started"}}
+    <nav.section @label="Getting Started" />
 
-    {{nav.section "Guides"}}
-    {{nav.item "Installation" "docs.guides.installation"}}
-    {{nav.item "Usage" "docs.guides.usage"}}
-    {{nav.item "Structure" "docs.guides.structure"}}
-    {{nav.item "Upgrading" "docs.guides.upgrading"}}
-    {{nav.item "Development and Debugging" "docs.guides.development-and-debugging"}}
-    {{nav.item "CI" "docs.guides.ci"}}
-    {{nav.item "Content Security Policy (CSP)" "docs.guides.csp"}}
+    <nav.section @label="Guides" />
+    <nav.item @label="Installation" @route="docs.guides.installation" />
+    <nav.item @label="Usage" @route="docs.guides.usage" />
+    <nav.item @label="Structure" @route="docs.guides.structure" />
+    <nav.item @label="Upgrading" @route="docs.guides.upgrading" />
+    <nav.item
+      @label="Development and Debugging"
+      @route="docs.guides.development-and-debugging"
+    />
+    <nav.item @label="CI" @route="docs.guides.ci" />
+    <nav.item @label="Content Security Policy (CSP)" @route="docs.guides.csp" />
 
-    {{nav.section "FAQ"}}
-    {{nav.item "Common Issues" "docs.faq.common-issues"}}
-    {{nav.item "Routing and Asset Loading" "docs.faq.routing-and-asset-loading"}}
-    {{nav.item "Security" "docs.faq.security"}}
+    <nav.section @label="FAQ" />
+    <nav.item @label="Common Issues" @route="docs.faq.common-issues" />
+    <nav.item
+      @label="Routing and Asset Loading"
+      @route="docs.faq.routing-and-asset-loading"
+    />
+    <nav.item @label="Security" @route="docs.faq.security" />
   </viewer.nav>
 
   <viewer.main>
