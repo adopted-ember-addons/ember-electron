@@ -13,7 +13,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
 
   async afterInstall() {
     this.ui.writeLine(
-      `\nRun 'ember g ember-electron' to complete ember-electron setup\n`
+      `\nRun 'ember g ember-electron' to complete ember-electron setup\n`,
     );
   }
 };

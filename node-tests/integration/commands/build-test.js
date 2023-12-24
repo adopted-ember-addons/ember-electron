@@ -51,7 +51,7 @@ describe('electron:build command', function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
     expect(baseRunStub.firstCall.args[0].outputPath).to.equal(
-      path.join('electron-app', 'ember-dist')
+      path.join('electron-app', 'ember-dist'),
     );
   });
 
@@ -66,7 +66,7 @@ describe('electron:build command', function () {
         '--watcher',
         'polling',
         '--suppress-sizes',
-      ])
+      ]),
     ).to.be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
     expect(baseRunStub.firstCall.args[0]).to.deep.equal({

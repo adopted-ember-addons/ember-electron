@@ -31,7 +31,7 @@ async function updateGitIgnore(dir) {
       '# package/make output directory',
       `${packageOutDir}/`,
       '',
-    ].join('\n')
+    ].join('\n'),
   );
 }
 
@@ -41,7 +41,7 @@ async function updatePackageJson(dir) {
 
   // copy some fields from the Ember project's package.json
   let parentPackageJson = JSON.parse(
-    await readFile(path.join(dir, '../package.json'))
+    await readFile(path.join(dir, '../package.json')),
   );
   const keysToCopy = ['name', 'version', 'description', 'author', 'license'];
   for (let key of keysToCopy) {

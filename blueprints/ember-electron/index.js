@@ -32,8 +32,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
             `\n'ember-electron' directory detected -- this looks like an ember-electron`,
             `v2 project. Setting up an updated project will not be destructive, but you`,
             `should read the upgrading documentation at ${upgradingUrl}.\n`,
-          ].join(' ')
-        )
+          ].join(' '),
+        ),
       );
     }
 
@@ -51,8 +51,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
             `If you're running the blueprint manually as part of an ember-electron`,
             `upgrade, make sure to check for upgrade instructions relevant to your`,
             `version upgrade at ${upgradingUrl}.\n`,
-          ].join(' ')
-        )
+          ].join(' '),
+        ),
       );
     }
 
@@ -68,7 +68,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     if (rootURLRegex.test(contents)) {
       contents = contents.replace(
         rootURLRegex,
-        `$1 process.env.EMBER_CLI_ELECTRON ? '' :`
+        `$1 process.env.EMBER_CLI_ELECTRON ? '' :`,
       );
     } else {
       this.ui.writeLine(
@@ -78,8 +78,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
             `\`process.env.EMBER_CLI_ELECTRON ? '' : <previous value>\`,`,
             `which is needed for your Ember app to load assets under Electron.`,
             `See ${routingAndAssetLoadingUrl} for more information.`,
-          ].join(' ')
-        )
+          ].join(' '),
+        ),
       );
     }
 
@@ -87,7 +87,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
     if (locationTypeRegex.test(contents)) {
       contents = contents.replace(
         locationTypeRegex,
-        `$1 process.env.EMBER_CLI_ELECTRON ? 'hash' :`
+        `$1 process.env.EMBER_CLI_ELECTRON ? 'hash' :`,
       );
     } else {
       this.ui.writeLine(
@@ -97,8 +97,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
             `\`process.env.EMBER_CLI_ELECTRON ? 'hash' : <previous value>\`,`,
             `which is needed for your Ember app's routing to work under Electron.`,
             `See ${routingAndAssetLoadingUrl} for more information.`,
-          ].join(' ')
-        )
+          ].join(' '),
+        ),
       );
     }
 
@@ -114,7 +114,7 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   //
   async updateEslintIgnore() {
     const toAppend = ['', '# ember-electron', `/${electronProjectPath}/`].join(
-      '\n'
+      '\n',
     );
 
     await this.insertIntoFile('.eslintignore', toAppend);
@@ -133,8 +133,8 @@ module.exports = class EmberElectronBlueprint extends Blueprint {
   async createElectronProject() {
     this.ui.writeLine(
       chalk.green(
-        `Creating electron-forge project at './${electronProjectPath}'`
-      )
+        `Creating electron-forge project at './${electronProjectPath}'`,
+      ),
     );
 
     await api.init({

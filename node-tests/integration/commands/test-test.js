@@ -51,10 +51,10 @@ describe('electron:test command', function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(baseRunStub).to.be.calledOnce;
     expect(baseRunStub.firstCall.args[0].outputPath).to.equal(
-      path.join('electron-app', 'ember-test')
+      path.join('electron-app', 'ember-test'),
     );
     expect(baseRunStub.firstCall.args[0].configFile).to.equal(
-      'testem-electron.js'
+      'testem-electron.js',
     );
   });
 

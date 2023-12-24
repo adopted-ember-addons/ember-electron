@@ -43,7 +43,7 @@ describe('electron:make command', function () {
     await expect(command.validateAndRun([])).to.be.fulfilled;
     expect(buildTaskStub).to.be.calledOnce;
     expect(buildTaskStub.firstCall.args[0].outputPath).to.equal(
-      path.join('electron-app', 'ember-dist')
+      path.join('electron-app', 'ember-dist'),
     );
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
@@ -121,7 +121,7 @@ describe('electron:make command', function () {
         'ia32',
         '--output-path',
         'some-dir',
-      ])
+      ]),
     ).to.be.fulfilled;
     expect(api.make).to.be.calledOnce;
     expect(api.make.firstCall.args[0]).to.deep.equal({
@@ -170,7 +170,7 @@ describe('electron:make command', function () {
 
     expect(api.publish).to.be.calledOnce;
     expect(api.publish.firstCall.args[0].dir).to.equal(
-      path.resolve('electron-app')
+      path.resolve('electron-app'),
     );
     expect(api.publish.firstCall.args[0].makeResults).to.equal(makeResults);
     expect(api.publish.firstCall.args[0].publishTargets).to.be.undefined;
@@ -178,7 +178,7 @@ describe('electron:make command', function () {
 
   it('can publish and set one override publish-target', async function () {
     await expect(
-      command.validateAndRun(['---publish', '--publish-targets=foo'])
+      command.validateAndRun(['---publish', '--publish-targets=foo']),
     ).to.be.fulfilled;
 
     expect(api.publish).to.be.calledOnce;
@@ -187,7 +187,7 @@ describe('electron:make command', function () {
 
   it('can publish and set multiple override publish-targets', async function () {
     await expect(
-      command.validateAndRun(['---publish', '--publish-targets=foo,bar'])
+      command.validateAndRun(['---publish', '--publish-targets=foo,bar']),
     ).to.be.fulfilled;
     expect(api.publish).to.be.calledOnce;
     expect(api.publish.firstCall.args[0].publishTargets).to.deep.equal([

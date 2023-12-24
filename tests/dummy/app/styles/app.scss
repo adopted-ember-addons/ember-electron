@@ -1,18 +1,18 @@
 .old-index-page {
-  color: #7F8082;
-  background: #EAECF3;
-  font-family: 'open Sans', sans-serif;
+  color: #7f8082;
+  background: #eaecf3;
+  font-family: "open Sans", sans-serif;
   font-size: 14px;
 
   *,
-  *:before,
-  *:after {
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
   code {
     display: inline;
-    font-family: 'Fira Mono', monospace;
+    font-family: "Fira Mono", monospace;
     font-size: 18px;
   }
 
@@ -20,7 +20,7 @@
   h2,
   h3 {
     padding: 0;
-    color: #494D57;
+    color: #494d57;
     font-weight: 400;
   }
 
@@ -43,6 +43,7 @@
 
   p {
     margin: 0;
+    max-width: 800px;
   }
 
   h2 + *,
@@ -57,21 +58,13 @@
     background: none;
   }
 
-  .top code {
-
-  }
-
   .page p code {
     padding: 3px 5px;
-    background: #F0F1F3;
-    border: 1px solid #CBD5E9;
+    background: #f0f1f3;
+    border: 1px solid #cbd5e9;
     border-radius: 3px;
     font-size: 13px;
-    color: #4E669A;
-  }
-
-  p {
-    max-width: 800px;
+    color: #4e669a;
   }
 
   nav {
@@ -82,7 +75,7 @@
   a:link,
   a:visited {
     text-decoration: none;
-    color: #4E669A;
+    color: #4e669a;
   }
 
   /* Layout blocks */
@@ -105,12 +98,12 @@
 
   .top {
     padding-top: 30px;
-    background: #2A2F3A;
+    background: #2a2f3a;
   }
 
   .top h2 {
     margin-top: 0;
-    color: #7F8082;
+    color: #7f8082;
   }
 
   .top h2 span {
@@ -119,7 +112,7 @@
 
   .top h3 {
     margin-top: 90px;
-    color: #FFF;
+    color: #fff;
     font-size: 13px;
     line-height: 20px;
     text-transform: uppercase;
@@ -138,7 +131,7 @@
 
   .top strong {
     font-weight: 400;
-    color: #FFF;
+    color: #fff;
   }
 
   .top .badge {
@@ -148,7 +141,7 @@
   }
 
   .page {
-    background: #F7F8FA;
+    background: #f7f8fa;
   }
 
   svg.swoosh {
@@ -161,7 +154,7 @@
 
   .end {
     padding: 120px 140px 10px;
-    color: #4E669A;
+    color: #4e669a;
   }
 
   /* Elements */
@@ -184,8 +177,8 @@
 
   .logo h1 {
     padding: 30px 0 0;
-    color: #FFF;
-    font-family: 'Fira Mono', monospace;
+    color: #fff;
+    font-family: "Fira Mono", monospace;
     font-size: 25px;
     font-weight: 500;
     line-height: 30px;
@@ -198,8 +191,10 @@
   .btn {
     display: inline-block;
     padding: 10px 30px;
-    background: #FFF;
-    box-shadow: 0 2px 15px 0 rgba(42, 46, 58, 0.10), 0 1px 3px 0 rgba(42, 46, 58, 0.10);
+    background: #fff;
+    box-shadow:
+      0 2px 15px 0 rgb(42 46 58 / 10%),
+      0 1px 3px 0 rgb(42 46 58 / 10%);
     border-radius: 3px;
     font-size: 16px;
     line-height: 30px;
@@ -213,7 +208,7 @@
   .btn,
   .btn:link,
   .btn:visited {
-    color: #4E669A;
+    color: #4e669a;
   }
 
   .intro {
@@ -222,8 +217,7 @@
     line-height: 30px;
   }
 
-
-  @media (max-width: 640px) {
+  @media (width <= 640px) {
     .top,
     .page,
     .end {

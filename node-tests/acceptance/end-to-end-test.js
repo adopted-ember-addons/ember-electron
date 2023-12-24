@@ -41,7 +41,7 @@ describe('end-to-end', function () {
     return listenForPrompts(
       run(emberPath, args, {
         stdio: ['pipe', 'pipe', process.stderr],
-      })
+      }),
     );
   }
 
@@ -100,14 +100,14 @@ describe('end-to-end', function () {
           'ee-test-app',
           '--yarn',
           '--skip-git',
-          '--no-welcome'
+          '--no-welcome',
         )
           .then(() => {
             process.chdir('ee-test-app');
 
             return ember(
               'install',
-              `ember-electron@${path.join(packageTmpDir, 'package')}`
+              `ember-electron@${path.join(packageTmpDir, 'package')}`,
             );
           })
           .then(() => {
@@ -135,7 +135,7 @@ describe('end-to-end', function () {
           '--yarn',
           'false',
           '--skip-git',
-          '--no-welcome'
+          '--no-welcome',
         )
           .then(() => {
             process.chdir('ee-test-app');
@@ -154,9 +154,9 @@ describe('end-to-end', function () {
               'install',
               `ember-electron@${path.join(
                 packageTmpDir,
-                'ember-electron-cachebust.tar'
+                'ember-electron-cachebust.tar',
               )}`,
-              '--no-yarn'
+              '--no-yarn',
             );
           })
           .then(() => {
@@ -210,7 +210,7 @@ describe('end-to-end', function () {
 
       let packageDir = path.join(
         packageOutPath,
-        `ee-test-app-${process.platform}-${process.arch}`
+        `ee-test-app-${process.platform}-${process.arch}`,
       );
       expect(existsSync(packageDir)).to.be.ok;
 
@@ -235,7 +235,7 @@ describe('end-to-end', function () {
       let configStr = readFileSync(configPath).toString();
       writeFileSync(
         configPath,
-        configStr.replace(`platforms: ['darwin'],`, '')
+        configStr.replace(`platforms: ['darwin'],`, ''),
       );
 
       // Only build zip target so we don't fail from missing platform dependencies
@@ -243,7 +243,7 @@ describe('end-to-end', function () {
       return ember(
         'electron:make',
         '--targets',
-        '@electron-forge/maker-zip'
+        '@electron-forge/maker-zip',
       ).then(() => {
         expect(existsSync(path.join(packageOutPath, 'make'))).to.be.ok;
       });

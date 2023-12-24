@@ -39,7 +39,7 @@ module.exports = {
           // loaded from `index.html`, and the assets will load correctly (see
           // https://ember-electron.js.org/versions/v3.0.0-beta.5/docs/faq/routing-and-asset-loading)
           return [injectScript('shim-test-head.js'), '<base href="..">'].join(
-            '\n'
+            '\n',
           );
         case 'test-body':
           // testem.js needs to load over HTTP because of how testem works. We
