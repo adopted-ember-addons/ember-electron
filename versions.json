@@ -8,8 +8,8 @@
   "-latest": {
     "path": "",
     "name": "Latest",
-    "sha": "a1f9f354ae788411849a6c801c0a10754a1a548b",
-    "tag": "v5.0.0"
+    "sha": "7a6bbbe61380cc43713a1a4143956ccc5825d2a7",
+    "tag": "v6.0.0"
   },
   "v3.0.0-beta.0": {
     "path": "versions/v3.0.0-beta.0",
@@ -70,5 +70,11 @@
     "name": "update-docs",
     "sha": "df61938eeb72b6e852e7f52734a8736ea5aee27e",
     "tag": null
+  },
+  "v6.0.0": {
+    "path": "versions/v6.0.0",
+    "name": "v6.0.0",
+    "sha": "7a6bbbe61380cc43713a1a4143956ccc5825d2a7",
+    "tag": "v6.0.0"
   }
 }

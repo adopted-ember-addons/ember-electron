@@ -70,7 +70,7 @@
 
 /*! https://mths.be/he v1.2.0 by @mathias | MIT license */
 
-/*! tether 1.4.7 */
+/*! tether 2.0.0 */
 
 /**
  * @license
