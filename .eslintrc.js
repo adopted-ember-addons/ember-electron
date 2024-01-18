@@ -94,7 +94,6 @@ module.exports = {
               'devtron',
               'electron',
               'electron-devtools-installer',
-              'electron-is-dev',
               'ember-electron',
             ],
           },

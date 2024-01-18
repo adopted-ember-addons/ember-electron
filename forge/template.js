@@ -65,7 +65,7 @@ class EmberElectronTemplates extends BaseTemplate {
     return ['devtron'];
   }
   get dependencies() {
-    return ['electron-devtools-installer', 'electron-is-dev'];
+    return ['electron-devtools-installer'];
   }
 
   async initializeTemplate(dir) {

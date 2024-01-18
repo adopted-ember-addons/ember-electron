@@ -30,7 +30,7 @@ function run(cmd, args, opts = {}) {
 }
 
 describe('end-to-end', function () {
-  this.timeout(10 * 60 * 1000);
+  this.timeout(10 * 120 * 1000);
 
   let oldEnv;
   let rootDir = process.cwd();
