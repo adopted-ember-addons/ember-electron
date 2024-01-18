@@ -6,7 +6,6 @@ const {
 const { pathToFileURL } = require('url');
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const isDev = require('electron-is-dev');
 const handleFileUrls = require('./handle-file-urls');
 
 const emberAppDir = path.resolve(__dirname, '..', 'ember-dist');
@@ -32,7 +31,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  if (isDev) {
+  if (app.isPackaged) {
     try {
       require('devtron').install();
     } catch (err) {
