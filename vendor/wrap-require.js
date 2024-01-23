@@ -10,9 +10,9 @@
       } catch(error) {
         if (error.toString().includes('Error: Could not find module')) {
           return requireNode(...args);
+        } else {
+          throw error;
         }
-
-        console.error(error); // eslint-disable-line no-console
       }
     };
 
