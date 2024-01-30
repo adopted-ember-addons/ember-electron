@@ -4,7 +4,6 @@ const ElectronCommand = require('../../../lib/commands/electron');
 const DependencyChecker = require('ember-cli-dependency-checker/lib/dependency-checker');
 const mockElectronProject = require('../../helpers/mock-electron-project');
 const MockUI = require('console-ui/mock');
-const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('ember-cli/tests/helpers/mock-project');
 const MockProcess = require('ember-cli/tests/helpers/mock-process');
 const willInterruptProcess = require('ember-cli/lib/utilities/will-interrupt-process');
@@ -85,7 +84,6 @@ describe('electron command', function () {
 
     command = new ElectronCommand({
       ui,
-      analytics: new MockAnalytics(),
       settings: {},
       project: new MockProject(),
       tasks: {},

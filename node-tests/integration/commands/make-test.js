@@ -2,7 +2,6 @@
 
 const mockElectronProject = require('../../helpers/mock-electron-project');
 const MockUI = require('console-ui/mock');
-const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('ember-cli/tests/helpers/mock-project');
 const { expect } = require('chai');
 const BuildTask = require('ember-cli/lib/tasks/build');
@@ -28,7 +27,6 @@ describe('electron:make command', function () {
 
     command = new MakeCommand({
       ui: new MockUI(),
-      analytics: new MockAnalytics(),
       settings: {},
       project: new MockProject(),
       tasks: {
