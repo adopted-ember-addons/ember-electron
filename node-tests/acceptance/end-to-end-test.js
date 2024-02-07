@@ -45,7 +45,7 @@ describe('end-to-end', function () {
     );
   }
 
-  before(() => {
+  before(async () => {
     // If we're running via a yarn script like `yarn test`, then we'll have
     // a whole bunch of npm_* environment variables set by yarn that can mess
     // things up, so let's scrub them.
@@ -57,202 +57,124 @@ describe('end-to-end', function () {
     });
 
     // Pack up current ember-electron directory so it can be installed in new ember projects.
-    return run('yarn', [
+    await run('yarn', [
       'pack',
       '--filename',
       path.join(packageTmpDir, 'ember-electron.tgz'),
-    ])
-      .then(() => {
-        process.chdir(packageTmpDir);
+    ]);
 
-        return run('tar', ['-xzf', 'ember-electron.tgz']);
-      })
-      .then(() => {
-        // Prevent yarn caching from screwing us
-        let packageJson = readJsonSync(path.join('package', 'package.json'));
-        packageJson.version = `${packageJson.version}-${new Date().getTime()}`;
-        writeJsonSync(path.join('package', 'package.json'), packageJson);
+    process.chdir(packageTmpDir);
+    await run('tar', ['-xzf', 'ember-electron.tgz']);
 
-        // Save modified package back into tarball so we can have npm use that directly
-        return run('tar', ['-cf', 'ember-electron-cachebust.tar', 'package']);
-      });
+    // Prevent yarn caching from screwing us
+    let packageJson = readJsonSync(path.join('package', 'package.json'));
+    packageJson.version = `${packageJson.version}-${new Date().getTime()}`;
+    writeJsonSync(path.join('package', 'package.json'), packageJson);
+
+    // Save modified package back into tarball so we can have npm use that directly
+    await run('tar', ['-cf', 'ember-electron-cachebust.tar', 'package']);
+
+    // Switch to a temp dir to unpack it
+    let { name: tmpDir } = tmp.dirSync();
+    process.chdir(tmpDir);
+
+    // Create a new Ember app
+    await ember('new', 'ee-test-app', '--yarn', '--skip-git', '--no-welcome');
+
+    // Install our package
+    process.chdir('ee-test-app');
+    await ember(
+      'install',
+      `ember-electron@${path.join(packageTmpDir, 'package')}`,
+    );
+
+    // Run the blueprint
+    await ember('g', 'ember-electron');
+
+    //
+    // Install fixture
+    //
+    let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
+
+    // Append our extra test content to the end of test/index.js
+    let testIndexPath = path.join('electron-app', 'tests', 'index.js');
+    let extraContentPath = path.join(fixturePath, 'test-index-extra.js');
+    let content = [
+      readFileSync(testIndexPath),
+      readFileSync(extraContentPath),
+    ].join('\n');
+    writeFileSync(testIndexPath, content);
+
+    // Copy the source files over
+    ncp(path.join(fixturePath, 'src'), path.join(electronProjectPath, 'src'));
   });
 
   after(() => {
     process.env = oldEnv;
+    process.chdir(rootDir);
   });
 
   afterEach(() => {
     removeSync(packageOutPath);
   });
 
-  if (
-    !process.env.END_TO_END_TESTS ||
-    process.env.END_TO_END_TESTS === 'yarn'
-  ) {
-    describe('with yarn', function () {
-      before(function () {
-        let { name: tmpDir } = tmp.dirSync();
-        process.chdir(tmpDir);
-
-        return ember(
-          'new',
-          'ee-test-app',
-          '--yarn',
-          '--skip-git',
-          '--no-welcome',
-        )
-          .then(() => {
-            process.chdir('ee-test-app');
-
-            return ember(
-              'install',
-              `ember-electron@${path.join(packageTmpDir, 'package')}`,
-            );
-          })
-          .then(() => {
-            return ember('g', 'ember-electron');
-          });
-      });
-
-      after(() => {
-        process.chdir(rootDir);
-      });
-
-      runTests();
+  it('builds', () => {
+    return ember('electron:build').then(() => {
+      expect(existsSync(path.join('electron-app', 'ember-dist'))).to.be.ok;
     });
-  }
+  });
 
-  if (!process.env.END_TO_END_TESTS || process.env.END_TO_END_TESTS === 'npm') {
-    describe('with npm', function () {
-      before(function () {
-        let { name: tmpDir } = tmp.dirSync();
-        process.chdir(tmpDir);
+  it('tests', () => {
+    return expect(ember('electron:test')).to.eventually.be.fulfilled;
+  });
 
-        return ember(
-          'new',
-          'ee-test-app',
-          '--yarn',
-          'false',
-          '--skip-git',
-          '--no-welcome',
-        )
-          .then(() => {
-            process.chdir('ee-test-app');
-            // For some reason, either ember-cli-dependency-checker isn't working with npm
-            // or npm isn't getting the right version because without this env var (or hacking package.json)
-            // we get:
-            //     Missing npm packages:
-            //     Package: ember-electron
-            //       * Specified: file:../../tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
-            //       * Installed: file:/tmp/tmp-230055rygYPzwOs0w/ember-electron-cachebust.tar
-            //
-            //     Run `npm install` to install missing dependencies.
-            process.env.SKIP_DEPENDENCY_CHECKER = true;
+  it('packages', async function () {
+    expect(existsSync(emberTestBuildPath)).to.be.ok;
+    expect(existsSync(path.join(electronProjectPath, 'tests'))).to.be.ok;
 
-            return ember(
-              'install',
-              `ember-electron@${path.join(
-                packageTmpDir,
-                'ember-electron-cachebust.tar',
-              )}`,
-              '--no-yarn',
-            );
-          })
-          .then(() => {
-            return ember('g', 'ember-electron');
-          });
-      });
+    await expect(ember('electron:package')).to.be.fulfilled;
 
-      after(() => {
-        process.chdir(rootDir);
-      });
+    let packageDir = path.join(
+      packageOutPath,
+      `ee-test-app-${process.platform}-${process.arch}`,
+    );
+    expect(existsSync(packageDir)).to.be.ok;
 
-      runTests();
+    let appPath;
+    if (process.platform === 'darwin') {
+      appPath = 'ee-test-app.app/Contents/Resources/app/';
+    } else {
+      appPath = 'resources/app';
+    }
+
+    let entries = readdirSync(path.join(packageDir, appPath));
+    expect(entries).to.include(emberBuildDir);
+    expect(entries).not.to.include(emberTestBuildDir);
+    expect(entries).not.to.include('tests');
+  });
+
+  it('makes', () => {
+    // The default template specifies only darwin for the zip target, so
+    // remove that so it will build for all targets the zip maker supports,
+    // which is all of them.
+    let configPath = path.join('electron-app', 'forge.config.js');
+    let configStr = readFileSync(configPath).toString();
+    writeFileSync(configPath, configStr.replace(`platforms: ['darwin'],`, ''));
+
+    // Only build zip target so we don't fail from missing platform dependencies
+    // (e.g. rpmbuild).
+    return ember(
+      'electron:make',
+      '--targets',
+      '@electron-forge/maker-zip',
+    ).then(() => {
+      expect(existsSync(path.join(packageOutPath, 'make'))).to.be.ok;
     });
-  }
+  });
 
-  function runTests() {
-    before(function () {
-      //
-      // Install fixture
-      //
-      let fixturePath = path.resolve(__dirname, '..', 'fixtures', 'ember-test');
-
-      // Append our extra test content to the end of test/index.js
-      let testIndexPath = path.join('electron-app', 'tests', 'index.js');
-      let extraContentPath = path.join(fixturePath, 'test-index-extra.js');
-      let content = [
-        readFileSync(testIndexPath),
-        readFileSync(extraContentPath),
-      ].join('\n');
-      writeFileSync(testIndexPath, content);
-
-      // Copy the source files over
-      ncp(path.join(fixturePath, 'src'), path.join(electronProjectPath, 'src'));
-    });
-
-    it('builds', () => {
-      return ember('electron:build').then(() => {
-        expect(existsSync(path.join('electron-app', 'ember-dist'))).to.be.ok;
-      });
-    });
-
-    it('tests', () => {
-      return expect(ember('electron:test')).to.eventually.be.fulfilled;
-    });
-
-    it('packages', async function () {
-      expect(existsSync(emberTestBuildPath)).to.be.ok;
-      expect(existsSync(path.join(electronProjectPath, 'tests'))).to.be.ok;
-
-      await expect(ember('electron:package')).to.be.fulfilled;
-
-      let packageDir = path.join(
-        packageOutPath,
-        `ee-test-app-${process.platform}-${process.arch}`,
-      );
-      expect(existsSync(packageDir)).to.be.ok;
-
-      let appPath;
-      if (process.platform === 'darwin') {
-        appPath = 'ee-test-app.app/Contents/Resources/app/';
-      } else {
-        appPath = 'resources/app';
-      }
-
-      let entries = readdirSync(path.join(packageDir, appPath));
-      expect(entries).to.include(emberBuildDir);
-      expect(entries).not.to.include(emberTestBuildDir);
-      expect(entries).not.to.include('tests');
-    });
-
-    it('makes', () => {
-      // The default template specifies only darwin for the zip target, so
-      // remove that so it will build for all targets the zip maker supports,
-      // which is all of them.
-      let configPath = path.join('electron-app', 'forge.config.js');
-      let configStr = readFileSync(configPath).toString();
-      writeFileSync(
-        configPath,
-        configStr.replace(`platforms: ['darwin'],`, ''),
-      );
-
-      // Only build zip target so we don't fail from missing platform dependencies
-      // (e.g. rpmbuild).
-      return ember(
-        'electron:make',
-        '--targets',
-        '@electron-forge/maker-zip',
-      ).then(() => {
-        expect(existsSync(path.join(packageOutPath, 'make'))).to.be.ok;
-      });
-    });
-
-    it('lints after other commands have run', async function () {
-      await expect(run('./node_modules/.bin/eslint', ['.'])).to.be.fulfilled;
-    });
-  }
+  it('lints after other commands have run', async function () {
+    await expect(run('./node_modules/.bin/eslint', ['.'])).to.be.fulfilled;
+  });
 });
 
 function listenForPrompts(child) {

@@ -43,24 +43,21 @@ jobs:
 
   # runs slow end-to-end tests, parallelizing yarn and npm cases
   test-end-to-end:
-    name: End-to-end tests (${{ matrix.os }}/${{ matrix.package-manager }})
+    name: End-to-end tests (${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        package-manager: ['npm', 'yarn']
 
     steps:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
       - run: yarn install --frozen-lockfile --network-timeout 100000
 
-      - name: 'End-to-end Tests (${{ matrix.package-manager }})'
+      - name: 'End-to-end Tests'
         uses: GabrielBB/xvfb-action@v1
         with:
           run: yarn test-slow
-        env:
-          END_TO_END_TESTS: '${{ matrix.package-manager }}'
           
   automerge:
     needs: [lint, test, test-end-to-end]

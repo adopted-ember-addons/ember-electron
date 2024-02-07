@@ -2,7 +2,6 @@
 
 const mockElectronProject = require('../../helpers/mock-electron-project');
 const MockUI = require('console-ui/mock');
-const MockAnalytics = require('ember-cli/tests/helpers/mock-analytics');
 const MockProject = require('ember-cli/tests/helpers/mock-project');
 const { expect } = require('chai');
 const EmberTestCommand = require('ember-cli/lib/commands/test');
@@ -21,7 +20,6 @@ describe('electron:test command', function () {
     baseRunStub = sinon.stub(EmberTestCommand.prototype, 'run').resolves();
     command = new TestCommand({
       ui: new MockUI(),
-      analytics: new MockAnalytics(),
       settings: {},
       project: new MockProject(),
       tasks: {},
