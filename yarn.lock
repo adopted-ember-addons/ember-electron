@@ -7777,9 +7777,9 @@ ember-modifier-manager-polyfill@^1.2.0:
     ember-cli-string-utils "^1.1.0"
 
 ember-page-title@^8.2.0:
-  version "8.2.1"
-  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-8.2.1.tgz#eb686de76b8979494530cf9bf1f1162775cd85e5"
-  integrity sha512-B2c/mQgzJHcr88rSEroLmUUAX3agYCowOf7mPtZei6wYusWDXoDMLT8Wls75iDwaNOKsPa2cF/KxPJGBuKiOSQ==
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-8.2.2.tgz#3c69288e4e740b5a5deba26f2b3486d088fac673"
+  integrity sha512-DpIVgDaYstMSvHuhjG8QRnyfFD+E9/uy9GXO35kzmHaCg2hGB4e5Z6jcfitk8qh/lp5VRX8Tpl4HTBX+CKwMWw==
   dependencies:
     "@embroider/addon-shim" "^1.8.7"
     "@simple-dom/document" "^1.4.0"
