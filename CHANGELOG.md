@@ -22,6 +22,19 @@ https://github.com/highlightjs/highlight.js/issues/2877
 
 
 
+
+## v7.0.0 (2024-03-22)
+
+#### :boom: Breaking Change
+* [#1655](https://github.com/adopted-ember-addons/ember-electron/pull/1655) Drop support for Ember < 4.8 and node < 18 ([@bendemboski](https://github.com/bendemboski))
+
+#### :bug: Bug Fix
+* [#1639](https://github.com/adopted-ember-addons/ember-electron/pull/1639) Stop squashing module loading errors ([@bendemboski](https://github.com/bendemboski))
+* [#1640](https://github.com/adopted-ember-addons/ember-electron/pull/1640) Remove electron-is-dev ([@bendemboski](https://github.com/bendemboski))
+
+#### Committers: 1
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+
 ## v6.0.0 (2023-12-24)
 
 #### :boom: Breaking Change
