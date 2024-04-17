@@ -93,7 +93,7 @@ module.exports = {
             allowModules: [
               'devtron',
               'electron',
-              'electron-devtools-installer',
+              'electron-extension-installer',
               'ember-electron',
             ],
           },

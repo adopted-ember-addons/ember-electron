@@ -2,7 +2,7 @@
 // to make sure we don't have naming conflicts with already-declared variables
 function testIndexExtra() {
   // Make sure dependencies (node_modules) are loadable
-  require('electron-devtools-installer');
+  require('electron-extension-installer');
 
   // Make sure local libraries are loadable
   const helper = require('../src/helper');
