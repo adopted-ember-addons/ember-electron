@@ -31,7 +31,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  if (app.isPackaged) {
+  if (!app.isPackaged) {
     try {
       require('devtron').install();
     } catch (err) {
