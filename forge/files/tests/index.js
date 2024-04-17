@@ -1,7 +1,7 @@
 const {
-  default: installExtension,
+  installExtension,
   EMBER_INSPECTOR,
-} = require('electron-devtools-installer');
+} = require('electron-extension-installer');
 const path = require('path');
 const { app } = require('electron');
 const handleFileUrls = require('../src/handle-file-urls');

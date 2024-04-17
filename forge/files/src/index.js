@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 const {
-  default: installExtension,
+  installExtension,
   EMBER_INSPECTOR,
-} = require('electron-devtools-installer');
+} = require('electron-extension-installer');
 const { pathToFileURL } = require('url');
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
