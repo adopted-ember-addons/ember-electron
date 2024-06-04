@@ -104,7 +104,7 @@
     "ember-page-title": "^8.2.0",
     "ember-qunit": "^8.0.2",
     "ember-resolver": "^11.0.1",
-    "ember-source": "~5.8.0",
+    "ember-source": "~5.9.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^6.0.0",
     "ember-try": "^3.0.0",
