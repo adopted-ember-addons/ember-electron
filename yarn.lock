@@ -15520,9 +15520,9 @@ stylelint-config-standard@^36.0.0:
     stylelint-config-recommended "^14.0.0"
 
 stylelint-prettier@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/stylelint-prettier/-/stylelint-prettier-5.0.1.tgz#f89a233d795579ea3b2a10194c550216cce931c9"
-  integrity sha512-blsBcSiCv7ZNmUadZPo9tv/ZHxTDRUbByn/NUp3irH5AozPFnAE7SHM/md/2DMdQizUwfuD9/3kOKB5+4a1/4Q==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/stylelint-prettier/-/stylelint-prettier-5.0.2.tgz#82c0a813d8981fe094fca28126fc88cee22fa789"
+  integrity sha512-qJ+BN+1T2ZcKz9WIrv0x+eFGHzSUnXfXd5gL///T6XoJvr3D8/ztzz2fhtmXef7Vb8P33zBXmLTTveByr0nwBw==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
