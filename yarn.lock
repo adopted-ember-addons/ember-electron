@@ -1742,9 +1742,9 @@
     ember-modifier-manager-polyfill "^1.2.0"
 
 "@ember/test-helpers@^3.2.1":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-3.3.0.tgz#abf83ff2b111493d25266cb90327134498cb9090"
-  integrity sha512-HEI28wtjnQuEj9+DstHUEEKPtqPAEVN9AAVr4EifVCd3DyEDy0m6hFT4qbap1WxAIktLja2QXGJg50lVWzZc5g==
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-3.3.1.tgz#b19287dbb7ba169a2033574bb5021c0490b199b9"
+  integrity sha512-h4uFBy4pquBtHsHI+tx9S0wtMmn1L+8dkXiDiyoqG1+3e0Awk6GBujiFM9s4ANq6wC8uIhC3wEFyts10h2OAoQ==
   dependencies:
     "@ember/test-waiters" "^3.0.2"
     "@embroider/macros" "^1.10.0"
@@ -1753,7 +1753,7 @@
     broccoli-funnel "^3.0.8"
     dom-element-descriptors "^0.5.0"
     ember-auto-import "^2.6.0"
-    ember-cli-babel "^7.26.11"
+    ember-cli-babel "^8.2.0"
     ember-cli-htmlbars "^6.2.0"
 
 "@ember/test-waiters@^3.0.0", "@ember/test-waiters@^3.0.2", "@ember/test-waiters@^3.1.0":
