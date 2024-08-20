@@ -17,14 +17,21 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
-      - run: yarn install --frozen-lockfile --network-timeout 100000
+      - uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: 'Lint'
         run: |
-          yarn lint:hbs
-          yarn lint:js    
+          pnpm lint:hbs
+          pnpm lint:js    
 
   test:
     name: Basic tests (${{ matrix.os }})
@@ -34,12 +41,18 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
-      - run: yarn install --frozen-lockfile --network-timeout 100000
-
+      - uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
       - name: 'Basic Tests'
-        run: yarn test-fast
+        run: pnpm test-fast
 
   # runs slow end-to-end tests, parallelizing yarn and npm cases
   test-end-to-end:
@@ -50,14 +63,20 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
-      - run: yarn install --frozen-lockfile --network-timeout 100000
-
+      - uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
       - name: 'End-to-end Tests'
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: yarn test-slow
+          run: pnpm test-slow
           
   automerge:
     needs: [lint, test, test-end-to-end]
