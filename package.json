@@ -50,7 +50,7 @@
     "lint:js:fix": "eslint . --fix",
     "release": "release-it",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
-    "test:electron": "yarn test-fast && yarn test-slow",
+    "test:electron": "pnpm test-fast && pnpm test-slow",
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each",
     "test-fast": "mocha node-tests/integration/**/*.js node-tests/unit/**/*.js",
@@ -63,7 +63,6 @@
     "debug": "^4.1.1",
     "ember-cli-babel": "^8.2.0",
     "execa": "^5.0.0",
-    "find-yarn-workspace-root": "^2.0.0",
     "ncp": "^2.0.0",
     "portfinder": "^1.0.25",
     "rimraf": "^3.0.2",
@@ -164,9 +163,5 @@
     "github": {
       "release": true
     }
-  },
-  "volta": {
-    "node": "20.12.2",
-    "yarn": "1.22.19"
   }
 }
