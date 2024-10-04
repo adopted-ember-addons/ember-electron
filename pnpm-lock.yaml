@@ -13,7 +13,7 @@ importers:
         version: 7.25.2
       '@electron-forge/core':
         specifier: ^7.2.0
-        version: 7.4.0(encoding@0.1.13)
+        version: 7.5.0(encoding@0.1.13)
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
@@ -949,56 +949,56 @@ packages:
   '@dual-bundle/import-meta-resolve@4.1.0':
     resolution: {integrity: sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==}
 
-  '@electron-forge/core-utils@7.4.0':
-    resolution: {integrity: sha512-9RLG0F9SX466TpkaTcW+V15KmnGuTpmr7NKMRlngtHXmnkBUJz4Mxp1x33WZLgL90dJrxrRgHSfVBtA4lstDPw==}
+  '@electron-forge/core-utils@7.5.0':
+    resolution: {integrity: sha512-PtyQT6qeOEJsi4ltoB7Jb6YUUCwK3gDt5gVyAF2aJ8eZi9rJ0hasHc5vjcmBaz9FwDMjYZrBD8oRBhNgbhEakQ==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/core@7.4.0':
-    resolution: {integrity: sha512-pYHKpB2CKeQgWsb+gox+FPkEvP+6Q2zGj2eZtgZRtKppoWIXrHIpOtcm6FllJ/gZ5u4AsQzVIYReAHGaBa0osw==}
+  '@electron-forge/core@7.5.0':
+    resolution: {integrity: sha512-Hg/fXabRZtMbyrtnpzpb3i49qNai+juCg+6bgyjYfWgJGr5VGH947lWd7skujH5qJ+Y7FgvANDGnenZuQwxZNw==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/maker-base@7.4.0':
-    resolution: {integrity: sha512-LwWS4VPdwjISl1KpLhmM1Qr1M3sRTTQ/RsX+GlFd7cQ1W/FsgxMjaTG4Od1d+a5CGVTh3s6X2g99TSUfxjOveg==}
+  '@electron-forge/maker-base@7.5.0':
+    resolution: {integrity: sha512-+jluKW2UPxaI1+qQQ8fqaUVVbZohRjOSF0Iti7STRFbgJKJitzPB24Cjji9qJCKIx5klMeEiwp0YPAE/d9Xt8g==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/plugin-base@7.4.0':
-    resolution: {integrity: sha512-LcTNtEc2YaWvhhqWVIfdJ+J0/krSgc2dqYAHhOH2aLUSm9End3dKO/PZ1Y6DPsiPiJKHnSLBJ/XBN/16NY4Sjw==}
+  '@electron-forge/plugin-base@7.5.0':
+    resolution: {integrity: sha512-44AbXSb5lDY8uHIo0mJ91atOSWgxv3iuECk07/gDBiuMPX62dwHnLteEjQF4GBXJZTpnV7SxhD+d2AUBQmoojw==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/publisher-base@7.4.0':
-    resolution: {integrity: sha512-PiJk4RfaC55SnVnteLW2ZIQNM9DpGOi6YoUn5t8i9UcVp2rFIdya7bJY/b9u1hwubm4d5+TdypMVEuJjM44CJQ==}
+  '@electron-forge/publisher-base@7.5.0':
+    resolution: {integrity: sha512-PcF3jWA+oXRwNVWjKW6GxHJywJ62QXpYF/8SMs7kgKzBDzLqrbUnWuaXoCP5kCP+AxM495ZU5L2dyJek1eM+VA==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/shared-types@7.4.0':
-    resolution: {integrity: sha512-5Ehy6enUjBaU08odf9u9TOhmOVXlqobzMvKUixtkdAWgV1XZAUJmn+p21xhj0IkO92MQiXMGv66w9pDNjRT8uQ==}
+  '@electron-forge/shared-types@7.5.0':
+    resolution: {integrity: sha512-VXuLVGYa3ZulBlmjA40ZEpk+iPH5ebN0v7t27wDt3rm23bph2aQrL7uSTLXhobenXYBVKggXnQt6rJ9A7FCDNQ==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/template-base@7.4.0':
-    resolution: {integrity: sha512-3YWdRSGzQfQPQkQxStn2wkJ/SuNGGKo9slwFJGvqMV+Pbx3/M/hYi9sMXOuaqVZgeaBp8Ap27yFPxaIIOC3vcA==}
+  '@electron-forge/template-base@7.5.0':
+    resolution: {integrity: sha512-wEz4FI90jje4FdwJ4FzqUejodfioNcJjlgG2Ci1FiRn4Qv0jX4MP8SEgKmnD44181/44HgMa429zxRv/fDYzOw==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/template-vite-typescript@7.4.0':
-    resolution: {integrity: sha512-wdByG807VWcUd81E6572b/G/Ki8gb+GrCIWxO7Cl3qBa+yNaU1sHhBwB1RyTbQy1r8ubSBtsWrRD1J/yzHKWoQ==}
+  '@electron-forge/template-vite-typescript@7.5.0':
+    resolution: {integrity: sha512-bD9QQ6uEsDHp6/V7odCkoK53egy0A4LEh++F1VYFt7SWJ5+InkcSLww7ELz2hrNmpmXb+euRrNagL1gorPToSA==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/template-vite@7.4.0':
-    resolution: {integrity: sha512-YPVyCGiBKmZPCxK/Bd2louV3PBcxI2nT2+tRKP+mlEHOWrxbZIfmZSR2lIAFvK/ALKlwUKROdmlwyi7ZcdT7JQ==}
+  '@electron-forge/template-vite@7.5.0':
+    resolution: {integrity: sha512-AkMO5nW5jC8ijCYeoAK7hu+K5o7NMoHNsn71eepJ/kjOnSxXjJeBVGmP4DgzF2zc6AgeRz2TCKx6P8GUtFG5cw==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/template-webpack-typescript@7.4.0':
-    resolution: {integrity: sha512-O5gwjNSGFNRdJWyiCtevcOBDPAMhgOPvLORh9qR1GcjyTutWwHWmZzycqH+MmkhpQPgrAYDEeipXcOQhSbzNZA==}
+  '@electron-forge/template-webpack-typescript@7.5.0':
+    resolution: {integrity: sha512-Q11xAzFxWtES0bwykMd8MAzrVRtmSruXQxQIvqM7Qf3VmU8joq8v5njmn13LeCDkcRGjALiJqO8EsgsW3bttNw==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/template-webpack@7.4.0':
-    resolution: {integrity: sha512-W558AEGwQrwEtKIbIJPPs0LIsaC/1Vncj5NgqKehEMJjBb0KQq4hwBu/6dauQrfun4jRCOp7LV+OVrf5XPJ7QA==}
+  '@electron-forge/template-webpack@7.5.0':
+    resolution: {integrity: sha512-Il9dO4VMhxibsYTsKRkccWUN3WFg55PEQFL93oarFcEtAT3sjMx/1bZDj/2AIHqbwIf7IrCylPKiPP2uUNOM9Q==}
     engines: {node: '>= 16.4.0'}
 
-  '@electron-forge/tracer@7.4.0':
-    resolution: {integrity: sha512-F4jbnDn4yIZjmky1FZ6rgBKTM05AZQQfHkyJW2hdS4pDKJjdKAqWytoZKDi1/S6Cr6tN+DD0TFGD3V0i6HPHYQ==}
+  '@electron-forge/tracer@7.5.0':
+    resolution: {integrity: sha512-1dE0wKCmv/K3BXCH70o2jp/y2kXgZQm73gIvzyadySXYwu2L4BWxhAO+Q+JsnbUk+nclHEup5ph4D0JoPIWLcQ==}
     engines: {node: '>= 14.17.5'}
 
-  '@electron/asar@3.2.10':
-    resolution: {integrity: sha512-mvBSwIBUeiRscrCeJE1LwctAriBj65eUDm0Pc11iE5gRwzkmsdbS7FnZ1XUWjpSeQWL1L5g12Fc/SchPM9DUOw==}
+  '@electron/asar@3.2.13':
+    resolution: {integrity: sha512-pY5z2qQSwbFzJsBdgfJIzXf5ElHTVMutC2dxh0FD60njknMu3n1NnTABOcQwbb5/v5soqE79m9UjaJryBf3epg==}
     engines: {node: '>=10.12.0'}
     hasBin: true
 
@@ -1015,8 +1015,8 @@ packages:
     engines: {node: '>=12.0.0'}
     hasBin: true
 
-  '@electron/packager@18.3.3':
-    resolution: {integrity: sha512-hGXzwbUdxv49XvlYwlVPC6W6j6WaXUAzKkYyyTeiwdhxvHFMfQSEJxVHsQpqMFzZZ7wrr7iqiokOFZ/qkgEzUQ==}
+  '@electron/packager@18.3.5':
+    resolution: {integrity: sha512-ClgTxXTt3MesWAcjIxIkgxELjTcllw1FRoVsihP7uT48kpDMqI71p4XvnMWbq8PvU57TcrKICAaLkxRhbc+/wQ==}
     engines: {node: '>= 16.13.0'}
     hasBin: true
 
@@ -9836,9 +9836,9 @@ snapshots:
 
   '@dual-bundle/import-meta-resolve@4.1.0': {}
 
-  '@electron-forge/core-utils@7.4.0':
+  '@electron-forge/core-utils@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
       '@electron/rebuild': 3.6.0
       '@malept/cross-spawn-promise': 2.0.0
       chalk: 4.1.2
@@ -9852,21 +9852,21 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@electron-forge/core@7.4.0(encoding@0.1.13)':
+  '@electron-forge/core@7.5.0(encoding@0.1.13)':
     dependencies:
-      '@electron-forge/core-utils': 7.4.0
-      '@electron-forge/maker-base': 7.4.0
-      '@electron-forge/plugin-base': 7.4.0
-      '@electron-forge/publisher-base': 7.4.0
-      '@electron-forge/shared-types': 7.4.0
-      '@electron-forge/template-base': 7.4.0
-      '@electron-forge/template-vite': 7.4.0
-      '@electron-forge/template-vite-typescript': 7.4.0
-      '@electron-forge/template-webpack': 7.4.0
-      '@electron-forge/template-webpack-typescript': 7.4.0
-      '@electron-forge/tracer': 7.4.0
+      '@electron-forge/core-utils': 7.5.0
+      '@electron-forge/maker-base': 7.5.0
+      '@electron-forge/plugin-base': 7.5.0
+      '@electron-forge/publisher-base': 7.5.0
+      '@electron-forge/shared-types': 7.5.0
+      '@electron-forge/template-base': 7.5.0
+      '@electron-forge/template-vite': 7.5.0
+      '@electron-forge/template-vite-typescript': 7.5.0
+      '@electron-forge/template-webpack': 7.5.0
+      '@electron-forge/template-webpack-typescript': 7.5.0
+      '@electron-forge/tracer': 7.5.0
       '@electron/get': 3.1.0
-      '@electron/packager': 18.3.3
+      '@electron/packager': 18.3.5
       '@electron/rebuild': 3.6.0
       '@malept/cross-spawn-promise': 2.0.0
       chalk: 4.1.2
@@ -9894,42 +9894,42 @@ snapshots:
       - encoding
       - supports-color
 
-  '@electron-forge/maker-base@7.4.0':
+  '@electron-forge/maker-base@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
       fs-extra: 10.1.0
       which: 2.0.2
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/plugin-base@7.4.0':
+  '@electron-forge/plugin-base@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/publisher-base@7.4.0':
+  '@electron-forge/publisher-base@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/shared-types@7.4.0':
+  '@electron-forge/shared-types@7.5.0':
     dependencies:
-      '@electron-forge/tracer': 7.4.0
-      '@electron/packager': 18.3.3
+      '@electron-forge/tracer': 7.5.0
+      '@electron/packager': 18.3.5
       '@electron/rebuild': 3.6.0
       listr2: 7.0.2
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/template-base@7.4.0':
+  '@electron-forge/template-base@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
       '@malept/cross-spawn-promise': 2.0.0
       debug: 4.3.6(supports-color@8.1.1)
       fs-extra: 10.1.0
@@ -9938,48 +9938,49 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@electron-forge/template-vite-typescript@7.4.0':
+  '@electron-forge/template-vite-typescript@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
-      '@electron-forge/template-base': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
+      '@electron-forge/template-base': 7.5.0
       fs-extra: 10.1.0
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/template-vite@7.4.0':
+  '@electron-forge/template-vite@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
-      '@electron-forge/template-base': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
+      '@electron-forge/template-base': 7.5.0
       fs-extra: 10.1.0
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/template-webpack-typescript@7.4.0':
+  '@electron-forge/template-webpack-typescript@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
-      '@electron-forge/template-base': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
+      '@electron-forge/template-base': 7.5.0
       fs-extra: 10.1.0
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/template-webpack@7.4.0':
+  '@electron-forge/template-webpack@7.5.0':
     dependencies:
-      '@electron-forge/shared-types': 7.4.0
-      '@electron-forge/template-base': 7.4.0
+      '@electron-forge/shared-types': 7.5.0
+      '@electron-forge/template-base': 7.5.0
       fs-extra: 10.1.0
     transitivePeerDependencies:
       - bluebird
       - supports-color
 
-  '@electron-forge/tracer@7.4.0':
+  '@electron-forge/tracer@7.5.0':
     dependencies:
       chrome-trace-event: 1.0.4
 
-  '@electron/asar@3.2.10':
+  '@electron/asar@3.2.13':
     dependencies:
+      '@types/glob': 7.2.0
       commander: 5.1.0
       glob: 7.2.3
       minimatch: 3.1.2
@@ -10017,9 +10018,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/packager@18.3.3':
+  '@electron/packager@18.3.5':
     dependencies:
-      '@electron/asar': 3.2.10
+      '@electron/asar': 3.2.13
       '@electron/get': 3.1.0
       '@electron/notarize': 2.4.0
       '@electron/osx-sign': 1.3.1
@@ -10063,7 +10064,7 @@ snapshots:
 
   '@electron/universal@2.0.1':
     dependencies:
-      '@electron/asar': 3.2.10
+      '@electron/asar': 3.2.13
       '@malept/cross-spawn-promise': 2.0.0
       debug: 4.3.6(supports-color@8.1.1)
       dir-compare: 4.2.0
@@ -12148,7 +12149,7 @@ snapshots:
     dependencies:
       ansi-align: 3.0.1
       camelcase: 7.0.1
-      chalk: 5.2.0
+      chalk: 5.3.0
       cli-boxes: 3.0.0
       string-width: 5.1.2
       type-fest: 2.19.0
@@ -16385,7 +16386,7 @@ snapshots:
   inquirer@9.2.6:
     dependencies:
       ansi-escapes: 4.3.2
-      chalk: 5.2.0
+      chalk: 5.3.0
       cli-cursor: 3.1.0
       cli-width: 4.1.0
       external-editor: 3.1.0
@@ -17009,7 +17010,7 @@ snapshots:
 
   log-symbols@5.1.0:
     dependencies:
-      chalk: 5.2.0
+      chalk: 5.3.0
       is-unicode-supported: 1.3.0
 
   log-update@5.0.1:
@@ -17901,7 +17902,7 @@ snapshots:
 
   ora@6.3.1:
     dependencies:
-      chalk: 5.2.0
+      chalk: 5.3.0
       cli-cursor: 4.0.0
       cli-spinners: 2.9.2
       is-interactive: 2.0.0
@@ -20049,7 +20050,7 @@ snapshots:
   update-notifier@6.0.2:
     dependencies:
       boxen: 7.1.1
-      chalk: 5.2.0
+      chalk: 5.3.0
       configstore: 6.0.0
       has-yarn: 3.0.0
       import-lazy: 4.0.0
