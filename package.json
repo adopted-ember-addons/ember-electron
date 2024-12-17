@@ -107,7 +107,7 @@
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^6.0.0",
     "ember-try": "^3.0.0",
-    "eslint": "^8.56.0",
+    "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-ember": "^12.0.0",
     "eslint-plugin-n": "^17.2.1",
