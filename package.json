@@ -79,7 +79,7 @@
     "@glimmer/tracking": "^1.1.2",
     "broccoli-asset-rev": "^3.0.0",
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
+    "chai-as-promised": "^8.0.1",
     "concurrently": "^9.0.1",
     "console-ui": "^3.1.1",
     "ember-auto-import": "^2.7.2",
