@@ -62,7 +62,7 @@
     "chalk": "^4.1.2",
     "debug": "^4.1.1",
     "ember-cli-babel": "^8.2.0",
-    "execa": "^5.0.0",
+    "execa": "^9.5.2",
     "ncp": "^2.0.0",
     "portfinder": "^1.0.25",
     "rimraf": "^3.0.2",
