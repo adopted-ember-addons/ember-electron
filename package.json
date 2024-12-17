@@ -99,7 +99,7 @@
     "ember-cli-terser": "^4.0.2",
     "ember-data": "^5.1.1",
     "ember-fetch": "^8.1.1",
-    "ember-load-initializers": "^2.1.2",
+    "ember-load-initializers": "^3.0.1",
     "ember-page-title": "^8.2.0",
     "ember-qunit": "^8.0.2",
     "ember-resolver": "^13.0.2",
