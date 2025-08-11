@@ -131,7 +131,7 @@ importers:
         version: 8.1.2(encoding@0.1.13)
       ember-load-initializers:
         specifier: ^3.0.1
-        version: 3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.95.0))
+        version: 3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))
       ember-page-title:
         specifier: ^8.2.0
         version: 8.2.3(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))
@@ -215,7 +215,7 @@ importers:
         version: 5.0.2(prettier@3.3.3)(stylelint@16.9.0)
       tmp:
         specifier: ^0.2.1
-        version: 0.2.3
+        version: 0.2.5
       webpack:
         specifier: ^5.89.0
         version: 5.97.1
@@ -5927,6 +5927,7 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.isarguments@3.1.0:
     resolution: {integrity: sha512-chi4NHZlZqZD18a0imDHnZPrDeBbTtVN7GXMwuGdRH9qotxAjYs3aVLKc7zNOG9eddR5Ksd8rvFEBc9SsggPpg==}
@@ -5951,9 +5952,11 @@ packages:
 
   lodash.omit@4.5.0:
     resolution: {integrity: sha512-XeqSp49hNGmlkj2EJlfrQFIzQ6lXdNro9sddtQzcJY8QaoC2GO0DT7xaIokHeyM+mIT0mPMlPvkYzg2xCuHdZg==}
+    deprecated: This package is deprecated. Use destructuring assignment syntax instead.
 
   lodash.template@4.5.0:
     resolution: {integrity: sha512-84vYFxIkmidUiFxidA/KjjH9pAycqW+h980j7Fuz5qxRtO9pgB7MDFTdys1N7A5mcucRiDyEq4fusljItR1T/A==}
+    deprecated: This package is deprecated. Use https://socket.dev/npm/package/eta instead.
 
   lodash.templatesettings@4.2.0:
     resolution: {integrity: sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ==}
@@ -6474,6 +6477,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-emoji@1.11.0:
     resolution: {integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==}
@@ -8312,8 +8316,8 @@ packages:
     resolution: {integrity: sha512-J7Z2K08jbGcdA1kkQpJSqLF6T0tdQqpR2pnSUXsIchbPdTI9v3e85cLW0d6WDhwuAleOV71j2xWs8qMPfK7nKw==}
     engines: {node: '>=6'}
 
-  tmp@0.2.3:
-    resolution: {integrity: sha512-nZD7m9iCPC5g0pYmcaxogYKggSfLsdxl8of3Q/oIbqCqLLIO9IAF0GWjX1z9NZRHPiXv8Wex4yDCaZsgEw0Y8w==}
+  tmp@0.2.5:
+    resolution: {integrity: sha512-voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==}
     engines: {node: '>=14.14'}
 
   tmpl@1.0.5:
@@ -14602,9 +14606,9 @@ snapshots:
       - ember-source
       - supports-color
 
-  ember-load-initializers@3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.95.0)):
+  ember-load-initializers@3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1)):
     dependencies:
-      ember-source: 5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.95.0)
+      ember-source: 5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1)
 
   ember-modal-dialog@4.1.4(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))(ember-tether@3.1.0(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1)):
     dependencies:
@@ -14829,7 +14833,7 @@ snapshots:
       globby: 11.1.0
       ora: 5.4.1
       slash: 3.0.0
-      tmp: 0.2.3
+      tmp: 0.2.5
       workerpool: 6.5.1
     transitivePeerDependencies:
       - supports-color
@@ -18657,7 +18661,7 @@ snapshots:
       lodash.template: 4.5.0
       mdast-util-from-markdown: 1.3.1
       release-it: 15.11.0(encoding@0.1.13)
-      tmp: 0.2.3
+      tmp: 0.2.5
       validate-peer-dependencies: 2.2.0
       which: 2.0.2
     transitivePeerDependencies:
@@ -19854,7 +19858,7 @@ snapshots:
     dependencies:
       rimraf: 2.7.1
 
-  tmp@0.2.3: {}
+  tmp@0.2.5: {}
 
   tmpl@1.0.5: {}
 
