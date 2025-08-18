@@ -15,8 +15,8 @@ importers:
         specifier: ^7.2.0
         version: 7.5.0(encoding@0.1.13)
       chalk:
-        specifier: ^4.1.2
-        version: 4.1.2
+        specifier: ^5.6.0
+        version: 5.6.0
       debug:
         specifier: ^4.1.1
         version: 4.3.6(supports-color@8.1.1)
@@ -131,7 +131,7 @@ importers:
         version: 8.1.2(encoding@0.1.13)
       ember-load-initializers:
         specifier: ^3.0.1
-        version: 3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.95.0))
+        version: 3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))
       ember-page-title:
         specifier: ^8.2.0
         version: 8.2.3(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))
@@ -2908,8 +2908,8 @@ packages:
     resolution: {integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
-  chalk@5.3.0:
-    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
+  chalk@5.6.0:
+    resolution: {integrity: sha512-46QrSQFyVSEyYAgQ22hQ+zDa60YHA4fBstHmtSApj1Y5vKtG27fWowW03jCk5KcbXEWPZUIR894aARCA/G1kfQ==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   character-entities@2.0.2:
@@ -5927,6 +5927,7 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.isarguments@3.1.0:
     resolution: {integrity: sha512-chi4NHZlZqZD18a0imDHnZPrDeBbTtVN7GXMwuGdRH9qotxAjYs3aVLKc7zNOG9eddR5Ksd8rvFEBc9SsggPpg==}
@@ -5951,9 +5952,11 @@ packages:
 
   lodash.omit@4.5.0:
     resolution: {integrity: sha512-XeqSp49hNGmlkj2EJlfrQFIzQ6lXdNro9sddtQzcJY8QaoC2GO0DT7xaIokHeyM+mIT0mPMlPvkYzg2xCuHdZg==}
+    deprecated: This package is deprecated. Use destructuring assignment syntax instead.
 
   lodash.template@4.5.0:
     resolution: {integrity: sha512-84vYFxIkmidUiFxidA/KjjH9pAycqW+h980j7Fuz5qxRtO9pgB7MDFTdys1N7A5mcucRiDyEq4fusljItR1T/A==}
+    deprecated: This package is deprecated. Use https://socket.dev/npm/package/eta instead.
 
   lodash.templatesettings@4.2.0:
     resolution: {integrity: sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ==}
@@ -6474,6 +6477,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-emoji@1.11.0:
     resolution: {integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==}
@@ -12238,7 +12242,7 @@ snapshots:
     dependencies:
       ansi-align: 3.0.1
       camelcase: 7.0.1
-      chalk: 5.3.0
+      chalk: 5.6.0
       cli-boxes: 3.0.0
       string-width: 5.1.2
       type-fest: 2.19.0
@@ -13024,7 +13028,7 @@ snapshots:
 
   chalk@5.2.0: {}
 
-  chalk@5.3.0: {}
+  chalk@5.6.0: {}
 
   character-entities@2.0.2: {}
 
@@ -14602,9 +14606,9 @@ snapshots:
       - ember-source
       - supports-color
 
-  ember-load-initializers@3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.95.0)):
+  ember-load-initializers@3.0.1(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1)):
     dependencies:
-      ember-source: 5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.95.0)
+      ember-source: 5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1)
 
   ember-modal-dialog@4.1.4(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))(ember-tether@3.1.0(ember-source@5.10.2(@glimmer/component@1.1.2(@babel/core@7.25.7))(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1)):
     dependencies:
@@ -14799,7 +14803,7 @@ snapshots:
     dependencies:
       '@lint-todo/utils': 13.1.1
       aria-query: 5.3.0
-      chalk: 5.3.0
+      chalk: 5.6.0
       ci-info: 4.0.0
       date-fns: 3.6.0
       ember-template-imports: 3.4.2
@@ -16449,7 +16453,7 @@ snapshots:
   inquirer@9.2.6:
     dependencies:
       ansi-escapes: 4.3.2
-      chalk: 5.3.0
+      chalk: 5.6.0
       cli-cursor: 3.1.0
       cli-width: 4.1.0
       external-editor: 3.1.0
@@ -17075,7 +17079,7 @@ snapshots:
 
   log-symbols@5.1.0:
     dependencies:
-      chalk: 5.3.0
+      chalk: 5.6.0
       is-unicode-supported: 1.3.0
 
   log-update@5.0.1:
@@ -17967,7 +17971,7 @@ snapshots:
 
   ora@6.3.1:
     dependencies:
-      chalk: 5.3.0
+      chalk: 5.6.0
       cli-cursor: 4.0.0
       cli-spinners: 2.9.2
       is-interactive: 2.0.0
@@ -20113,7 +20117,7 @@ snapshots:
   update-notifier@6.0.2:
     dependencies:
       boxen: 7.1.1
-      chalk: 5.3.0
+      chalk: 5.6.0
       configstore: 6.0.0
       has-yarn: 3.0.0
       import-lazy: 4.0.0
